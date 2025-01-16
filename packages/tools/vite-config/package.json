@@ -1,0 +1,15 @@
+{
+  "name": "@novawaveui/vite-config",
+  "version": "1.0.0",
+  "description": "The available Vite configurations for NovaWaveUI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^6.0.7"
+  }
+}

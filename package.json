@@ -1,0 +1,24 @@
+{
+  "name": "novawaveui",
+  "version": "1.0.0",
+  "description": "The base of the NovaWaveUI monorepo",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "novawaveui",
+    "react",
+    "ui",
+    "components",
+    "design",
+    "system"
+  ],
+  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
+  "license": "ISC",
+  "packageManager": "pnpm@9.15.0"
+}
