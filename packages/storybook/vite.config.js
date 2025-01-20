@@ -1,9 +1,6 @@
 import { defineConfig } from 'vite';
+import tailwind from '@tailwindcss/vite';
 
 export default defineConfig({
-  build: {
-    lib: {
-      entry: 'src/index.ts',
-    },
-  },
+  plugins: [tailwind()],
 });

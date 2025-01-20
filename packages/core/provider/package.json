@@ -1,0 +1,38 @@
+{
+  "name": "@novawaveui/provider",
+  "version": "1.0.0",
+  "description": "The NovaWaveUI provider is used to provide the theme and other global settings to the rest of the NovaWaveUI components.",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "test": "echo \"No test can be run\" && exit 0"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "Kyle Gagnon",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "catalog:",
+    "@novawaveui/eslint-config": "workspace:*",
+    "@novawaveui/typescript-config": "workspace:*",
+    "@novawaveui/vite-config": "workspace:*",
+    "@storybook/react": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "eslint": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:",
+    "vitest": "catalog:"
+  },
+  "dependencies": {
+    "react-aria": "^3.37.0"
+  }
+}

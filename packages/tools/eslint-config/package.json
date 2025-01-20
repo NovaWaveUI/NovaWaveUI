@@ -1,0 +1,33 @@
+{
+  "name": "@novawaveui/eslint-config",
+  "version": "1.0.0",
+  "description": "The NovaWaveUI ESLint configuration",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    "./base": "./base.js",
+    "./react": "./react.js"
+  },
+  "keywords": [],
+  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
+  "license": "ISC",
+  "peerDependencies": {
+    "eslint": ">=9"
+  },
+  "devDependencies": {
+    "@eslint/js": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-import-x": "catalog:",
+    "eslint-plugin-jest": "catalog:",
+    "eslint-plugin-jest-dom": "catalog:",
+    "eslint-plugin-jsx-a11y": "catalog:",
+    "eslint-plugin-prettier": "catalog:",
+    "eslint-plugin-react": "catalog:",
+    "eslint-plugin-unicorn": "catalog:",
+    "globals": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:"
+  }
+}

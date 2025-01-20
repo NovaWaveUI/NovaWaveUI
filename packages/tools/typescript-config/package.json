@@ -1,0 +1,12 @@
+{
+  "name": "@novawaveui/typescript-config",
+  "version": "1.0.0",
+  "description": "The typescript config package is used to keep a consistent configuration amongst all of the monorepo packages.",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [],
+  "author": "Kyle Gagnon",
+  "license": "ISC"
+}

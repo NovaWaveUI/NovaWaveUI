@@ -1,0 +1,16 @@
+{
+  "name": "@novawaveui/theme",
+  "version": "1.0.0",
+  "description": "The default theme for Nova Wave UI",
+  "keywords": [],
+  "files": [
+    "styles/theme.css"
+  ],
+  "scripts": {
+    "build": "echo 'Nothing to build for the theme package.'",
+    "test": "echo 'No tests for the theme package.'",
+    "dev": "echo 'No dev scripts for the theme package.'"
+  },
+  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
+  "license": "ISC"
+}

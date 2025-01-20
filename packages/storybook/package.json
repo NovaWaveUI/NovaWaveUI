@@ -1,0 +1,35 @@
+{
+  "name": "@novawaveui/storybook",
+  "version": "1.0.0",
+  "description": "The storybook for Nova Wave UI",
+  "private": true,
+  "keywords": [
+    "storybook"
+  ],
+  "type": "module",
+  "author": "Kyle Gagnon",
+  "license": "ISC",
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.4",
+    "@novawaveui/theme": "workspace:*",
+    "@novawaveui/button": "workspace:*",
+    "@novawaveui/provider": "workspace:*",
+    "@storybook/addon-essentials": "8.6.0-alpha.0",
+    "@storybook/addon-interactions": "8.6.0-alpha.0",
+    "@storybook/addon-onboarding": "8.6.0-alpha.0",
+    "@storybook/blocks": "8.6.0-alpha.0",
+    "@storybook/builder-vite": "^8.5.0",
+    "@storybook/react": "8.6.0-alpha.0",
+    "@storybook/react-vite": "8.6.0-alpha.0",
+    "@storybook/test": "8.6.0-alpha.0",
+    "@tailwindcss/vite": "catalog:",
+    "prop-types": "^15.8.1",
+    "storybook": "8.6.0-alpha.0",
+    "tailwindcss": "4.0.0-beta.9",
+    "vite": "catalog:"
+  },
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  }
+}

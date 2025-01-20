@@ -1,0 +1,45 @@
+{
+  "name": "@novawaveui/button",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "files": [
+    "index.css",
+    "dist/"
+  ],
+  "exports": {
+    "./index.css": "./index.css",
+    ".": {
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  },
+  "keywords": [],
+  "author": "Kyle Gagnon",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "catalog:",
+    "@novawaveui/typescript-config": "workspace:*",
+    "@novawaveui/vite-config": "workspace:*",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "eslint": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tailwind-variants": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:",
+    "vitest": "catalog:"
+  }
+}
