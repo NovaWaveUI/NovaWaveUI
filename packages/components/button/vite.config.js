@@ -1,4 +1,4 @@
-import baseConfig from '@novawaveui/vite-config/vite.config';
+import baseConfig from '../../tools/vite-config/vite.config';
 import { defineConfig } from 'vite';
 
 export default defineConfig({

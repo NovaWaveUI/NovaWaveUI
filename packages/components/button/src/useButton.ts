@@ -11,7 +11,17 @@ interface Props {
 export type UseButtonProps = Props & ButtonVariantProps;
 
 export const useButton = ({ ref, ...props }: UseButtonProps) => {
-  const styles = useMemo(() => buttonStyles(), []);
+  const {
+    variant = 'solid',
+    color = 'neutral',
+    size = 'md',
+    radius = 'md',
+  } = props;
+
+  const styles = useMemo(
+    () => buttonStyles({ variant, color, size, radius }),
+    []
+  );
 
   return {
     ref,

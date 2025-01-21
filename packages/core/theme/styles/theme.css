@@ -1,3 +1,11 @@
+/**
+ * This file is an unprocessed CSS file that is used to define the theme of the library.
+ * The intent is that this file is consumed by the consumer in the TailwindCSS build process by importing this file.
+ *
+ * Design System Definitions:
+ * - Surface: Surface is used to define the background color of a component (e.g. card, modal, etc.)
+ */
+
 :root {
     /* Cool Gray */
     --cool-gray-50: oklch(97.74% 0.0042 236.5);
@@ -161,6 +169,32 @@
     --danger-950: var(--cardinal-red-950);
     --danger: var(--danger-500);
 
+    /* Radius */
+    --radius-none: 0;
+    --radius-small: 0.125rem;
+    --radius-medium: 0.25rem;
+    --radius-large: 0.5rem;
+    --radius-xlarge: 1rem;
+    --radius-full: 9999px;
+
+    /* Border Size */
+    --border-size-none: 0;
+    --border-size-small: 1px;
+    --border-size-medium: 2px;
+    --border-size-large: 4px;
+
+    /* Typography */
+    --font-size-tiny: 0.75rem;
+    --font-size-small: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-large: 1.125rem;
+    --font-size-xlarge: 1.25rem;
+
+    --font-line-height-tiny: 1rem;
+    --font-line-height-small: 1.25rem;
+    --font-line-height-base: 1.5rem;
+    --font-line-height-large: 1.75rem;
+    --font-line-height-xlarge: 2rem;
 }
 
 :root[data-theme="novawaveui-light"] {
@@ -176,6 +210,82 @@
   --warning-foreground: var(--warning-950);
   --danger-background: var(--danger-50);
   --danger-foreground: var(--danger-950);
+
+  /* Surface */
+  --surface-neutral: var(--neutral-600);
+  --surface-neutral-subtle: var(--neutral-100);
+  --surface-neutral-emphasized: var(--neutral-800);
+  --surface-primary: var(--primary-700);
+  --surface-primary-subtle: var(--primary-100);
+  --surface-primary-emphasized: var(--primary-900);
+  --surface-secondary: var(--secondary-600);
+  --surface-secondary-subtle: var(--secondary-50);
+  --surface-secondary-emphasized: var(--secondary-800);
+  --surface-success: var(--success-600);
+  --surface-success-subtle: var(--success-50);
+  --surface-success-emphasized: var(--success-800);
+  --surface-warning: var(--warning-700);
+  --surface-warning-subtle: var(--warning-50);
+  --surface-warning-emphasized: var(--warning-900);
+  --surface-danger: var(--danger-700);
+  --surface-danger-subtle: var(--danger-50);
+  --surface-danger-emphasized: var(--danger-900);
+
+  /* Border */
+  --border-neutral: var(--neutral-600);
+  --border-neutral-subtle: var(--neutral-300);
+  --border-neutral-emphasized: var(--neutral-800);
+  --border-primary: var(--primary-700);
+  --border-primary-subtle: var(--primary-300);
+  --border-primary-emphasized: var(--primary-900);
+  --border-secondary: var(--secondary-600);
+  --border-secondary-subtle: var(--secondary-300);
+  --border-secondary-emphasized: var(--secondary-800);
+  --border-success: var(--success-600);
+  --border-success-subtle: var(--success-300);
+  --border-success-emphasized: var(--success-800);
+  --border-warning: var(--warning-700);
+  --border-warning-subtle: var(--warning-300);
+  --border-warning-emphasized: var(--warning-900);
+  --border-danger: var(--danger-700);
+  --border-danger-subtle: var(--danger-300);
+  --border-danger-emphasized: var(--danger-900);
+
+  /* Text */
+  --text-default: var(--neutral-900);
+  --text-subtle: var(--neutral-700);
+  --text-disabled: var(--neutral-500);
+  --text-inverse: var(--neutral-100);
+  --text-link: var(--primary-500);
+  --text-link-hover: var(--primary-600);
+  --text-link-active: var(--primary-700);
+  --text-link-visited: var(--primary-700);
+  --text-link-disabled: var(--neutral-500);
+  --text-neutral: var(--neutral-800);
+  --text-on-neutral: var(--neutral-50);
+  --text-on-neutral-subtle: var(--neutral-100);
+  --text-on-neutral-subtle-subtle: var(--neutral-400);
+  --text-primary: var(--primary-800);
+  --text-on-primary: var(--primary-50);
+  --text-on-primary-subtle: var(--primary-100);
+  --text-on-primary-subtle-subtle: var(--primary-400);
+  --text-secondary: var(--secondary-800);
+  --text-on-secondary: var(--secondary-50);
+  --text-on-secondary-subtle: var(--secondary-100);
+  --text-on-secondary-subtle-subtle: var(--secondary-400);
+  --text-success: var(--success-800);
+  --text-on-success: var(--success-50);
+  --text-on-success-subtle: var(--success-100);
+  --text-on-success-subtle-subtle: var(--success-400);
+  --text-warning: var(--warning-800);
+  --text-on-warning: var(--warning-50);
+  --text-on-warning-subtle: var(--warning-100);
+  --text-on-warning-subtle-subtle: var(--warning-400);
+  --text-danger: var(--danger-800);
+  --text-on-danger: var(--danger-50);
+  --text-on-danger-subtle: var(--danger-100);
+  --text-on-danger-subtle-subtle: var(--danger-400);
+
 }
 
 :root[data-theme="novawaveui-dark"] {
@@ -191,6 +301,81 @@
   --warning-foreground: var(--warning-50);
   --danger-background: var(--danger-950);
   --danger-foreground: var(--danger-50);
+
+  /* Surface */
+  --surface-neutral: var(--neutral-300);
+  --surface-neutral-subtle: var(--neutral-950);
+  --surface-neutral-emphasized: var(--neutral-100);
+  --surface-primary: var(--primary-300);
+  --surface-primary-subtle: var(--primary-950);
+  --surface-primary-emphasized: var(--primary-100);
+  --surface-secondary: var(--secondary-300);
+  --surface-secondary-subtle: var(--secondary-950);
+  --surface-secondary-emphasized: var(--secondary-100);
+  --surface-success: var(--success-400);
+  --surface-success-subtle: var(--success-950);
+  --surface-success-emphasized: var(--success-100);
+  --surface-warning: var(--warning-300);
+  --surface-warning-subtle: var(--warning-950);
+  --surface-warning-emphasized: var(--warning-100);
+  --surface-danger: var(--danger-300);
+  --surface-danger-subtle: var(--danger-950);
+  --surface-danger-emphasized: var(--danger-100);
+
+  /* Border */
+  --border-neutral: var(--neutral-300);
+  --border-neutral-subtle: var(--neutral-950);
+  --border-neutral-emphasized: var(--neutral-100);
+  --border-primary: var(--primary-300);
+  --border-primary-subtle: var(--primary-950);
+  --border-primary-emphasized: var(--primary-100);
+  --border-secondary: var(--secondary-300);
+  --border-secondary-subtle: var(--secondary-950);
+  --border-secondary-emphasized: var(--secondary-100);
+  --border-success: var(--success-400);
+  --border-success-subtle: var(--success-950);
+  --border-success-emphasized: var(--success-100);
+  --border-warning: var(--warning-300);
+  --border-warning-subtle: var(--warning-950);
+  --border-warning-emphasized: var(--warning-100);
+  --border-danger: var(--danger-300);
+  --border-danger-subtle: var(--danger-950);
+  --border-danger-emphasized: var(--danger-100);
+
+  /* Text */
+  --text-default: var(--neutral-100);
+  --text-subtle: var(--neutral-300);
+  --text-disabled: var(--neutral-500);
+  --text-inverse: var(--neutral-900);
+  --text-link: var(--primary-500);
+  --text-link-hover: var(--primary-400);
+  --text-link-active: var(--primary-300);
+  --text-link-visited: var(--primary-300);
+  --text-link-disabled: var(--neutral-500);
+  --text-neutral: var(--neutral-100);
+  --text-on-neutral: var(--neutral-950);
+  --text-on-neutral-subtle: var(--neutral-900);
+  --text-on-neutral-subtle-subtle: var(--neutral-700);
+  --text-primary: var(--primary-100);
+  --text-on-primary: var(--primary-950);
+  --text-on-primary-subtle: var(--primary-900);
+  --text-on-primary-subtle-subtle: var(--primary-700);
+  --text-secondary: var(--secondary-100);
+  --text-on-secondary: var(--secondary-950);
+  --text-on-secondary-subtle: var(--secondary-900);
+  --text-on-secondary-subtle-subtle: var(--secondary-700);
+  --text-success: var(--success-100);
+  --text-on-success: var(--success-950);
+  --text-on-success-subtle: var(--success-900);
+  --text-on-success-subtle-subtle: var(--success-700);
+  --text-warning: var(--warning-100);
+  --text-on-warning: var(--warning-950);
+  --text-on-warning-subtle: var(--warning-900);
+  --text-on-warning-subtle-subtle: var(--warning-700);
+  --text-danger: var(--danger-100);
+  --text-on-danger: var(--danger-950);
+  --text-on-danger-subtle: var(--danger-900);
+  --text-on-danger-subtle-subtle: var(--danger-700);
 }
 
 
@@ -198,7 +383,6 @@
 
   /* These add the normal shades to stuff like text, background, border, and so on */
   /* We will make specific variables for text, background, border, and so on */
-  --color-neutral: var(--neutral);
   --color-neutral-50: var(--neutral-50);
   --color-neutral-100: var(--neutral-100);
   --color-neutral-200: var(--neutral-200);
@@ -213,7 +397,6 @@
   --color-neutral-background: var(--neutral-background);
   --color-neutral-foreground: var(--neutral-foreground);
 
-  --color-primary: var(--primary);
   --color-primary-50: var(--primary-50);
   --color-primary-100: var(--primary-100);
   --color-primary-200: var(--primary-200);
@@ -228,7 +411,6 @@
   --color-primary-background: var(--primary-background);
   --color-primary-foreground: var(--primary-foreground);
 
-  --color-secondary: var(--secondary);
   --color-secondary-50: var(--secondary-50);
   --color-secondary-100: var(--secondary-100);
   --color-secondary-200: var(--secondary-200);
@@ -243,7 +425,6 @@
   --color-secondary-background: var(--secondary-background);
   --color-secondary-foreground: var(--secondary-foreground);
 
-  --color-success: var(--success);
   --color-success-50: var(--success-50);
   --color-success-100: var(--success-100);
   --color-success-200: var(--success-200);
@@ -258,7 +439,6 @@
   --color-success-background: var(--success-background);
   --color-success-foreground: var(--success-foreground);
 
-  --color-warning: var(--warning);
   --color-warning-50: var(--warning-50);
   --color-warning-100: var(--warning-100);
   --color-warning-200: var(--warning-200);
@@ -273,7 +453,6 @@
   --color-warning-background: var(--warning-background);
   --color-warning-foreground: var(--warning-foreground);
 
-  --color-danger: var(--danger);
   --color-danger-50: var(--danger-50);
   --color-danger-100: var(--danger-100);
   --color-danger-200: var(--danger-200);
@@ -287,4 +466,107 @@
   --color-danger-950: var(--danger-950);
   --color-danger-background: var(--danger-background);
   --color-danger-foreground: var(--danger-foreground);
+
+  --background-color-default: var(--neutral-background);
+
+  /* Surface */
+  --background-color-neutral: var(--surface-neutral);
+  --background-color-neutral-subtle: var(--surface-neutral-subtle);
+  --background-color-neutral-emphasized: var(--surface-neutral-emphasized);
+  --background-color-primary: var(--surface-primary);
+  --background-color-primary-subtle: var(--surface-primary-subtle);
+  --background-color-primary-emphasized: var(--surface-primary-emphasized);
+  --background-color-secondary: var(--surface-secondary);
+  --background-color-secondary-subtle: var(--surface-secondary-subtle);
+  --background-color-secondary-emphasized: var(--surface-secondary-emphasized);
+  --background-color-success: var(--surface-success);
+  --background-color-success-subtle: var(--surface-success-subtle);
+  --background-color-success-emphasized: var(--surface-success-emphasized);
+  --background-color-warning: var(--surface-warning);
+  --background-color-warning-subtle: var(--surface-warning-subtle);
+  --background-color-warning-emphasized: var(--surface-warning-emphasized);
+  --background-color-danger: var(--surface-danger);
+  --background-color-danger-subtle: var(--surface-danger-subtle);
+  --background-color-danger-emphasized: var(--surface-danger-emphasized);
+
+  /* Border */
+  --border-color-neutral: var(--border-neutral);
+  --border-color-neutral-subtle: var(--border-neutral-subtle);
+  --border-color-neutral-emphasized: var(--border-neutral-emphasized);
+  --border-color-primary: var(--border-primary);
+  --border-color-primary-subtle: var(--border-primary-subtle);
+  --border-color-primary-emphasized: var(--border-primary-emphasized);
+  --border-color-secondary: var(--border-secondary);
+  --border-color-secondary-subtle: var(--border-secondary-subtle);
+  --border-color-secondary-emphasized: var(--border-secondary-emphasized);
+  --border-color-success: var(--border-success);
+  --border-color-success-subtle: var(--border-success-subtle);
+  --border-color-success-emphasized: var(--border-success-emphasized);
+  --border-color-warning: var(--border-warning);
+  --border-color-warning-subtle: var(--border-warning-subtle);
+  --border-color-warning-emphasized: var(--border-warning-emphasized);
+  --border-color-danger: var(--border-danger);
+  --border-color-danger-subtle: var(--border-danger-subtle);
+  --border-color-danger-emphasized: var(--border-danger-emphasized);
+
+  /* Text */
+  --text-color-default: var(--text-default);
+  --text-color-subtle: var(--text-subtle);
+  --text-color-disabled: var(--text-disabled);
+  --text-color-inverse: var(--text-inverse);
+  --text-color-link: var(--text-link);
+  --text-color-link-hover: var(--text-link-hover);
+  --text-color-link-active: var(--text-link-active);
+  --text-color-link-visited: var(--text-link-visited);
+  --text-color-link-disabled: var(--text-link-disabled);
+  --text-color-neutral: var(--text-neutral);
+  --text-color-on-neutral: var(--text-on-neutral);
+  --text-color-on-neutral-subtle: var(--text-on-neutral-subtle);
+  --text-color-on-neutral-subtle-subtle: var(--text-on-neutral-subtle-subtle);
+  --text-color-primary: var(--text-primary);
+  --text-color-on-primary: var(--text-on-primary);
+  --text-color-on-primary-subtle: var(--text-on-primary-subtle);
+  --text-color-on-primary-subtle-subtle: var(--text-on-primary-subtle-subtle);
+  --text-color-secondary: var(--text-secondary);
+  --text-color-on-secondary: var(--text-on-secondary);
+  --text-color-on-secondary-subtle: var(--text-on-secondary-subtle);
+  --text-color-on-secondary-subtle-subtle: var(--text-on-secondary-subtle-subtle);
+  --text-color-success: var(--text-success);
+  --text-color-on-success: var(--text-on-success);
+  --text-color-on-success-subtle: var(--text-on-success-subtle);
+  --text-color-on-success-subtle-subtle: var(--text-on-success-subtle-subtle);
+  --text-color-warning: var(--text-warning);
+  --text-color-on-warning: var(--text-on-warning);
+  --text-color-on-warning-subtle: var(--text-on-warning-subtle);
+  --text-color-on-warning-subtle-subtle: var(--text-on-warning-subtle-subtle);
+  --text-color-danger: var(--text-danger);
+  --text-color-on-danger: var(--text-on-danger);
+  --text-color-on-danger-subtle: var(--text-on-danger-subtle);
+  --text-color-on-danger-subtle-subtle: var(--text-on-danger-subtle-subtle);
+
+  /* Radius */
+  --radius-none: var(--radius-none);
+  --radius-small: var(--radius-small);
+  --radius-medium: var(--radius-medium);
+  --radius-large: var(--radius-large);
+  --radius-xlarge: var(--radius-xlarge);
+  --radius-full: var(--radius-full);
+
+  /* Border Size */
+  --border-size-none: var(--border-size-none);
+  --border-size-small: var(--border-size-small);
+  --border-size-medium: var(--border-size-medium);
+  --border-size-large: var(--border-size-large);
+
+  /* Typography */
+  --text-tiny: var(--font-size-tiny);
+  --text-tiny--line-height: var(--font-line-height-tiny);
+  --text-small: var(--font-size-small);
+  --text-small--line-height: var(--font-line-height-small);
+  --text-base: var(--font-size-base);
+  --text-base--line-height: var(--font-line-height-base);
+  --text-large: var(--font-size-large);
+  --text-large--line-height: var(--font-line-height-large);
+  --text-xlarge: var(--font-size-xlarge);
+  --text-xlarge--line-height: var(--font-line-height-xlarge);
 }

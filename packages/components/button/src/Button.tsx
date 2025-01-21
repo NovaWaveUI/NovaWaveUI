@@ -1,8 +1,10 @@
 import React from 'react';
 import { useButton, UseButtonProps } from './useButton';
 
+export interface ButtonProps extends UseButtonProps {}
+
 const Button = React.forwardRef(
-  (props: UseButtonProps, ref: React.ForwardedRef<HTMLButtonElement>) => {
+  (props: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>) => {
     const { styles, ref: domRef, ...rest } = useButton({ ...props, ref });
 
     return (

@@ -7,6 +7,16 @@
     "dev": "vite build --watch",
     "test": "echo \"No test can be run\" && exit 0"
   },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "type": "module",
   "keywords": [],
   "author": "Kyle Gagnon",

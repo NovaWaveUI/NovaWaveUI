@@ -1,3 +1,8 @@
 {
-  "extends": "@novawaveui/typescript-config/react-library.json"
+  "extends": "@novawaveui/typescript-config/react-library.json",
+  "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "include": ["src"]
 }

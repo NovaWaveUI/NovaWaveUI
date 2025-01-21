@@ -33,3 +33,4 @@ catalog:
   "eslint-plugin-unicorn": "^56.0.1"
   "globals": "^15.9.0"
   "typescript-eslint": "^8.7.0"
+  "react-aria": "^3.37.0"
