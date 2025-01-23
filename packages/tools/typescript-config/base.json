@@ -18,5 +18,12 @@
     "noImplicitAny": false,
     "baseUrl": "."
   },
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "__tests__",
+    "stories"
+  ]
 }

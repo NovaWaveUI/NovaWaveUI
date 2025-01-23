@@ -12,12 +12,14 @@ import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import importXPlugin from 'eslint-plugin-import-x';
 import jestPlugin from 'eslint-plugin-jest';
 import jestDOMPlugin from 'eslint-plugin-jest-dom';
-import eslintPluginPrettier from 'eslint-plugin-prettier';
+import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
+import reactPlugin from 'eslint-plugin-react';
+import globals from 'globals';
 
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
-  eslintPluginUnicorn.configs.recommended,
+  eslintPluginUnicorn.configs['flat/recommended'],
   importXPlugin.flatConfigs.recommended,
   {
     ignores: [
@@ -33,16 +35,24 @@ export default tseslint.config(
   {
     plugins: {
       '@typescript-eslint': tseslint.plugin,
+      reactPlugin,
     },
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
       },
     },
-    ...jestPlugin.configs.recommended,
-    ...jestDOMPlugin.configs.recommended,
+    ...jestPlugin.configs['flat/recommended'],
+    ...jestDOMPlugin.configs['flat/recommended'],
     files: [
       'src/**/*.ts',
       'src/**/*.tsx',
@@ -85,7 +95,10 @@ export default tseslint.config(
       'unicorn/filename-case': [
         'error',
         {
-          case: 'camelCase',
+          cases: {
+            camelCase: true,
+            pascalCase: true,
+          },
         },
       ],
       'import-x/no-unresolved': 'off',
@@ -93,5 +106,5 @@ export default tseslint.config(
       'import-x/order': 'error',
     },
   },
-  eslintPluginPrettier.configs.recommended
+  eslintPluginPrettier
 );

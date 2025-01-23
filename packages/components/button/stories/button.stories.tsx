@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react';
 import { Button } from '../src/index';
-import { buttonStyles } from '../styles/button';
+import { buttonStyles } from '../src/styles/button';
 import { ButtonProps } from '../src/Button';
 
 const meta = {

@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --filter={./packages/components/*} --filter={./packages/core/provider}",
+    "dev": "turbo run dev --filter={./packages/components/*} --filter={./packages/core/provider} --filter={./packages/core/core} --filter={./packages/utils/*}",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "format": "prettier --write .",

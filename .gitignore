@@ -12,3 +12,6 @@ dist/
 
 # Storybook
 *storybook.log
+
+# Coverage
+coverage/

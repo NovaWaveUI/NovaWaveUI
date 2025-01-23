@@ -1,19 +1,41 @@
 {
-  "name": "@novawaveui/button",
+  "name": "@novawaveui/dev-utils",
   "version": "1.0.0",
-  "description": "",
+  "description": "This package is a collection of development utility functions that is used for development of NovaWaveUI",
   "type": "module",
   "files": [
-    "index.css",
     "dist/"
   ],
   "exports": {
-    "./index.css": "./index.css",
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     }
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "catalog:",
+    "@novawaveui/eslint-config": "workspace:*",
+    "@novawaveui/typescript-config": "workspace:*",
+    "@novawaveui/vite-config": "workspace:*",
+    "@testing-library/react": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:",
+    "vitest": "catalog:"
   },
   "scripts": {
     "build": "vite build",
@@ -25,36 +47,6 @@
     "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore"
   },
   "keywords": [],
-  "author": "Kyle Gagnon",
-  "license": "ISC",
-  "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  },
-  "devDependencies": {
-    "@eslint/js": "catalog:",
-    "@novawaveui/aria-utils": "workspace:*",
-    "@novawaveui/core": "workspace:*",
-    "@novawaveui/eslint-config": "workspace:*",
-    "@novawaveui/provider": "workspace:*",
-    "@novawaveui/typescript-config": "workspace:*",
-    "@novawaveui/vite-config": "workspace:*",
-    "@storybook/react": "catalog:",
-    "@testing-library/jest-dom": "catalog:",
-    "@testing-library/react": "catalog:",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
-    "@vitejs/plugin-react": "catalog:",
-    "@vitest/coverage-v8": "catalog:",
-    "eslint": "catalog:",
-    "prettier": "catalog:",
-    "react": "catalog:",
-    "react-aria": "catalog:",
-    "react-dom": "catalog:",
-    "tailwind-variants": "catalog:",
-    "typescript": "catalog:",
-    "vite": "catalog:",
-    "vite-plugin-dts": "catalog:",
-    "vitest": "catalog:"
-  }
+  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
+  "license": "ISC"
 }

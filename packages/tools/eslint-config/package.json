@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "The NovaWaveUI ESLint configuration",
   "private": true,
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@eslint/js": "catalog:",
     "eslint": "catalog:",
+    "eslint-config-prettier": "catalog:",
     "eslint-plugin-import-x": "catalog:",
     "eslint-plugin-jest": "catalog:",
     "eslint-plugin-jest-dom": "catalog:",
