@@ -34,7 +34,10 @@
     "test:watch": "vitest run --watch",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint",
-    "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore"
+    "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",
+    "clean:dist": "rm -rf dist",
+    "clean:node_modules": "rm -rf node_modules",
+    "clean": "pnpm run clean:dist && pnpm run clean:node_modules"
   },
   "keywords": [],
   "author": "Kyle Gagnon <kmgagnon99@gmail.com>",

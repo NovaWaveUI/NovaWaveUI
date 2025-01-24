@@ -5,7 +5,12 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite build --watch",
-    "test": "echo \"No test can be run\" && exit 0"
+    "test": "echo \"No test can be run\" && exit 0",
+    "lint": "eslint",
+    "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",
+    "clean:dist": "rm -rf dist",
+    "clean:node_modules": "rm -rf node_modules",
+    "clean": "pnpm run clean:dist && pnpm run clean:node_modules"
   },
   "files": [
     "dist"
