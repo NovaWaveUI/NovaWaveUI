@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "The base of the NovaWaveUI monorepo",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --filter={./packages/components/*} --filter={./packages/core/provider} --filter={./packages/core/core} --filter={./packages/utils/*}",
+    "dev": "turbo watch dev",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "format": "prettier --write .",
@@ -13,7 +14,9 @@
     "test": "turbo run test --filter={./packages/components/*} --filter={./packages/core/provider} --filter={./packages/core/core} --filter={./packages/utils/*}",
     "test:watch": "turbo run test:watch --filter={./packages/components/*} --filter={./packages/core/provider} --filter={./packages/core/core} --filter={./packages/utils/*}",
     "test:coverage": "turbo run test:coverage --filter={./packages/components/*} --filter={./packages/core/provider} --filter={./packages/core/core} --filter={./packages/utils/*}",
-    "clean": "turbo run clean && rm -rf node_modules"
+    "clean:dist": "turbo run clean:dist",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "create:component": "plop component"
   },
   "keywords": [
     "novawaveui",
@@ -27,6 +30,7 @@
   "license": "ISC",
   "packageManager": "pnpm@9.15.0",
   "devDependencies": {
+    "plop": "^4.0.1",
     "turbo": "^2.3.4"
   }
 }

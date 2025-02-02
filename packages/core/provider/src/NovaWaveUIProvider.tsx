@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/filename-case */
+/* eslint-disable no-unused-vars */
 import React, { createContext, useEffect, useState } from 'react';
 import { I18nProvider, I18nProviderProps } from 'react-aria';
 
@@ -15,9 +17,9 @@ export interface NovaWaveUIContextProps {
   setValidationBehavior: (validationBehavior: ValidationBehavior) => void;
 }
 
-export const NovaWaveUIContext = createContext<NovaWaveUIContextProps | null>(
-  null
-);
+export const NovaWaveUIContext = createContext<
+  NovaWaveUIContextProps | undefined
+>(undefined);
 
 export const useNovaWaveUI = () => {
   const context = React.useContext(NovaWaveUIContext);
@@ -61,7 +63,7 @@ interface NovaWaveUIProviderProps {
 export const NovaWaveUIProvider = ({
   children,
   theme = 'novawaveui',
-  mode = 'light',
+  mode,
   validationBehavior: validationBehaviorProp = 'aria',
   disableAnimations: disableAnimationsProp = false,
   locale = 'en-us',
@@ -73,11 +75,14 @@ export const NovaWaveUIProvider = ({
   });
 
   const [currentMode, setCurrentMode] = useState<ThemeMode>(() => {
+    // Use the passed in mode if it exists
+    if (mode) return mode;
+
     const storedMode = localStorage.getItem('novawaveui.mode') as ThemeMode;
 
     if (storedMode) return storedMode;
 
-    const prefersDarkMode = window.matchMedia(
+    const prefersDarkMode = globalThis.matchMedia(
       '(prefers-color-scheme: dark)'
     ).matches;
 
@@ -92,10 +97,7 @@ export const NovaWaveUIProvider = ({
     useState<ValidationBehavior>(validationBehaviorProp);
 
   useEffect(() => {
-    document.documentElement.setAttribute(
-      'data-theme',
-      `${currentTheme}-${currentMode}`
-    );
+    document.documentElement.dataset.theme = `${currentTheme}-${currentMode}`;
   }, [currentTheme, currentMode]);
 
   useEffect(() => {

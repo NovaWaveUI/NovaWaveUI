@@ -30,6 +30,9 @@ const meta = {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg'],
     },
+    children: {
+      type: 'string',
+    },
   },
 } satisfies Meta<typeof Button>;
 
@@ -44,6 +47,7 @@ const Template = (args: ButtonProps) => <Button {...args} />;
 export const Default = {
   render: Template,
   args: {
+    children: 'Button',
     ...defaultProps,
   },
 };

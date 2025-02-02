@@ -52,7 +52,7 @@ const preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
-      exclude: ['ref'],
+      exclude: /^(ref|as)$/,
     },
   },
   globalTypes: {

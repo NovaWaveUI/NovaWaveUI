@@ -13,7 +13,8 @@
      */
     "dev": {
       "cache": false,
-      "outputs": ["dist/**"]
+      "dependsOn": ["^build"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
     "test": {
       "dependsOn": ["build", "lint", "^test"]
@@ -27,6 +28,9 @@
     },
     "clean": {
       "dependsOn": ["^clean"]
+    },
+    "clean:dist": {
+      "dependsOn": ["^clean:dist"]
     }
   }
 }

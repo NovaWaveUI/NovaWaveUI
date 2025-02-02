@@ -4,9 +4,9 @@ import { NovaWaveUIProps, PropGetter } from '@novawaveui/core';
 import { dataAttr } from '@novawaveui/aria-utils';
 import {
   AriaButtonProps,
+  mergeProps,
   useFocusRing,
   useHover,
-  usePress,
   useButton as useRAButton,
 } from 'react-aria';
 import { buttonStyles, ButtonVariantProps } from './styles/button';
@@ -54,7 +54,7 @@ export const useButton = (props: UseButtonProps) => {
   // Sets the root element
   const Root = as || 'button';
 
-  let domRef = useRef<HTMLButtonElement>(null);
+  const domRef = useRef<HTMLButtonElement>(null);
   const { buttonProps } = useRAButton(otherProps, domRef);
 
   // Set up the interactivity of the button
@@ -76,25 +76,67 @@ export const useButton = (props: UseButtonProps) => {
   const { focusProps, isFocusVisible, isFocused } = useFocusRing({
     autoFocus: buttonProps.autoFocus,
   });
-
-  const { pressProps, isPressed } = usePress({
-    isDisabled: !isInteractive,
-  });
-
   const styles = useMemo(
-    () => buttonStyles({ variant, color, size, radius, className }),
-    [variant, color, size, radius, className]
+    () =>
+      buttonStyles({
+        variant,
+        color,
+        size,
+        radius,
+        isIconOnly,
+        disableAnimations,
+        isDisabled,
+        className,
+      }),
+    [
+      variant,
+      color,
+      size,
+      radius,
+      isIconOnly,
+      isDisabled,
+      disableAnimations,
+      className,
+    ]
   );
 
-  const rootButtonProps: PropGetter = useCallback(
+  const { buttonProps: ariaButtonProps, isPressed } = useRAButton(
+    {
+      elementType: Root,
+      isDisabled,
+      ...otherProps,
+    },
+    domRef
+  );
+
+  const getButtonProps: PropGetter = useCallback(
     (props = {}) => ({
       'data-disabled': dataAttr(isDisabled),
+      'data-loading': dataAttr(isLoading),
+      'data-hover': dataAttr(isHovered),
+      'data-focus': dataAttr(isFocused),
+      'data-focus-visible': dataAttr(isFocusVisible),
+      'data-pressed': dataAttr(isPressed),
+      ...mergeProps(ariaButtonProps, focusProps, hoverProps, otherProps, props),
     }),
-    []
+    [
+      isDisabled,
+      isLoading,
+      isFocused,
+      isFocusVisible,
+      isHovered,
+      ariaButtonProps,
+      focusProps,
+      hoverProps,
+      otherProps,
+    ]
   );
 
   return {
-    ref,
+    Root,
+    children,
+    domRef,
     styles,
+    getButtonProps,
   };
 };

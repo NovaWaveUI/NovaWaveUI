@@ -15,8 +15,7 @@
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
-    "noImplicitAny": false,
-    "baseUrl": "."
+    "noImplicitAny": false
   },
   "exclude": [
     "node_modules",

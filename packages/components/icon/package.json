@@ -1,7 +1,7 @@
 {
-  "name": "@novawaveui/{{componentName}}",
+  "name": "@novawaveui/icon",
   "version": "1.0.0",
-  "description": "{{description}}",
+  "description": "The Icon component is a way to provide accessible icons.",
   "type": "module",
   "files": [
     "index.css",
@@ -36,7 +36,9 @@
   },
   "devDependencies": {
     "@eslint/js": "catalog:",
+    "@novawaveui/aria-utils": "workspace:*",
     "@novawaveui/core": "workspace:*",
+    "@novawaveui/dev-utils": "workspace:*",
     "@novawaveui/eslint-config": "workspace:*",
     "@novawaveui/provider": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",

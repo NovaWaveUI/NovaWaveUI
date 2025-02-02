@@ -6,12 +6,15 @@ export interface ButtonProps extends UseButtonProps {}
 
 const Button = React.forwardRef(
   (props: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>) => {
-    const { styles, ref: domRef, ...rest } = useButton({ ...props, ref });
+    const { Root, domRef, children, styles, getButtonProps } = useButton({
+      ...props,
+      ref,
+    });
 
     return (
-      <button ref={domRef} className={styles} {...rest}>
-        Button
-      </button>
+      <Root ref={domRef} className={styles} {...getButtonProps()}>
+        {children}
+      </Root>
     );
   }
 );

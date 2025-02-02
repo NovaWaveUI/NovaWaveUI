@@ -27,7 +27,7 @@ export type DOMAttributes<T = DOMElement> = React.AriaAttributes &
     id?: string;
     role?: React.AriaRole;
     tabIndex?: number;
-    style: React.CSSProperties;
+    style?: React.CSSProperties;
   };
 
 export type OmitCommonProps<

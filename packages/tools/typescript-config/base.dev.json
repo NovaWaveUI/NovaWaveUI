@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "paths": {
+      "@novawaveui/aria-utils": ["../../utils/aria-utils/src/index.ts"],
+      "@novawaveui/provider": ["../../core/provider/src/index.ts"],
+      "@novawaveui/react-utils": ["../../utils/react-utils/src/index.ts"],
+      "@novawaveui/dev-utils": ["../../utils/dev-utils/src/index.ts"],
+      "@novawaveui/core": ["../../core/core/src/index.ts"]
+    }
+  }
+}
