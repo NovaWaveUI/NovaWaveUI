@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@eslint/js": "catalog:",
+    "@jest/globals": "catalog:",
     "@novawaveui/aria-utils": "workspace:*",
     "@novawaveui/core": "workspace:*",
     "@novawaveui/dev-utils": "workspace:*",

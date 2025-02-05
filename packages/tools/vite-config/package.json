@@ -11,6 +11,7 @@
     "./vitest.config": "./vitest.config.js"
   },
   "devDependencies": {
+    "@jest/globals": "catalog:",
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
     "@types/node": "catalog:",

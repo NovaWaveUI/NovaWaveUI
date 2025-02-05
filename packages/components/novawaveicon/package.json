@@ -1,7 +1,7 @@
 {
-  "name": "@novawaveui/{{componentName}}",
+  "name": "@novawaveui/novawaveicon",
   "version": "1.0.0",
-  "description": "{{description}}",
+  "description": "A re-export of Heroicons to align with NovaWaveUI",
   "type": "module",
   "files": [
     "index.css",
