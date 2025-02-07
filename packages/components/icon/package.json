@@ -32,16 +32,21 @@
   "license": "ISC",
   "peerDependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "@novawaveui/core": "^1.0.0",
+    "@novawaveui/theme": "^1.0.0"
+  },
+  "dependencies": {
+    "@novawaveui/dev-utils": "workspace:*",
+    "@novawaveui/aria-utils": "workspace:*"
   },
   "devDependencies": {
     "@eslint/js": "catalog:",
     "@jest/globals": "catalog:",
-    "@novawaveui/aria-utils": "workspace:*",
     "@novawaveui/core": "workspace:*",
-    "@novawaveui/dev-utils": "workspace:*",
     "@novawaveui/eslint-config": "workspace:*",
     "@novawaveui/provider": "workspace:*",
+    "@novawaveui/theme": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
     "@novawaveui/vite-config": "workspace:*",
     "@storybook/react": "catalog:",
@@ -55,7 +60,6 @@
     "prettier": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "tailwind-variants": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plugin-dts": "catalog:",

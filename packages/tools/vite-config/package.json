@@ -8,10 +8,12 @@
   "license": "ISC",
   "exports": {
     "./vite.config": "./vite.config.js",
-    "./vitest.config": "./vitest.config.js"
+    "./vitest.config": "./vitest.config.js",
+    "./vite.component.config": "./vite.component.config.js"
   },
   "devDependencies": {
     "@jest/globals": "catalog:",
+    "@tailwindcss/vite": "catalog:",
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
     "@types/node": "catalog:",

@@ -3,14 +3,49 @@
   "version": "1.0.0",
   "description": "The default theme for Nova Wave UI",
   "keywords": [],
+  "type": "module",
   "files": [
-    "styles/theme.css"
+    "dist/"
   ],
+  "exports": {
+    "./dist/theme.css": "./dist/theme.css",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
   "scripts": {
-    "build": "echo 'Nothing to build for the theme package.'",
-    "test": "echo 'No tests for the theme package.'",
-    "dev": "echo 'No dev scripts for the theme package.'"
+    "build": "vite build && tailwindcss -i ./src/theme.css -o ./dist/theme.css --minify",
+    "dev": "vite build --watch",
+    "test": "echo 'No test scripts for the theme package.'",
+    "lint": "eslint",
+    "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",
+    "clean:dist": "rm -rf dist",
+    "clean:node_modules": "rm -rf node_modules",
+    "clean": "pnpm run clean:dist && pnpm run clean:node_modules"
   },
   "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "tailwind-variants": "^0.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "catalog:",
+    "@jest/globals": "catalog:",
+    "@novawaveui/core": "workspace:*",
+    "@novawaveui/eslint-config": "workspace:*",
+    "@novawaveui/typescript-config": "workspace:*",
+    "@novawaveui/vite-config": "workspace:*",
+    "@tailwindcss/cli": "^4.0.3",
+    "@tailwindcss/vite": "^4.0.3",
+    "@vitejs/plugin-react": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:",
+    "vitest": "catalog:"
+  }
 }

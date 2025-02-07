@@ -9,7 +9,7 @@ import {
   useHover,
   useButton as useRAButton,
 } from 'react-aria';
-import { buttonStyles, ButtonVariantProps } from './styles/button';
+import { buttonStyles, ButtonVariantProps } from '@novawaveui/theme';
 
 interface Props extends NovaWaveUIProps<'button'> {
   /**
