@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react';
 import { Icon } from '../src/index';
-import { iconStyles } from '../src/styles/icon';
+import { iconStyles } from '@novawaveui/theme';
 import { IconProps } from '../src/Icon';
 
 const meta = {

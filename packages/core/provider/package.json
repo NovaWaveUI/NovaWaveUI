@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "The NovaWaveUI provider is used to provide the theme and other global settings to the rest of the NovaWaveUI components.",
   "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch",
+    "build": "tsup src --dts",
+    "build:fast": "tsup src",
+    "dev": "pnpm build:fast --watch",
     "test": "echo \"No test can be run\" && exit 0",
     "lint": "eslint",
     "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",
@@ -18,8 +19,8 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
     }
   },
   "type": "module",

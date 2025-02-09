@@ -2,13 +2,13 @@ import { NovaWaveUIProps, PropGetter, mergeProperties } from '@novawaveui/core';
 import { error } from '@novawaveui/dev-utils';
 import React, { cloneElement, useCallback, useMemo } from 'react';
 import { dataAttr } from '@novawaveui/aria-utils';
-import { iconStyles, IconVariantProps } from './styles/icon';
+import { iconStyles, IconVariantProps } from '@novawaveui/theme';
 
-interface Props extends NovaWaveUIProps<'span'> {
+interface Props extends NovaWaveUIProps<'svg'> {
   /**
    * A ref to the DOM node.
    */
-  ref?: React.Ref<HTMLSpanElement | null>;
+  ref?: React.Ref<SVGSVGElement | null>;
 
   /**
    * Whether or not this icon should be hidden from assistive technologies.

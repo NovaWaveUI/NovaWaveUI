@@ -1,15 +1,15 @@
+import type { ButtonVariantProps } from '@novawaveui/theme';
+
 import React, { useCallback, useMemo, useRef } from 'react';
-import { useNovaWaveUI } from '@novawaveui/provider';
-import { NovaWaveUIProps, PropGetter } from '@novawaveui/core';
 import { dataAttr } from '@novawaveui/aria-utils';
-import {
-  AriaButtonProps,
-  mergeProps,
-  useFocusRing,
-  useHover,
-  useButton as useRAButton,
-} from 'react-aria';
-import { buttonStyles, ButtonVariantProps } from '@novawaveui/theme';
+import { NovaWaveUIProps, PropGetter } from '@novawaveui/core';
+import { useNovaWaveUI } from '@novawaveui/provider';
+import { buttonStyles } from '@novawaveui/theme';
+import { AriaButtonProps } from '@react-types/button';
+import { useButton as useRAButton } from '@react-aria/button';
+import { useFocusRing } from '@react-aria/focus';
+import { useHover } from '@react-aria/interactions';
+import { mergeProps } from '@react-aria/utils';
 
 interface Props extends NovaWaveUIProps<'button'> {
   /**
@@ -26,6 +26,16 @@ interface Props extends NovaWaveUIProps<'button'> {
    * Whether or not the button is loading
    */
   isLoading?: boolean;
+
+  /**
+   * Content that goes in front of the children of the button
+   */
+  startContent?: React.ReactNode;
+
+  /**
+   * Content that goes after the children of the button
+   */
+  endContent?: React.ReactNode;
 }
 
 export type UseButtonProps = Props &
@@ -47,6 +57,8 @@ export const useButton = (props: UseButtonProps) => {
     isLoading: isLoadingProp = false,
     isIconOnly = false,
     children,
+    startContent,
+    endContent,
     className,
     ...otherProps
   } = props;
@@ -76,6 +88,8 @@ export const useButton = (props: UseButtonProps) => {
   const { focusProps, isFocusVisible, isFocused } = useFocusRing({
     autoFocus: buttonProps.autoFocus,
   });
+
+  // Get the styles and merge them with the provided className
   const styles = useMemo(
     () =>
       buttonStyles({
@@ -138,5 +152,7 @@ export const useButton = (props: UseButtonProps) => {
     domRef,
     styles,
     getButtonProps,
+    startContent,
+    endContent,
   };
 };

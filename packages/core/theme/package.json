@@ -11,13 +11,17 @@
     "./dist/theme.css": "./dist/theme.css",
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
     }
   },
   "scripts": {
-    "build": "vite build && tailwindcss -i ./src/theme.css -o ./dist/theme.css --minify",
-    "dev": "vite build --watch",
+    "build": "pnpm run build:ts && pnpm run build:css",
+    "build:fast": "pnpm run build:fast-ts && pnpm run build:css",
+    "build:fast-ts": "tsup src",
+    "build:ts": "tsup src --dts",
+    "build:css": "tailwindcss -i theme.css -o ./dist/theme.css --minify",
+    "dev": "pnpm build:fast --watch",
     "test": "echo 'No test scripts for the theme package.'",
     "lint": "eslint",
     "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",

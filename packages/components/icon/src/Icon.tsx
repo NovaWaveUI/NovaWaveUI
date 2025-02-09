@@ -5,7 +5,7 @@ import { useIcon, UseIconProps } from './useIcon';
 export interface IconProps extends UseIconProps {}
 
 const Icon = React.forwardRef(
-  (props: IconProps, ref: React.ForwardedRef<HTMLSpanElement>) => {
+  (props: IconProps, ref: React.ForwardedRef<SVGSVGElement>) => {
     const Icon = useIcon({
       ...props,
       ref,

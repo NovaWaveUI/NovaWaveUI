@@ -22,7 +22,6 @@
     "dist",
     "**/*.test.ts",
     "**/*.test.tsx",
-    "__tests__",
-    "stories"
+    "__tests__"
   ]
 }

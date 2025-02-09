@@ -1,5 +1,5 @@
 import { tv, VariantProps } from 'tailwind-variants';
-import { bordered, solid } from '../common/styles';
+import { bordered, faded, ghost, light, solid } from '../common/styles';
 
 export const buttonStyles = tv({
   base: [
@@ -16,15 +16,14 @@ export const buttonStyles = tv({
     'text-wrap',
     'overflow-hidden',
     'data-[pressed=true]:scale-95',
-    'data-[hover=true]:opacity-(--opacity-hover)',
   ],
   variants: {
     variant: {
       solid: '',
-      faded: 'bg-transparent',
-      bordered: 'bg-transparent border border-solid',
-      ghost: 'bg-transparent border border-solid',
-      light: '',
+      faded: '',
+      bordered: 'bg-transparent border-2 border-solid',
+      ghost: 'bg-transparent border-2 border-solid',
+      light: 'bg-transparent',
     },
     color: {
       neutral: '',
@@ -125,6 +124,96 @@ export const buttonStyles = tv({
       color: 'danger',
       variant: 'bordered',
       className: bordered.danger,
+    },
+    {
+      color: 'neutral',
+      variant: 'light',
+      className: light.neutral,
+    },
+    {
+      color: 'primary',
+      variant: 'light',
+      className: light.primary,
+    },
+    {
+      color: 'secondary',
+      variant: 'light',
+      className: light.secondary,
+    },
+    {
+      color: 'success',
+      variant: 'light',
+      className: light.success,
+    },
+    {
+      color: 'warning',
+      variant: 'light',
+      className: light.warning,
+    },
+    {
+      color: 'danger',
+      variant: 'light',
+      className: light.danger,
+    },
+    {
+      color: 'neutral',
+      variant: 'faded',
+      className: faded.neutral,
+    },
+    {
+      color: 'primary',
+      variant: 'faded',
+      className: faded.primary,
+    },
+    {
+      color: 'secondary',
+      variant: 'faded',
+      className: faded.secondary,
+    },
+    {
+      color: 'success',
+      variant: 'faded',
+      className: faded.success,
+    },
+    {
+      color: 'warning',
+      variant: 'faded',
+      className: faded.warning,
+    },
+    {
+      color: 'danger',
+      variant: 'faded',
+      className: faded.danger,
+    },
+    {
+      color: 'neutral',
+      variant: 'ghost',
+      className: ghost.neutral,
+    },
+    {
+      color: 'primary',
+      variant: 'ghost',
+      className: ghost.primary,
+    },
+    {
+      color: 'secondary',
+      variant: 'ghost',
+      className: ghost.secondary,
+    },
+    {
+      color: 'success',
+      variant: 'ghost',
+      className: ghost.success,
+    },
+    {
+      color: 'warning',
+      variant: 'ghost',
+      className: ghost.warning,
+    },
+    {
+      color: 'danger',
+      variant: 'ghost',
+      className: ghost.danger,
     },
   ],
 });
