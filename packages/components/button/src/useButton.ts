@@ -99,7 +99,7 @@ export const useButton = (props: UseButtonProps) => {
         radius,
         isIconOnly,
         disableAnimations,
-        isDisabled,
+        isDisabled: !isInteractive,
         className,
       }),
     [
@@ -109,6 +109,8 @@ export const useButton = (props: UseButtonProps) => {
       radius,
       isIconOnly,
       isDisabled,
+      isLoading,
+      isInteractive,
       disableAnimations,
       className,
     ]

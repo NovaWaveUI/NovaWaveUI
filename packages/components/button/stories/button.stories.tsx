@@ -35,6 +35,9 @@ const meta = {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg'],
     },
+    isDisabled: {
+      control: { type: 'boolean' },
+    },
     children: {
       type: 'string',
     },
@@ -69,6 +72,7 @@ const meta = {
       control: { type: 'select' },
     },
   },
+  tags: ['autodocs'],
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -127,29 +131,6 @@ export const Light = {
     children: 'Button',
     variant: 'light',
   },
-};
-
-export const Sizes = {
-  render: () => (
-    <div className="flex flex-col gap-2">
-      <Button size="sm">Button</Button>
-      <Button>Button</Button>
-      <Button size="lg">Button</Button>
-    </div>
-  ),
-};
-
-export const Radius = {
-  render: () => (
-    <div className="flex flex-col gap-2">
-      <Button radius="none">Button</Button>
-      <Button radius="sm">Button</Button>
-      <Button radius="md">Button</Button>
-      <Button radius="lg">Button</Button>
-      <Button radius="xl">Button</Button>
-      <Button radius="full">Button</Button>
-    </div>
-  ),
 };
 
 export const Primary = {

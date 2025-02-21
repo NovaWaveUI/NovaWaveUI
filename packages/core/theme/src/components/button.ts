@@ -53,6 +53,9 @@ export const buttonStyles = tv({
       true: 'px-0 !gap-0',
       false: '[&>svg]:max-w-8',
     },
+    fullWidth: {
+      true: 'w-full',
+    },
     disableAnimations: {
       true: '!transition-none data-[pressed=true]:scale-100',
       false: 'motion-reduce:transition-none',
@@ -63,6 +66,8 @@ export const buttonStyles = tv({
     variant: 'solid',
     size: 'md',
     radius: 'md',
+    isIconOnly: false,
+    isDisabled: false,
   },
   compoundVariants: [
     {
@@ -215,9 +220,37 @@ export const buttonStyles = tv({
       variant: 'ghost',
       className: ghost.danger,
     },
+    {
+      isIconOnly: true,
+      size: 'sm',
+      class: 'min-w-8 w-8 h-8',
+    },
+    {
+      isIconOnly: true,
+      size: 'md',
+      class: 'min-w-10 w-10 h-10',
+    },
+    {
+      isIconOnly: true,
+      size: 'lg',
+      class: 'min-w-12 w-12 h-12',
+    },
   ],
 });
 
-export type ButtonStyles = typeof buttonStyles;
+const buttonGroup = tv({
+  base: 'inline-flex items-center justify-center h-auto',
+  variants: {
+    fullWidth: {
+      true: 'w-full',
+    },
+  },
+  defaultVariants: {
+    fullWidth: false,
+  },
+});
 
+export type ButtonStyles = typeof buttonStyles;
+export type ButtonGroupStyles = typeof buttonGroup;
 export type ButtonVariantProps = VariantProps<ButtonStyles>;
+export type ButtonGroupVariantProps = VariantProps<ButtonGroupStyles>;
