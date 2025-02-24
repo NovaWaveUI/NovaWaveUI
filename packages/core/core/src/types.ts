@@ -68,3 +68,8 @@ export type PropGetter<P = Record<string, unknown>, R = DOMAttributes> = (
   props?: Merge<DOMAttributes, P>,
   ref?: React.Ref<any>
 ) => R & React.RefAttributes<any>;
+
+export type RightJoinProps<
+  SourceProps extends object = object,
+  OverrideProps extends object = object,
+> = OmitCommonProps<SourceProps, keyof OverrideProps> & OverrideProps;

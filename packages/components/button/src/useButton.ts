@@ -1,6 +1,6 @@
 import type { ButtonVariantProps } from '@novawaveui/theme';
 
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { dataAttr } from '@novawaveui/aria-utils';
 import { NovaWaveUIProps, PropGetter } from '@novawaveui/core';
 import { useNovaWaveUI } from '@novawaveui/provider';
@@ -10,6 +10,8 @@ import { useButton as useRAButton } from '@react-aria/button';
 import { useFocusRing } from '@react-aria/focus';
 import { useHover } from '@react-aria/interactions';
 import { mergeProps } from '@react-aria/utils';
+import { useDOMRef } from '@novawaveui/react-utils';
+import { useButtonGroupContext } from './ButtonGroupContext';
 
 interface Props extends NovaWaveUIProps<'button'> {
   /**
@@ -40,20 +42,23 @@ interface Props extends NovaWaveUIProps<'button'> {
 
 export type UseButtonProps = Props &
   Omit<AriaButtonProps, keyof ButtonVariantProps> &
-  ButtonVariantProps;
+  Omit<ButtonVariantProps, 'isVertical'>;
 
 export const useButton = (props: UseButtonProps) => {
   const globalContext = useNovaWaveUI();
+  const groupContext = useButtonGroupContext();
 
   const {
     as,
     ref,
-    variant = 'solid',
-    color = 'neutral',
-    size = 'md',
-    radius = 'md',
-    disableAnimations = globalContext.disableAnimations ?? false,
-    isDisabled: isDisabledProp = false,
+    variant = groupContext.variant ?? 'solid',
+    color = groupContext.color ?? 'neutral',
+    size = groupContext.size ?? 'md',
+    radius = groupContext.radius ?? 'md',
+    disableAnimations = globalContext.disableAnimations ??
+      groupContext.disableAnimations ??
+      false,
+    isDisabled: isDisabledProp = groupContext.isDisabled ?? false,
     isLoading: isLoadingProp = false,
     isIconOnly = false,
     children,
@@ -66,7 +71,7 @@ export const useButton = (props: UseButtonProps) => {
   // Sets the root element
   const Root = as || 'button';
 
-  const domRef = useRef<HTMLButtonElement>(null);
+  const domRef = useDOMRef(ref);
   const { buttonProps } = useRAButton(otherProps, domRef);
 
   // Set up the interactivity of the button
@@ -89,6 +94,11 @@ export const useButton = (props: UseButtonProps) => {
     autoFocus: buttonProps.autoFocus,
   });
 
+  const isVertical = useMemo(
+    () => groupContext?.isVertical ?? false,
+    [groupContext?.isVertical]
+  );
+
   // Get the styles and merge them with the provided className
   const styles = useMemo(
     () =>
@@ -100,6 +110,8 @@ export const useButton = (props: UseButtonProps) => {
         isIconOnly,
         disableAnimations,
         isDisabled: !isInteractive,
+        isInGroup: !!groupContext,
+        isVertical,
         className,
       }),
     [
@@ -113,6 +125,8 @@ export const useButton = (props: UseButtonProps) => {
       isInteractive,
       disableAnimations,
       className,
+      groupContext,
+      isVertical,
     ]
   );
 

@@ -17,7 +17,7 @@
   },
   "scripts": {
     "build": "pnpm run build:ts && pnpm run build:css",
-    "build:fast": "pnpm run build:fast-ts && pnpm run build:css",
+    "build:fast": " pnpm run build:fast-ts",
     "build:fast-ts": "tsup src",
     "build:ts": "tsup src --dts",
     "build:css": "tailwindcss -i theme.css -o ./dist/theme.css --minify",

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useImperativeHandle, useRef } from 'react';
 
 /**
  * ReactRef is a type that can be used to define a React ref.
@@ -24,7 +24,7 @@ export type ReactRef<T> =
  * ```
  */
 export function assignRef<T>(ref: ReactRef<T> | undefined, value: T) {
-  if (ref == null) {
+  if (ref == undefined) {
     return;
   }
 
@@ -33,7 +33,7 @@ export function assignRef<T>(ref: ReactRef<T> | undefined, value: T) {
   } else {
     try {
       (ref as any).current = value;
-    } catch (error) {
+    } catch {
       throw new Error(`Cannot assign value "${value}" to ref "${ref}"`);
     }
   }
@@ -56,6 +56,53 @@ export function mergeRefs<T>(
   ...refs: (ReactRef<T> | undefined)[]
 ): ReactRef<T> {
   return (node: T | null) => {
-    refs.forEach(ref => assignRef(ref, node));
+    for (const ref of refs) assignRef(ref, node);
   };
+}
+
+export function toRefObject<T extends HTMLElement>(
+  ref?: React.Ref<T | null>
+): React.RefObject<T> {
+  // If the ref is already an object ref, return it as is
+  if (ref && typeof ref === 'object' && 'current' in ref) {
+    return ref as React.RefObject<T>;
+  }
+
+  // Create a new ref object
+  const newRef = React.createRef<T | null>() as React.RefObject<T>;
+
+  // If the ref is a function, call it whenever `newRef.current` updates
+  if (typeof ref === 'function') {
+    return new Proxy(newRef, {
+      set(target, prop, value) {
+        if (prop === 'current') {
+          ref(value); // Call the function ref whenever current updates
+        }
+        return Reflect.set(target, prop, value);
+      },
+    }) as React.RefObject<T>;
+  }
+
+  // Otherwise, return the new ref object
+  return newRef;
+}
+
+/**
+ * Creates an always valid ref to the DOM node. If a ref is passed, it will
+ * use that ref, otherwise it will create a new ref.
+ * @param ref The ref to use (optional).
+ * @returns A ref to the DOM node.
+ * @example ```tsx
+ * const ref = useDOMRef<HTMLDivElement>(null);
+ * const ref = useDOMRef<HTMLDivElement>(someRef);
+ * ```
+ */
+export function useDOMRef<T extends HTMLElement = HTMLElement>(
+  ref?: React.Ref<T | null>
+): React.RefObject<T> {
+  const domRef = useRef<T>(null);
+
+  useImperativeHandle(ref, () => domRef.current ?? ({} as T));
+
+  return toRefObject(ref) ?? domRef;
 }

@@ -72,7 +72,6 @@ const meta = {
       control: { type: 'select' },
     },
   },
-  tags: ['autodocs'],
 } satisfies Meta<typeof Button>;
 
 export default meta;

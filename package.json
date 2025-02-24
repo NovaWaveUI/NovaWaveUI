@@ -16,7 +16,8 @@
     "test:coverage": "turbo run test:coverage --filter={./packages/components/*} --filter={./packages/core/provider} --filter={./packages/core/core} --filter={./packages/utils/*}",
     "clean:dist": "turbo run clean:dist",
     "clean": "turbo run clean && rm -rf node_modules",
-    "create:component": "plop component"
+    "create:component": "plop component",
+    "dev:css": "pnpm --filter @novawaveui/theme build:css --watch"
   },
   "keywords": [
     "novawaveui",
@@ -34,7 +35,7 @@
     "@storybook/react": "^8.5.3",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
-    "@types/react": "^19.0.8",
+    "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.3",
     "@vitest/coverage-v8": "^3.0.5",
     "concurrently": "^9.1.2",
