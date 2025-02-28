@@ -22,7 +22,6 @@
     "@storybook/react": "8.6.0-alpha.0",
     "@storybook/react-vite": "8.6.0-alpha.0",
     "@storybook/test": "8.6.0-alpha.0",
-    "@tailwindcss/vite": "catalog:",
     "prop-types": "^15.8.1",
     "react": "catalog:",
     "react-aria": "catalog:",

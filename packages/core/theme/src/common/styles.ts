@@ -58,6 +58,10 @@ export const faded = {
   danger: 'bg-danger/20 text-danger-800',
 };
 
+/**
+ * A focus ring that is visible only when the user navigates with the keyboard
+ * The focus ring is based off of the `focus-visible` attribute
+ */
 export const dataFocusRing: string[] = [
   'data-[focus-visible=true]:z-10',
   'data-[focus-visible=true]:outline',
@@ -65,3 +69,14 @@ export const dataFocusRing: string[] = [
   'data-[focus-visible=true]:outline-primary-600',
   'data-[focus-visible=true]:outline-offset-2',
 ];
+
+export const collapsableBorderStyles = {
+  vertical: {
+    neutral: ['[&+.border-medium.border-neutral]:ms-[calc(spacing(1)*-1)]'],
+    primary: ['[&+.border-medium.border-primary]:ms-[calc(spacing(1)*-1)]'],
+    secondary: ['[&+.border-medium.border-secondary]:ms-[calc(spacing(1)*-1)]'],
+    success: ['[&+.border-medium.border-success]:ms-[calc(spacing(1)*-1)]'],
+    warning: ['[&+.border-medium.border-warning]:ms-[calc(spacing(1)*-1)]'],
+    danger: ['[&+.border-medium.border-danger]:ms-[calc(spacing(1)*-1)]'],
+  },
+};

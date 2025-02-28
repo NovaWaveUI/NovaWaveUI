@@ -1,0 +1,17 @@
+import React from 'react';
+import { use{{capitalize componentName}}, Use{{capitalize componentName}}Props } from './use{{capitalize componentName}}';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface {{capitalize componentName}}Props extends Use{{capitalize componentName}}Props {}
+
+const {{capitalize componentName}} = React.forwardRef(
+  (props: {{capitalize componentName}}Props, ref: React.ForwardedRef<HTMLDivElement>) => {
+    const { Root, domRef, children, styles, ...otherProps } = use{{capitalize componentName}}({...props, ref});
+
+    return (<Root ref={domRef} className={styles} {...otherProps}>{children}</Root>);
+  }
+);
+
+{{capitalize componentName}}.displayName = 'NovawaveUI.{{capitalize componentName}}';
+
+export default {{capitalize componentName}};

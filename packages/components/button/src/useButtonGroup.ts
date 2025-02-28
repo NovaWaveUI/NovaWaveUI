@@ -106,7 +106,7 @@ export const useButtonGroup = (props: UseButtonGroupProps) => {
 
   // Set the root element
   const Component = as || 'div';
-  const domRef = useDOMRef<HTMLDivElement>();
+  const domRef = useDOMRef<HTMLDivElement>(ref);
 
   // Get the button group styles
   const styles = useMemo(

@@ -63,3 +63,11 @@ export const Default = {
     ...defaultProps,
   },
 };
+
+export const Vertical = {
+  render: Template,
+  args: {
+    ...defaultProps,
+    isVertical: true,
+  },
+};

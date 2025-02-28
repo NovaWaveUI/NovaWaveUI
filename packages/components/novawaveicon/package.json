@@ -48,10 +48,10 @@
     "@novawaveui/provider": "workspace:*",
     "@novawaveui/theme": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
+    "@novawaveui/vite-config": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "react": "catalog:",
-    "react-dom": "catalog:",
-    "vitest": "catalog:"
+    "react-dom": "catalog:"
   }
 }

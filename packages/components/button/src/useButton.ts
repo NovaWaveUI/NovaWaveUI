@@ -51,14 +51,14 @@ export const useButton = (props: UseButtonProps) => {
   const {
     as,
     ref,
-    variant = groupContext.variant ?? 'solid',
-    color = groupContext.color ?? 'neutral',
-    size = groupContext.size ?? 'md',
-    radius = groupContext.radius ?? 'md',
-    disableAnimations = globalContext.disableAnimations ??
+    variant = groupContext?.variant ?? 'solid',
+    color = groupContext?.color ?? 'neutral',
+    size = groupContext?.size ?? 'md',
+    radius = groupContext?.radius ?? 'md',
+    disableAnimations = globalContext?.disableAnimations ??
       groupContext.disableAnimations ??
       false,
-    isDisabled: isDisabledProp = groupContext.isDisabled ?? false,
+    isDisabled: isDisabledProp = groupContext?.isDisabled ?? false,
     isLoading: isLoadingProp = false,
     isIconOnly = false,
     children,
@@ -94,6 +94,7 @@ export const useButton = (props: UseButtonProps) => {
     autoFocus: buttonProps.autoFocus,
   });
 
+  // Determine if the button is vertical based on the group context
   const isVertical = useMemo(
     () => groupContext?.isVertical ?? false,
     [groupContext?.isVertical]

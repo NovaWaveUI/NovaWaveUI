@@ -1,6 +1,7 @@
 import { tv, VariantProps } from 'tailwind-variants';
 import {
   bordered,
+  collapsableBorderStyles,
   dataFocusRing,
   faded,
   ghost,
@@ -342,6 +343,20 @@ export const buttonStyles = tv({
       isVertical: true,
       radius: 'full',
       class: '!rounded-none first:!rounded-t-full last:!rounded-b-full',
+    },
+    {
+      isInGroup: true,
+      isVertical: false,
+      variant: ['ghost', 'bordered'],
+      className:
+        'first:border-r-1 not-first:not-last:border-r-1 not-first:not-last:border-l-1 last:border-l-1',
+    },
+    {
+      isInGroup: true,
+      isVertical: true,
+      variant: ['ghost', 'bordered'],
+      className:
+        'first:border-b-1 not-first:not-last:border-b-1 not-first:not-last:border-t-1 last:border-t-1',
     },
   ],
 });

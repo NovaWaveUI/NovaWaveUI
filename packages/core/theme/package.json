@@ -35,21 +35,13 @@
     "tailwind-variants": "^0.3.1"
   },
   "devDependencies": {
-    "@eslint/js": "catalog:",
-    "@jest/globals": "catalog:",
     "@novawaveui/core": "workspace:*",
     "@novawaveui/eslint-config": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
     "@novawaveui/vite-config": "workspace:*",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "@tailwindcss/cli": "^4.0.3",
-    "@tailwindcss/vite": "^4.0.3",
-    "@vitejs/plugin-react": "catalog:",
-    "@vitest/coverage-v8": "catalog:",
-    "eslint": "catalog:",
-    "prettier": "catalog:",
-    "typescript": "catalog:",
-    "vite": "catalog:",
-    "vite-plugin-dts": "catalog:",
-    "vitest": "catalog:"
+    "@tailwindcss/vite": "^4.0.3"
   }
 }

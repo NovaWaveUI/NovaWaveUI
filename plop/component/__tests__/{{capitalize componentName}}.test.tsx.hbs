@@ -1,0 +1,30 @@
+import '@testing-library/jest-dom';
+import * as React from "react";
+import { render } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
+import { NovaWaveUIProvider } from '@novawaveui/provider';
+import {{capitalize componentName}} from '../src/{{componentName}}';
+
+const ProviderWrapper = ({ children }) => (
+  <NovaWaveUIProvider>{children}</NovaWaveUIProvider>
+);
+
+describe('{{capitalize componentName}}', () => {
+  it('renders correctly', () => {
+    const wrapper = render(<{{capitalize componentName}}>Click Me</{{capitalize componentName}}>, {
+      wrapper: ProviderWrapper,
+    });
+
+    expect(() => wrapper.unmount()).not.toThrow();
+  });
+
+  it('forwards a ref correctly', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const wrapper = render(<{{capitalize componentName}} ref={ref} />, {
+      wrapper: ProviderWrapper,
+    });
+
+    expect(ref.current).not.toBeNull();
+    expect(() => wrapper.unmount()).not.toThrow();
+  });
+});

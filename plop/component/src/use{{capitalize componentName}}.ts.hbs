@@ -1,0 +1,46 @@
+import type { {{capitalize componentName}}VariantProps } from '@novawaveui/theme';
+
+import { useMemo } from 'react';
+import { NovaWaveUIProps } from '@novawaveui/core';
+import { useDOMRef } from '@novawaveui/react-utils';
+
+interface Props extends NovaWaveUIProps<'div'> {
+  /**
+   * A ref to the DOM node.
+   */
+  ref?: React.Ref<HTMLDivElement | null>;
+}
+
+export type Use{{capitalize componentName}}Props = Props & {{capitalize componentName}}VariantProps;
+
+export function use{{capitalize componentName}}(props: Use{{capitalize componentName}}Props) {
+  const {
+    ref,
+    as,
+    className,
+    ...otherProps
+  } = props;
+
+  // Set the root element
+  const Root = as || 'div';
+
+  // Set up the ref for the DOM node
+  const domRef = useDOMRef(ref);
+
+  const styles = useMemo(() => ()
+    {{componentName}}({
+      ...otherProps,
+      className,
+    }),
+    [className, otherProps]
+  );
+
+  return {
+    Root,
+    domRef,
+    styles,
+    ...otherProps,
+  };
+}
+
+export type {{capitalize componentName}}Props = ReturnType<typeof use{{capitalize componentName}}>;

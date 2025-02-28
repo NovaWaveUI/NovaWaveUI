@@ -14,18 +14,10 @@
     }
   },
   "devDependencies": {
-    "@eslint/js": "catalog:",
     "@novawaveui/eslint-config": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
-    "@novawaveui/vite-config": "workspace:*",
-    "@testing-library/react": "catalog:",
-    "@vitest/coverage-v8": "catalog:",
-    "eslint": "catalog:",
-    "prettier": "catalog:",
-    "typescript": "catalog:",
-    "vite": "catalog:",
-    "vite-plugin-dts": "catalog:",
-    "vitest": "catalog:"
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:"
   },
   "scripts": {
     "build": "tsup src --dts",
