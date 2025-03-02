@@ -1,8 +1,7 @@
 import type { ButtonVariantProps } from '@novawaveui/theme';
 
-import React, { useCallback, useMemo } from 'react';
-import { dataAttr } from '@novawaveui/aria-utils';
-import { NovaWaveUIProps, PropGetter } from '@novawaveui/core';
+import React, { useMemo } from 'react';
+import { NovaWaveUIProps, useSlotProps } from '@novawaveui/core';
 import { useNovaWaveUI } from '@novawaveui/provider';
 import { buttonStyles } from '@novawaveui/theme';
 import { AriaButtonProps } from '@react-types/button';
@@ -69,7 +68,7 @@ export const useButton = (props: UseButtonProps) => {
   } = props;
 
   // Sets the root element
-  const Root = as || 'button';
+  const Component = as || 'button';
 
   const domRef = useDOMRef(ref);
   const { buttonProps } = useRAButton(otherProps, domRef);
@@ -133,42 +132,59 @@ export const useButton = (props: UseButtonProps) => {
 
   const { buttonProps: ariaButtonProps, isPressed } = useRAButton(
     {
-      elementType: Root,
+      elementType: Component,
       isDisabled,
       ...otherProps,
     },
     domRef
   );
 
-  const getButtonProps: PropGetter = useCallback(
-    (props = {}) => ({
-      'data-disabled': dataAttr(isDisabled),
-      'data-loading': dataAttr(isLoading),
-      'data-hover': dataAttr(isHovered),
-      'data-focus': dataAttr(isFocused),
-      'data-focus-visible': dataAttr(isFocusVisible),
-      'data-pressed': dataAttr(isPressed),
-      ...mergeProps(ariaButtonProps, focusProps, hoverProps, otherProps, props),
-    }),
-    [
-      isDisabled,
-      isLoading,
-      isFocused,
-      isFocusVisible,
-      isHovered,
-      ariaButtonProps,
-      focusProps,
-      hoverProps,
-      otherProps,
-    ]
+  // Get the properties for the button
+  const getSlotProps = useSlotProps(
+    'NovaWaveUI.Button',
+    {
+      base: {
+        dependencies: [
+          isDisabled,
+          isLoading,
+          isFocused,
+          isFocusVisible,
+          isHovered,
+          ariaButtonProps,
+          focusProps,
+          hoverProps,
+          otherProps,
+        ],
+        props: {
+          ...mergeProps(
+            ariaButtonProps,
+            focusProps,
+            hoverProps,
+            otherProps,
+            props
+          ),
+        },
+        dataAttrs: {
+          disabled: isDisabled,
+          loading: isLoading,
+          hover: isHovered,
+          focus: isFocused,
+          'focus-visible': isFocusVisible,
+          pressed: isPressed,
+        },
+      },
+    },
+    {
+      base: Component,
+    }
   );
 
   return {
-    Root,
+    Component,
     children,
     domRef,
     styles,
-    getButtonProps,
+    getSlotProps,
     startContent,
     endContent,
   };

@@ -7,11 +7,11 @@ export interface ButtonProps extends UseButtonProps {}
 const Button = React.forwardRef(
   (props: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>) => {
     const {
-      Root,
+      Component,
       domRef,
       children,
       styles,
-      getButtonProps,
+      getSlotProps,
       startContent,
       endContent,
     } = useButton({
@@ -20,11 +20,11 @@ const Button = React.forwardRef(
     });
 
     return (
-      <Root ref={domRef} className={styles} {...getButtonProps()}>
+      <Component ref={domRef} className={styles} {...getSlotProps('base')}>
         {startContent}
         {children}
         {endContent}
-      </Root>
+      </Component>
     );
   }
 );

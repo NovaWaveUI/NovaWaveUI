@@ -16,7 +16,7 @@
   "scripts": {
     "build": "tsup src --dts",
     "build:fast": "tsup src",
-    "dev": "pnpm build:fast --watch",
+    "dev": "pnpm build --watch",
     "test": "vitest run",
     "test:watch": "vitest run --watch",
     "test:coverage": "vitest run --coverage",
@@ -39,17 +39,18 @@
     "@novawaveui/aria-utils": "workspace:*",
     "@novawaveui/react-utils": "workspace:*",
     "@react-aria/button": "^3.11.1",
-    "@react-aria/focus": "^3.19.1",
-    "@react-aria/interactions": "^3.23.0",
-    "@react-aria/utils": "^3.27.0",
+    "@react-aria/focus": "catalog:",
+    "@react-aria/interactions": "catalog:",
+    "@react-aria/utils": "catalog:",
     "@react-types/button": "^3.10.2",
-    "@react-types/shared": "^3.27.0"
+    "@react-types/shared": "catalog:",
+    "motion": "catalog:"
   },
   "devDependencies": {
     "@novawaveui/core": "workspace:*",
     "@novawaveui/eslint-config": "workspace:*",
-    "@novawaveui/provider": "workspace:*",
     "@novawaveui/novawaveicon": "workspace:*",
+    "@novawaveui/provider": "workspace:*",
     "@novawaveui/theme": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
     "@novawaveui/vite-config": "workspace:*",

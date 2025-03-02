@@ -11,9 +11,9 @@
   "license": "ISC",
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.4",
-    "@novawaveui/theme": "workspace:*",
     "@novawaveui/button": "workspace:*",
     "@novawaveui/provider": "workspace:*",
+    "@novawaveui/theme": "workspace:*",
     "@storybook/addon-essentials": "8.6.0-alpha.0",
     "@storybook/addon-interactions": "8.6.0-alpha.0",
     "@storybook/addon-onboarding": "8.6.0-alpha.0",
@@ -22,6 +22,7 @@
     "@storybook/react": "8.6.0-alpha.0",
     "@storybook/react-vite": "8.6.0-alpha.0",
     "@storybook/test": "8.6.0-alpha.0",
+    "@tailwindcss/vite": "^4.0.3",
     "prop-types": "^15.8.1",
     "react": "catalog:",
     "react-aria": "catalog:",

@@ -1,5 +1,5 @@
-import { useCallback, useMemo } from 'react';
-import { NovaWaveUIProps, PropGetter } from '@novawaveui/core';
+import { useMemo } from 'react';
+import { NovaWaveUIProps, useSlotProps } from '@novawaveui/core';
 import { buttonGroup, ButtonGroupVariantProps } from '@novawaveui/theme';
 import { useNovaWaveUI } from '@novawaveui/provider';
 import { useDOMRef } from '@novawaveui/react-utils';
@@ -143,18 +143,29 @@ export const useButtonGroup = (props: UseButtonGroupProps) => {
   );
 
   // Get the properties for the button group
-  const getButtonGroupProps: PropGetter = useCallback(
-    () => ({
-      role: 'group',
-      ...rest,
-    }),
-    [rest]
-  );
+  const getSlotProps = useSlotProps('NovaWaveUI.ButtonGroup', {
+    base: {
+      dependencies: [
+        size,
+        color,
+        variant,
+        radius,
+        isDisabled,
+        isIconOnly,
+        isVertical,
+        globalContext.disableAnimations,
+      ],
+      props: {
+        role: 'group',
+        ...rest,
+      },
+    },
+  });
 
   return {
     styles,
     context,
-    getButtonGroupProps,
+    getSlotProps,
     Component,
     domRef,
     children,
