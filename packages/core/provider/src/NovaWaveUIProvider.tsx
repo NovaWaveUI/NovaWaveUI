@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/filename-case */
 /* eslint-disable no-unused-vars */
 import { useLocalStorage } from '@novawaveui/use-localstorage';
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useMemo, useState } from 'react';
 import { I18nProvider, I18nProviderProps } from 'react-aria';
 
 export type ThemeMode = 'light' | 'dark';
@@ -69,7 +69,7 @@ export const NovaWaveUIProvider = ({
   disableAnimations: disableAnimationsProp = false,
   locale = 'en-us',
 }: NovaWaveUIProviderProps) => {
-  const isLocalStorageAvailable = useLocalStorage();
+  const isLocalStorageAvailable = useMemo(() => useLocalStorage(), []);
 
   const [currentTheme, setCurrentTheme] = useState<string>(() => {
     const storedTheme = isLocalStorageAvailable

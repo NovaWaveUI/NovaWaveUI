@@ -14,7 +14,7 @@ export function useLocalStorage(options?: LocalStorageOptions): boolean {
 
   // Next, memoize to avoid re-renders.
   const isAvailable = useMemo(() => {
-    if (!isBrowser || !options?.enabled) {
+    if (!isBrowser || options?.enabled == false) {
       return false;
     }
 
