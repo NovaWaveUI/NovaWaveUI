@@ -1,7 +1,6 @@
 import { tv, VariantProps } from 'tailwind-variants';
 import {
   bordered,
-  collapsableBorderStyles,
   dataFocusRing,
   faded,
   ghost,
@@ -24,7 +23,6 @@ export const buttonStyles = tv({
     'text-wrap',
     'overflow-hidden',
     'data-[pressed=true]:scale-95',
-    'data-[hover=true]:opacity-hover',
     ...dataFocusRing,
   ],
   variants: {

@@ -41,6 +41,7 @@
     "react-dom": "catalog:"
   },
   "dependencies": {
-    "react-aria": "^3.37.0"
+    "react-aria": "^3.37.0",
+    "@novawaveui/use-localstorage": "workspace:*"
   }
 }
