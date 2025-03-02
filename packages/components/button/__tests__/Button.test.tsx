@@ -122,9 +122,8 @@ describe('Button', () => {
 
   it('should ignore events when disabled', async () => {
     const onPress = vitest.fn();
-    const onClick = vitest.fn();
     const wrapper = render(
-      <Button disabled onPress={onPress}>
+      <Button isDisabled onPress={onPress}>
         Click Me
       </Button>,
       {
@@ -137,7 +136,6 @@ describe('Button', () => {
     await user.click(button);
 
     expect(onPress).not.toHaveBeenCalled();
-    expect(onClick).not.toHaveBeenCalled();
   });
 
   it('should call onPress when clicked', async () => {

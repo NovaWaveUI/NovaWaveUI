@@ -87,7 +87,10 @@ const preview = {
       toolbar: {
         title: 'Theme',
         icon: 'paintbrush',
-        items: [{ value: 'novawaveui', title: 'Default' }],
+        items: [
+          { value: 'novawaveui', title: 'Default' },
+          { value: 'example', title: 'Example' },
+        ],
         dynamicTitle: true,
       },
     },

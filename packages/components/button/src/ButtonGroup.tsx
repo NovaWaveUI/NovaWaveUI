@@ -7,21 +7,15 @@ export interface ButtonGroupProps extends UseButtonGroupProps {}
 
 const ButtonGroup = React.forwardRef(
   (props: ButtonGroupProps, ref: React.ForwardedRef<HTMLDivElement>) => {
-    const {
-      Component,
-      domRef,
-      styles,
-      getButtonGroupProps,
-      context,
-      children,
-    } = useButtonGroup({
-      ...props,
-      ref,
-    });
+    const { Component, domRef, styles, getSlotProps, context, children } =
+      useButtonGroup({
+        ...props,
+        ref,
+      });
 
     return (
       <ButtonGroupProvider value={context}>
-        <Component ref={domRef} className={styles} {...getButtonGroupProps()}>
+        <Component ref={domRef} className={styles} {...getSlotProps('base')}>
           {children}
         </Component>
       </ButtonGroupProvider>

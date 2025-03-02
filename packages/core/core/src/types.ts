@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * A generic component type that can be used to redner any HTML element.
+ * A generic component type that can be used to render any HTML element.
  */
 export type As<Props = any> = React.ElementType<Props>;
 
@@ -21,6 +21,9 @@ export type DataAttributes = {
   [dataAttr: string]: any;
 };
 
+/**
+ * A type that represents a valid DOM element.
+ */
 export type DOMAttributes<T = DOMElement> = React.AriaAttributes &
   React.DOMAttributes<T> &
   DataAttributes & {
@@ -61,15 +64,68 @@ export type NovaWaveUIProps<
   as?: As;
 };
 
+/**
+ * Merges two objects together.
+ */
 export type Merge<M, N> =
   N extends Record<string, unknown> ? M : Omit<M, keyof N> & N;
-
-export type PropGetter<P = Record<string, unknown>, R = DOMAttributes> = (
-  props?: Merge<DOMAttributes, P>,
-  ref?: React.Ref<any>
-) => R & React.RefAttributes<any>;
 
 export type RightJoinProps<
   SourceProps extends object = object,
   OverrideProps extends object = object,
 > = OmitCommonProps<SourceProps, keyof OverrideProps> & OverrideProps;
+
+/**
+ * The set of valid DOM event names.
+ */
+export const DOMEventNames = new Set([
+  'onCopy',
+  'onCut',
+  'onPaste',
+  'onLoad',
+  'onError',
+  'onWheel',
+  'onScroll',
+  'onCompositionEnd',
+  'onCompositionStart',
+  'onCompositionUpdate',
+  'onKeyDown',
+  'onKeyPress',
+  'onKeyUp',
+  'onFocus',
+  'onBlur',
+  'onChange',
+  'onInput',
+  'onSubmit',
+  'onClick',
+  'onContextMenu',
+  'onDoubleClick',
+  'onDrag',
+  'onDragEnd',
+  'onDragEnter',
+  'onDragExit',
+  'onDragLeave',
+  'onDragOver',
+  'onDragStart',
+  'onDrop',
+  'onMouseDown',
+  'onMouseEnter',
+  'onMouseLeave',
+  'onMouseMove',
+  'onMouseOut',
+  'onMouseOver',
+  'onMouseUp',
+  'onPointerDown',
+  'onPointerEnter',
+  'onPointerLeave',
+  'onPointerUp',
+  'onSelect',
+  'onTouchCancel',
+  'onTouchEnd',
+  'onTouchMove',
+  'onTouchStart',
+  'onAnimationStart',
+  'onAnimationEnd',
+  'onAnimationIteration',
+  'onTransitionEnd',
+]);
