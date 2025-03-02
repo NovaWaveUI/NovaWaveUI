@@ -1,2 +1,274 @@
 @import 'tailwindcss';
 @import '@novawaveui/theme/dist/theme.css';
+
+:root[data-theme='example-light'] {
+  --blue-marguerite-50: oklch(96.24% 0.02 274.82);
+  --blue-marguerite-100: oklch(92.93% 0.03 279.62);
+  --blue-marguerite-200: oklch(86.98% 0.06 279.57);
+  --blue-marguerite-300: oklch(78.33% 0.1 279.99);
+  --blue-marguerite-400: oklch(67.97% 0.14 281.87);
+  --blue-marguerite-500: oklch(56.33% 0.19 281.25);
+  --blue-marguerite-600: oklch(53.76% 0.2 284.59);
+  --blue-marguerite-700: oklch(48.04% 0.18 284.69);
+  --blue-marguerite-800: oklch(41.89% 0.15 284.17);
+  --blue-marguerite-900: oklch(37.64% 0.11 284.83);
+  --blue-marguerite-950: oklch(27.04% 0.07 288.69);
+
+  --coral-tree-50: oklch(97.67% 0.01 31.05);
+  --coral-tree-100: oklch(95.03% 0.01 17.41);
+  --coral-tree-200: oklch(90.74% 0.03 14.62);
+  --coral-tree-300: oklch(83.04% 0.05 15.06);
+  --coral-tree-400: oklch(73.53% 0.08 16.19);
+  --coral-tree-500: oklch(63.77% 0.11 16.81);
+  --coral-tree-600: oklch(59.59% 0.11 13.35);
+  --coral-tree-700: oklch(47.94% 0.11 13.23);
+  --coral-tree-800: oklch(42.93% 0.09 10.69);
+  --coral-tree-900: oklch(39.31% 0.08 8.77);
+  --coral-tree-950: oklch(25.95% 0.05 9.98);
+
+  --primary-50: var(--blue-marguerite-50);
+  --primary-100: var(--blue-marguerite-100);
+  --primary-200: var(--blue-marguerite-200);
+  --primary-300: var(--blue-marguerite-300);
+  --primary-400: var(--blue-marguerite-400);
+  --primary-500: var(--blue-marguerite-500);
+  --primary-600: var(--blue-marguerite-600);
+  --primary-700: var(--blue-marguerite-700);
+  --primary-800: var(--blue-marguerite-800);
+  --primary-900: var(--blue-marguerite-900);
+  --primary-950: var(--blue-marguerite-950);
+
+  --secondary-50: var(--coral-tree-50);
+  --secondary-100: var(--coral-tree-100);
+  --secondary-200: var(--coral-tree-200);
+  --secondary-300: var(--coral-tree-300);
+  --secondary-400: var(--coral-tree-400);
+  --secondary-500: var(--coral-tree-500);
+  --secondary-600: var(--coral-tree-600);
+  --secondary-700: var(--coral-tree-700);
+  --secondary-800: var(--coral-tree-800);
+  --secondary-900: var(--coral-tree-900);
+  --secondary-950: var(--coral-tree-950);
+
+  --neutral-background: var(--neutral-600);
+  --neutral-foreground: var(--neutral-50);
+  --primary-background: var(--primary-700);
+  --primary-foreground: var(--primary-50);
+  --secondary-background: var(--secondary-600);
+  --secondary-foreground: var(--secondary-50);
+  --success-background: var(--success-600);
+  --success-foreground: var(--success-50);
+  --warning-background: var(--warning-700);
+  --warning-foreground: var(--warning-50);
+  --danger-background: var(--danger-700);
+  --danger-foreground: var(--danger-50);
+
+  /* Surface */
+  --surface-neutral: var(--neutral-600);
+  --surface-neutral-subtle: var(--neutral-100);
+  --surface-neutral-emphasized: var(--neutral-800);
+  --surface-primary: var(--primary-700);
+  --surface-primary-subtle: var(--primary-100);
+  --surface-primary-emphasized: var(--primary-800);
+  --surface-secondary: var(--secondary-600);
+  --surface-secondary-subtle: var(--secondary-50);
+  --surface-secondary-emphasized: var(--secondary-800);
+  --surface-success: var(--success-600);
+  --surface-success-subtle: var(--success-50);
+  --surface-success-emphasized: var(--success-800);
+  --surface-warning: var(--warning-700);
+  --surface-warning-subtle: var(--warning-50);
+  --surface-warning-emphasized: var(--warning-800);
+  --surface-danger: var(--danger-700);
+  --surface-danger-subtle: var(--danger-50);
+  --surface-danger-emphasized: var(--danger-800);
+
+  /* Border */
+  --border-neutral: var(--neutral-600);
+  --border-neutral-subtle: var(--neutral-300);
+  --border-neutral-emphasized: var(--neutral-800);
+  --border-primary: var(--primary-700);
+  --border-primary-subtle: var(--primary-300);
+  --border-primary-emphasized: var(--primary-800);
+  --border-secondary: var(--secondary-600);
+  --border-secondary-subtle: var(--secondary-300);
+  --border-secondary-emphasized: var(--secondary-800);
+  --border-success: var(--success-600);
+  --border-success-subtle: var(--success-300);
+  --border-success-emphasized: var(--success-800);
+  --border-warning: var(--warning-700);
+  --border-warning-subtle: var(--warning-300);
+  --border-warning-emphasized: var(--warning-800);
+  --border-danger: var(--danger-700);
+  --border-danger-subtle: var(--danger-300);
+  --border-danger-emphasized: var(--danger-800);
+
+  /* Text */
+  --text-default: var(--neutral-900);
+  --text-subtle: var(--neutral-700);
+  --text-disabled: var(--neutral-500);
+  --text-inverse: var(--neutral-100);
+  --text-link: var(--primary-500);
+  --text-link-visited: var(--primary-700);
+  --text-link-disabled: var(--neutral-500);
+  --text-neutral: var(--neutral-800);
+  --text-on-neutral: var(--neutral-50);
+  --text-on-neutral-subtle: var(--neutral-100);
+  --text-on-neutral-subtle-subtle: var(--neutral-400);
+  --text-primary: var(--primary-800);
+  --text-on-primary: var(--primary-50);
+  --text-on-primary-subtle: var(--primary-100);
+  --text-on-primary-subtle-subtle: var(--primary-400);
+  --text-secondary: var(--secondary-800);
+  --text-on-secondary: var(--secondary-50);
+  --text-on-secondary-subtle: var(--secondary-100);
+  --text-on-secondary-subtle-subtle: var(--secondary-400);
+  --text-success: var(--success-800);
+  --text-on-success: var(--success-50);
+  --text-on-success-subtle: var(--success-100);
+  --text-on-success-subtle-subtle: var(--success-400);
+  --text-warning: var(--warning-800);
+  --text-on-warning: var(--warning-50);
+  --text-on-warning-subtle: var(--warning-100);
+  --text-on-warning-subtle-subtle: var(--warning-400);
+  --text-danger: var(--danger-800);
+  --text-on-danger: var(--danger-50);
+  --text-on-danger-subtle: var(--danger-100);
+  --text-on-danger-subtle-subtle: var(--danger-400);
+}
+
+:root[data-theme='example-dark'] {
+  --blue-marguerite-50: oklch(96.24% 0.02 274.82);
+  --blue-marguerite-100: oklch(92.93% 0.03 279.62);
+  --blue-marguerite-200: oklch(86.98% 0.06 279.57);
+  --blue-marguerite-300: oklch(78.33% 0.1 279.99);
+  --blue-marguerite-400: oklch(67.97% 0.14 281.87);
+  --blue-marguerite-500: oklch(56.33% 0.19 281.25);
+  --blue-marguerite-600: oklch(53.76% 0.2 284.59);
+  --blue-marguerite-700: oklch(48.04% 0.18 284.69);
+  --blue-marguerite-800: oklch(41.89% 0.15 284.17);
+  --blue-marguerite-900: oklch(37.64% 0.11 284.83);
+  --blue-marguerite-950: oklch(27.04% 0.07 288.69);
+
+  --coral-tree-50: oklch(97.67% 0.01 31.05);
+  --coral-tree-100: oklch(95.03% 0.01 17.41);
+  --coral-tree-200: oklch(90.74% 0.03 14.62);
+  --coral-tree-300: oklch(83.04% 0.05 15.06);
+  --coral-tree-400: oklch(73.53% 0.08 16.19);
+  --coral-tree-500: oklch(63.77% 0.11 16.81);
+  --coral-tree-600: oklch(59.59% 0.11 13.35);
+  --coral-tree-700: oklch(47.94% 0.11 13.23);
+  --coral-tree-800: oklch(42.93% 0.09 10.69);
+  --coral-tree-900: oklch(39.31% 0.08 8.77);
+  --coral-tree-950: oklch(25.95% 0.05 9.98);
+
+  --primary-50: var(--blue-marguerite-50);
+  --primary-100: var(--blue-marguerite-100);
+  --primary-200: var(--blue-marguerite-200);
+  --primary-300: var(--blue-marguerite-300);
+  --primary-400: var(--blue-marguerite-400);
+  --primary-500: var(--blue-marguerite-500);
+  --primary-600: var(--blue-marguerite-600);
+  --primary-700: var(--blue-marguerite-700);
+  --primary-800: var(--blue-marguerite-800);
+  --primary-900: var(--blue-marguerite-900);
+  --primary-950: var(--blue-marguerite-950);
+
+  --secondary-50: var(--coral-tree-50);
+  --secondary-100: var(--coral-tree-100);
+  --secondary-200: var(--coral-tree-200);
+  --secondary-300: var(--coral-tree-300);
+  --secondary-400: var(--coral-tree-400);
+  --secondary-500: var(--coral-tree-500);
+  --secondary-600: var(--coral-tree-600);
+  --secondary-700: var(--coral-tree-700);
+  --secondary-800: var(--coral-tree-800);
+  --secondary-900: var(--coral-tree-900);
+  --secondary-950: var(--coral-tree-950);
+
+  --neutral-background: var(--neutral-300);
+  --neutral-foreground: var(--neutral-950);
+  --primary-background: var(--primary-300);
+  --primary-foreground: var(--primary-950);
+  --secondary-background: var(--secondary-300);
+  --secondary-foreground: var(--secondary-950);
+  --success-background: var(--success-300);
+  --success-foreground: var(--success-950);
+  --warning-background: var(--warning-300);
+  --warning-foreground: var(--warning-950);
+  --danger-background: var(--danger-300);
+  --danger-foreground: var(--danger-950);
+
+  /* Surface */
+  --surface-neutral: var(--neutral-300);
+  --surface-neutral-subtle: var(--neutral-950);
+  --surface-neutral-emphasized: var(--neutral-100);
+  --surface-primary: var(--primary-300);
+  --surface-primary-subtle: var(--primary-950);
+  --surface-primary-emphasized: var(--primary-200);
+  --surface-secondary: var(--secondary-300);
+  --surface-secondary-subtle: var(--secondary-950);
+  --surface-secondary-emphasized: var(--secondary-200);
+  --surface-success: var(--success-400);
+  --surface-success-subtle: var(--success-950);
+  --surface-success-emphasized: var(--success-200);
+  --surface-warning: var(--warning-300);
+  --surface-warning-subtle: var(--warning-950);
+  --surface-warning-emphasized: var(--warning-200);
+  --surface-danger: var(--danger-300);
+  --surface-danger-subtle: var(--danger-950);
+  --surface-danger-emphasized: var(--danger-200);
+
+  /* Border */
+  --border-neutral: var(--neutral-300);
+  --border-neutral-subtle: var(--neutral-950);
+  --border-neutral-emphasized: var(--neutral-200);
+  --border-primary: var(--primary-300);
+  --border-primary-subtle: var(--primary-950);
+  --border-primary-emphasized: var(--primary-200);
+  --border-secondary: var(--secondary-300);
+  --border-secondary-subtle: var(--secondary-950);
+  --border-secondary-emphasized: var(--secondary-200);
+  --border-success: var(--success-400);
+  --border-success-subtle: var(--success-950);
+  --border-success-emphasized: var(--success-200);
+  --border-warning: var(--warning-300);
+  --border-warning-subtle: var(--warning-950);
+  --border-warning-emphasized: var(--warning-200);
+  --border-danger: var(--danger-300);
+  --border-danger-subtle: var(--danger-950);
+  --border-danger-emphasized: var(--danger-200);
+
+  /* Text */
+  --text-default: var(--neutral-100);
+  --text-subtle: var(--neutral-300);
+  --text-disabled: var(--neutral-500);
+  --text-inverse: var(--neutral-900);
+  --text-link: var(--primary-500);
+  --text-link-visited: var(--primary-300);
+  --text-link-disabled: var(--neutral-500);
+  --text-neutral: var(--neutral-200);
+  --text-on-neutral: var(--neutral-950);
+  --text-on-neutral-subtle: var(--neutral-900);
+  --text-on-neutral-subtle-subtle: var(--neutral-700);
+  --text-primary: var(--primary-200);
+  --text-on-primary: var(--primary-950);
+  --text-on-primary-subtle: var(--primary-900);
+  --text-on-primary-subtle-subtle: var(--primary-700);
+  --text-secondary: var(--secondary-200);
+  --text-on-secondary: var(--secondary-950);
+  --text-on-secondary-subtle: var(--secondary-900);
+  --text-on-secondary-subtle-subtle: var(--secondary-700);
+  --text-success: var(--success-200);
+  --text-on-success: var(--success-950);
+  --text-on-success-subtle: var(--success-900);
+  --text-on-success-subtle-subtle: var(--success-700);
+  --text-warning: var(--warning-200);
+  --text-on-warning: var(--warning-950);
+  --text-on-warning-subtle: var(--warning-900);
+  --text-on-warning-subtle-subtle: var(--warning-700);
+  --text-danger: var(--danger-200);
+  --text-on-danger: var(--danger-950);
+  --text-on-danger-subtle: var(--danger-900);
+  --text-on-danger-subtle-subtle: var(--danger-700);
+}

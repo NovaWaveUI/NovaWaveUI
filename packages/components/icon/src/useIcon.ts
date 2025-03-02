@@ -1,8 +1,12 @@
-import { NovaWaveUIProps, PropGetter, mergeProperties } from '@novawaveui/core';
+import {
+  NovaWaveUIProps,
+  mergeProperties,
+  useSlotProps,
+} from '@novawaveui/core';
 import { error } from '@novawaveui/dev-utils';
-import React, { cloneElement, useCallback, useMemo } from 'react';
-import { dataAttr } from '@novawaveui/aria-utils';
+import React, { cloneElement, useMemo } from 'react';
 import { iconStyles, IconVariantProps } from '@novawaveui/theme';
+import { dataAttr } from '@novawaveui/aria-utils';
 
 interface Props extends NovaWaveUIProps<'svg'> {
   /**
@@ -70,21 +74,25 @@ export const useIcon = (props: UseIconProps) => {
     [size, className]
   );
 
-  const getIconProps: PropGetter = useCallback(
-    (props = {}) => ({
-      'data-icon': iconName || label || undefined,
-      'aria-label': label || undefined,
-      'aria-hidden': dataAttr(isHidden),
-      role: isHidden ? 'presentation' : 'img',
-      className: styles,
-      ...mergeProperties(props, rest),
-    }),
-    [iconName, label, isHidden, rest]
-  );
+  const getSlotProps = useSlotProps('NovaWaveUI.Icon', {
+    base: {
+      dependencies: [iconName, label, isHidden, rest, size, className],
+      props: {
+        'aria-label': label || undefined,
+        'aria-hidden': dataAttr(isHidden),
+        role: isHidden ? 'presentation' : 'img',
+        ...mergeProperties(props, rest),
+      },
+      dataAttrs: {
+        icon: iconName || label || undefined,
+      },
+    },
+  });
 
   // Clone the element and add the custom properties
-  const Icon = cloneElement(children, {
-    ...getIconProps(),
+  const Icon = cloneElement(children as React.ReactElement<any>, {
+    className: styles,
+    ...getSlotProps('base'),
   });
 
   return Icon;
