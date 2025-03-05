@@ -10,7 +10,9 @@ import { useFocusRing } from '@react-aria/focus';
 import { useHover } from '@react-aria/interactions';
 import { mergeProps } from '@react-aria/utils';
 import { useDOMRef } from '@novawaveui/react-utils';
+import { useAnimate } from 'motion/react';
 import { useButtonGroupContext } from './ButtonGroupContext';
+import { useMergeRefs } from '@novawaveui/use-merge-refs';
 
 interface Props extends NovaWaveUIProps<'button'> {
   /**
@@ -70,7 +72,15 @@ export const useButton = (props: UseButtonProps) => {
   // Sets the root element
   const Component = as || 'button';
 
+  // Set up the animation controls
+  const [componentScope, componentAnimate] = useAnimate<HTMLButtonElement>();
+
+  // Create / assign the DOM ref
   const domRef = useDOMRef(ref);
+
+  // Merge the refs together to make sure everything is assigned correctly
+  const mergedRef = useMergeRefs(domRef, componentScope);
+
   const { buttonProps } = useRAButton(otherProps, domRef);
 
   // Set up the interactivity of the button
@@ -182,10 +192,11 @@ export const useButton = (props: UseButtonProps) => {
   return {
     Component,
     children,
-    domRef,
+    domRef: mergedRef,
     styles,
     getSlotProps,
     startContent,
     endContent,
+    componentAnimate,
   };
 };

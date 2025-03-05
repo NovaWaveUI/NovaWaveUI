@@ -17,6 +17,7 @@
     "clean:dist": "turbo run clean:dist",
     "clean": "turbo run clean && rm -rf node_modules",
     "create:component": "plop component",
+    "create:hook": "plop hook",
     "dev:css": "pnpm --filter @novawaveui/theme build:css --watch"
   },
   "keywords": [
