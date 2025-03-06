@@ -1,7 +1,10 @@
 {
   "extends": "@novawaveui/typescript-config/react-library.json",
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "framer-motion": ["./node_modules/framer-motion"]
+    }
   },
   "exclude": ["node_modules", "dist"],
   "include": ["src", "../../../vitest.d.ts", "__tests__"]
