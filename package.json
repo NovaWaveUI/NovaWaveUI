@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "turbo run build",
+    "build:fast": "turbo run build:fast --watch",
     "dev": "turbo watch dev",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",

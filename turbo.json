@@ -1,20 +1,16 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    /**
-     * Build libraries and outputs are the files in dist folder
-     */
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    /**
-     * Run libraries in dev mode (watch mode) and outputs are the files in dist folder
-     */
+    "build:fast": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build:fast"]
+    },
     "dev": {
-      "cache": false,
-      "dependsOn": ["^build"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+      "cache": false
     },
     "test": {
       "dependsOn": ["build", "lint", "^test"]

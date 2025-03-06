@@ -15,8 +15,6 @@ import { useFocusRing } from '@react-aria/focus';
 import { useHover } from '@react-aria/interactions';
 import { mergeProps } from '@react-aria/utils';
 import { useDOMRef } from '@novawaveui/react-utils';
-import { AnimateFunction, useMotion } from '@novawaveui/motion';
-import { AnimationScope } from '@novawaveui/motion/motion';
 import { useButtonGroupContext } from './ButtonGroupContext';
 
 interface Props extends NovaWaveUIProps<'button'> {
@@ -50,63 +48,7 @@ export type UseButtonProps = Props &
   Omit<AriaButtonProps, keyof ButtonVariantProps> &
   Omit<ButtonVariantProps, 'isVertical'>;
 
-/**
- * The useButton hook return type.
- *
- * The useButton hook provides the building blocks of the Button component.
- * The hook returns the base component (which is the native DOM element),
- * a ref to the button (either provided by the user or created by the hook),
- * the styles of the button, a function to get the properties for a slot,
- * the start and end content of the button, the animation scope, and a function
- * to animate the button.
- */
-export interface UseButtonReturn {
-  /**
-   * The base component to render
-   */
-  Component: As<any>;
-  /**
-   * The children of the button
-   */
-  children?: React.ReactNode;
-  /**
-   * The ref of the button
-   */
-  domRef:
-    | React.RefObject<HTMLButtonElement>
-    | React.RefCallback<HTMLButtonElement>
-    | null;
-  /**
-   * The styles of the button
-   */
-  styles: string;
-  /**
-   * A function for getting the properties for a slot
-   */
-  getSlotProps: <T extends HTMLElement = HTMLButtonElement>(
-    slotName: 'base',
-    extraProps?: Record<string, any>,
-    ref?: React.Ref<any>
-  ) => DOMAttributes<T>;
-  /**
-   * The content that goes before the children of the button
-   */
-  startContent?: React.ReactNode;
-  /**
-   * The content that goes after the children of the button
-   */
-  endContent?: React.ReactNode;
-  /**
-   * The animation scope of the component
-   */
-  scope: AnimationScope<HTMLButtonElement>;
-  /**
-   * A function to animate the button
-   */
-  animate: AnimateFunction;
-}
-
-export const useButton = (props: UseButtonProps): UseButtonReturn => {
+export const useButton = (props: UseButtonProps) => {
   const globalContext = useNovaWaveUI();
   const groupContext = useButtonGroupContext();
 
@@ -135,9 +77,6 @@ export const useButton = (props: UseButtonProps): UseButtonReturn => {
 
   // Create / assign the DOM ref
   const domRef = useDOMRef(ref);
-
-  // Set up the animation
-  const { ref: mergedRef, scope, animate } = useMotion(domRef);
 
   // Set up the React Aria button with the given props
   const { buttonProps, isPressed } = useRAButton(otherProps, domRef);
@@ -237,12 +176,10 @@ export const useButton = (props: UseButtonProps): UseButtonReturn => {
   return {
     Component,
     children,
-    domRef: mergedRef as React.RefObject<HTMLButtonElement>,
+    domRef,
     styles,
     getSlotProps,
     startContent,
     endContent,
-    animate,
-    scope,
   };
 };
