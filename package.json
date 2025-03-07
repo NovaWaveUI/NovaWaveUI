@@ -7,7 +7,7 @@
   "scripts": {
     "build": "turbo run build",
     "build:fast": "turbo run build:fast --watch",
-    "dev": "turbo watch dev",
+    "dev": "pnpm sb",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "format": "prettier --write .",

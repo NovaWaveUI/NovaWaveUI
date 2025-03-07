@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/filename-case */
 /* eslint-disable no-unused-vars */
-import { useLocalStorage } from '@novawaveui/use-localstorage';
 import React, { createContext, useEffect, useState } from 'react';
 import { I18nProvider, I18nProviderProps } from 'react-aria';
 

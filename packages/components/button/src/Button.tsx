@@ -29,6 +29,6 @@ const Button = React.forwardRef(
   }
 );
 
-Button.displayName = 'NovawaveUI.ButtonThing';
+Button.displayName = 'NovawaveUI.Button';
 
 export default Button;

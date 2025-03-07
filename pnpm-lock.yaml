@@ -537,6 +537,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.0.11
         version: 4.0.11(vite@6.2.0(@types/node@22.13.9)(jiti@2.4.2)(lightningcss@1.29.2))
+      '@vitejs/plugin-react':
+        specifier: ^4.3.4
+        version: 4.3.4(vite@6.2.0(@types/node@22.13.9)(jiti@2.4.2)(lightningcss@1.29.2))
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -654,7 +657,7 @@ importers:
         specifier: workspace:*
         version: link:../../tools/vite-config
       '@types/node':
-        specifier: ^22.13.8
+        specifier: ^22.13.9
         version: 22.13.9
       '@types/react':
         specifier: 'catalog:'

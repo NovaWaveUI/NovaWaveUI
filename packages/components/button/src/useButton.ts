@@ -1,12 +1,7 @@
 import type { ButtonVariantProps } from '@novawaveui/theme';
 
 import React, { useMemo } from 'react';
-import {
-  As,
-  DOMAttributes,
-  NovaWaveUIProps,
-  useSlotProps,
-} from '@novawaveui/core';
+import { NovaWaveUIProps, useSlotProps } from '@novawaveui/core';
 import { useNovaWaveUI } from '@novawaveui/provider';
 import { buttonStyles } from '@novawaveui/theme';
 import { AriaButtonProps } from '@react-types/button';
