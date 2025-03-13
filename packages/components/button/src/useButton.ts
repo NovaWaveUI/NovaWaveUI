@@ -7,7 +7,7 @@ import { buttonStyles } from '@novawaveui/theme';
 import { AriaButtonProps } from '@react-types/button';
 import { useButton as useRAButton } from '@react-aria/button';
 import { useFocusRing } from '@react-aria/focus';
-import { useHover } from '@react-aria/interactions';
+import { useHover, usePress } from '@react-aria/interactions';
 import { mergeProps } from '@react-aria/utils';
 import { useDOMRef } from '@novawaveui/react-utils';
 import { useButtonGroupContext } from './ButtonGroupContext';
@@ -73,14 +73,8 @@ export const useButton = (props: UseButtonProps) => {
   // Create / assign the DOM ref
   const domRef = useDOMRef(ref);
 
-  // Set up the React Aria button with the given props
-  const { buttonProps, isPressed } = useRAButton(otherProps, domRef);
-
   // Set up the interactivity of the button
-  const isDisabled = useMemo(
-    () => isDisabledProp || buttonProps.disabled,
-    [isDisabledProp, buttonProps.disabled]
-  );
+  const isDisabled = useMemo(() => isDisabledProp, [isDisabledProp]);
   const isLoading = useMemo(() => isLoadingProp, [isLoadingProp]);
   const isInteractive = useMemo(
     () => !isDisabled && !isLoading,
@@ -93,8 +87,11 @@ export const useButton = (props: UseButtonProps) => {
   });
 
   // Get the focus properties
-  const { focusProps, isFocusVisible, isFocused } = useFocusRing({
-    autoFocus: buttonProps.autoFocus,
+  const { focusProps, isFocusVisible, isFocused } = useFocusRing();
+
+  // Get the press properties
+  const { pressProps, isPressed } = usePress({
+    isDisabled: !isInteractive,
   });
 
   // Determine if the button is vertical based on the group context
@@ -134,6 +131,16 @@ export const useButton = (props: UseButtonProps) => {
     ]
   );
 
+  // Set up the React Aria button with the given props
+  const { buttonProps } = useRAButton(
+    {
+      elementType: as,
+      isDisabled,
+      ...otherProps,
+    } as AriaButtonProps,
+    domRef
+  );
+
   // Get the properties for the button
   const getSlotProps = useSlotProps(
     'NovaWaveUI.Button',
@@ -148,10 +155,18 @@ export const useButton = (props: UseButtonProps) => {
           buttonProps,
           focusProps,
           hoverProps,
+          pressProps,
           otherProps,
         ],
         props: {
-          ...mergeProps(buttonProps, focusProps, hoverProps, otherProps, props),
+          ...mergeProps(
+            buttonProps,
+            focusProps,
+            hoverProps,
+            pressProps,
+            otherProps,
+            props
+          ),
         },
         dataAttrs: {
           disabled: isDisabled,

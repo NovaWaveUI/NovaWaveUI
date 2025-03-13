@@ -16,7 +16,7 @@
   "scripts": {
     "build": "tsup src --dts",
     "build:fast": "tsup src",
-    "dev": "pnpm build:fast --watch",
+    "dev": "tsup src --dts --watch",
     "test": "vitest run",
     "test:watch": "vitest run --watch",
     "test:coverage": "vitest run --coverage",
@@ -33,6 +33,7 @@
     "@novawaveui/core": "^1.0.0",
     "@novawaveui/motion": "^1.0.0",
     "@novawaveui/theme": "^1.0.0",
+    "framer-motion": "^12.4.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

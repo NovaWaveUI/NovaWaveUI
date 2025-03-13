@@ -23,6 +23,7 @@ export const buttonStyles = tv({
     'text-wrap',
     'overflow-hidden',
     'data-[pressed=true]:scale-95',
+    'pointer-events-auto',
     ...dataFocusRing,
   ],
   variants: {
@@ -55,7 +56,7 @@ export const buttonStyles = tv({
       full: 'rounded-full',
     },
     isDisabled: {
-      true: 'pointer-events-none opacity-50',
+      true: '!pointer-events-none opacity-50',
     },
     isIconOnly: {
       true: 'px-0 !gap-0',
@@ -87,7 +88,7 @@ export const buttonStyles = tv({
     {
       color: 'neutral',
       variant: 'solid',
-      className: solid.neutral,
+      className: 'neutral-solid',
     },
     {
       color: 'primary',
@@ -147,32 +148,32 @@ export const buttonStyles = tv({
     {
       color: 'neutral',
       variant: 'light',
-      className: [light.neutral, 'data-[hover=true]:bg-neutral/20'],
+      className: light.neutral,
     },
     {
       color: 'primary',
       variant: 'light',
-      className: [light.primary, 'data-[hover=true]:bg-primary/20'],
+      className: light.primary,
     },
     {
       color: 'secondary',
       variant: 'light',
-      className: [light.secondary, 'data-[hover=true]:bg-secondary/20'],
+      className: light.secondary,
     },
     {
       color: 'success',
       variant: 'light',
-      className: [light.success, 'data-[hover=true]:bg-success/20'],
+      className: light.success,
     },
     {
       color: 'warning',
       variant: 'light',
-      className: [light.warning, 'data-[hover=true]:bg-warning/20'],
+      className: light.warning,
     },
     {
       color: 'danger',
       variant: 'light',
-      className: [light.danger, 'data-[hover=true]:bg-danger/20'],
+      className: light.danger,
     },
     {
       color: 'neutral',
