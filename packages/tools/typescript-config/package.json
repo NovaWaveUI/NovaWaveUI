@@ -7,6 +7,10 @@
   "publishConfig": {
     "access": "public"
   },
+  "exports": {
+    "./base.json": "./base.json",
+    "./react-library.json": "./react-library.json"
+  },
   "keywords": [],
   "author": "Kyle Gagnon",
   "license": "ISC"

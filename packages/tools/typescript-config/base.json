@@ -4,24 +4,29 @@
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
-    "inlineSources": false,
+    "sourceMap": true,
     "isolatedModules": true,
+    "target": "ESNext",
     "module": "ESNext",
+    "types": ["@testing-library/jest-dom"],
     "moduleResolution": "bundler",
-    "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "noEmit": false
   },
+  "include": [
+    "../../packages/components/*/src/**/*",
+    "../../packages/core/*/src/**/*",
+    "../../packages/utils/*/src/**/*"
+  ],
   "exclude": [
     "node_modules",
     "dist",
     "**/*.test.ts",
     "**/*.test.tsx",
-    "__tests__"
+    "__tests__",
+    "**/*.stories.tsx"
   ]
 }

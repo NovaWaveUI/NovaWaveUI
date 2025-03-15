@@ -1,4 +1,5 @@
 import type { Meta } from '@storybook/react';
+import { fn } from '@storybook/test';
 import { Button } from '../src/index';
 import { buttonStyles } from '@novawaveui/theme';
 import { ButtonProps } from '../src/Button';
@@ -8,7 +9,7 @@ const iconNames = Object.keys(
   heroIcons.solid
 ) as (keyof typeof heroIcons.solid)[];
 
-const meta = {
+const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
   argTypes: {
@@ -71,6 +72,9 @@ const meta = {
       ),
       control: { type: 'select' },
     },
+  },
+  args: {
+    onPress: fn(),
   },
 } satisfies Meta<typeof Button>;
 

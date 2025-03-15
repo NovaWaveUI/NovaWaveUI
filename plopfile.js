@@ -21,7 +21,7 @@ const camelCase = str => {
 /**
  * The list of things to generate using plop.
  */
-const generators = ['component'];
+const generators = ['component', 'hook'];
 
 /**
  * The list of workspaces under packages/*.
@@ -73,6 +73,11 @@ export default function (plop) {
             // The name can't have spaces
             if (value.includes(' ')) {
               return `${gen} name cannot have any spaces`;
+            }
+
+            // If it is a hook, it must start with use
+            if (gen === 'hook' && !value.startsWith('use')) {
+              return `Hooks must start with 'use'`;
             }
 
             return true;

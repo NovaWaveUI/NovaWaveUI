@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsup src --dts",
     "build:fast": "tsup src",
-    "dev": "pnpm build --watch",
+    "dev": "tsup src --dts --watch",
     "test": "echo \"No test can be run\" && exit 0",
     "lint": "eslint",
     "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",

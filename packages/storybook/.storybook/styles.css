@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import '@novawaveui/theme/dist/theme.css';
+@import '@novawaveui/theme/theme.css';
 
 :root[data-theme='example'] {
   --blue-marguerite-50: oklch(96.24% 0.02 274.82);

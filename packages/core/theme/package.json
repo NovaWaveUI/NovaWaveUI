@@ -8,7 +8,7 @@
     "dist/"
   ],
   "exports": {
-    "./dist/theme.css": "./dist/theme.css",
+    "./theme.css": "./theme.css",
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.cjs",
@@ -21,7 +21,7 @@
     "build:fast-ts": "tsup src",
     "build:ts": "tsup src --dts",
     "build:css": "tailwindcss -i theme.css -o ./dist/theme.css --minify",
-    "dev": "pnpm build --watch",
+    "dev": "tsup src --dts --watch",
     "test": "echo 'No test scripts for the theme package.'",
     "lint": "eslint",
     "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",

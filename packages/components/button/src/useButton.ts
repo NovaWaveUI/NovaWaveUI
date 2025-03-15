@@ -7,7 +7,7 @@ import { buttonStyles } from '@novawaveui/theme';
 import { AriaButtonProps } from '@react-types/button';
 import { useButton as useRAButton } from '@react-aria/button';
 import { useFocusRing } from '@react-aria/focus';
-import { useHover } from '@react-aria/interactions';
+import { useHover, usePress } from '@react-aria/interactions';
 import { mergeProps } from '@react-aria/utils';
 import { useDOMRef } from '@novawaveui/react-utils';
 import { useButtonGroupContext } from './ButtonGroupContext';
@@ -70,14 +70,11 @@ export const useButton = (props: UseButtonProps) => {
   // Sets the root element
   const Component = as || 'button';
 
+  // Create / assign the DOM ref
   const domRef = useDOMRef(ref);
-  const { buttonProps } = useRAButton(otherProps, domRef);
 
   // Set up the interactivity of the button
-  const isDisabled = useMemo(
-    () => isDisabledProp || buttonProps.disabled,
-    [isDisabledProp, buttonProps.disabled]
-  );
+  const isDisabled = useMemo(() => isDisabledProp, [isDisabledProp]);
   const isLoading = useMemo(() => isLoadingProp, [isLoadingProp]);
   const isInteractive = useMemo(
     () => !isDisabled && !isLoading,
@@ -89,8 +86,12 @@ export const useButton = (props: UseButtonProps) => {
     isDisabled: !isInteractive,
   });
 
-  const { focusProps, isFocusVisible, isFocused } = useFocusRing({
-    autoFocus: buttonProps.autoFocus,
+  // Get the focus properties
+  const { focusProps, isFocusVisible, isFocused } = useFocusRing();
+
+  // Get the press properties
+  const { pressProps, isPressed } = usePress({
+    isDisabled: !isInteractive,
   });
 
   // Determine if the button is vertical based on the group context
@@ -130,12 +131,13 @@ export const useButton = (props: UseButtonProps) => {
     ]
   );
 
-  const { buttonProps: ariaButtonProps, isPressed } = useRAButton(
+  // Set up the React Aria button with the given props
+  const { buttonProps } = useRAButton(
     {
-      elementType: Component,
+      elementType: as,
       isDisabled,
       ...otherProps,
-    },
+    } as AriaButtonProps,
     domRef
   );
 
@@ -150,16 +152,18 @@ export const useButton = (props: UseButtonProps) => {
           isFocused,
           isFocusVisible,
           isHovered,
-          ariaButtonProps,
+          buttonProps,
           focusProps,
           hoverProps,
+          pressProps,
           otherProps,
         ],
         props: {
           ...mergeProps(
-            ariaButtonProps,
+            buttonProps,
             focusProps,
             hoverProps,
+            pressProps,
             otherProps,
             props
           ),

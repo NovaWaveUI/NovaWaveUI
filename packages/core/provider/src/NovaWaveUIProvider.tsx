@@ -1,7 +1,6 @@
 /* eslint-disable unicorn/filename-case */
 /* eslint-disable no-unused-vars */
-import { useLocalStorage } from '@novawaveui/use-localstorage';
-import React, { createContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { I18nProvider, I18nProviderProps } from 'react-aria';
 
 export type ThemeMode = 'light' | 'dark';
@@ -69,12 +68,8 @@ export const NovaWaveUIProvider = ({
   disableAnimations: disableAnimationsProp = false,
   locale = 'en-us',
 }: NovaWaveUIProviderProps) => {
-  const isLocalStorageAvailable = useMemo(() => useLocalStorage(), []);
-
   const [currentTheme, setCurrentTheme] = useState<string>(() => {
-    const storedTheme = isLocalStorageAvailable
-      ? localStorage.getItem('novawaveui.theme')
-      : undefined;
+    const storedTheme = localStorage.getItem('novawaveui.theme');
 
     return storedTheme ?? theme;
   });
@@ -83,9 +78,7 @@ export const NovaWaveUIProvider = ({
     // Use the passed in mode if it exists
     if (mode) return mode;
 
-    const storedMode = isLocalStorageAvailable
-      ? (localStorage.getItem('novawaveui.mode') as ThemeMode)
-      : undefined;
+    const storedMode = localStorage.getItem('novawaveui.mode') as ThemeMode;
 
     if (storedMode) return storedMode;
 
@@ -105,16 +98,12 @@ export const NovaWaveUIProvider = ({
 
   useEffect(() => {
     document.documentElement.dataset.theme = `${currentTheme}`;
-    if (isLocalStorageAvailable) {
-      localStorage.setItem('novawaveui.theme', currentTheme);
-    }
+    localStorage.setItem('novawaveui.theme', currentTheme);
   }, [currentTheme]);
 
   useEffect(() => {
     document.documentElement.dataset.mode = `${currentMode}`;
-    if (isLocalStorageAvailable) {
-      localStorage.setItem('novawaveui.mode', currentMode);
-    }
+    localStorage.setItem('novawaveui.mode', currentMode);
   }, [currentMode]);
 
   return (

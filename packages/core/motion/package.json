@@ -1,0 +1,60 @@
+{
+  "name": "@novawaveui/motion",
+  "version": "1.0.0",
+  "description": "The package contains motion capabilities for the NovaWaveUI framework. It contains custom hooks and utilities for creating animations while exporting the motion library.",
+  "type": "module",
+  "files": [
+    "dist/"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    },
+    "./motion": {
+      "types": "./dist/motion.d.ts",
+      "require": "./dist/motion.cjs",
+      "import": "./dist/motion.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "require": "./dist/react.cjs",
+      "import": "./dist/react.js"
+    }
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "dependencies": {
+    "@novawaveui/use-merge-refs": "workspace:*",
+    "framer-motion": "^12.4.10",
+    "motion": "catalog:"
+  },
+  "devDependencies": {
+    "@novawaveui/eslint-config": "workspace:*",
+    "@novawaveui/typescript-config": "workspace:*",
+    "@novawaveui/vite-config": "workspace:*",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "scripts": {
+    "build": "tsup src --dts",
+    "build:fast": "tsup src",
+    "dev": "tsup src --dts --watch",
+    "test": "vitest run",
+    "test:watch": "vitest run --watch",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint",
+    "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",
+    "clean:dist": "rm -rf dist",
+    "clean:node_modules": "rm -rf node_modules",
+    "clean": "pnpm run clean:dist && pnpm run clean:node_modules"
+  },
+  "keywords": [],
+  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
+  "license": "ISC"
+}

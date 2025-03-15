@@ -12,6 +12,7 @@ dist/
 
 # Storybook
 *storybook.log
+storybook-static/
 
 # Coverage
 coverage/

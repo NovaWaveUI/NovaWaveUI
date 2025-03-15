@@ -32,7 +32,7 @@
   "scripts": {
     "build": "tsup src --dts",
     "build:fast": "tsup src",
-    "dev": "pnpm build --watch",
+    "dev": "tsup src --dts --watch",
     "test": "vitest run",
     "test:watch": "vitest run --watch",
     "test:coverage": "vitest run --coverage",
