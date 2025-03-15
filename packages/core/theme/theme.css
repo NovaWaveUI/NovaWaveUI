@@ -6,6 +6,8 @@
  * - Surface: Surface is used to define the background color of a component (e.g. card, modal, etc.)
  */
 
+@source 'dist/';
+
 :root {
   /* Cool Gray */
   --cool-gray-50: oklch(97.74% 0.0042 236.5);
@@ -1115,5 +1117,192 @@
   --opacity-hover: var(--opacity-hover);
 }
 
+/* Custom short-hand data variants */
 @custom-variant data-hover (&[data-hover="true"]);
 @custom-variant data-pressed (&[data-pressed="true"]);
+
+/* Commonly used text styles */
+.neutral-text-only {
+  @apply text-neutral data-hover:text-neutral-hover data-pressed:text-neutral-active;
+}
+
+.primary-text-only {
+  @apply text-primary data-hover:text-primary-hover data-pressed:text-primary-active;
+}
+
+.secondary-text-only {
+  @apply text-secondary data-hover:text-secondary-hover data-pressed:text-secondary-active;
+}
+
+.success-text-only {
+  @apply text-success data-hover:text-success-hover data-pressed:text-success-active;
+}
+
+.warning-text-only {
+  @apply text-warning data-hover:text-warning-hover data-pressed:text-warning-active;
+}
+
+.danger-text-only {
+  @apply text-danger data-hover:text-danger-hover data-pressed:text-danger-active;
+}
+
+/* Custom commonly used styles */
+.neutral-solid {
+  @apply bg-neutral-background data-hover:bg-neutral-background-hover data-pressed:bg-neutral-background-hover;
+  @apply text-neutral-foreground data-hover:text-neutral-foreground-hover data-pressed:text-neutral-foreground-active;
+}
+
+.primary-solid {
+  @apply bg-primary-background data-hover:bg-primary-background-hover data-pressed:bg-primary-background-active;
+  @apply text-primary-foreground data-hover:text-primary-foreground-hover data-pressed:text-primary-foreground-active;
+}
+
+.secondary-solid {
+  @apply bg-secondary-background data-hover:bg-secondary-background-hover data-pressed:bg-secondary-background-active;
+  @apply text-secondary-foreground data-hover:text-secondary-foreground-hover data-pressed:text-secondary-foreground-active;
+}
+
+.success-solid {
+  @apply bg-success-background data-hover:bg-success-background-hover data-pressed:bg-success-background-active;
+  @apply text-success-foreground data-hover:text-success-foreground-hover data-pressed:text-success-foreground-active;
+}
+
+.warning-solid {
+  @apply bg-warning-background data-hover:bg-warning-background-hover data-pressed:bg-warning-background-active;
+  @apply text-warning-foreground data-hover:text-warning-foreground-hover data-pressed:text-warning-foreground-active;
+}
+
+.danger-solid {
+  @apply bg-danger-background data-hover:bg-danger-background-hover data-pressed:bg-danger-background-active;
+  @apply text-danger-foreground data-hover:text-danger-foreground-hover data-pressed:text-danger-foreground-active;
+}
+
+/* Bordered */
+.neutral-bordered {
+  @apply border-neutral data-hover:border-neutral-hover data-pressed:border-neutral-active;
+  @apply text-neutral data-hover:text-neutral-hover data-pressed:text-neutral-active;
+}
+
+.primary-bordered {
+  @apply border-primary data-hover:border-primary-hover data-pressed:border-primary-active;
+  @apply text-primary data-hover:text-primary-hover data-pressed:text-primary-active;
+}
+
+.secondary-bordered {
+  @apply border-secondary data-hover:border-secondary-hover data-pressed:border-secondary-active;
+  @apply text-secondary data-hover:text-secondary-hover data-pressed:text-secondary-active;
+}
+
+.success-bordered {
+  @apply border-success data-hover:border-success-hover data-pressed:border-success-active;
+  @apply text-success data-hover:text-success-hover data-pressed:text-success-active;
+}
+
+.warning-bordered {
+  @apply border-warning data-hover:border-warning-hover data-pressed:border-warning-active;
+  @apply text-warning data-hover:text-warning-hover data-pressed:text-warning-active;
+}
+
+.danger-bordered {
+  @apply border-danger data-hover:border-danger-hover data-pressed:border-danger-active;
+  @apply text-danger data-hover:text-danger-hover data-pressed:text-danger-active;
+}
+
+/* Ghost */
+.neutral-ghost {
+  @apply data-hover:bg-neutral data-pressed:bg-neutral-background-hover;
+  @apply text-neutral data-hover:text-neutral-foreground data-pressed:text-neutral-foreground-hover;
+  @apply border-neutral data-hover:border-neutral data-pressed:border-neutral-hover;
+}
+
+.primary-ghost {
+  @apply data-hover:bg-primary data-pressed:bg-primary-background-hover;
+  @apply text-primary data-hover:text-primary-foreground data-pressed:text-primary-foreground-hover;
+  @apply border-primary data-hover:border-primary data-pressed:border-primary-hover;
+}
+
+.secondary-ghost {
+  @apply data-hover:bg-secondary data-pressed:bg-secondary-background-hover;
+  @apply text-secondary data-hover:text-secondary-foreground data-pressed:text-secondary-foreground-hover;
+  @apply border-secondary data-hover:border-secondary data-pressed:border-secondary-hover;
+}
+
+.success-ghost {
+  @apply data-hover:bg-success data-pressed:bg-success-background-hover;
+  @apply text-success data-hover:text-success-foreground data-pressed:text-success-foreground-hover;
+  @apply border-success data-hover:border-success data-pressed:border-success-hover;
+}
+
+.warning-ghost {
+  @apply data-hover:bg-warning data-pressed:bg-warning-background-hover;
+  @apply text-warning data-hover:text-warning-foreground data-pressed:text-warning-foreground-hover;
+  @apply border-warning data-hover:border-warning data-pressed:border-warning-hover;
+}
+
+.danger-ghost {
+  @apply data-hover:bg-danger data-pressed:bg-danger-background-hover;
+  @apply text-danger data-hover:text-danger-foreground data-pressed:text-danger-foreground-hover;
+  @apply border-danger data-hover:border-danger data-pressed:border-danger-hover;
+}
+
+/* Light */
+.neutral-light {
+  @apply text-neutral data-hover:text-neutral-hover data-pressed:text-neutral-active;
+  @apply data-hover:bg-neutral-subtle data-pressed:bg-neutral-subtle;
+}
+
+.primary-light {
+  @apply text-primary data-hover:text-primary-hover data-pressed:text-primary-active;
+  @apply data-hover:bg-primary-subtle data-pressed:bg-primary-subtle;
+}
+
+.secondary-light {
+  @apply text-secondary data-hover:text-secondary-hover data-pressed:text-secondary-active;
+  @apply data-hover:bg-secondary-subtle data-pressed:bg-secondary-subtle;
+}
+
+.success-light {
+  @apply text-success data-hover:text-success-hover data-pressed:text-success-active;
+  @apply data-hover:bg-success-subtle data-pressed:bg-success-subtle;
+}
+
+.warning-light {
+  @apply text-warning data-hover:text-warning-hover data-pressed:text-warning-active;
+  @apply data-hover:bg-warning-subtle data-pressed:bg-warning-subtle;
+}
+
+.danger-light {
+  @apply text-danger data-hover:text-danger-hover data-pressed:text-danger-active;
+  @apply data-hover:bg-danger-subtle data-pressed:bg-danger-subtle;
+}
+
+/* Faded */
+.neutral-faded {
+  @apply text-neutral data-hover:text-neutral-hover data-pressed:text-neutral-active;
+  @apply bg-neutral-subtle data-hover:bg-neutral-subtle-hover data-pressed:bg-neutral-subtle-active;
+}
+
+.primary-faded {
+  @apply text-primary data-hover:text-primary-hover data-pressed:text-primary-active;
+  @apply bg-primary-subtle data-hover:bg-primary-subtle-hover data-pressed:bg-primary-subtle-active;
+}
+
+.secondary-faded {
+  @apply text-secondary data-hover:text-secondary-hover data-pressed:text-secondary-active;
+  @apply bg-secondary-subtle data-hover:bg-secondary-subtle-hover data-pressed:bg-secondary-subtle-active;
+}
+
+.success-faded {
+  @apply text-success data-hover:text-success-hover data-pressed:text-success-active;
+  @apply bg-success-subtle data-hover:bg-success-subtle-hover data-pressed:bg-success-subtle-active;
+}
+
+.warning-faded {
+  @apply text-warning data-hover:text-warning-hover data-pressed:text-warning-active;
+  @apply bg-warning-subtle data-hover:bg-warning-subtle-hover data-pressed:bg-warning-subtle-active;
+}
+
+.danger-faded {
+  @apply text-danger data-hover:text-danger-hover data-pressed:text-danger-active;
+  @apply bg-danger-subtle data-hover:bg-danger-subtle-hover data-pressed:bg-danger-subtle-active;
+}
