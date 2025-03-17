@@ -1,23 +1,4 @@
 {
-  "$schema": "http://json.schemastore.org/tsconfig",
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "types": ["@testing-library/jest-dom"],
-    "lib": ["ESNext", "DOM"],
-    "declaration": true,
-    "sourceMap": true,
-    "moduleResolution": "bundler",
-    "skipLibCheck": true,
-    "isolatedModules": true,
-    "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    "jsx": "react-jsx",
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "noImplicitAny": false
-  },
-  "include": ["packages"],
-  "exclude": ["**/node_modules", "**/dist", "**/.turbo"]
+  "schema": "http://json.schemastore.org/tsconfig",
+  "extends": "./packages/tools/typescript-config/base.json"
 }

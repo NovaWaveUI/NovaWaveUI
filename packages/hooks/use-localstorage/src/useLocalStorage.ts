@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import { useMemo } from 'react';
 
 export interface LocalStorageOptions {

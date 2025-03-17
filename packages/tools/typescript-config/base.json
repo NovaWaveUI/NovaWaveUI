@@ -1,32 +1,28 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "declaration": true,
-    "declarationMap": true,
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "isolatedModules": true,
+    "composite": false,
+    "forceConsistentCasingInFileNames": true,
+    "allowImportingTsExtensions": true,
     "target": "ESNext",
     "module": "ESNext",
-    "types": ["@testing-library/jest-dom"],
     "moduleResolution": "bundler",
-    "skipLibCheck": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
     "strict": true,
-    "strictNullChecks": true,
-    "noImplicitAny": false,
-    "noEmit": false
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "noEmit": true,
+    "preserveWatchOutput": true,
+    "noImplicitAny": false
   },
-  "include": [
-    "../../packages/components/*/src/**/*",
-    "../../packages/core/*/src/**/*",
-    "../../packages/utils/*/src/**/*"
-  ],
   "exclude": [
     "node_modules",
     "dist",
-    "**/*.test.ts",
+    "**/__tests__/**",
+    "**/*.tests.ts",
     "**/*.test.tsx",
-    "__tests__",
     "**/*.stories.tsx"
   ]
 }

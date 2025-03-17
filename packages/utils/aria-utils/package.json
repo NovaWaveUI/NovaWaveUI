@@ -16,12 +16,12 @@
   "devDependencies": {
     "@novawaveui/eslint-config": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
+    "@novawaveui/vite-config": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:"
   },
   "scripts": {
     "build": "tsup src --dts",
-    "build:fast": "tsup src",
     "dev": "tsup src --dts --watch",
     "test": "vitest run",
     "test:watch": "vitest run --watch",

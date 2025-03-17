@@ -7,9 +7,9 @@ import { axe } from 'jest-axe';
 import userEvent, { UserEvent } from '@testing-library/user-event';
 import Button from '../src/Button';
 
-const ProviderWrapper = ({ children }) => (
-  <NovaWaveUIProvider>{children}</NovaWaveUIProvider>
-);
+const ProviderWrapper: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => <NovaWaveUIProvider>{children}</NovaWaveUIProvider>;
 
 describe('Button', () => {
   let user: UserEvent;

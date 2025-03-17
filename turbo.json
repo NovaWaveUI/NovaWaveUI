@@ -5,12 +5,7 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "build:fast": {
-      "outputs": ["dist/**"],
-      "dependsOn": ["^build:fast"]
-    },
     "dev": {
-      "dependsOn": ["build"],
       "persistent": true,
       "cache": false
     },

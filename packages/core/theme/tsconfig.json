@@ -1,5 +1,5 @@
 {
-  "extends": "@novawaveui/typescript-config/react-library.json",
+  "extends": "@novawaveui/typescript-config/base.json",
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist"

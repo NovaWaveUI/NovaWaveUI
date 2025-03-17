@@ -17,11 +17,10 @@
   },
   "scripts": {
     "build": "pnpm run build:ts && pnpm run build:css",
-    "build:fast": " pnpm run build:fast-ts",
     "build:fast-ts": "tsup src",
     "build:ts": "tsup src --dts",
-    "build:css": "tailwindcss -i theme.css -o ./dist/theme.css --minify",
     "dev": "tsup src --dts --watch",
+    "build:css": "tailwindcss -i theme.css -o ./dist/theme.css --minify",
     "test": "echo 'No test scripts for the theme package.'",
     "lint": "eslint",
     "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",

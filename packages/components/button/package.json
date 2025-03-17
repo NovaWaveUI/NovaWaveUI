@@ -15,7 +15,6 @@
   },
   "scripts": {
     "build": "tsup src --dts",
-    "build:fast": "tsup src",
     "dev": "tsup src --dts --watch",
     "test": "vitest run",
     "test:watch": "vitest run --watch",
@@ -41,11 +40,12 @@
     "@novawaveui/aria-utils": "workspace:*",
     "@novawaveui/react-utils": "workspace:*",
     "@novawaveui/use-merge-refs": "workspace:*",
-    "@react-aria/button": "^3.11.1",
+    "@react-aria/button": "^3.12.1",
     "@react-aria/focus": "catalog:",
     "@react-aria/interactions": "catalog:",
+    "@react-aria/overlays": "^3.26.1",
     "@react-aria/utils": "catalog:",
-    "@react-types/button": "^3.10.2",
+    "@react-types/button": "^3.11.0",
     "@react-types/shared": "catalog:"
   },
   "devDependencies": {
@@ -59,7 +59,7 @@
     "@novawaveui/vite-config": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "framer-motion": "^12.4.10",
+    "framer-motion": "^12.5.0",
     "react": "catalog:",
     "react-dom": "catalog:"
   }

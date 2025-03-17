@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "allowJs": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "target": "ES2020",
+    "module": "Node16",
+    "moduleResolution": "node16",
+    "types": ["node", "vitest/globals"]
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "exclude": ["node_modules", "dist", "test/fixtures", "test/fixtures/*"]
+}

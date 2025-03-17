@@ -4,7 +4,6 @@
   "description": "The NovaWaveUI provider is used to provide the theme and other global settings to the rest of the NovaWaveUI components.",
   "scripts": {
     "build": "tsup src --dts",
-    "build:fast": "tsup src",
     "dev": "tsup src --dts --watch",
     "test": "echo \"No test can be run\" && exit 0",
     "lint": "eslint",
