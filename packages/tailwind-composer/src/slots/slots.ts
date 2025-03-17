@@ -67,14 +67,34 @@ export function createSlottedVariants<
 
       // Apply Compound Variants
       for (const compoundVariant of compoundVariants) {
-        let matches = true;
+        let matches = true; // Assume it matches
 
         for (const key in compoundVariant) {
-          if (key === 'className' || key === 'class') continue;
+          if (key === 'className' || key === 'class') continue; // Skip class properties
 
-          const expectedValue = compoundVariant[key];
-          const resolvedValue = resolvedValues[key];
+          let expectedValue = compoundVariant[key];
+          let resolvedValue = resolvedValues[key];
 
+          // ✅ Normalize Boolean Handling (Ensuring true/false match correctly)
+          if (
+            Object.keys(variants[key] ?? {}).length <= 2 &&
+            ['true', 'false'].some(v => v in variants[key])
+          ) {
+            expectedValue =
+              expectedValue === true
+                ? 'true'
+                : expectedValue === false
+                  ? 'false'
+                  : expectedValue;
+            resolvedValue =
+              resolvedValue === 'true'
+                ? 'true'
+                : resolvedValue === 'false'
+                  ? 'false'
+                  : resolvedValue;
+          }
+
+          // ✅ Ensure values match correctly
           if (Array.isArray(expectedValue)) {
             if (!expectedValue.includes(resolvedValue)) {
               matches = false;
@@ -88,17 +108,19 @@ export function createSlottedVariants<
           }
         }
 
+        // ✅ If all conditions matched, apply the styles for the correct slot
         if (matches) {
-          // In className and class they contain a record of the slots that it applies to
-          // and the className to apply
-          const className =
+          // Ensure `className` and `class` exist and contain slot styles
+          const classStyles =
             compoundVariant.className ?? compoundVariant.class ?? {};
 
-          // If the className exists, merge the new style
-          resultingStyle = twMerge(
-            resultingStyle,
-            mergeClassNames(className[slot])
-          );
+          // ✅ Merge the styles only if they exist for the current slot
+          if (classStyles[slot]) {
+            resultingStyle = twMerge(
+              resultingStyle,
+              mergeClassNames(classStyles[slot])
+            );
+          }
         }
       }
 

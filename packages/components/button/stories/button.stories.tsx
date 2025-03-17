@@ -1,7 +1,7 @@
 import type { Meta } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { Button } from '../src/index';
-import { buttonStyles } from '@novawaveui/theme';
+import { buttonStyles, testButtonStyles } from '@novawaveui/theme';
 import { ButtonProps } from '../src/Button';
 import { heroIcons, NovaWaveIcon } from '@novawaveui/novawaveicon';
 
@@ -198,5 +198,37 @@ export const IconOnly = {
     children: undefined,
     isIconOnly: true,
     startContent: 'StarIcon',
+  },
+};
+
+export const CustomButton = {
+  render: Template,
+  args: {
+    children: 'Button',
+    color: 'teal',
+    size: 'xl',
+    variant: 'solid',
+    someOtherVariant: 'someOtherValueTwo',
+    customStyle: testButtonStyles.extend({
+      variants: {
+        color: {
+          teal: '',
+        },
+        size: {
+          xl: 'w-12 h-12',
+        },
+        someOtherVariant: {
+          someOtherValue: 'someOtherClass',
+          someOtherValueTwo: 'someOtherClassTwo',
+        },
+      },
+      compoundVariants: [
+        {
+          color: 'teal',
+          variant: 'solid',
+          className: 'teal-solid',
+        },
+      ],
+    }),
   },
 };

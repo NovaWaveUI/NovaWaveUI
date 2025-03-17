@@ -1,9 +1,17 @@
-import type { ButtonVariantProps } from '@novawaveui/theme';
+import type {
+  TestButtonStyles,
+  ExtractVariantProps,
+  NonSlotVariantReturn,
+} from '@novawaveui/theme';
 
 import React, { useMemo } from 'react';
-import { NovaWaveUIProps, useSlotProps } from '@novawaveui/core';
+import {
+  extractNewVariantProps,
+  NovaWaveUIProps,
+  useSlotProps,
+} from '@novawaveui/core';
 import { useNovaWaveUI } from '@novawaveui/provider';
-import { buttonStyles } from '@novawaveui/theme';
+import { testButtonStyles } from '@novawaveui/theme';
 import { AriaButtonProps } from '@react-types/button';
 import { useButton as useRAButton } from '@react-aria/button';
 import { useFocusRing } from '@react-aria/focus';
@@ -39,16 +47,25 @@ interface Props extends NovaWaveUIProps<'button'> {
   endContent?: React.ReactNode;
 }
 
-export type UseButtonProps = Props &
-  Omit<AriaButtonProps, keyof ButtonVariantProps> &
-  Omit<ButtonVariantProps, 'isVertical'>;
+export type UseButtonProps<
+  TStyle extends NonSlotVariantReturn<any> = TestButtonStyles,
+> = Props &
+  Omit<AriaButtonProps, keyof ExtractVariantProps<TStyle & TestButtonStyles>> &
+  ExtractVariantProps<TStyle & TestButtonStyles> & {
+    customStyle?: TStyle;
+  };
 
-export const useButton = (props: UseButtonProps) => {
+export const useButton = <
+  TStyle extends NonSlotVariantReturn<any> = TestButtonStyles,
+>(
+  props: UseButtonProps<TStyle>
+) => {
   const globalContext = useNovaWaveUI();
   const groupContext = useButtonGroupContext();
 
   const {
     as,
+    customStyle: styleProp = testButtonStyles,
     ref,
     variant = groupContext?.variant ?? 'solid',
     color = groupContext?.color ?? 'neutral',
@@ -66,6 +83,20 @@ export const useButton = (props: UseButtonProps) => {
     className,
     ...otherProps
   } = props;
+
+  // Get the styles (use the global context, then the provided style, then the default style)
+  const style = useMemo(
+    () => globalContext?.globalStyles?.button ?? styleProp,
+    [globalContext?.globalStyles?.button, styleProp]
+  );
+
+  const newVariantProps = extractNewVariantProps(
+    props,
+    style,
+    testButtonStyles
+  );
+
+  console.log(newVariantProps);
 
   // Sets the root element
   const Component = as || 'button';
@@ -103,7 +134,8 @@ export const useButton = (props: UseButtonProps) => {
   // Get the styles and merge them with the provided className
   const styles = useMemo(
     () =>
-      buttonStyles({
+      // @ts-expect-error - Currently unable to infer the correct type
+      style({
         variant,
         color,
         size,
@@ -113,7 +145,7 @@ export const useButton = (props: UseButtonProps) => {
         isDisabled: !isInteractive,
         isInGroup: !!groupContext,
         isVertical,
-        className,
+        ...newVariantProps,
       }),
     [
       variant,
@@ -128,6 +160,7 @@ export const useButton = (props: UseButtonProps) => {
       className,
       groupContext,
       isVertical,
+      ...Object.values(newVariantProps),
     ]
   );
 
@@ -159,6 +192,7 @@ export const useButton = (props: UseButtonProps) => {
           otherProps,
         ],
         props: {
+          // @ts-expect-error - Currently unable to infer the correct type
           ...mergeProps(
             buttonProps,
             focusProps,

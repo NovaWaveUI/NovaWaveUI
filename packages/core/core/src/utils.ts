@@ -3,6 +3,10 @@ import { mergeProps } from '@react-aria/utils';
 import { dataAttr } from '@novawaveui/aria-utils';
 import { error } from '@novawaveui/dev-utils';
 import { filterDOMProps } from './dom';
+import {
+  NonSlotVariantReturn,
+  SlottedVariantReturn,
+} from '@novawaveui/tailwind-composer';
 
 /**
  * A configuration object for a slot.
@@ -94,3 +98,54 @@ export function useSlotProps<T extends string>(
     )
   );
 }
+
+export const extractVariantProps = <TVariants extends Record<string, any>>(
+  props: Record<string, any>,
+  styleFunction:
+    | NonSlotVariantReturn<TVariants>
+    | SlottedVariantReturn<any, TVariants>
+) => {
+  const variantKeys = Object.keys(styleFunction({})) as Array<keyof TVariants>;
+  return variantKeys.reduce(
+    (acc, key) => {
+      if (key in props) {
+        acc[key] = props[key as string];
+      }
+      return acc;
+    },
+    {} as Record<keyof TVariants, any>
+  );
+};
+
+/**
+ * Given a set of props (from a component) and two style functions (one for the default that is applied to the component and one
+ * that the user may have supplied), this function will extract the new variant props that the user has supplied. If the user has
+ * not supplied any new variant props, then an empty object will be returned.
+ *
+ * @param props The props to extract the new variant props from
+ * @param userStyle The style function that contains the new variant props
+ * @param defaultStyle The base style function that contains the default variant props
+ * @returns A new object that contains the new variant props
+ */
+export const extractNewVariantProps = <
+  TStyle extends NonSlotVariantReturn<any> | SlottedVariantReturn<any, any>,
+>(
+  props: Record<string, any>,
+  userStyle: TStyle,
+  defaultStyle: NonSlotVariantReturn<any> | SlottedVariantReturn<any, any>
+) => {
+  const baseVariantKeys = new Set(Object.keys(defaultStyle({} as any))); // Base keys
+  const userVariantKeys = Object.keys(userStyle({} as any)); // Extended keys
+
+  console.log(defaultStyle());
+
+  return userVariantKeys.reduce(
+    (acc, key) => {
+      if (!baseVariantKeys.has(key) && key in props) {
+        acc[key] = props[key];
+      }
+      return acc;
+    },
+    {} as Record<string, any>
+  );
+};

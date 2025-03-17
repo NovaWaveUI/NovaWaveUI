@@ -209,6 +209,9 @@ importers:
       typescript-eslint:
         specifier: ^8.26.1
         version: 8.26.1(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
+      vite:
+        specifier: ^6.2.2
+        version: 6.2.2(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.3)
       vite-plugin-dts:
         specifier: ^4.5.3
         version: 4.5.3(@types/node@22.13.10)(rollup@4.35.0)(typescript@5.8.2)(vite@6.2.2(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.3))
@@ -221,6 +224,9 @@ importers:
       '@novawaveui/aria-utils':
         specifier: workspace:*
         version: link:../../utils/aria-utils
+      '@novawaveui/core-utils':
+        specifier: workspace:*
+        version: link:../../utils/core-utils
       '@novawaveui/react-utils':
         specifier: workspace:*
         version: link:../../utils/react-utils
@@ -390,6 +396,9 @@ importers:
       '@novawaveui/eslint-config':
         specifier: workspace:*
         version: link:../../tools/eslint-config
+      '@novawaveui/tailwind-composer':
+        specifier: workspace:*
+        version: link:../../tailwind-composer
       '@novawaveui/typescript-config':
         specifier: workspace:*
         version: link:../../tools/typescript-config
@@ -445,6 +454,12 @@ importers:
 
   packages/core/provider:
     dependencies:
+      '@novawaveui/tailwind-composer':
+        specifier: workspace:*
+        version: link:../../tailwind-composer
+      '@novawaveui/theme':
+        specifier: workspace:*
+        version: link:../theme
       '@novawaveui/use-localstorage':
         specifier: workspace:*
         version: link:../../hooks/use-localstorage
@@ -476,6 +491,9 @@ importers:
 
   packages/core/theme:
     dependencies:
+      '@novawaveui/tailwind-composer':
+        specifier: workspace:*
+        version: link:../../tailwind-composer
       tailwind-variants:
         specifier: ^0.3.1
         version: 0.3.1(tailwindcss@4.0.14)
@@ -714,6 +732,18 @@ importers:
       '@types/react-dom':
         specifier: 'catalog:'
         version: 19.0.4(@types/react@19.0.10)
+
+  packages/utils/core-utils:
+    devDependencies:
+      '@novawaveui/eslint-config':
+        specifier: workspace:*
+        version: link:../../tools/eslint-config
+      '@novawaveui/typescript-config':
+        specifier: workspace:*
+        version: link:../../tools/typescript-config
+      '@novawaveui/vite-config':
+        specifier: workspace:*
+        version: link:../../tools/vite-config
 
   packages/utils/dev-utils:
     devDependencies:

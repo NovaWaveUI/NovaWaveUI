@@ -1,0 +1,33 @@
+{
+  "name": "@novawaveui/core-utils",
+  "version": "1.0.0",
+  "description": "A collectio of utility types and functions that are used throughout the NovaWaveUI monorepo.",
+  "type": "module",
+  "files": [
+    "dist/"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "devDependencies": {
+    "@novawaveui/eslint-config": "workspace:*",
+    "@novawaveui/typescript-config": "workspace:*",
+    "@novawaveui/vite-config": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsup src --dts",
+    "dev": "tsup src --dts --watch",
+    "lint": "eslint",
+    "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",
+    "clean:dist": "rm -rf dist",
+    "clean:node_modules": "rm -rf node_modules",
+    "clean": "pnpm run clean:dist && pnpm run clean:node_modules"
+  },
+  "keywords": [],
+  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
+  "license": "MIT"
+}

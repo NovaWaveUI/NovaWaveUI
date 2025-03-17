@@ -50,3 +50,15 @@
   --secondary-900: var(--coral-tree-900);
   --secondary-950: var(--coral-tree-950);
 }
+
+.teal-solid {
+  @apply bg-teal-500 text-white;
+}
+
+.someOtherClass {
+  @apply text-rose-700;
+}
+
+.someOtherClassTwo {
+  @apply text-purple-700;
+}

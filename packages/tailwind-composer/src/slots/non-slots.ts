@@ -67,47 +67,61 @@ export function createNonSlotVariants<TVariants extends VariantDefNoSlots>(
 
     // Now go through each compound variant and see if it matches
     for (const compoundVariant of compoundVariants) {
-      // Check if the compound variant matches
-      let matches = false;
+      let matches = true; // Start by assuming it matches
 
       for (const key in compoundVariant) {
         if (key === 'className' || key === 'class') continue;
 
-        const value = compoundVariant[key];
-        const resolvedValue = resolvedValues[key];
+        let expectedValue = compoundVariant[key];
+        let resolvedValue = resolvedValues[key];
 
-        // If the value is an array, check if the resolved value is in the array
-        // If the value is not an array, check if the resolved value is equal to the value
-        if (Array.isArray(value)) {
-          matches = value.includes(resolvedValue);
-        } else {
-          matches = resolvedValue === value;
+        // Normalize Boolean Handling (Ensuring true/false are properly compared)
+        if (
+          Object.keys(variants[key] ?? {}).length <= 2 &&
+          ['true', 'false'].some(v => v in variants[key])
+        ) {
+          expectedValue =
+            expectedValue === true
+              ? 'true'
+              : expectedValue === false
+                ? 'false'
+                : expectedValue;
+          resolvedValue =
+            resolvedValue === true
+              ? 'true'
+              : resolvedValue === false
+                ? 'false'
+                : resolvedValue;
         }
-        if (!matches) break;
+
+        // Check if it matches
+        if (Array.isArray(expectedValue)) {
+          if (!expectedValue.includes(resolvedValue)) {
+            matches = false;
+          }
+        } else {
+          if (resolvedValue !== expectedValue) {
+            matches = false;
+          }
+        }
       }
 
-      // If it matches, add the className to the resulting style
+      // Apply the styles **only if all conditions matched**
       if (matches) {
-        // If the className exists, check if it is an array or a string
-        // If it is an array, join it
-        // If it is a string, use it
-        // If it does not exist, use an empty string
         const consolidatedClassName = Array.isArray(compoundVariant.className)
           ? compoundVariant.className.join(' ')
           : (compoundVariant.className ?? '');
 
-        // If the class exists, check if it is an array or a string
-        // If it is an array, join it
-        // If it is a string, use it
-        // If it does not exist, use an empty string
         const consolidatedClass = Array.isArray(compoundVariant.class)
           ? compoundVariant.class.join(' ')
           : (compoundVariant.class ?? '');
 
-        // Merge the style with the className
-        const className = twMerge(consolidatedClassName, consolidatedClass);
-
-        resultingStyle = twMerge(resultingStyle, className);
+        // ✅ Merge both `class` and `className` properly
+        resultingStyle = twMerge(
+          resultingStyle,
+          consolidatedClassName,
+          consolidatedClass
+        );
       }
     }
 
