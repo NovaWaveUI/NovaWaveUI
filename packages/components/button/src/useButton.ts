@@ -1,6 +1,5 @@
 import type {
-  TestButtonStyles,
-  ExtractVariantProps,
+  TestButtonVariantProps,
   NonSlotVariantReturn,
 } from '@novawaveui/theme';
 
@@ -47,19 +46,13 @@ interface Props extends NovaWaveUIProps<'button'> {
   endContent?: React.ReactNode;
 }
 
-export type UseButtonProps<
-  TStyle extends NonSlotVariantReturn<any> = TestButtonStyles,
-> = Props &
-  Omit<AriaButtonProps, keyof ExtractVariantProps<TStyle & TestButtonStyles>> &
-  ExtractVariantProps<TStyle & TestButtonStyles> & {
-    customStyle?: TStyle;
+export type UseButtonProps = Props &
+  Omit<AriaButtonProps, keyof TestButtonVariantProps> &
+  TestButtonVariantProps & {
+    customStyle?: NonSlotVariantReturn<any>;
   };
 
-export const useButton = <
-  TStyle extends NonSlotVariantReturn<any> = TestButtonStyles,
->(
-  props: UseButtonProps<TStyle>
-) => {
+export const useButton = (props: UseButtonProps) => {
   const globalContext = useNovaWaveUI();
   const groupContext = useButtonGroupContext();
 
@@ -96,13 +89,13 @@ export const useButton = <
     testButtonStyles
   );
 
-  console.log(newVariantProps);
-
   // Sets the root element
   const Component = as || 'button';
 
   // Create / assign the DOM ref
   const domRef = useDOMRef(ref);
+
+  console.log({ ...otherProps });
 
   // Set up the interactivity of the button
   const isDisabled = useMemo(() => isDisabledProp, [isDisabledProp]);
@@ -192,7 +185,6 @@ export const useButton = <
           otherProps,
         ],
         props: {
-          // @ts-expect-error - Currently unable to infer the correct type
           ...mergeProps(
             buttonProps,
             focusProps,

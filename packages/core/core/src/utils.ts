@@ -2,11 +2,11 @@ import React from 'react';
 import { mergeProps } from '@react-aria/utils';
 import { dataAttr } from '@novawaveui/aria-utils';
 import { error } from '@novawaveui/dev-utils';
-import { filterDOMProps } from './dom';
 import {
   NonSlotVariantReturn,
   SlottedVariantReturn,
 } from '@novawaveui/tailwind-composer';
+import { filterDOMProps } from './dom';
 
 /**
  * A configuration object for a slot.
@@ -134,18 +134,51 @@ export const extractNewVariantProps = <
   userStyle: TStyle,
   defaultStyle: NonSlotVariantReturn<any> | SlottedVariantReturn<any, any>
 ) => {
-  const baseVariantKeys = new Set(Object.keys(defaultStyle({} as any))); // Base keys
-  const userVariantKeys = Object.keys(userStyle({} as any)); // Extended keys
+  const baseVariantKeys = defaultStyle.variantKeys;
+  const userVariantKeys = userStyle.variantKeys;
 
-  console.log(defaultStyle());
+  console.log(props);
 
-  return userVariantKeys.reduce(
-    (acc, key) => {
-      if (!baseVariantKeys.has(key) && key in props) {
-        acc[key] = props[key];
-      }
-      return acc;
-    },
-    {} as Record<string, any>
-  );
+  const result: Record<string, any> = {};
+  for (const key of userVariantKeys) {
+    if (!baseVariantKeys[key] && key in props) {
+      result[key] = props[key];
+    }
+  }
+  return result;
+};
+
+/**
+ * Checks if a given React element is a NovaWaveUI element.
+ *
+ * @param element The element to check if it is a NovaWaveUI element
+ * @returns Returns true if the element is a NovaWaveUI element
+ */
+export const isNovaWaveUIElement = (
+  element: React.ForwardRefExoticComponent<any>
+) => {
+  return element?.displayName?.startsWith('NovaWaveUI');
+};
+
+/**
+ * The function extracts the NovaWaveUI prefix fromt the display name
+ * and returns the component name that follows. For example, "NovaWaveUIButton"
+ * would return "button", "NovaWaveUIContextMenuItem" would return "contextMenuItem".
+ *
+ * @param displayName The display name of the component
+ * @returns The component name extracted from the display name
+ */
+export const extractComponentFromDisplayName = (displayName?: string) => {
+  if (!displayName) {
+    return '';
+  }
+
+  // Check if the display name starts with NovaWaveUI
+  if (!displayName.startsWith('NovaWaveUI')) {
+    return displayName;
+  }
+
+  // Now remove the NovaWaveUI prefix and lowercase the first letter
+  const componentName = displayName.replace('NovaWaveUI', '');
+  return componentName.charAt(0).toLowerCase() + componentName.slice(1);
 };

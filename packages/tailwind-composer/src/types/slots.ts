@@ -108,4 +108,17 @@ export type SlottedVariantReturn<
   extend: <TNewVariants extends VariantDefSlots, TNewSlots extends SlotsConfig>(
     config: Partial<SlottedConfig<TNewSlots, TNewVariants>>
   ) => SlottedVariantReturn<TSlots & TNewSlots, TVariants & TNewVariants>;
+
+  /**
+   * The various variants that are available for this component.
+   */
+  variantKeys: string[];
 };
+
+/**
+ * The type that extends from a base slot tailwind-composer style.
+ */
+export type ExtendedFromBaseSlot<
+  TBase extends SlottedVariantReturn<any, any>,
+  TCustom extends SlottedVariantReturn<any, any>,
+> = TCustom extends ReturnType<TBase['extend']> ? TCustom : never;

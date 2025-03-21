@@ -169,6 +169,10 @@ export function createNonSlotVariants<TVariants extends VariantDefNoSlots>(
     });
   };
 
+  // Set up the variantKeys property to be a string array of the
+  // keys in the variants object
+  returnValue.variantKeys = Object.keys(variants);
+
   // Return the variant function
   return returnValue;
 }

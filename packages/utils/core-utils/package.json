@@ -15,8 +15,7 @@
   },
   "devDependencies": {
     "@novawaveui/eslint-config": "workspace:*",
-    "@novawaveui/typescript-config": "workspace:*",
-    "@novawaveui/vite-config": "workspace:*"
+    "@novawaveui/typescript-config": "workspace:*"
   },
   "scripts": {
     "build": "tsup src --dts",

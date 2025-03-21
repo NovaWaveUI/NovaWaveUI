@@ -7,6 +7,7 @@ import {
   SlottedVariantReturn,
   VariantValue as SlottedVariantValue,
   VariantValues as SlottedVariantValues,
+  ExtendedFromBaseSlot,
 } from './types/slots.js';
 import {
   VariantDefNoSlots,
@@ -16,6 +17,7 @@ import {
   VariantNoSlots,
   VariantValue as NonSlotVariantValue,
   VariantValues as NonSlotVariantValues,
+  ExtendedFromBase,
 } from './types/non-slots.js';
 export { createNonSlotVariants } from './slots/non-slots.js';
 export { createSlottedVariants } from './slots/slots.js';
@@ -39,4 +41,6 @@ export type {
   SlottedVariantReturn,
   SlottedVariantValue,
   SlottedVariantValues,
+  ExtendedFromBaseSlot,
+  ExtendedFromBase,
 };

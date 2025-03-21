@@ -47,7 +47,6 @@
     "@novawaveui/provider": "workspace:*",
     "@novawaveui/theme": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
-    "@novawaveui/vite-config": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "react": "catalog:",

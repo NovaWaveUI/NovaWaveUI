@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "The base of the NovaWaveUI monorepo",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --concurrency 14",
@@ -34,18 +33,20 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
     "@eslint/js": "^9.20.0",
+    "@jest/globals": "^29.7.0",
     "@storybook/blocks": "catalog:",
     "@storybook/react": "catalog:",
     "@storybook/test": "^8.6.4",
+    "@swc/core": "^1.11.11",
+    "@swc/jest": "^0.2.37",
     "@tailwindcss/vite": "^4.0.12",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest-axe": "^3.5.9",
+    "@types/node": "^22.13.10",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.3",
-    "@vitejs/plugin-react": "^4.3.4",
-    "@vitest/coverage-v8": "^3.0.5",
     "add": "^2.0.6",
     "axe-core": "^4.10.2",
     "concurrently": "^9.1.2",
@@ -56,7 +57,9 @@
     "framer-motion": "^12.4.10",
     "globals": "catalog:",
     "husky": "^9.1.7",
+    "jest": "^29.7.0",
     "jest-axe": "^9.0.0",
+    "jest-environment-jsdom": "^29.7.0",
     "plop": "^4.0.1",
     "prettier": "^3.4.2",
     "react": "^19.0.0",
@@ -65,8 +68,6 @@
     "turbo": "^2.3.4",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.26.1",
-    "vite": "^6.2.2",
-    "vite-plugin-dts": "^4.5.3",
-    "vitest": "catalog:"
+    "vite-plugin-dts": "^4.5.3"
   }
 }

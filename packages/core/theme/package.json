@@ -35,10 +35,8 @@
     "@novawaveui/tailwind-composer": "workspace:*"
   },
   "devDependencies": {
-    "@novawaveui/core": "workspace:*",
     "@novawaveui/eslint-config": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
-    "@novawaveui/vite-config": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@tailwindcss/cli": "^4.0.3",

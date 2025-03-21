@@ -16,6 +16,7 @@
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "@novawaveui/provider": "^1.0.0",
     "@novawaveui/tailwind-composer": "^1.2.1"
   },
   "dependencies": {
@@ -26,9 +27,9 @@
   },
   "devDependencies": {
     "@novawaveui/eslint-config": "workspace:*",
+    "@novawaveui/provider": "workspace:*",
     "@novawaveui/tailwind-composer": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
-    "@novawaveui/vite-config": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "react": "catalog:",

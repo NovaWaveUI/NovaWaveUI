@@ -58,9 +58,9 @@ export interface NonSlotConfig<
   compoundVariants?: Array<
     {
       [K in keyof TVariants]?:
-        | keyof TVariants[K] // Normal string keys
-        | Array<keyof TVariants[K]> // Array of keys for multiple conditions
-        | (TVariants[K] extends { true: any; false?: any } ? boolean : never); // If variant has "true" and/or "false", allow boolean
+        | keyof TVariants[K]
+        | Array<keyof TVariants[K]>
+        | (TVariants[K] extends { true: any; false?: any } ? boolean : never);
     } & { class?: ClassName; className?: ClassName }
   >;
 
@@ -70,7 +70,7 @@ export interface NonSlotConfig<
   defaultVariants?: {
     [K in keyof TVariants]?: TVariants[K] extends { true: any; false?: any }
       ? boolean
-      : keyof TVariants[K]; // If the variant has true/false, default value should allow boolean
+      : keyof TVariants[K];
   };
 
   /**
@@ -120,6 +120,15 @@ export interface NonSlotConfig<
 export type NonSlotVariantReturn<TVariants extends VariantDefNoSlots> = {
   (variantValues?: VariantValue<TVariants>): string;
   extend: <TNewVariants extends VariantDefNoSlots>(
-    config: Partial<NonSlotConfig<TNewVariants>>
+    config: Partial<NonSlotConfig<TNewVariants & TVariants>>
   ) => NonSlotVariantReturn<TVariants & TNewVariants>;
+  variantKeys: string[];
 };
+
+/**
+ * The type that extends from a base non-slot tailwind-composer style.
+ */
+export type ExtendedFromBase<
+  TBase extends NonSlotVariantReturn<any>,
+  TCustom extends NonSlotVariantReturn<any>,
+> = TCustom extends ReturnType<TBase['extend']> ? TCustom : never;

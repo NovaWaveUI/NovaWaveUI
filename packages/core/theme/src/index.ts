@@ -11,4 +11,6 @@ export type {
   SlottedVariantReturn,
   NonSlotVariantValues,
   SlottedVariantValues,
+  NonSlotConfig,
+  SlottedConfig,
 } from '@novawaveui/tailwind-composer';

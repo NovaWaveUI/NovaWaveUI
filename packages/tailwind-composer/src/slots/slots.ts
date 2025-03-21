@@ -170,5 +170,9 @@ export function createSlottedVariants<
     });
   };
 
+  // Set up the variantKeys property to be a string array of the
+  // variant keys
+  returnValue.variantKeys = Object.keys(variants);
+
   return returnValue;
 }

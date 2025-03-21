@@ -1,15 +1,20 @@
 import '@testing-library/jest-dom';
 import React from 'react';
 import { render } from '@testing-library/react';
-import { describe, it, expect, vitest, beforeEach } from 'vitest';
+import { describe, it, expect, jest, beforeEach } from '@jest/globals';
 import { NovaWaveUIProvider } from '@novawaveui/provider';
-import { axe } from 'jest-axe';
+import { axe, toHaveNoViolations } from 'jest-axe';
 import userEvent, { UserEvent } from '@testing-library/user-event';
+import { ButtonProps } from '@react-types/button';
+import { testButtonStyles } from '@novawaveui/theme';
+import { extendButton } from '../src/extendButton';
 import Button from '../src/Button';
 
 const ProviderWrapper: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => <NovaWaveUIProvider>{children}</NovaWaveUIProvider>;
+
+expect.extend(toHaveNoViolations);
 
 describe('Button', () => {
   let user: UserEvent;
@@ -121,7 +126,7 @@ describe('Button', () => {
   });
 
   it('should ignore events when disabled', async () => {
-    const onPress = vitest.fn();
+    const onPress = jest.fn();
     const wrapper = render(
       <Button isDisabled onPress={onPress}>
         Click Me
@@ -139,8 +144,8 @@ describe('Button', () => {
   });
 
   it('should call onPress when clicked', async () => {
-    const onPress = vitest.fn();
-    const onClick = vitest.fn();
+    const onPress = jest.fn();
+    const onClick = jest.fn();
     const wrapper = render(<Button onPress={onPress}>Click Me</Button>, {
       wrapper: ProviderWrapper,
     });
@@ -154,7 +159,7 @@ describe('Button', () => {
   });
 
   it('should trigger custom onPress event', async () => {
-    const onPress = vitest.fn();
+    const onPress = jest.fn();
     const wrapper = render(<Button onPress={onPress}>Click Me</Button>, {
       wrapper: ProviderWrapper,
     });
@@ -164,5 +169,27 @@ describe('Button', () => {
     await user.click(button);
 
     expect(onPress).toHaveBeenCalled();
+  });
+
+  it('should allow for a custom style to be given', () => {
+    const extendedButtonStyles = testButtonStyles.extend({
+      variants: {
+        color: {
+          teal: 'text-teal-500',
+        },
+        someOtherVariant: {
+          someOtherValue: 'text-red-500',
+          someOtherValueTwo: 'text-blue-500',
+        },
+      },
+    });
+
+    const CustomButton = extendButton(extendedButtonStyles);
+
+    const wrapper = render(<CustomButton color="teal">Click Me</CustomButton>, {
+      wrapper: ProviderWrapper,
+    });
+
+    expect(() => wrapper.unmount()).not.toThrow();
   });
 });

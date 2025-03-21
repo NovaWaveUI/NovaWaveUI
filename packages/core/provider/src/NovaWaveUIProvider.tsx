@@ -3,6 +3,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { I18nProvider, I18nProviderProps } from 'react-aria';
 import { TestButtonStyles, NonSlotVariantReturn } from '@novawaveui/theme';
+import { ExtendedFromBase } from '@novawaveui/tailwind-composer';
 
 export type ThemeMode = 'light' | 'dark';
 export type ValidationBehavior = 'native' | 'aria';
@@ -11,7 +12,7 @@ export interface NovaWaveUIGlobalStylesConfig {
   /**
    * Any overriden global styles for the button component
    */
-  button?: TestButtonStyles & NonSlotVariantReturn<any>;
+  button?: ExtendedFromBase<TestButtonStyles, NonSlotVariantReturn<any>>;
 }
 
 export interface NovaWaveUIContextProps {
@@ -97,7 +98,8 @@ export const NovaWaveUIProvider = ({
 
     if (storedMode) return storedMode;
 
-    const prefersDarkMode = globalThis.matchMedia(
+    // eslint-disable-next-line unicorn/prefer-global-this
+    const prefersDarkMode = window.matchMedia(
       '(prefers-color-scheme: dark)'
     ).matches;
 
