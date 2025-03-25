@@ -106,6 +106,10 @@ export const resolveVariantValue = <
   // to avoid breaking the application
   if (!values) return undefined;
 
+  // If the values are defined, and this is supposed to be a boolean variant,
+  // return false as the value (regardless if the first value is true or false)
+  if (isBoolean(values)) return 'false' as keyof TVariants[K];
+
   // The return value if no default value is found (or no value is provided)
   // is the first variant (if it exists)
   // For slots, this would return an object that contains a partial of the slot

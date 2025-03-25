@@ -28,13 +28,6 @@ export type ClassProp<V = ClassValue> =
   | { class?: V; className?: never }
   | { class?: never; className?: V };
 
-export type InferConfigFromComposerReturn<T> =
-  T extends NonSlotComposerReturn<infer TVariants>
-    ? ComposerConfig<undefined, TVariants>
-    : T extends SlotComposerReturn<infer TSlots, infer TVariants>
-      ? ComposerConfig<TSlots, TVariants>
-      : never;
-
 export type MergeVariants<A, B> = {
   [K in keyof A | keyof B]: K extends keyof A
     ? K extends keyof B
@@ -58,6 +51,21 @@ export type MergeVariants<A, B> = {
 export type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K];
 };
+
+type VariantKeys<T> = T extends Record<string, any> ? keyof T : never;
+
+export type ResolvedDefaultVariants<T extends Variants> = {
+  [K in keyof T]?: StringToBoolean<VariantKeys<T[K]>>;
+};
+
+export type ResolvedCompoundVariants<T extends Variants> = Array<
+  {
+    [K in keyof T]?:
+      | VariantKeys<T[K]>
+      | VariantKeys<T[K]>[]
+      | StringToBoolean<T[K]>;
+  } & ClassProp
+>;
 
 /**
  * --------------------------------------
