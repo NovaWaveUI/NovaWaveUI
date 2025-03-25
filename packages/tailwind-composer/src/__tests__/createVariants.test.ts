@@ -39,12 +39,12 @@ describe('createNonSlotComposer - default', () => {
       color: 'secondary',
     });
 
-    resultExpected = ['btn', 'btn-sm', 'btn-secondary'];
+    resultExpected = ['btn', 'btn-secondary'];
     // @ts-expect-error toHaveClass is a custom matcher
     expect(result).toHaveClass(resultExpected);
 
     result = buttonStyles();
-    resultExpected = ['btn', 'btn-sm', 'btn-primary'];
+    resultExpected = ['btn', 'btn-primary'];
     // @ts-expect-error toHaveClass is a custom matcher
     expect(result).toHaveClass(resultExpected);
   });
@@ -374,13 +374,7 @@ describe('createNonSlotComposer - default', () => {
     expect(result).toHaveClass(resultExpected);
 
     result = buttonStyles({ size: 'lg', radius: 'lg' });
-    resultExpected = [
-      'btn',
-      'btn-lg',
-      'btn-primary',
-      'rounded-lg',
-      'btn--size-lg--radius-lg',
-    ];
+    resultExpected = ['btn', 'btn-lg', 'rounded-lg', 'btn--size-lg--radius-lg'];
     // @ts-expect-error toHaveClass is a custom matcher
     expect(result).toHaveClass(resultExpected);
 
@@ -389,7 +383,6 @@ describe('createNonSlotComposer - default', () => {
       'btn',
       'btn-sm',
       'btn-primary',
-      'rounded-sm',
       'btn--size-sm--color-primary-secondary',
     ];
     // @ts-expect-error toHaveClass is a custom matcher
@@ -400,7 +393,6 @@ describe('createNonSlotComposer - default', () => {
       'btn',
       'btn-sm',
       'btn-secondary',
-      'rounded-sm',
       'btn--size-sm--color-primary-secondary',
     ];
     // @ts-expect-error toHaveClass is a custom matcher
@@ -687,6 +679,39 @@ describe('createNonSlotComposer - default', () => {
       'btn-tertiary',
       'btn--size-sm--color-tertiary',
     ];
+    // @ts-expect-error toHaveClass is a custom matcher
+    expect(result).toHaveClass(resultExpected);
+  });
+
+  it('should skip applying variants if not passed in or defined in the default', () => {
+    const buttonStyles = createNonSlotComposer({
+      base: 'btn',
+      variants: {
+        color: {
+          primary: 'btn-primary',
+          secondary: 'btn-secondary',
+        },
+        size: {
+          sm: 'btn-sm',
+          md: 'btn-md',
+          lg: 'btn-lg',
+        },
+        isDisabled: {
+          true: 'btn-disabled',
+        },
+      },
+      defaultVariants: {
+        color: 'primary',
+      },
+    });
+
+    let result = buttonStyles({ size: 'lg', isDisabled: true });
+    let resultExpected = ['btn', 'btn-lg', 'btn-primary', 'btn-disabled'];
+    // @ts-expect-error toHaveClass is a custom matcher
+    expect(result).toHaveClass(resultExpected);
+
+    result = buttonStyles({ size: 'lg' });
+    resultExpected = ['btn', 'btn-lg', 'btn-primary'];
     // @ts-expect-error toHaveClass is a custom matcher
     expect(result).toHaveClass(resultExpected);
   });

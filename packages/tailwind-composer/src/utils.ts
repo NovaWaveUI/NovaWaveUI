@@ -68,15 +68,15 @@ export const isEmptyObject = (obj: Record<string, unknown>): boolean => {
  * Given a variant name, and an input object containing the user-defined values for variants,
  * this function resolves the value for the variant. It first checks if the user has provided a value
  * for the variant. If not, it checks the default value from the ComposerConfig. If neither is found,
- * it returns the first value from the variant definitions in the ComposerConfig.
- * If no values are available, it returns undefined.
+ * then it returns back undefined. This is useful for determining which variant to apply and
+ * for skipping variants that are just not provided.
  *
  * @param variantName The name of the variant to resolve
  * @param input The input object containing user-defined values for variants
  * @param config The ComposerConfig object containing default values and variant definitions
- * @returns The resolved value for the variant, which can be the user-provided value,
- * the default value from the config, or the first value from the variant definitions.
- * If none of these are available, it returns undefined.
+ * @returns The resolved value for the variant, which can be the user-provided value
+ * or the default value from the config. If none of these are available,
+ * it returns undefined.
  */
 export const resolveVariantValue = <
   TSlots extends SlotsDef | undefined,
@@ -100,20 +100,7 @@ export const resolveVariantValue = <
     typeof defaultRaw === 'boolean' ? String(defaultRaw) : defaultRaw;
   if (defaultValue !== undefined) return defaultValue as keyof TVariants[K];
 
-  const values = config.variants?.[variantName];
-  // NOTE: This should never happen, but just in case the config is malformed
-  // and the variant is not defined, we return undefined
-  // to avoid breaking the application
-  if (!values) return undefined;
-
-  // If the values are defined, and this is supposed to be a boolean variant,
-  // return false as the value (regardless if the first value is true or false)
-  if (isBoolean(values)) return 'false' as keyof TVariants[K];
-
-  // The return value if no default value is found (or no value is provided)
-  // is the first variant (if it exists)
-  // For slots, this would return an object that contains a partial of the slot
-  // names and the ClassValue for the slot. For non-slot variants, this would return the first ClassValue
-  const keys = Object.keys(values) as Array<keyof TVariants[K]>;
-  return keys.length ? keys[0] : undefined;
+  // If neither the user nor the config has a value for the variant,
+  // return back undefined to skip this variant
+  return undefined;
 };
