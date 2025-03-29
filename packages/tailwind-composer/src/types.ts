@@ -24,9 +24,18 @@ export type StringToBoolean<T> = T extends 'true' | 'false' | true | false
 /**
  * Extracts the className OR class prop from a component's props
  */
-export type ClassProp<V = ClassValue> =
-  | { class?: V; className?: never }
-  | { class?: never; className?: V };
+export type ClassProp<
+  TSlots extends SlotsDef | undefined = undefined,
+  V = ClassValue,
+> =
+  TSlots extends Record<string, string>
+    ?
+        | { class?: Partial<Record<keyof TSlots, V>>; className?: never }
+        | {
+            class?: never;
+            className?: Partial<Record<keyof TSlots, V>>;
+          }
+    : { class?: V; className?: never } | { class?: never; className?: V };
 
 export type MergeVariants<A, B> = {
   [K in keyof A | keyof B]: K extends keyof A
@@ -58,13 +67,16 @@ export type ResolvedDefaultVariants<T extends Variants> = {
   [K in keyof T]?: StringToBoolean<VariantKeys<T[K]>>;
 };
 
-export type ResolvedCompoundVariants<T extends Variants> = Array<
+export type ResolvedCompoundVariants<
+  T extends Variants,
+  TSlots extends undefined | SlotsDef = undefined,
+> = Array<
   {
     [K in keyof T]?:
       | VariantKeys<T[K]>
       | VariantKeys<T[K]>[]
       | StringToBoolean<T[K]>;
-  } & ClassProp
+  } & ClassProp<TSlots>
 >;
 
 /**
@@ -80,7 +92,7 @@ export type Variants<T = undefined> =
     ? Record<string, Partial<Record<keyof T, ClassValue>>>
     : Record<string, ClassValue>;
 
-type VariantValue<TVariants extends Variants> = {
+export type VariantValue<TVariants extends Variants> = {
   [K in keyof TVariants]?: TVariants[K] extends Record<string, any>
     ? StringToBoolean<keyof TVariants[K]>
     : never;
@@ -95,6 +107,24 @@ export type ExtractVariantProps<T> = T extends (props: infer P) => any
     }
   : never;
 
+export type CoerceToVariants<T, TSlots extends SlotsDef> = {
+  [K in keyof T]: T[K] extends object
+    ? Partial<Record<keyof TSlots, ClassValue>>
+    : never;
+};
+
+export interface BaseConfig<TSlots extends SlotsDef | undefined = undefined> {
+  /**
+   * For components that do not use slots, the base style that is the base
+   */
+  base?: TSlots extends undefined ? ClassValue : never;
+  /**
+   * The slots for the component, if any. This is used to define the
+   * different parts of the component that can be styled independently.
+   */
+  slots?: TSlots extends undefined ? never : TSlots;
+}
+
 /**
  * The configuration object for a component's variants and slots.
  * This is used to define the base styles, slots, variants, and
@@ -106,16 +136,7 @@ export type ExtractVariantProps<T> = T extends (props: infer P) => any
 export interface ComposerConfig<
   TSlots extends SlotsDef | undefined = undefined,
   TVariants extends Variants<TSlots> = Variants<TSlots>,
-> {
-  /**
-   * For components that do not use slots, the base style that is the base
-   */
-  base?: ClassValue;
-  /**
-   * The slots for the component, if any. This is used to define the
-   * different parts of the component that can be styled independently.
-   */
-  slots?: TSlots;
+> extends BaseConfig<TSlots> {
   /**
    * The variants of the component, if any.
    */
@@ -140,7 +161,7 @@ export interface ComposerConfig<
         | keyof TVariants[K]
         | Array<keyof TVariants[K]>
         | StringToBoolean<TVariants[K]>;
-    } & ClassProp
+    } & ClassProp<TSlots>
   >;
 }
 
@@ -159,28 +180,81 @@ export type NonSlotComposerReturn<TVariants extends Variants> = {
   variantKeys: (keyof TVariants)[];
 };
 
+export type MergeSlots<
+  TBaseSlots extends SlotsDef,
+  TNewSlots extends SlotsDef,
+> = {
+  [K in keyof TBaseSlots | keyof TNewSlots]: K extends keyof TBaseSlots
+    ? K extends keyof TNewSlots
+      ? TBaseSlots[K] extends string
+        ? TNewSlots[K] extends string
+          ? TBaseSlots[K] | TNewSlots[K]
+          : TBaseSlots[K]
+        : TBaseSlots[K]
+      : TBaseSlots[K]
+    : K extends keyof TNewSlots
+      ? TNewSlots[K]
+      : never;
+};
+
+export type MergeSlottedVariants<
+  A extends Variants<T>,
+  B extends Variants<T>,
+  T extends SlotsDef,
+> = {
+  [K in keyof A | keyof B]: K extends keyof A
+    ? K extends keyof B
+      ? MergeSlotVariantRecord<A[K], B[K], T>
+      : A[K]
+    : K extends keyof B
+      ? B[K]
+      : never;
+};
+
+type MergeSlotVariantRecord<A, B, TSlots extends SlotsDef> =
+  A extends Partial<Record<keyof TSlots, ClassValue>>
+    ? B extends Partial<Record<keyof TSlots, ClassValue>>
+      ? {
+          [K in keyof TSlots]?: K extends keyof A
+            ? K extends keyof B
+              ? B[K]
+              : A[K]
+            : K extends keyof B
+              ? B[K]
+              : never;
+        }
+      : A
+    : B;
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export type MergedVariantResult<TSlots extends SlotsDef, A, B> =
+  TSlots extends Record<string, string>
+    ? Record<string, Partial<Record<keyof TSlots, ClassValue>>>
+    : Record<string, ClassValue>;
+
 export type SlotComposerReturn<
   TSlots extends SlotsDef,
   TVariants extends Variants<TSlots>,
 > = {
-  (input?: VariantValue<TVariants>): {
-    [K in keyof TSlots]: (input?: VariantValue<TVariants>) => string;
-  };
+  (
+    input?: VariantValue<TVariants>
+  ): Record<keyof TSlots, (input?: VariantValue<TVariants>) => string>;
 
   extend: <
-    TNewVariants extends Record<string, Partial<Record<string, ClassValue>>>,
-    TFinalVariants extends Variants<TSlots> & {
-      [K in keyof (TVariants & TNewVariants)]: K extends keyof TNewVariants
-        ? TNewVariants[K]
-        : K extends keyof TVariants
-          ? TVariants[K]
-          : never;
-    },
+    TNewSlots extends SlotsDef,
+    TNewVariants extends Variants<MergeSlots<TSlots, TNewSlots>>,
+    TMerged extends MergeVariants<TVariants, TNewVariants>,
+    TCoerced extends Variants<MergeSlots<TSlots, TNewSlots>> = CoerceToVariants<
+      TMerged,
+      MergeSlots<TSlots, TNewSlots>
+    >,
   >(
-    config: Partial<ComposerConfig<TSlots, TFinalVariants>>
-  ) => ComposerReturn<TSlots, TFinalVariants>;
+    config: Partial<ComposerConfig<MergeSlots<TSlots, TNewSlots>, TCoerced>>
+  ) => ComposerReturn<MergeSlots<TSlots, TNewSlots>, TCoerced>;
 
   variantKeys: (keyof TVariants)[];
+
+  slotKeys: (keyof TSlots)[];
 };
 
 export type ComposerReturn<
