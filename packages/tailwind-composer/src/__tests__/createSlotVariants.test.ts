@@ -1,0 +1,110 @@
+import { describe, it } from '@jest/globals';
+import { createSlotComposer } from '../composer';
+
+describe('createSlotVariants', () => {
+  it('should handle a basic slot configuration', () => {
+    const testConfig = createSlotComposer({
+      slots: {
+        header: 'header-class', // Base class for the header slot
+        footer: 'footer-class', // Base class for the footer slot
+      },
+      variants: {
+        color: {
+          primary: {
+            header: 'text-blue-500', // Header class for primary color
+            footer: 'text-blue-300', // Footer class for primary color
+          },
+          secondary: {
+            header: 'text-green-500',
+          },
+        },
+        size: {
+          sm: {
+            header: 'text-sm', // Header class for small size
+            footer: 'text-sm', // Footer class for small size
+          },
+          lg: {
+            header: 'text-lg', // Header class for large size
+            footer: 'text-lg', // Footer class for large size
+          },
+        },
+        isDisabled: {
+          true: {
+            footer: 'opacity-50 cursor-not-allowed', // Footer class for disabled state
+          },
+        },
+      },
+      defaultVariants: {
+        isDisabled: false,
+        color: 'primary',
+      },
+      compoundVariants: [
+        {
+          color: 'primary',
+          size: ['sm', 'lg'],
+          className: {
+            footer: 'primary-sm-footer-class',
+          },
+        },
+      ],
+    });
+
+    const { header, footer } = testConfig({
+      isDisabled: false,
+      color: 'primary',
+    });
+
+    // Test extending the configuration
+    const extendedTestConfig = testConfig.extend({
+      slots: {
+        body: 'body-class', // Adding a new slot for the body
+      },
+      variants: {
+        color: {
+          primary: {
+            body: 'text-blue-700', // Body class for primary color
+          },
+        },
+        newVariant: {
+          someValue: {
+            header: 'new-header-class', // New variant for header
+            footer: 'new-footer-class', // New variant for footer,
+            body: 'new-body-class', // New variant for body
+          },
+        },
+        isDisabled: {
+          true: {
+            header: 'opacity-50 cursor-not-allowed', // Header class for disabled state
+            body: 'opacity-50 cursor-not-allowed', // Body class for disabled state
+          },
+          false: {
+            body: 'opacity-100 cursor-auto', // Body class for enabled state
+          },
+        },
+      },
+      defaultVariants: {
+        color: 'primary',
+        isDisabled: false,
+        newVariant: 'someValue',
+        size: 'sm',
+      },
+      compoundVariants: [
+        {
+          newVariant: 'someValue',
+          size: ['sm', 'lg'],
+          className: {
+            body: 'new-someValue-sm-body-class', // This class will be applied if the new variant and size conditions are met
+          },
+        },
+      ],
+    });
+
+    const {
+      header: extendedHeader,
+      footer: extendedFooter,
+      body: extendedBody,
+    } = extendedTestConfig({ isDisabled: false, color: 'primary', size: 'sm' });
+
+    const customExtendedBodyResult = extendedBody({ isDisabled: true });
+  });
+});

@@ -2,7 +2,11 @@
  * Utility functions for type checking and validation.
  */
 
-import { ComposerConfig, SlotsDef, Variants } from './types';
+import {
+  NonSlottedComposerConfig,
+  NonSlottedVariantInputValue,
+  NonSlottedVariants,
+} from './types';
 
 /**
  * Checks if the given value is a boolean (whether it is a boolean type or a string that can be converted to a boolean).
@@ -21,29 +25,6 @@ export const isBoolean = (value: unknown): boolean => {
     return lowerValue === 'true' || lowerValue === 'false';
   }
   return false;
-};
-
-/**
- * Merges a given class name (which can be a string, an array of strings, or undefined) into a single string.
- * @param className - The className to merge. It can be a string, an array of strings, or undefined.
- * @returns A single string containing all class names, separated by spaces.
- *          If the input is undefined, an empty string is returned.
- */
-export const mergeClassNames = (
-  className: string | string[] | undefined
-): string => {
-  // If the className is undefined, return an empty string
-  if (className === undefined) {
-    return '';
-  }
-
-  // If the className is an array, join it with a space
-  if (Array.isArray(className)) {
-    return className.join(' ');
-  }
-
-  // If the className is a string, return it
-  return className;
 };
 
 /**
@@ -78,29 +59,34 @@ export const isEmptyObject = (obj: Record<string, unknown>): boolean => {
  * or the default value from the config. If none of these are available,
  * it returns undefined.
  */
-export const resolveVariantValue = <
-  TSlots extends SlotsDef | undefined,
-  TVariants extends Variants<TSlots>,
-  K extends keyof TVariants & string,
+export const resolveNonSlotVariantValue = <
+  TVariants extends NonSlottedVariants,
+  K extends keyof TVariants,
 >(
-  variantName: K,
-  input: Record<string, any>,
-  config: ComposerConfig<TSlots, TVariants>
-): keyof TVariants[K] | undefined => {
-  const rawInput = input?.[variantName];
+  variant: K,
+  input: NonSlottedVariantInputValue<TVariants>,
+  config: NonSlottedComposerConfig<TVariants>
+): keyof TVariants | undefined => {
+  const rawInput = input?.[variant];
 
   // Return back the user-provided value for the variant if it exists
   const userValue = typeof rawInput === 'boolean' ? String(rawInput) : rawInput;
-  if (userValue !== undefined) return userValue;
+  if (userValue !== undefined) return userValue as keyof TVariants;
 
   // Check if the config has a default value for the variant
   // If it does, return that value
-  const defaultRaw = config.defaultVariants?.[variantName];
-  const defaultValue =
-    typeof defaultRaw === 'boolean' ? String(defaultRaw) : defaultRaw;
-  if (defaultValue !== undefined) return defaultValue as keyof TVariants[K];
+  const defaultRaw = config.defaultVariants?.[variant];
 
-  // If neither the user nor the config has a value for the variant,
-  // return back undefined to skip this variant
+  // If the default value exists and is a boolean, convert it to a string
+  // Otherwise, just return the default value as is
+  const defaultValue =
+    defaultRaw !== undefined
+      ? typeof defaultRaw === 'boolean'
+        ? String(defaultRaw) // Convert boolean to string
+        : defaultRaw // Keep the original value if it's not a boolean
+      : undefined; // If no default value, set to undefined
+  if (defaultValue !== undefined) return defaultValue as keyof TVariants;
+
+  // If neither, then return back undefined to skip this variant
   return undefined;
 };
