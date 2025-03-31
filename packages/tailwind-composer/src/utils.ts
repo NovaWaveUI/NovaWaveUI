@@ -6,44 +6,11 @@ import {
   NonSlottedComposerConfig,
   NonSlottedVariantInputValue,
   NonSlottedVariants,
+  SlotMap,
+  SlottedComposerConfig,
+  SlottedVariantInputValue,
+  SlottedVariants,
 } from './types';
-
-/**
- * Checks if the given value is a boolean (whether it is a boolean type or a string that can be converted to a boolean).
- * @param value - The value to check.
- * @return True if the value is a boolean or a string that can be converted to a boolean, false otherwise.
- */
-export const isBoolean = (value: unknown): boolean => {
-  // Check if the value is a boolean
-  if (typeof value === 'boolean') {
-    return true;
-  }
-
-  // Check if the value is a string and can be converted to a boolean
-  if (typeof value === 'string') {
-    const lowerValue = value.toLowerCase();
-    return lowerValue === 'true' || lowerValue === 'false';
-  }
-  return false;
-};
-
-/**
- * Checks if the given value is an object (excluding arrays and null).
- * @param value - The value to check.
- * @return True if the value is an object, false otherwise.
- */
-export const isObject = (value: unknown): value is Record<string, unknown> => {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
-};
-
-/**
- * Checks if the given object is empty (i.e., has no own enumerable properties).
- * @param obj - The object to check.
- * @return True if the object is empty, false otherwise.
- */
-export const isEmptyObject = (obj: Record<string, unknown>): boolean => {
-  return Object.keys(obj).length === 0 && obj.constructor === Object;
-};
 
 /**
  * Given a variant name, and an input object containing the user-defined values for variants,
@@ -88,5 +55,36 @@ export const resolveNonSlotVariantValue = <
   if (defaultValue !== undefined) return defaultValue as keyof TVariants;
 
   // If neither, then return back undefined to skip this variant
+  return undefined;
+};
+
+export const resolveSlottedVariantValue = <
+  TSlots extends SlotMap,
+  TVariants extends SlottedVariants<TSlots>,
+  K extends keyof TVariants,
+>(
+  variant: K,
+  input: SlottedVariantInputValue<TSlots, TVariants>,
+  config: SlottedComposerConfig<TSlots, TVariants>
+): keyof TVariants | undefined => {
+  const rawInput = input?.[variant];
+
+  // Return back the user-provided value for the variant if it exists
+  const userValue = typeof rawInput === 'boolean' ? String(rawInput) : rawInput;
+  if (userValue !== undefined) return userValue as keyof TVariants;
+
+  // Check if the config has a default value for the variant in the slot
+  const defaultRaw = config.defaultVariants?.[variant];
+
+  // If the default value exists and is a boolean, convert it to a string
+  const defaultValue =
+    defaultRaw !== undefined
+      ? typeof defaultRaw === 'boolean'
+        ? String(defaultRaw)
+        : defaultRaw
+      : undefined;
+  if (defaultValue !== undefined) return defaultValue as keyof TVariants;
+
+  // If neither, return undefined
   return undefined;
 };

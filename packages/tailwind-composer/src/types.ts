@@ -118,8 +118,9 @@ export type MergeNonSlottedVariants<
 export type MergePartialNonSlottedVariants<
   T extends NonSlottedVariants,
   U extends NonSlottedVariants,
-> =
-  DeepMergePartial<T, U> extends NonSlottedVariants
+> = [keyof U] extends [never]
+  ? T
+  : DeepMergePartial<T, U> extends NonSlottedVariants
     ? DeepMergePartial<T, U>
     : never;
 
@@ -207,7 +208,8 @@ export type NonSlottedComposerReturn<TVariants extends NonSlottedVariants> = {
    * @param newConfig - The new configuration to extend the existing non-slotted component composer.
    * @returns The newly merged configuration
    */
-  extend: <TNewVariants extends NonSlottedVariants>(
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  extend: <TNewVariants extends NonSlottedVariants = {}>(
     newConfig?: NonSlottedComposerConfig<
       MergePartialNonSlottedVariants<TVariants, TNewVariants>
     >
@@ -366,7 +368,8 @@ export type SlottedComposerReturn<
 
   extend: <
     TNewSlots extends SlotMap,
-    TNewVariants extends SlottedVariants<MergeSlots<TSlots, TNewSlots>>,
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+    TNewVariants extends SlottedVariants<MergeSlots<TSlots, TNewSlots>> = {},
   >(
     newConfig?: SlottedComposerConfig<
       MergePartialSlots<TSlots, TNewSlots>,
@@ -392,7 +395,7 @@ export type SlottedComposerReturn<
     >
   >;
 
-  slots: (keyof TSlots)[];
+  slotKeys: (keyof TSlots)[];
 
   variantKeys: (keyof TVariants)[];
 };

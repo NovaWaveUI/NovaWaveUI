@@ -1,4 +1,4 @@
-import { describe, it } from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
 import { createSlotComposer } from '../composer';
 
 describe('createSlotVariants', () => {
@@ -54,6 +54,14 @@ describe('createSlotVariants', () => {
       color: 'primary',
     });
 
+    let expectedClasses = ['header-class', 'text-blue-500'];
+    // @ts-expect-error - toHaveClass is a custom matcher
+    expect(header()).toHaveClass(expectedClasses);
+
+    expectedClasses = ['footer-class', 'text-blue-300'];
+    // @ts-expect-error - toHaveClass is a custom matcher
+    expect(footer()).toHaveClass(expectedClasses);
+
     // Test extending the configuration
     const extendedTestConfig = testConfig.extend({
       slots: {
@@ -105,6 +113,36 @@ describe('createSlotVariants', () => {
       body: extendedBody,
     } = extendedTestConfig({ isDisabled: false, color: 'primary', size: 'sm' });
 
-    const customExtendedBodyResult = extendedBody({ isDisabled: true });
+    let result = extendedHeader();
+    expectedClasses = [
+      'header-class',
+      'text-blue-500',
+      'new-header-class',
+      'text-sm',
+    ];
+    // @ts-expect-error - toHaveClass is a custom matcher
+    expect(result).toHaveClass(expectedClasses);
+
+    result = extendedFooter();
+    expectedClasses = [
+      'footer-class',
+      'text-blue-300',
+      'new-footer-class',
+      'text-sm',
+    ];
+    // @ts-expect-error - toHaveClass is a custom matcher
+    expect(result).toHaveClass(expectedClasses);
+
+    result = extendedBody();
+    expectedClasses = [
+      'body-class',
+      'text-blue-700',
+      'opacity-100',
+      'cursor-auto',
+      'new-body-class',
+      'new-someValue-sm-body-class',
+    ];
+    // @ts-expect-error - toHaveClass is a custom matcher
+    expect(result).toHaveClass(expectedClasses);
   });
 });
