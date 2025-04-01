@@ -129,6 +129,7 @@ describe('createSlotVariants', () => {
       'text-blue-300',
       'new-footer-class',
       'text-sm',
+      'primary-sm-footer-class',
     ];
     // @ts-expect-error - toHaveClass is a custom matcher
     expect(result).toHaveClass(expectedClasses);
@@ -139,6 +140,18 @@ describe('createSlotVariants', () => {
       'text-blue-700',
       'opacity-100',
       'cursor-auto',
+      'new-body-class',
+      'new-someValue-sm-body-class',
+    ];
+    // @ts-expect-error - toHaveClass is a custom matcher
+    expect(result).toHaveClass(expectedClasses);
+
+    result = extendedBody({ isDisabled: true });
+    expectedClasses = [
+      'body-class',
+      'text-blue-700',
+      'opacity-50',
+      'cursor-not-allowed',
       'new-body-class',
       'new-someValue-sm-body-class',
     ];

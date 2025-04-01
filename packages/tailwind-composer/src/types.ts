@@ -222,6 +222,12 @@ export type NonSlottedComposerReturn<TVariants extends NonSlottedVariants> = {
   variantKeys?: Array<keyof TVariants>;
 };
 
+export type ExtractVariantNonSlottedProps<
+  TVariants extends NonSlottedVariants,
+> = {
+  [K in keyof TVariants]?: VariantInput<TVariants[K]>;
+};
+
 // ===================================================
 // Slotted Component Types
 // ===================================================
@@ -420,3 +426,10 @@ export type ExtendedSlottedComposerReturn<
     TNewVariants
   >,
 > = SlottedComposerReturn<TAllSlots, TFinalVariants>;
+
+export type ExtractVariantSlottedProps<
+  TSlots extends SlotMap,
+  TVariants extends SlottedVariants<TSlots>,
+> = {
+  [K in keyof TVariants]?: VariantInput<TVariants[K]>;
+};

@@ -1,4 +1,5 @@
 import {
+  ClassValue,
   MergeDifferentPartialSlottedVariants,
   MergeDifferentSlottedVariants,
   MergePartialNonSlottedVariants,
@@ -69,7 +70,8 @@ export function deepMergeNonSlotConfig<
       };
     } else {
       for (const [variant, className] of Object.entries(value)) {
-        mergedVariants[key][variant] = className;
+        (mergedVariants[key] as Record<string, ClassValue>)[variant] =
+          className as ClassValue;
       }
     }
   }
@@ -146,21 +148,14 @@ export function deepMergeSlotConfig<
     // to the correct type. Value is also valid and casted to the correct type.
     // Unknown is used here because Typescript will not understand that
     // the value is just a variant from the base configuration.
-    mergedVariants[
-      key as keyof MergeDifferentSlottedVariants<
+    mergedVariants[key as keyof TFinalVariants] =
+      value as unknown as TFinalVariants[keyof MergeDifferentSlottedVariants<
         TSlots,
         TNewSlots,
         MergeSlots<TSlots, TNewSlots>,
         TVariants,
         TNewVariants
-      >
-    ] = value as unknown as TFinalVariants[keyof MergeDifferentSlottedVariants<
-      TSlots,
-      TNewSlots,
-      MergeSlots<TSlots, TNewSlots>,
-      TVariants,
-      TNewVariants
-    >];
+      >];
   }
 
   // Now, go through the new configuration and add/override the variants
@@ -171,15 +166,7 @@ export function deepMergeSlotConfig<
   // we know that these are going to be valid
   for (const [key, value] of Object.entries(newConfig.variants ?? {})) {
     if (mergedVariants[key] === undefined) {
-      mergedVariants[
-        key as keyof MergeDifferentSlottedVariants<
-          TSlots,
-          TNewSlots,
-          MergeSlots<TSlots, TNewSlots>,
-          TVariants,
-          TNewVariants
-        >
-      ] = {
+      (mergedVariants as Record<string, any>)[key] = {
         ...(value as unknown as MergeDifferentSlottedVariants<
           TSlots,
           TNewSlots,
@@ -195,8 +182,16 @@ export function deepMergeSlotConfig<
         >]),
       };
     } else {
-      for (const [variant, className] of Object.entries(value)) {
-        mergedVariants[key][variant] = className;
+      for (const [variant, variantValue] of Object.entries(value)) {
+        for (const [slot, className] of Object.entries(variantValue)) {
+          if (mergedVariants[key][variant] === undefined) {
+            // @ts-expect-error - This is a workaround for the fact that Typescript
+            mergedVariants[key][variant] = { ...variantValue };
+          } else {
+            // @ts-expect-error - This is a workaround for the fact that Typescript
+            mergedVariants[key][variant][slot] = className;
+          }
+        }
       }
     }
   }

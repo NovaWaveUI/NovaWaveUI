@@ -126,8 +126,6 @@ export function createSlotComposer<
   const variantKeys = Object.keys(variantConfig) as (keyof TVariants)[];
   const slotKeys = Object.keys(slotsConfig) as (keyof TSlots)[];
 
-  console.log(variantConfig);
-
   const composer: SlottedComposerReturn<TSlots, TVariants> = (input = {}) => {
     // If no configuration is provided, then return undefined
     if (!config) return undefined;
@@ -148,8 +146,6 @@ export function createSlotComposer<
           ...overridentInput,
         } as SlottedVariantInputValue<TSlots, TVariants>;
 
-        console.log('combinedInput', combinedInput);
-
         const { ...variants } = combinedInput;
 
         const classes: ClassValue[] = [];
@@ -161,14 +157,9 @@ export function createSlotComposer<
         // Go through each variant and apply the corresponding class if the variant is defined
         for (const variant of variantKeys) {
           const value = resolveSlottedVariantValue(variant, variants, config);
-          console.log('value', value);
           if (value !== undefined) {
             const variantStyle =
               variantConfig?.[variant]?.[value as string]?.[slot as string];
-
-            console.log('slot', slot);
-            console.log('variant', variant);
-            console.log('variantStyle', variantStyle);
             if (variantStyle) classes.push(variantStyle);
           }
         }
@@ -209,8 +200,6 @@ export function createSlotComposer<
         const { class: extraClass, className: extraClassName } = variants;
         if (extraClass) classes.push(extraClass as string);
         if (extraClassName) classes.push(extraClassName as string);
-
-        console.log('classes', classes);
 
         // Return the final merged classes using twMerge
         return twMerge(...classes.filter(Boolean));
@@ -276,4 +265,20 @@ export function createSlotComposer<
   };
 
   return composer;
+}
+
+/**
+ * The createComposer function is a factory function that creates a composer
+ * function based on the provided configuration. It determines whether to
+ * create a slot composer or a non-slot composer based on the presence of
+ * the `slots` property in the configuration object.
+ *
+ * @param config - The configuration object for the composer.
+ * @returns The composer function that can be used to generate class names based on the provided configuration.
+ */
+export function createComposer(config: any) {
+  if (config.slots) {
+    return createSlotComposer(config);
+  }
+  return createNonSlotComposer(config);
 }
