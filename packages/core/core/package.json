@@ -38,9 +38,7 @@
   "scripts": {
     "build": "tsup src --dts",
     "dev": "tsup src --dts --watch",
-    "test": "vitest run",
-    "test:watch": "vitest run --watch",
-    "test:coverage": "vitest run --coverage",
+    "test": "jest",
     "lint": "eslint",
     "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",
     "clean:dist": "rm -rf dist",

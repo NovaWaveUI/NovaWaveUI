@@ -2,10 +2,6 @@ import React from 'react';
 import { mergeProps } from '@react-aria/utils';
 import { dataAttr } from '@novawaveui/aria-utils';
 import { error } from '@novawaveui/dev-utils';
-import {
-  NonSlotVariantReturn,
-  SlottedVariantReturn,
-} from '@novawaveui/tailwind-composer';
 import { filterDOMProps } from './dom';
 
 /**
@@ -31,6 +27,12 @@ export type SlotConfig<T extends string> = Record<
  */
 export function mergeProperties<T, U>(obj1: T, obj2: U): T & U {
   return { ...obj1, ...obj2 };
+}
+
+export function objectToDeps(obj: Record<string, any>) {
+  return Object.values(obj).flatMap(value =>
+    Array.isArray(value) ? value : [value]
+  );
 }
 
 /**
@@ -99,55 +101,6 @@ export function useSlotProps<T extends string>(
   );
 }
 
-export const extractVariantProps = <TVariants extends Record<string, any>>(
-  props: Record<string, any>,
-  styleFunction:
-    | NonSlotVariantReturn<TVariants>
-    | SlottedVariantReturn<any, TVariants>
-) => {
-  const variantKeys = Object.keys(styleFunction({})) as Array<keyof TVariants>;
-  return variantKeys.reduce(
-    (acc, key) => {
-      if (key in props) {
-        acc[key] = props[key as string];
-      }
-      return acc;
-    },
-    {} as Record<keyof TVariants, any>
-  );
-};
-
-/**
- * Given a set of props (from a component) and two style functions (one for the default that is applied to the component and one
- * that the user may have supplied), this function will extract the new variant props that the user has supplied. If the user has
- * not supplied any new variant props, then an empty object will be returned.
- *
- * @param props The props to extract the new variant props from
- * @param userStyle The style function that contains the new variant props
- * @param defaultStyle The base style function that contains the default variant props
- * @returns A new object that contains the new variant props
- */
-export const extractNewVariantProps = <
-  TStyle extends NonSlotVariantReturn<any> | SlottedVariantReturn<any, any>,
->(
-  props: Record<string, any>,
-  userStyle: TStyle,
-  defaultStyle: NonSlotVariantReturn<any> | SlottedVariantReturn<any, any>
-) => {
-  const baseVariantKeys = defaultStyle.variantKeys;
-  const userVariantKeys = userStyle.variantKeys;
-
-  console.log(props);
-
-  const result: Record<string, any> = {};
-  for (const key of userVariantKeys) {
-    if (!baseVariantKeys[key] && key in props) {
-      result[key] = props[key];
-    }
-  }
-  return result;
-};
-
 /**
  * Checks if a given React element is a NovaWaveUI element.
  *
@@ -181,4 +134,39 @@ export const extractComponentFromDisplayName = (displayName?: string) => {
   // Now remove the NovaWaveUI prefix and lowercase the first letter
   const componentName = displayName.replace('NovaWaveUI', '');
   return componentName.charAt(0).toLowerCase() + componentName.slice(1);
+};
+
+/**
+ *
+ * @param props The props to be mapped
+ * @param variants The variants to be filtered
+ * @param filter Whether to filter the props or not
+ */
+export const mapPropsToVariants = <
+  T extends Record<string, any>,
+  K extends keyof T,
+>(
+  props: T,
+  variants: K[],
+  filter?: boolean
+) => {
+  if (!variants) {
+    return [props, {}] as [T, Partial<T>];
+  }
+
+  // eslint-disable-next-line unicorn/no-array-reduce
+  const pickedProps = variants.reduce((acc, variant) => {
+    return variant in props ? { ...acc, [variant]: props[variant] } : acc;
+  }, {});
+
+  if (filter) {
+    const omitted = Object.keys(props)
+      .filter(key => !variants.includes(key as K))
+      // eslint-disable-next-line unicorn/no-array-reduce, unicorn/prefer-object-from-entries
+      .reduce((acc, key) => ({ ...acc, [key]: props[key as keyof T] }), {});
+
+    return [omitted, pickedProps] as [Omit<T, K>, Pick<T, K>];
+  } else {
+    return [props, pickedProps] as [T, Pick<T, K>];
+  }
 };

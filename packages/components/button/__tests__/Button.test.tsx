@@ -5,9 +5,6 @@ import { describe, it, expect, jest, beforeEach } from '@jest/globals';
 import { NovaWaveUIProvider } from '@novawaveui/provider';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import userEvent, { UserEvent } from '@testing-library/user-event';
-import { ButtonProps } from '@react-types/button';
-import { testButtonStyles } from '@novawaveui/theme';
-import { extendButton } from '../src/extendButton';
 import Button from '../src/Button';
 
 const ProviderWrapper: React.FC<{ children: React.ReactNode }> = ({
@@ -169,27 +166,5 @@ describe('Button', () => {
     await user.click(button);
 
     expect(onPress).toHaveBeenCalled();
-  });
-
-  it('should allow for a custom style to be given', () => {
-    const extendedButtonStyles = testButtonStyles.extend({
-      variants: {
-        color: {
-          teal: 'text-teal-500',
-        },
-        someOtherVariant: {
-          someOtherValue: 'text-red-500',
-          someOtherValueTwo: 'text-blue-500',
-        },
-      },
-    });
-
-    const CustomButton = extendButton(extendedButtonStyles);
-
-    const wrapper = render(<CustomButton color="teal">Click Me</CustomButton>, {
-      wrapper: ProviderWrapper,
-    });
-
-    expect(() => wrapper.unmount()).not.toThrow();
   });
 });

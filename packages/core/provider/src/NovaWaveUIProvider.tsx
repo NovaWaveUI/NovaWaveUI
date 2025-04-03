@@ -2,18 +2,9 @@
 /* eslint-disable no-unused-vars */
 import React, { createContext, useEffect, useState } from 'react';
 import { I18nProvider, I18nProviderProps } from 'react-aria';
-import { TestButtonStyles, NonSlotVariantReturn } from '@novawaveui/theme';
-import { ExtendedFromBase } from '@novawaveui/tailwind-composer';
 
 export type ThemeMode = 'light' | 'dark';
 export type ValidationBehavior = 'native' | 'aria';
-
-export interface NovaWaveUIGlobalStylesConfig {
-  /**
-   * Any overriden global styles for the button component
-   */
-  button?: ExtendedFromBase<TestButtonStyles, NonSlotVariantReturn<any>>;
-}
 
 export interface NovaWaveUIContextProps {
   currentTheme: string;
@@ -24,7 +15,6 @@ export interface NovaWaveUIContextProps {
   setDisableAnimations: (disableAnimations: boolean) => void;
   validationBehavior: ValidationBehavior;
   setValidationBehavior: (validationBehavior: ValidationBehavior) => void;
-  globalStyles?: NovaWaveUIGlobalStylesConfig;
 }
 
 export const NovaWaveUIContext = createContext<
@@ -68,11 +58,6 @@ interface NovaWaveUIProviderProps {
    * The locale to use for i18n
    */
   locale?: I18nProviderProps['locale'];
-
-  /**
-   * The global styles for the library
-   */
-  globalStyles?: NovaWaveUIGlobalStylesConfig;
 }
 
 export const NovaWaveUIProvider = ({
@@ -82,7 +67,6 @@ export const NovaWaveUIProvider = ({
   validationBehavior: validationBehaviorProp = 'aria',
   disableAnimations: disableAnimationsProp = false,
   locale = 'en-us',
-  globalStyles,
 }: NovaWaveUIProviderProps) => {
   const [currentTheme, setCurrentTheme] = useState<string>(() => {
     const storedTheme = localStorage.getItem('novawaveui.theme');
@@ -134,7 +118,6 @@ export const NovaWaveUIProvider = ({
         setDisableAnimations,
         validationBehavior,
         setValidationBehavior,
-        globalStyles,
       }}
     >
       <I18nProvider locale={locale}>{children}</I18nProvider>

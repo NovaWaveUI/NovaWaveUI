@@ -4,7 +4,7 @@ import nodeConfig from '../../jest.node.config.js';
 export default {
   ...nodeConfig,
   displayName: 'tailwind-composer',
-  testMatch: ['<rootDir>/src/**/*.test.{js,jsx,ts,tsx}'],
+  testMatch: ['<rootDir>/src/__tests__/*.test.{js,jsx,ts,tsx}'],
   transformIgnorePatterns: [
     '/node_modules/(?!@testing-library/react|@testing-library/jest-dom)',
   ],

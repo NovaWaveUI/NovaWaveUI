@@ -1,57 +1,59 @@
-import React, { ComponentProps } from 'react';
 import {
-  ExtractVariantProps,
-  NonSlotVariantReturn,
+  NonSlottedComposerReturn,
+  NonSlottedVariantInputValue,
+  SlottedComposerReturn,
+  SlottedVariantInputValue,
 } from '@novawaveui/tailwind-composer';
-import {
-  useNovaWaveUI,
-  NovaWaveUIGlobalStylesConfig,
-} from '@novawaveui/provider';
+import React from 'react';
+import { mapPropsToVariants } from './utils';
 
-export type ExtendedFromBase<
-  TBase extends NonSlotVariantReturn<any>,
-  TCustom extends NonSlotVariantReturn<any>,
-> = TCustom extends ReturnType<TBase['extend']> ? TCustom : never;
+type ComposerKind =
+  | NonSlottedComposerReturn<any>
+  | SlottedComposerReturn<any, any>;
 
-export function createExtendedNonSlotComponent<
-  TBaseStyles extends NonSlotVariantReturn<any>,
-  TCustomStyle extends ExtendedFromBase<TBaseStyles, NonSlotVariantReturn<any>>,
-  TComponentProps extends Record<string, any> & {
-    customStyle?: NonSlotVariantReturn<any>;
-  },
->(
-  Component: React.ComponentType<TComponentProps>,
-  _baseStyle: TBaseStyles,
-  globalStyleComponent: keyof NovaWaveUIGlobalStylesConfig
-) {
-  // Factory function that takes in a custom style and returns a new component
-  // with the custom styles and extra props that are added to the base component
-  return (customStyle: TCustomStyle) => {
-    type ExtendedComponentProps = Omit<
-      ComponentProps<typeof Component>,
-      'customStyle'
-    > &
-      ExtractVariantProps<TCustomStyle>;
+type VariantPropsOf<T> =
+  T extends NonSlottedComposerReturn<infer V>
+    ? NonSlottedVariantInputValue<V>
+    : T extends SlottedComposerReturn<infer S, infer V>
+      ? SlottedVariantInputValue<S, V>
+      : never;
 
-    const ExtendedComponent = (props: ExtendedComponentProps) => {
-      const globalContext = useNovaWaveUI();
+export function extendComponent<
+  TComponent extends React.ElementType,
+  TCompser extends ComposerKind,
+>(BaseComponent: TComponent, composer: TCompser) {
+  type VariantProps = VariantPropsOf<TCompser>;
+  type BaseComponentProps = React.ComponentProps<TComponent>;
+  type ExtendedComponentProps = Omit<BaseComponentProps, keyof VariantProps> &
+    VariantProps;
 
-      const resolvedStyle =
-        globalContext.globalStyles?.[globalStyleComponent] ?? customStyle;
-
-      const newProps = {
-        ...props,
-        customStyle: resolvedStyle,
-      };
-
-      return React.createElement<ExtendedComponentProps>(
-        Component as unknown as React.ComponentType<ExtendedComponentProps>,
-        newProps
+  const ExtendedComponent = React.forwardRef(
+    (
+      props: React.PropsWithoutRef<ExtendedComponentProps>,
+      ref: React.Ref<any>
+    ) => {
+      const [omittedProps, variantProps] = mapPropsToVariants(
+        props,
+        composer.variantKeys as string[],
+        true
       );
-    };
 
-    ExtendedComponent.displayName = `Extended${Component.displayName}`;
+      const resultingClassName = composer(variantProps);
 
-    return ExtendedComponent;
-  };
+      return React.createElement(BaseComponent, {
+        className: resultingClassName,
+        ...omittedProps,
+        ...variantProps,
+        ref,
+      });
+    }
+  );
+
+  ExtendedComponent.displayName = `Extended${
+    typeof BaseComponent === 'function' || typeof BaseComponent === 'object'
+      ? (BaseComponent as any).displayName || BaseComponent.name || 'Component'
+      : 'Component'
+  }`;
+
+  return ExtendedComponent;
 }

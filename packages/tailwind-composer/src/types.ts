@@ -220,13 +220,14 @@ export type NonSlottedComposerReturn<TVariants extends NonSlottedVariants> = {
    * representing the keys of the variants defined in the `variants` property.
    */
   variantKeys?: Array<keyof TVariants>;
+
+  defaultVariants?: NonSlottedDefaultVariants<TVariants>;
 };
 
-export type ExtractVariantNonSlottedProps<
-  TVariants extends NonSlottedVariants,
-> = {
-  [K in keyof TVariants]?: VariantInput<TVariants[K]>;
-};
+export type ExtractVariantNonSlottedProps<T> =
+  T extends NonSlottedComposerReturn<infer TVariants>
+    ? NonSlottedVariantInputValue<TVariants>
+    : never;
 
 // ===================================================
 // Slotted Component Types

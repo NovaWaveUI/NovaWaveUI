@@ -90,6 +90,7 @@ export function createNonSlotComposer<TVariants extends NonSlottedVariants>(
   };
 
   composer.variantKeys = variantKeys;
+  composer.defaultVariants = config.defaultVariants;
 
   // Now, add the extend function
   composer.extend = <TNewVariants extends NonSlottedVariants>(
@@ -100,7 +101,7 @@ export function createNonSlotComposer<TVariants extends NonSlottedVariants>(
     MergeNonSlottedVariants<TVariants, TNewVariants>
   > => {
     const merged = deepMergeNonSlotConfig(config, newConfig);
-    return createNonSlotComposer(merged) as NonSlottedComposerReturn<
+    return createNonSlotComposer(merged) as unknown as NonSlottedComposerReturn<
       MergeNonSlottedVariants<TVariants, TNewVariants>
     >;
   };
