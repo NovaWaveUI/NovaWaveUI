@@ -1,11 +1,17 @@
-// eslint-disable unicorn/prevent-abbreviations
+import { describe, expect, it } from '@jest/globals';
+import { render } from '@testing-library/react';
+// @ts-expect-error - For some reason, jest tests have an issue with React
 import React, { useMemo } from 'react';
 import {
   createNonSlotComposer,
   ExtractVariantNonSlottedProps,
 } from '@novawaveui/tailwind-composer';
-import { NovaWaveUIProps } from './types';
-import { mapPropsToVariants, objectToDeps } from './utils';
+import {
+  extendComponent,
+  mapPropsToVariants,
+  NovaWaveUIProps,
+  objectToDeps,
+} from '../src';
 
 const testButtonStyles = createNonSlotComposer({
   base: 'inline-flex items-center justify-center rounded-md border border-transparent text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2',
@@ -68,7 +74,7 @@ interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (props, _ref) => {
+  (props: ButtonProps, _ref) => {
     const { children, className, ...rest } = props;
     const [, variantProps] = mapPropsToVariants(
       props,
@@ -97,4 +103,38 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = 'NovaWaveUIButtonTest';
 
-export { Button, testButtonStyles };
+describe('core', () => {
+  it('should create a new extended component', () => {
+    const ExtendedButton = extendComponent(
+      Button,
+      testButtonStyles.extend({
+        variants: {
+          color: {
+            olive:
+              'text-white bg-olive-600 hover:bg-olive-700 focus:ring-olive-500',
+          },
+          isScalable: {
+            true: 'scale-110',
+            false: 'scale-100',
+          },
+        },
+        defaultVariants: {
+          color: 'olive',
+          isScalable: false,
+        },
+        compoundVariants: [
+          {
+            color: 'olive',
+            size: 'sm',
+            className: '',
+          },
+        ],
+      })
+    );
+    const wrapper = render(<ExtendedButton color="olive" rounded="lg" />);
+    const buttonElement = wrapper.container.querySelector('button');
+    console.log(buttonElement?.className);
+
+    expect(() => wrapper.unmount()).not.toThrow();
+  });
+});

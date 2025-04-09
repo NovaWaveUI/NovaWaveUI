@@ -18,10 +18,30 @@ type VariantPropsOf<T> =
       ? SlottedVariantInputValue<S, V>
       : never;
 
+export type ExtendedComponentType<
+  TComponent extends React.ElementType,
+  TComposer extends ComposerKind,
+> = React.ForwardRefExoticComponent<
+  React.PropsWithoutRef<
+    Omit<React.ComponentProps<TComponent>, keyof VariantPropsOf<TComposer>> &
+      VariantPropsOf<TComposer>
+  > &
+    React.RefAttributes<any>
+>;
+
+export type PropsOfExtendedComponent<
+  TComponent extends React.ElementType,
+  TComposer extends ComposerKind,
+> = Omit<React.ComponentProps<TComponent>, keyof VariantPropsOf<TComposer>> &
+  VariantPropsOf<TComposer>;
+
 export function extendComponent<
   TComponent extends React.ElementType,
   TCompser extends ComposerKind,
->(BaseComponent: TComponent, composer: TCompser) {
+>(
+  BaseComponent: TComponent,
+  composer: TCompser
+): ExtendedComponentType<TComponent, TCompser> {
   type VariantProps = VariantPropsOf<TCompser>;
   type BaseComponentProps = React.ComponentProps<TComponent>;
   type ExtendedComponentProps = Omit<BaseComponentProps, keyof VariantProps> &

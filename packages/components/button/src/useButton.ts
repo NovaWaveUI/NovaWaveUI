@@ -115,6 +115,7 @@ export const useButton = (props: UseButtonProps) => {
         isDisabled: !isInteractive,
         isInGroup: !!groupContext,
         isVertical,
+        className,
       }),
     [
       variant,

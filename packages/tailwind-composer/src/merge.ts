@@ -2,6 +2,7 @@ import {
   ClassValue,
   MergeDifferentPartialSlottedVariants,
   MergeDifferentSlottedVariants,
+  MergeNonSlottedVariants,
   MergePartialNonSlottedVariants,
   MergePartialSlots,
   MergeSlots,
@@ -21,18 +22,20 @@ export function deepMergeNonSlotConfig<
   TNewVariants extends NonSlottedVariants,
 >(
   baseConfig: NonSlottedComposerConfig<TVariants>,
-  newConfig: NonSlottedComposerConfig<
-    MergePartialNonSlottedVariants<TVariants, TNewVariants>
-  >
-): NonSlottedComposerConfig<
-  MergePartialNonSlottedVariants<TVariants, TNewVariants>
-> {
+  newConfig: {
+    variants?: MergePartialNonSlottedVariants<TVariants, TNewVariants>;
+    defaultVariants?: NonSlottedDefaultVariants<
+      MergeNonSlottedVariants<TVariants, TNewVariants>
+    >;
+    compoundVariants?: NonSlottedCompoundVariant<
+      MergeNonSlottedVariants<TVariants, TNewVariants>
+    >;
+  }
+): NonSlottedComposerConfig<MergeNonSlottedVariants<TVariants, TNewVariants>> {
   // Go through each variant and merge the values. If the variant is defined in both
   // the base and the new config, take the value from the new configuration.
-  const mergedVariants: MergePartialNonSlottedVariants<
-    TVariants,
-    TNewVariants
-  > = {} as MergePartialNonSlottedVariants<TVariants, TNewVariants>;
+  const mergedVariants: MergeNonSlottedVariants<TVariants, TNewVariants> =
+    {} as MergeNonSlottedVariants<TVariants, TNewVariants>;
 
   // First, go through the base configuration and add all the variants
   for (const [key, value] of Object.entries(baseConfig.variants ?? {}) as [
@@ -44,11 +47,11 @@ export function deepMergeNonSlotConfig<
     // Unknown is used here because Typescript will not understand that
     // the value is just a variant from the base configuration.
     mergedVariants[
-      key as keyof MergePartialNonSlottedVariants<TVariants, TNewVariants>
-    ] = value as unknown as MergePartialNonSlottedVariants<
+      key as keyof MergeNonSlottedVariants<TVariants, TNewVariants>
+    ] = value as unknown as MergeNonSlottedVariants<
       TVariants,
       TNewVariants
-    >[keyof MergePartialNonSlottedVariants<TVariants, TNewVariants>];
+    >[keyof MergeNonSlottedVariants<TVariants, TNewVariants>];
   }
 
   // Now, go through the new configuration and add/override the variants
@@ -61,12 +64,12 @@ export function deepMergeNonSlotConfig<
   for (const [key, value] of Object.entries(newConfig.variants ?? {})) {
     if (mergedVariants[key] === undefined) {
       mergedVariants[
-        key as keyof MergePartialNonSlottedVariants<TVariants, TNewVariants>
+        key as keyof MergeNonSlottedVariants<TVariants, TNewVariants>
       ] = {
-        ...(value as unknown as MergePartialNonSlottedVariants<
+        ...(value as unknown as MergeNonSlottedVariants<
           TVariants,
           TNewVariants
-        >[keyof MergePartialNonSlottedVariants<TVariants, TNewVariants>]),
+        >[keyof MergeNonSlottedVariants<TVariants, TNewVariants>]),
       };
     } else {
       for (const [variant, className] of Object.entries(value)) {
@@ -77,19 +80,19 @@ export function deepMergeNonSlotConfig<
   }
 
   const merged: NonSlottedComposerConfig<
-    MergePartialNonSlottedVariants<TVariants, TNewVariants>
+    MergeNonSlottedVariants<TVariants, TNewVariants>
   > = {
-    base: newConfig.base ?? baseConfig.base,
+    base: baseConfig.base,
     variants: mergedVariants,
 
-    // The cast to unknonwn here is necessary because the Typescript compiler
+    // The cast to unknown here is necessary because the Typescript compiler
     // will not understand that the default variants are a merge of the two
     // configurations.
     defaultVariants: {
       ...(baseConfig.defaultVariants ?? {}),
       ...(newConfig.defaultVariants ?? {}),
     } as unknown as NonSlottedDefaultVariants<
-      MergePartialNonSlottedVariants<TVariants, TNewVariants>
+      MergeNonSlottedVariants<TVariants, TNewVariants>
     >,
 
     // The cast to unknown here is necessary because the Typescript compiler
@@ -99,7 +102,7 @@ export function deepMergeNonSlotConfig<
       ...(baseConfig.compoundVariants ?? []),
       ...(newConfig.compoundVariants ?? []),
     ] as unknown as NonSlottedCompoundVariant<
-      MergePartialNonSlottedVariants<TVariants, TNewVariants>
+      MergeNonSlottedVariants<TVariants, TNewVariants>
     >,
   };
 

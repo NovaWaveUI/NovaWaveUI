@@ -1,6 +1,7 @@
 import { twMerge } from 'tailwind-merge';
 import type {
   ClassValue,
+  ExtendedNonSlottedComposerReturn,
   ExtendedSlottedComposerReturn,
   MergeDifferentPartialSlottedVariants,
   MergeNonSlottedVariants,
@@ -9,6 +10,8 @@ import type {
   MergeSlots,
   NonSlottedComposerConfig,
   NonSlottedComposerReturn,
+  NonSlottedCompoundVariant,
+  NonSlottedDefaultVariants,
   NonSlottedVariants,
   SlotMap,
   SlottedComposerConfig,
@@ -75,8 +78,8 @@ export function createNonSlotComposer<TVariants extends NonSlottedVariants>(
       );
 
       if (shouldApply) {
-        const className = compoundVariant.className || compoundVariant.class;
-        if (className) classes.push(className);
+        classes.push(compoundVariant.className);
+        classes.push(compoundVariant.class);
       }
     }
 
@@ -93,17 +96,19 @@ export function createNonSlotComposer<TVariants extends NonSlottedVariants>(
   composer.defaultVariants = config.defaultVariants;
 
   // Now, add the extend function
-  composer.extend = <TNewVariants extends NonSlottedVariants>(
-    newConfig: NonSlottedComposerConfig<
-      MergePartialNonSlottedVariants<TVariants, TNewVariants>
-    >
-  ): NonSlottedComposerReturn<
-    MergeNonSlottedVariants<TVariants, TNewVariants>
-  > => {
-    const merged = deepMergeNonSlotConfig(config, newConfig);
-    return createNonSlotComposer(merged) as unknown as NonSlottedComposerReturn<
+  composer.extend = <TNewVariants extends NonSlottedVariants>(newConfig: {
+    variants?: MergePartialNonSlottedVariants<TVariants, TNewVariants>;
+    defaultVariants?: NonSlottedDefaultVariants<
       MergeNonSlottedVariants<TVariants, TNewVariants>
     >;
+    compoundVariants?: NonSlottedCompoundVariant<
+      MergeNonSlottedVariants<TVariants, TNewVariants>
+    >;
+  }): ExtendedNonSlottedComposerReturn<TVariants, TNewVariants> => {
+    const merged = deepMergeNonSlotConfig(config, newConfig);
+    return createNonSlotComposer(
+      merged
+    ) as unknown as ExtendedNonSlottedComposerReturn<TVariants, TNewVariants>;
   };
 
   return composer;
@@ -188,10 +193,13 @@ export function createSlotComposer<
           );
 
           if (shouldApply) {
-            const className =
-              compoundVariant.className || compoundVariant.class;
-            if (className) {
-              const slotClass = className[slot as string];
+            if (compoundVariant.className) {
+              const slotClass = compoundVariant.className[slot as string];
+              if (slotClass) classes.push(slotClass);
+            }
+
+            if (compoundVariant.class) {
+              const slotClass = compoundVariant.class[slot as string];
               if (slotClass) classes.push(slotClass);
             }
           }

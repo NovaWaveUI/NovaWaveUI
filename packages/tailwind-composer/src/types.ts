@@ -181,11 +181,7 @@ export type NonSlottedComposerConfig<TVariants extends NonSlottedVariants> = {
 export type ExtendedNonSlottedComposerReturn<
   TVariants extends NonSlottedVariants,
   TNewVariants extends NonSlottedVariants,
-  TFinalVariants extends MergeNonSlottedVariants<
-    TVariants,
-    TNewVariants
-  > = MergeNonSlottedVariants<TVariants, TNewVariants>,
-> = NonSlottedComposerReturn<TFinalVariants>;
+> = NonSlottedComposerReturn<MergeNonSlottedVariants<TVariants, TNewVariants>>;
 
 /**
  * The return type for a non-slotted component composer. This type includes a function that takes an optional
@@ -209,11 +205,15 @@ export type NonSlottedComposerReturn<TVariants extends NonSlottedVariants> = {
    * @returns The newly merged configuration
    */
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-  extend: <TNewVariants extends NonSlottedVariants = {}>(
-    newConfig?: NonSlottedComposerConfig<
-      MergePartialNonSlottedVariants<TVariants, TNewVariants>
-    >
-  ) => ExtendedNonSlottedComposerReturn<TVariants, TNewVariants>;
+  extend: <TNewVariants extends NonSlottedVariants = {}>(newConfig?: {
+    variants?: MergePartialNonSlottedVariants<TVariants, TNewVariants>;
+    defaultVariants?: NonSlottedDefaultVariants<
+      MergeNonSlottedVariants<TVariants, TNewVariants>
+    >;
+    compoundVariants?: NonSlottedCompoundVariant<
+      MergeNonSlottedVariants<TVariants, TNewVariants>
+    >;
+  }) => ExtendedNonSlottedComposerReturn<TVariants, TNewVariants>;
 
   /**
    * The valid variant keys for the non-slotted component. This is an array of strings
