@@ -1,5 +1,4 @@
-import '@testing-library/jest-dom';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from '@testing-library/jest-dom';
 
 describe('novawaveicon', () => {
   it('renders correctly', () => {

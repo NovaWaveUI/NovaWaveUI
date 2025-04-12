@@ -1,4 +1,3 @@
-import { tv, VariantProps } from 'tailwind-variants';
 import {
   createNonSlotComposer,
   ExtractVariantNonSlottedProps,
@@ -92,7 +91,7 @@ export const buttonStyles = createNonSlotComposer({
     {
       color: 'neutral',
       variant: 'solid',
-      className: 'neutral-solid',
+      className: ['neutral-solid', 'bg-amber-600'],
     },
     {
       color: 'primary',

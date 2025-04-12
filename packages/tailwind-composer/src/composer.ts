@@ -3,11 +3,8 @@ import type {
   ClassValue,
   ExtendedNonSlottedComposerReturn,
   ExtendedSlottedComposerReturn,
-  MergeDifferentPartialSlottedVariants,
   MergeNonSlottedVariants,
   MergePartialNonSlottedVariants,
-  MergePartialSlots,
-  MergeSlots,
   NonSlottedComposerConfig,
   NonSlottedComposerReturn,
   NonSlottedCompoundVariant,
@@ -94,6 +91,7 @@ export function createNonSlotComposer<TVariants extends NonSlottedVariants>(
 
   composer.variantKeys = variantKeys;
   composer.defaultVariants = config.defaultVariants;
+  composer.__variantTypes = undefined as unknown as TVariants;
 
   // Now, add the extend function
   composer.extend = <TNewVariants extends NonSlottedVariants>(newConfig: {
@@ -132,7 +130,7 @@ export function createSlotComposer<
   const variantKeys = Object.keys(variantConfig) as (keyof TVariants)[];
   const slotKeys = Object.keys(slotsConfig) as (keyof TSlots)[];
 
-  const composer: SlottedComposerReturn<TSlots, TVariants> = (input = {}) => {
+  const composer = ((input = {}) => {
     // If no configuration is provided, then return undefined
     if (!config) return undefined;
 
@@ -145,6 +143,12 @@ export function createSlotComposer<
 
     // Go through each slot and create a function for it
     for (const slot of slotKeys) {
+      const additionalSlotClass = input.className
+        ? input.className[slot]
+        : input.class
+          ? input.class[slot]
+          : undefined;
+
       returnFns[slot] = (overridentInput = {}) => {
         // First, combine the input with the overriden input
         const combinedInput = {
@@ -209,6 +213,7 @@ export function createSlotComposer<
         const { class: extraClass, className: extraClassName } = variants;
         if (extraClass) classes.push(extraClass as string);
         if (extraClassName) classes.push(extraClassName as string);
+        if (additionalSlotClass) classes.push(additionalSlotClass);
 
         // Return the final merged classes using twMerge
         return twMerge(...classes.filter(Boolean));
@@ -217,7 +222,7 @@ export function createSlotComposer<
 
     // Return the final object with the slot functions
     return returnFns;
-  };
+  }) as SlottedComposerReturn<TSlots, TVariants>;
 
   composer.variantKeys = variantKeys;
   composer.slotKeys = slotKeys;
@@ -226,32 +231,18 @@ export function createSlotComposer<
   composer.extend = <
     TSlots extends SlotMap,
     TNewSlots extends SlotMap,
-    TAllSlots extends MergeSlots<TSlots, TNewSlots>,
     TVariants extends SlottedVariants<TSlots>,
-    TNewVariants extends SlottedVariants<TAllSlots>,
-  >(
-    newConfig: SlottedComposerConfig<
-      MergePartialSlots<TSlots, TNewSlots>,
-      MergeDifferentPartialSlottedVariants<
-        TSlots,
-        TNewSlots,
-        MergeSlots<TSlots, TNewSlots>,
-        TVariants,
-        TNewVariants
-      >
-    >
-  ): ExtendedSlottedComposerReturn<
+    TNewVariants extends SlottedVariants<any>, // Simplified to avoid excessive depth
+  >(newConfig?: {
+    slots?: any; // Simplified to avoid excessive depth
+    variants?: any; // Simplified to avoid excessive depth
+    defaultVariants?: any; // Simplified to avoid excessive depth
+    compoundVariants?: any; // Simplified to avoid excessive depth
+  }): ExtendedSlottedComposerReturn<
     TSlots,
     TNewSlots,
-    MergeSlots<TSlots, TNewSlots>,
     TVariants,
-    MergeDifferentPartialSlottedVariants<
-      TSlots,
-      TNewSlots,
-      MergePartialSlots<TSlots, TNewSlots>,
-      TVariants,
-      TNewVariants
-    >
+    TNewVariants
   > => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -261,15 +252,8 @@ export function createSlotComposer<
     ) as unknown as ExtendedSlottedComposerReturn<
       TSlots,
       TNewSlots,
-      MergeSlots<TSlots, TNewSlots>,
       TVariants,
-      MergeDifferentPartialSlottedVariants<
-        TSlots,
-        TNewSlots,
-        MergePartialSlots<TSlots, TNewSlots>,
-        TVariants,
-        TNewVariants
-      >
+      TNewVariants
     >;
   };
 

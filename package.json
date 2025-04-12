@@ -5,19 +5,21 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --concurrency 14",
+    "build:fast": "turbo run build:fast --filter='!@novawaveui/storybook' --filter='!@novawaveui/tailwind-composer'",
+    "dev": "turbo run dev",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "format": "prettier --write .",
     "sb": "pnpm --filter @novawaveui/storybook storybook",
-    "test": "vitest run",
-    "test:watch": "turbo run test:watch --filter={./packages/components/*} --filter={./packages/core/provider} --filter={./packages/core/core} --filter={./packages/utils/*}",
-    "test:coverage": "turbo run test:coverage --filter={./packages/components/*} --filter={./packages/core/provider} --filter={./packages/core/core} --filter={./packages/utils/*}",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "clean:dist": "turbo run clean:dist",
     "clean": "turbo run clean && rm -rf node_modules",
     "create:component": "plop component",
     "create:hook": "plop hook",
-    "dev:css": "pnpm --filter @novawaveui/theme build:css --watch"
+    "dev:css": "pnpm --filter @novawaveui/theme build:css --watch",
+    "typeCheck": "turbo run typeCheck"
   },
   "keywords": [
     "novawaveui",
@@ -49,6 +51,7 @@
     "@types/react-dom": "^19.0.3",
     "add": "^2.0.6",
     "axe-core": "^4.10.2",
+    "clean-package": "^2.2.0",
     "concurrently": "^9.1.2",
     "eslint": "^9.20.0",
     "eslint-config-prettier": "catalog:",
@@ -67,7 +70,6 @@
     "tsup": "^8.3.6",
     "turbo": "^2.3.4",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.26.1",
-    "vite-plugin-dts": "^4.5.3"
+    "typescript-eslint": "^8.26.1"
   }
 }

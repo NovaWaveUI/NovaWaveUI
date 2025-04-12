@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from '@testing-library/jest-dom';
 
 describe('react-utils', () => {
   // Placeholder test for react-utils

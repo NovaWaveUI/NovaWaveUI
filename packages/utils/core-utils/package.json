@@ -1,32 +1,44 @@
 {
   "name": "@novawaveui/core-utils",
   "version": "1.0.0",
-  "description": "A collectio of utility types and functions that are used throughout the NovaWaveUI monorepo.",
+  "description": "A collection of utility types and functions that are used throughout the NovaWaveUI monorepo.",
+  "keywords": [],
+  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
+  "license": "MIT",
   "type": "module",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
+    }
+  },
   "files": [
     "dist/"
   ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
-    }
+  "scripts": {
+    "build": "tsup src/index.ts --dts",
+    "build:fast": "tsup src/index.ts",
+    "dev": "pnpm build:fast --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint",
+    "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",
+    "clean:dist": "rm -rf dist",
+    "clean:node_modules": "rm -rf node_modules",
+    "clean": "pnpm run clean:dist && pnpm run clean:node_modules",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
   },
   "devDependencies": {
     "@novawaveui/eslint-config": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*"
   },
-  "scripts": {
-    "build": "tsup src --dts",
-    "dev": "tsup src --dts --watch",
-    "lint": "eslint",
-    "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",
-    "clean:dist": "rm -rf dist",
-    "clean:node_modules": "rm -rf node_modules",
-    "clean": "pnpm run clean:dist && pnpm run clean:node_modules"
-  },
-  "keywords": [],
-  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
-  "license": "MIT"
+  "clean-package": "../../../build/clean-package.config.json"
 }

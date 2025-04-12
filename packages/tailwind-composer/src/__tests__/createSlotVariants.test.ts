@@ -158,4 +158,72 @@ describe('createSlotVariants', () => {
     // @ts-expect-error - toHaveClass is a custom matcher
     expect(result).toHaveClass(expectedClasses);
   });
+
+  it('should work if className is passed in with the slot style functions', () => {
+    const testConfig = createSlotComposer({
+      slots: {
+        header: 'header-class',
+        footer: 'footer-class',
+      },
+      variants: {
+        color: {
+          primary: {
+            header: 'text-blue-500',
+            footer: 'text-blue-300',
+          },
+        },
+        isDisabled: {
+          true: {
+            footer: 'opacity-50 cursor-not-allowed',
+          },
+        },
+      },
+      defaultVariants: {
+        color: 'primary',
+        isDisabled: false,
+      },
+    });
+
+    const { header, footer } = testConfig({
+      className: {
+        header: 'custom-header-class',
+        footer: 'custom-footer-class',
+      },
+    });
+
+    // @ts-expect-error - toHaveClass is a custom matcher
+    expect(header()).toHaveClass([
+      'header-class',
+      'text-blue-500',
+      'custom-header-class',
+    ]);
+    // @ts-expect-error - toHaveClass is a custom matcher
+    expect(footer()).toHaveClass([
+      'footer-class',
+      'text-blue-300',
+      'custom-footer-class',
+    ]);
+    // @ts-expect-error - toHaveClass is a custom matcher
+    expect(footer({ className: 'extra-class' })).toHaveClass([
+      'footer-class',
+      'text-blue-300',
+      'custom-footer-class',
+      'extra-class',
+    ]);
+    // @ts-expect-error - toHaveClass is a custom matcher
+    expect(header({ className: 'extra-class' })).toHaveClass([
+      'header-class',
+      'text-blue-500',
+      'custom-header-class',
+      'extra-class',
+    ]);
+    // @ts-expect-error - toHaveClass is a custom matcher
+    expect(footer({ isDisabled: true })).toHaveClass([
+      'footer-class',
+      'text-blue-300',
+      'custom-footer-class',
+      'opacity-50',
+      'cursor-not-allowed',
+    ]);
+  });
 });

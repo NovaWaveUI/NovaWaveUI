@@ -144,10 +144,10 @@ export const extractComponentFromDisplayName = (displayName?: string) => {
  */
 export const mapPropsToVariants = <
   T extends Record<string, any>,
-  K extends keyof T,
+  K extends keyof any = keyof any,
 >(
   props: T,
-  variants: K[],
+  variants: readonly K[],
   filter?: boolean
 ) => {
   if (!variants) {
@@ -156,17 +156,24 @@ export const mapPropsToVariants = <
 
   // eslint-disable-next-line unicorn/no-array-reduce
   const pickedProps = variants.reduce((acc, variant) => {
-    return variant in props ? { ...acc, [variant]: props[variant] } : acc;
-  }, {});
+    if (variant in props) {
+      // Only add the key if it's actually in T
+      (acc as any)[variant as keyof T] = props[variant as keyof T];
+    }
+    return acc;
+  }, {} as Partial<T>);
 
   if (filter) {
     const omitted = Object.keys(props)
       .filter(key => !variants.includes(key as K))
-      // eslint-disable-next-line unicorn/no-array-reduce, unicorn/prefer-object-from-entries
-      .reduce((acc, key) => ({ ...acc, [key]: props[key as keyof T] }), {});
+      // eslint-disable-next-line unicorn/no-array-reduce
+      .reduce((acc, key) => ({ ...acc, [key]: props[key] }), {} as Partial<T>);
 
-    return [omitted, pickedProps] as [Omit<T, K>, Pick<T, K>];
+    return [omitted, pickedProps] as [
+      Omit<T, Extract<keyof T, K>>,
+      Pick<T, Extract<keyof T, K>>,
+    ];
   } else {
-    return [props, pickedProps] as [T, Pick<T, K>];
+    return [props, pickedProps] as [T, Pick<T, Extract<keyof T, K>>];
   }
 };

@@ -2,26 +2,42 @@
   "name": "@novawaveui/motion",
   "version": "1.0.0",
   "description": "The package contains motion capabilities for the NovaWaveUI framework. It contains custom hooks and utilities for creating animations while exporting the motion library.",
+  "keywords": [],
+  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
+  "license": "ISC",
   "type": "module",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
+    }
+  },
   "files": [
     "dist/"
   ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
-    },
-    "./motion": {
-      "types": "./dist/motion.d.ts",
-      "require": "./dist/motion.cjs",
-      "import": "./dist/motion.js"
-    },
-    "./react": {
-      "types": "./dist/react.d.ts",
-      "require": "./dist/react.cjs",
-      "import": "./dist/react.js"
-    }
+  "scripts": {
+    "build": "tsup src/index.ts --dts",
+    "build:fast": "tsup src/index.ts",
+    "dev": "pnpm build:fast --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest run --watch",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint",
+    "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",
+    "clean:dist": "rm -rf dist",
+    "clean:node_modules": "rm -rf node_modules",
+    "clean": "pnpm clean:dist && pnpm clean:node_modules",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
   },
   "peerDependencies": {
     "react": "^19.0.0",
@@ -40,19 +56,5 @@
     "react": "catalog:",
     "react-dom": "catalog:"
   },
-  "scripts": {
-    "build": "tsup src --dts",
-    "dev": "tsup src --dts --watch",
-    "test": "vitest run",
-    "test:watch": "vitest run --watch",
-    "test:coverage": "vitest run --coverage",
-    "lint": "eslint",
-    "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",
-    "clean:dist": "rm -rf dist",
-    "clean:node_modules": "rm -rf node_modules",
-    "clean": "pnpm run clean:dist && pnpm run clean:node_modules"
-  },
-  "keywords": [],
-  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
-  "license": "ISC"
+  "clean-package": "../../../build/clean-package.config.json"
 }

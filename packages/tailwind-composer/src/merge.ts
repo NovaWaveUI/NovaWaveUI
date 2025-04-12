@@ -1,11 +1,9 @@
 import {
   ClassValue,
-  MergeDifferentPartialSlottedVariants,
-  MergeDifferentSlottedVariants,
   MergeNonSlottedVariants,
   MergePartialNonSlottedVariants,
-  MergePartialSlots,
   MergeSlots,
+  MergeSlottedVariants,
   NonSlottedComposerConfig,
   NonSlottedCompoundVariant,
   NonSlottedDefaultVariants,
@@ -115,105 +113,59 @@ export function deepMergeSlotConfig<
   TAllSlots extends MergeSlots<TSlots, TNewSlots>,
   TVariants extends SlottedVariants<TSlots>,
   TNewVariants extends SlottedVariants<TAllSlots>,
-  TFinalVariants extends MergeDifferentSlottedVariants<
-    TSlots,
-    TNewSlots,
-    MergeSlots<TSlots, TNewSlots>,
+  TFinalVariants extends MergeSlottedVariants<
+    TAllSlots,
+    // @ts-expect-error - This is a known issue with Typescript
     TVariants,
     TNewVariants
-  > = MergeDifferentSlottedVariants<
-    TSlots,
-    TNewSlots,
-    MergeSlots<TSlots, TNewSlots>,
-    TVariants,
-    TNewVariants
-  >,
+    // @ts-expect-error - This is a known issue with Typescript
+  > = MergeSlottedVariants<TAllSlots, TVariants, TNewVariants>,
 >(
   baseConfig: SlottedComposerConfig<TSlots, TVariants>,
-  newConfig: SlottedComposerConfig<
-    MergePartialSlots<TSlots, TNewSlots>,
-    MergeDifferentPartialSlottedVariants<
-      TSlots,
-      TNewSlots,
-      MergeSlots<TSlots, TNewSlots>,
-      TVariants,
-      TNewVariants
-    >
-  >
+  // @ts-expect-error - This is a known issue with Typescript
+  newConfig: SlottedComposerConfig<TNewSlots, TNewVariants>
 ): SlottedComposerConfig<TAllSlots, TFinalVariants> {
-  const mergedVariants: TFinalVariants = {} as TFinalVariants;
-  // First, go through the base configuration and add all the variants
-  for (const [key, value] of Object.entries(baseConfig.variants ?? {}) as [
-    keyof TVariants,
-    TVariants[keyof TVariants],
-  ][]) {
-    // We know that `key` is a key of TVariants, so we can safely cast it
-    // to the correct type. Value is also valid and casted to the correct type.
-    // Unknown is used here because Typescript will not understand that
-    // the value is just a variant from the base configuration.
-    mergedVariants[key as keyof TFinalVariants] =
-      value as unknown as TFinalVariants[keyof MergeDifferentSlottedVariants<
-        TSlots,
-        TNewSlots,
-        MergeSlots<TSlots, TNewSlots>,
-        TVariants,
-        TNewVariants
-      >];
+  const mergedVariants = {} as TFinalVariants;
+
+  // Merge base variants
+  for (const [key, value] of Object.entries(baseConfig.variants ?? {})) {
+    (mergedVariants as any)[key] = { ...value };
   }
 
-  // Now, go through the new configuration and add/override the variants
-  // If the variant is defined, go through the values and merge them with
-  // the base configuration. If the value is different, it will override the
-  // base configuration.
-  // For simplicity, we will not cast [key, value] to a specific type here because
-  // we know that these are going to be valid
+  // Merge newConfig variants into mergedVariants
   for (const [key, value] of Object.entries(newConfig.variants ?? {})) {
-    if (mergedVariants[key] === undefined) {
-      (mergedVariants as Record<string, any>)[key] = {
-        ...(value as unknown as MergeDifferentSlottedVariants<
-          TSlots,
-          TNewSlots,
-          MergeSlots<TSlots, TNewSlots>,
-          TVariants,
-          TNewVariants
-        >[keyof MergeDifferentSlottedVariants<
-          TSlots,
-          TNewSlots,
-          MergeSlots<TSlots, TNewSlots>,
-          TVariants,
-          TNewVariants
-        >]),
-      };
+    if (!(key in mergedVariants)) {
+      (mergedVariants as any)[key] = { ...value };
     } else {
-      for (const [variant, variantValue] of Object.entries(value)) {
-        for (const [slot, className] of Object.entries(variantValue)) {
-          if (mergedVariants[key][variant] === undefined) {
-            // @ts-expect-error - This is a workaround for the fact that Typescript
-            mergedVariants[key][variant] = { ...variantValue };
-          } else {
-            // @ts-expect-error - This is a workaround for the fact that Typescript
-            mergedVariants[key][variant][slot] = className;
-          }
+      for (const [variantOption, slotMap] of Object.entries(value)) {
+        if (!(variantOption in (mergedVariants as any)[key])) {
+          (mergedVariants as any)[key][variantOption] = { ...slotMap };
+        } else {
+          Object.assign((mergedVariants as any)[key][variantOption], slotMap);
         }
       }
     }
   }
 
-  const merged: SlottedComposerConfig<TAllSlots, TFinalVariants> = {
-    slots: {
-      ...(baseConfig.slots ?? {}),
-      ...(newConfig.slots ?? {}),
-    } as TAllSlots,
-    variants: mergedVariants as TFinalVariants,
-    defaultVariants: {
-      ...(baseConfig.defaultVariants ?? {}),
-      ...(newConfig.defaultVariants ?? {}),
-    } as unknown as SlottedDefaultVariants<TAllSlots, TFinalVariants>,
-    compoundVariants: [
-      ...(baseConfig.compoundVariants ?? []),
-      ...(newConfig.compoundVariants ?? []),
-    ] as SlottedCompoundVariant<TAllSlots, TFinalVariants>,
-  };
+  const mergedSlots = {
+    ...(baseConfig.slots ?? {}),
+    ...(newConfig.slots ?? {}),
+  } as TAllSlots;
 
-  return merged;
+  const mergedDefaultVariants = {
+    ...(baseConfig.defaultVariants ?? {}),
+    ...(newConfig.defaultVariants ?? {}),
+  } as unknown as SlottedDefaultVariants<TAllSlots, TFinalVariants>;
+
+  const mergedCompoundVariants = [
+    ...(baseConfig.compoundVariants ?? []),
+    ...(newConfig.compoundVariants ?? []),
+  ] as SlottedCompoundVariant<TAllSlots, TFinalVariants>;
+
+  return {
+    slots: mergedSlots,
+    variants: mergedVariants,
+    defaultVariants: mergedDefaultVariants,
+    compoundVariants: mergedCompoundVariants,
+  };
 }

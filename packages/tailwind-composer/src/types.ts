@@ -145,6 +145,12 @@ export type NonSlottedCompoundVariant<TVariants extends NonSlottedVariants> =
     } & NonSlottedClassProp
   >;
 
+export type VariantInputFromComposer<T> = T extends { __variantTypes: infer V }
+  ? V extends NonSlottedVariants
+    ? NonSlottedVariantInputValue<V>
+    : never
+  : never;
+
 /**
  * The non-slotted component configuration type.
  */
@@ -219,9 +225,11 @@ export type NonSlottedComposerReturn<TVariants extends NonSlottedVariants> = {
    * The valid variant keys for the non-slotted component. This is an array of strings
    * representing the keys of the variants defined in the `variants` property.
    */
-  variantKeys?: Array<keyof TVariants>;
+  variantKeys: Array<keyof TVariants>;
 
-  defaultVariants?: NonSlottedDefaultVariants<TVariants>;
+  defaultVariants: NonSlottedDefaultVariants<TVariants>;
+
+  __variantTypes: TVariants;
 };
 
 export type ExtractVariantNonSlottedProps<T> =
@@ -235,41 +243,32 @@ export type ExtractVariantNonSlottedProps<T> =
 
 /**
  * A type that represents the possible class properties for a slotted component.
+ * This allows for either a `class` or `className` property, but not both at once.
  */
 export type SlottedClassProp<TSlots extends SlotMap> =
-  | { class: { [K in keyof TSlots]?: ClassValue }; className?: never }
-  | { class?: never; className: { [K in keyof TSlots]?: ClassValue } };
+  | { class: Partial<Record<keyof TSlots, ClassValue>>; className?: never }
+  | { class?: never; className: Partial<Record<keyof TSlots, ClassValue>> };
+
+export type SlottedClassPropOptional<TSlots extends SlotMap> =
+  | { class?: Partial<Record<keyof TSlots, ClassValue>>; className?: never }
+  | { class?: never; className?: Partial<Record<keyof TSlots, ClassValue>> };
 
 /**
- * A type that represents the slots for a slotted component. This is a record
- * where each key is the name of the slot and each value is a `ClassValue`.
+ * A record where each key is a slot name and each value is a ClassValue.
  */
 export type SlotMap = Record<string, ClassValue>;
 
 /**
- * A type that represents the value the variants for a slotted component.
- * This type is a record where each key is a variant name and
- * each value is an option of the variant. Each value of that
- * variant option is a map of a slot name (or slot names) to a `ClassValue`.
- *
- * This means that for each variant option, a slot can be assigned a specific
- * `ClassValue` but not all slots need to be assigned a `ClassValue`.
+ * A type representing the variants for a slotted component.
+ * Each variant option may define styles per slot.
  */
 export type SlottedVariants<TSlots extends SlotMap> = Record<
   string,
-  Record<
-    string,
-    {
-      [K in keyof TSlots]?: ClassValue;
-    }
-  >
+  Record<string, Partial<Record<keyof TSlots, ClassValue>>>
 >;
 
 /**
- * A type that represents the input to control the variants for a slotted component.
- * This type is an object that optionally contains the keys of each variant defined in
- * the `SlottedVariants`. Each key maps to a value that can either be a single option
- * from the variant or an array of keys from the variant options.
+ * A type representing the input control values for each variant.
  */
 export type SlottedVariantInputValue<
   TSlots extends SlotMap,
@@ -278,6 +277,7 @@ export type SlottedVariantInputValue<
   [K in keyof TVariants]?: VariantInput<TVariants[K]>;
 };
 
+// Merge utility types
 export type MergeSlots<T extends SlotMap, U extends SlotMap> =
   DeepMerge<T, U> extends SlotMap ? DeepMerge<T, U> : never;
 
@@ -290,26 +290,6 @@ export type MergeSlottedVariants<
   U extends SlottedVariants<TSlots>,
 > = DeepMerge<T, U> extends SlottedVariants<TSlots> ? DeepMerge<T, U> : never;
 
-export type MergeDifferentSlottedVariants<
-  TSlots extends SlotMap,
-  TNewSlots extends SlotMap,
-  TAllSlots extends MergeSlots<TSlots, TNewSlots>,
-  T extends SlottedVariants<TSlots>,
-  U extends SlottedVariants<TAllSlots>,
-> =
-  DeepMerge<T, U> extends SlottedVariants<TAllSlots> ? DeepMerge<T, U> : never;
-
-export type MergeDifferentPartialSlottedVariants<
-  TSlots extends SlotMap,
-  TNewSlots extends SlotMap,
-  TAllSlots extends MergePartialSlots<TSlots, TNewSlots>,
-  T extends SlottedVariants<TSlots>,
-  U extends SlottedVariants<TAllSlots>,
-> =
-  DeepMergePartial<T, U> extends SlottedVariants<TAllSlots>
-    ? DeepMergePartial<T, U>
-    : never;
-
 export type MergePartialSlottedVariants<
   TSlots extends SlotMap,
   T extends SlottedVariants<TSlots>,
@@ -319,6 +299,7 @@ export type MergePartialSlottedVariants<
     ? DeepMergePartial<T, U>
     : never;
 
+// Default variants
 export type SlottedDefaultVariants<
   TSlots extends SlotMap,
   TVariants extends SlottedVariants<TSlots>,
@@ -326,6 +307,7 @@ export type SlottedDefaultVariants<
   [K in keyof TVariants]?: VariantInput<TVariants[K]>;
 };
 
+// Compound variants
 export type SlottedCompoundVariant<
   TSlots extends SlotMap,
   TVariants extends SlottedVariants<TSlots>,
@@ -337,39 +319,28 @@ export type SlottedCompoundVariant<
   } & SlottedClassProp<TSlots>
 >;
 
+// Config type
 export type SlottedComposerConfig<
   TSlots extends SlotMap,
   TVariants extends SlottedVariants<TSlots>,
 > = {
-  /**
-   * The base classes that will be applied to each slot.
-   */
   slots?: TSlots;
-
-  /**
-   * The variants for the slotted component.
-   */
   variants?: TVariants;
-
-  /**
-   * The default values for the variants. This is a record where each key
-   * is a variant name and each value is the default input for that variant.
-   */
   defaultVariants?: SlottedDefaultVariants<TSlots, TVariants>;
-
-  /**
-   * The compound variants for the slotted component.
-   */
   compoundVariants?: SlottedCompoundVariant<TSlots, TVariants>;
 };
 
+// Return type
 export type SlottedComposerReturn<
   TSlots extends SlotMap,
   TVariants extends SlottedVariants<TSlots>,
 > = {
-  (input?: SlottedVariantInputValue<TSlots, TVariants> & ClassPropOptional): {
+  (
+    input?: SlottedVariantInputValue<TSlots, TVariants> &
+      SlottedClassPropOptional<TSlots>
+  ): {
     [K in keyof TSlots]: (
-      input?: SlottedVariantInputValue<TSlots, TVariants>
+      input?: SlottedVariantInputValue<TSlots, TVariants> & ClassPropOptional
     ) => string;
   };
 
@@ -377,60 +348,66 @@ export type SlottedComposerReturn<
     TNewSlots extends SlotMap,
     // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     TNewVariants extends SlottedVariants<MergeSlots<TSlots, TNewSlots>> = {},
-  >(
-    newConfig?: SlottedComposerConfig<
-      MergePartialSlots<TSlots, TNewSlots>,
-      MergeDifferentPartialSlottedVariants<
-        TSlots,
-        TNewSlots,
+  >(config?: {
+    slots?: MergePartialSlots<TSlots, TNewSlots>;
+    variants?: MergePartialSlottedVariants<
+      MergeSlots<TSlots, TNewSlots>,
+      TVariants extends SlottedVariants<MergeSlots<TSlots, TNewSlots>>
+        ? TVariants
+        : never,
+      TNewVariants
+    >;
+    defaultVariants?: SlottedDefaultVariants<
+      MergeSlots<TSlots, TNewSlots>,
+      MergeSlottedVariants<
         MergeSlots<TSlots, TNewSlots>,
-        TVariants,
+        TVariants extends SlottedVariants<MergeSlots<TSlots, TNewSlots>>
+          ? TVariants
+          : never,
         TNewVariants
       >
-    >
-  ) => ExtendedSlottedComposerReturn<
+    >;
+    compoundVariants?: SlottedCompoundVariant<
+      MergeSlots<TSlots, TNewSlots>,
+      MergeSlottedVariants<
+        MergeSlots<TSlots, TNewSlots>,
+        TVariants extends SlottedVariants<MergeSlots<TSlots, TNewSlots>>
+          ? TVariants
+          : never,
+        TNewVariants
+      >
+    >;
+  }) => ExtendedSlottedComposerReturn<
     TSlots,
     TNewSlots,
-    MergeSlots<TSlots, TNewSlots>,
     TVariants,
-    MergeDifferentPartialSlottedVariants<
-      TSlots,
-      TNewSlots,
-      MergePartialSlots<TSlots, TNewSlots>,
-      TVariants,
-      TNewVariants
-    >
+    TNewVariants
   >;
 
   slotKeys: (keyof TSlots)[];
-
   variantKeys: (keyof TVariants)[];
+  defaultVariants: SlottedDefaultVariants<TSlots, TVariants>;
 };
 
+// Extended return
 export type ExtendedSlottedComposerReturn<
   TSlots extends SlotMap,
   TNewSlots extends SlotMap,
-  TAllSlots extends MergeSlots<TSlots, TNewSlots>,
   TVariants extends SlottedVariants<TSlots>,
-  TNewVariants extends SlottedVariants<TAllSlots>,
-  TFinalVariants extends MergeDifferentSlottedVariants<
-    TSlots,
-    TNewSlots,
+  TNewVariants extends SlottedVariants<MergeSlots<TSlots, TNewSlots>>,
+> = SlottedComposerReturn<
+  MergeSlots<TSlots, TNewSlots>,
+  MergeSlottedVariants<
     MergeSlots<TSlots, TNewSlots>,
-    TVariants,
+    TVariants extends SlottedVariants<MergeSlots<TSlots, TNewSlots>>
+      ? TVariants
+      : never,
     TNewVariants
-  > = MergeDifferentSlottedVariants<
-    TSlots,
-    TNewSlots,
-    MergeSlots<TSlots, TNewSlots>,
-    TVariants,
-    TNewVariants
-  >,
-> = SlottedComposerReturn<TAllSlots, TFinalVariants>;
+  >
+>;
 
+// Extract variant props
 export type ExtractVariantSlottedProps<
   TSlots extends SlotMap,
   TVariants extends SlottedVariants<TSlots>,
-> = {
-  [K in keyof TVariants]?: VariantInput<TVariants[K]>;
-};
+> = SlottedVariantInputValue<TSlots, TVariants>;

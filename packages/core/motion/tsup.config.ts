@@ -7,7 +7,6 @@ export default defineConfig((options: Options) => ({
   sourcemap: false,
   clean: !options.clean,
   bundle: true,
-  dts: true,
   banner: {
     js: '"use client";',
   },

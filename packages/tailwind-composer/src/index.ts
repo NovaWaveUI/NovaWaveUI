@@ -13,6 +13,7 @@ export type {
   NonSlottedVariantInputValue,
   ExtractVariantNonSlottedProps,
   ExtractVariantSlottedProps,
+  VariantInputFromComposer,
 } from './types';
 
 export {

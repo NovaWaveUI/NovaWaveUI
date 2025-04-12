@@ -73,8 +73,6 @@ export const useButton = (props: UseButtonProps) => {
   // Create / assign the DOM ref
   const domRef = useDOMRef(ref);
 
-  console.log({ ...otherProps });
-
   // Set up the interactivity of the button
   const isDisabled = useMemo(() => isDisabledProp, [isDisabledProp]);
   const isLoading = useMemo(() => isLoadingProp, [isLoadingProp]);

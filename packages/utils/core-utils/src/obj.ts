@@ -12,13 +12,13 @@ export function removeKeys<T extends Record<string, any>, K extends keyof T>(
   const result = { ...obj };
 
   // If keys is not an array, it is a single key
-  if (!Array.isArray(keys)) {
-    delete result[keys];
-  } else {
+  if (Array.isArray(keys)) {
     // If keys is an array, go through each key and delete
-    keys.forEach(key => {
+    for (const key of keys) {
       delete result[key];
-    });
+    }
+  } else {
+    delete result[keys];
   }
 
   return result;
