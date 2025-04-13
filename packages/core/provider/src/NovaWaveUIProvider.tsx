@@ -82,10 +82,9 @@ export const NovaWaveUIProvider = ({
 
     if (storedMode) return storedMode;
 
-    const prefersDarkMode = globalThis.matchMedia(
-      '(prefers-color-scheme: dark)'
-    ).matches;
-
+    const prefersDarkMode =
+      typeof globalThis !== 'undefined' &&
+      globalThis.matchMedia('(prefers-color-scheme: dark)').matches;
     return prefersDarkMode ? 'dark' : 'light';
   });
 

@@ -29,6 +29,12 @@ export function mergeProperties<T, U>(obj1: T, obj2: U): T & U {
   return { ...obj1, ...obj2 };
 }
 
+export function objectToDeps(obj: Record<string, any>) {
+  return Object.values(obj).flatMap(value =>
+    Array.isArray(value) ? value : [value]
+  );
+}
+
 /**
  * Hook to generate a slot-based function that merges default properties with user-provided properties and data attributes.
  * This is memoized based on the dependencies of the slot configurations. That is important to avoid unnecessary re-renders
@@ -94,3 +100,83 @@ export function useSlotProps<T extends string>(
     )
   );
 }
+
+/**
+ * Checks if a given React element is a NovaWaveUI element.
+ *
+ * @param element The element to check if it is a NovaWaveUI element
+ * @returns Returns true if the element is a NovaWaveUI element
+ */
+export const isNovaWaveUIElement = (
+  element: React.ForwardRefExoticComponent<any>
+) => {
+  return element?.displayName?.startsWith('NovaWaveUI');
+};
+
+/**
+ * The function extracts the NovaWaveUI prefix fromt the display name
+ * and returns the component name that follows. For example, "NovaWaveUIButton"
+ * would return "button", "NovaWaveUIContextMenuItem" would return "contextMenuItem".
+ *
+ * @param displayName The display name of the component
+ * @returns The component name extracted from the display name
+ */
+export const extractComponentFromDisplayName = (displayName?: string) => {
+  if (!displayName) {
+    return '';
+  }
+
+  // Check if the display name starts with NovaWaveUI
+  if (!displayName.startsWith('NovaWaveUI')) {
+    return displayName;
+  }
+
+  // Now remove the NovaWaveUI prefix and lowercase the first letter
+  const componentName = displayName.replace('NovaWaveUI', '');
+  return componentName.charAt(0).toLowerCase() + componentName.slice(1);
+};
+
+/**
+ *
+ * @param props The props to be mapped
+ * @param variants The variants to be filtered
+ * @param filter Whether to filter the props or not
+ */
+export const mapPropsToVariants = <
+  T extends Record<string, any>,
+  K extends keyof any = keyof any,
+>(
+  props: T,
+  variants: readonly K[],
+  filter?: boolean
+) => {
+  if (!variants) {
+    return [props, {}] as [T, Partial<T>];
+  }
+
+  // eslint-disable-next-line unicorn/no-array-reduce
+  const pickedProps = variants.reduce((acc, variant) => {
+    if (variant in props) {
+      // Only add the key if it's actually in T
+      (acc as any)[variant as keyof T] = props[variant as keyof T];
+    }
+    return acc;
+  }, {} as Partial<T>);
+
+  if (filter) {
+    // Create the omitted object directly without spread in reduce
+    const omitted = {} as Partial<T>;
+    for (const key of Object.keys(props).filter(
+      key => !variants.includes(key as K)
+    )) {
+      omitted[key as keyof T] = props[key as keyof T];
+    }
+
+    return [omitted, pickedProps] as [
+      Omit<T, Extract<keyof T, K>>,
+      Pick<T, Extract<keyof T, K>>,
+    ];
+  } else {
+    return [props, pickedProps] as [T, Pick<T, Extract<keyof T, K>>];
+  }
+};

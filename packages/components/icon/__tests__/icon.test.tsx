@@ -1,6 +1,6 @@
-import '@testing-library/jest-dom';
 import * as React from 'react';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from '@jest/globals';
+import '@testing-library/jest-dom';
 import { NovaWaveUIProvider } from '@novawaveui/provider';
 import { render } from '@testing-library/react';
 import { Icon } from '../src';

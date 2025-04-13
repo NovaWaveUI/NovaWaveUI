@@ -41,7 +41,7 @@ interface Props extends NovaWaveUIProps<'button'> {
 
 export type UseButtonProps = Props &
   Omit<AriaButtonProps, keyof ButtonVariantProps> &
-  Omit<ButtonVariantProps, 'isVertical'>;
+  ButtonVariantProps;
 
 export const useButton = (props: UseButtonProps) => {
   const globalContext = useNovaWaveUI();

@@ -1,9 +1,13 @@
-import { defineConfig } from 'tsup';
+import { defineConfig, Options } from 'tsup';
 
-export default defineConfig({
-  clean: true,
+export default defineConfig((options: Options) => ({
+  format: ['cjs', 'esm'],
   target: 'es2020',
-  format: ['esm', 'cjs'],
-  entry: ['src/index.ts'],
-  external: ['react', 'react-dom', 'react/jsx-runtime'],
-});
+  sourcemap: false,
+  clean: true,
+  bundle: true,
+  banner: {
+    js: '"use client";',
+  },
+  ...options,
+}));

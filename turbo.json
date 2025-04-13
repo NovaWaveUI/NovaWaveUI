@@ -6,12 +6,10 @@
       "outputs": ["dist/**"]
     },
     "build:fast": {
-      "outputs": ["dist/**"],
-      "dependsOn": ["^build:fast"]
+      "dependsOn": ["^build:fast"],
+      "outputs": ["dist/**"]
     },
     "dev": {
-      "dependsOn": ["build"],
-      "persistent": true,
       "cache": false
     },
     "test": {

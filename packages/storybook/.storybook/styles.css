@@ -50,3 +50,18 @@
   --secondary-900: var(--coral-tree-900);
   --secondary-950: var(--coral-tree-950);
 }
+
+.slate-btn-solid {
+  @apply bg-slate-500 text-slate-50 data-hover:bg-slate-600 data-active:bg-slate-700;
+}
+
+.slate-btn-outline {
+  @apply border-slate-500 text-slate-500 data-hover:bg-slate-50 data-active:bg-slate-100;
+}
+.slate-btn-ghost {
+  @apply text-slate-500 data-hover:text-slate-50 data-hover:bg-slate-500 data-active:bg-slate-600;
+}
+
+.teal-btn-solid {
+  @apply bg-teal-500 text-teal-50 data-hover:bg-teal-600 data-active:bg-teal-700;
+}

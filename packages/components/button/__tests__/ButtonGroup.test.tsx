@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import React from 'react';
 import { render } from '@testing-library/react';
-import { describe, it, expect, vitest, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from '@jest/globals';
 import userEvent, { UserEvent } from '@testing-library/user-event';
 import { NovaWaveUIProvider } from '@novawaveui/provider';
 import { Button, ButtonGroup } from '../src';
@@ -36,7 +36,7 @@ describe('ButtonGroup', () => {
   });
 
   it('should ignore events when group is disabled', async () => {
-    const onPress = vitest.fn();
+    const onPress = jest.fn();
     const wrapper = render(
       <ButtonGroup isDisabled>
         <Button onPress={onPress} data-testid="button-test">

@@ -1,9 +1,10 @@
-import type { Meta } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { Button } from '../src/index';
 import { buttonStyles } from '@novawaveui/theme';
 import { ButtonProps } from '../src/Button';
 import { heroIcons, NovaWaveIcon } from '@novawaveui/novawaveicon';
+import { extendComponent, PropsOfExtendedComponent } from '@novawaveui/core';
 
 const iconNames = Object.keys(
   heroIcons.solid
@@ -80,11 +81,44 @@ const meta: Meta<typeof Button> = {
 
 export default meta;
 
+type Story = StoryObj<typeof Button>;
+
 const defaultProps = {
   ...buttonStyles.defaultVariants,
 };
 
 const Template = (args: ButtonProps) => <Button {...args} />;
+
+const extendedButtonStyles = buttonStyles.extend({
+  variants: {
+    color: {
+      slate: '',
+      teal: '',
+    },
+  },
+  compoundVariants: [
+    {
+      variant: 'solid',
+      color: 'slate',
+      className: 'slate-btn-solid',
+    },
+    {
+      variant: 'solid',
+      color: 'teal',
+      className: 'teal-btn-solid',
+    },
+  ],
+});
+
+type ExtendedButtonProps = PropsOfExtendedComponent<
+  typeof Button,
+  typeof extendedButtonStyles
+>;
+
+const ExtendedButtonComponent = extendComponent(Button, extendedButtonStyles);
+const ExtendedTemplate = (args: ExtendedButtonProps) => (
+  <ExtendedButtonComponent {...args} />
+);
 
 export const Default = {
   render: Template,
@@ -200,3 +234,28 @@ export const IconOnly = {
     startContent: 'StarIcon',
   },
 };
+
+export const ExtendedButton = {
+  render: ExtendedTemplate,
+  argTypes: {
+    color: {
+      control: { type: 'select' },
+      options: [
+        'slate',
+        'teal',
+        'neutral',
+        'primary',
+        'secondary',
+        'warning',
+        'danger',
+      ],
+    },
+  },
+  args: {
+    children: 'Button',
+    color: 'slate',
+    variant: 'solid',
+    size: 'md',
+    radius: 'md',
+  },
+} as unknown as Story;

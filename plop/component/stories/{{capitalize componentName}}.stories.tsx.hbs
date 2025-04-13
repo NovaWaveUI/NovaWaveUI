@@ -1,0 +1,25 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { {{componentName}}Styles } from '@novawaveui/theme';
+import { {{capitalize componentName}} } from '../src/index';
+import { {{capitalize componentName}}Props } from '../src/{{capitalize componentName}}';
+
+const meta: Meta<typeof {{capitalize componentName}}> = {
+  title: 'Components/{{capitalize componentName}}',
+  component: {{capitalize componentName}},
+  tags: ['autodocs']
+} satisfies Meta<typeof {{capitalize componentName}}>;
+
+export default meta;
+
+const defaultProps = {
+  ...{{componentName}}Styles.defaultVariants,
+};
+
+const Template = (args: {{capitalize componentName}}Props) => <{{capitalize componentName}} {...args} />;
+
+export const Default = {
+  render: Template,
+  args: {
+    ...defaultProps,
+  },
+}

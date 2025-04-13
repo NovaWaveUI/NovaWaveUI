@@ -1,15 +1,17 @@
 import '@testing-library/jest-dom';
 import React from 'react';
 import { render } from '@testing-library/react';
-import { describe, it, expect, vitest, beforeEach } from 'vitest';
+import { describe, it, expect, jest, beforeEach } from '@jest/globals';
 import { NovaWaveUIProvider } from '@novawaveui/provider';
-import { axe } from 'jest-axe';
+import { axe, toHaveNoViolations } from 'jest-axe';
 import userEvent, { UserEvent } from '@testing-library/user-event';
 import Button from '../src/Button';
 
-const ProviderWrapper = ({ children }) => (
-  <NovaWaveUIProvider>{children}</NovaWaveUIProvider>
-);
+const ProviderWrapper: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => <NovaWaveUIProvider>{children}</NovaWaveUIProvider>;
+
+expect.extend(toHaveNoViolations);
 
 describe('Button', () => {
   let user: UserEvent;
@@ -121,7 +123,7 @@ describe('Button', () => {
   });
 
   it('should ignore events when disabled', async () => {
-    const onPress = vitest.fn();
+    const onPress = jest.fn();
     const wrapper = render(
       <Button isDisabled onPress={onPress}>
         Click Me
@@ -139,8 +141,8 @@ describe('Button', () => {
   });
 
   it('should call onPress when clicked', async () => {
-    const onPress = vitest.fn();
-    const onClick = vitest.fn();
+    const onPress = jest.fn();
+    const onClick = jest.fn();
     const wrapper = render(<Button onPress={onPress}>Click Me</Button>, {
       wrapper: ProviderWrapper,
     });
@@ -154,7 +156,7 @@ describe('Button', () => {
   });
 
   it('should trigger custom onPress event', async () => {
-    const onPress = vitest.fn();
+    const onPress = jest.fn();
     const wrapper = render(<Button onPress={onPress}>Click Me</Button>, {
       wrapper: ProviderWrapper,
     });

@@ -1,0 +1,37 @@
+# Run building, linting, testing, code coverage, and typechecking on a PR to the main branch
+name: 🛡️ Main PRs
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        uses: ./.github/workflows/common-actions/install
+
+      - name: Build
+        shell: bash
+        run: pnpm build
+
+      - name: Lint
+        shell: bash
+        run: pnpm lint
+
+      - name: Test
+        shell: bash
+        run: pnpm test
+
+      - name: Typecheck
+        shell: bash
+        run: pnpm typecheck
+
+      - name: Code Coverage
+        shell: bash
+        run: pnpm test:coverage
