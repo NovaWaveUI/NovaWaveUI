@@ -18,6 +18,7 @@ module.exports = {
         'chore',
         'revert',
         'build',
+        'ci',
       ],
     ],
   },
