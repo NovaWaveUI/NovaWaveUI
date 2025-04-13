@@ -149,6 +149,9 @@ importers:
       axe-core:
         specifier: ^4.10.2
         version: 4.10.3
+      chromatic:
+        specifier: ^11.28.0
+        version: 11.28.0
       clean-package:
         specifier: ^2.2.0
         version: 2.2.0
