@@ -1,0 +1,10 @@
+# Node
+dist/
+node_modules/
+
+# Pnpm
+.pnpm-store/
+
+# Env files
+.env
+.env.*

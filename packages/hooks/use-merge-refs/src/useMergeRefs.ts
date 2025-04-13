@@ -10,14 +10,14 @@ import React from 'react';
  */
 export function useMergeRefs<T>(...refs: (React.Ref<T> | undefined)[]) {
   return React.useCallback((node: T | null) => {
-    refs.forEach(ref => {
-      if (!ref) return;
+    for (const ref of refs) {
+      if (!ref) continue;
 
       if (typeof ref === 'function') {
         ref(node); // Calls function ref (e.g., `scope`)
       } else if ('current' in ref && !Object.isFrozen(ref)) {
         (ref as React.RefObject<T | null>).current = node;
       }
-    });
+    }
   }, refs);
 }

@@ -2,23 +2,32 @@
   "name": "@novawaveui/novawaveicon",
   "version": "1.0.0",
   "description": "A re-export of Heroicons to align with NovaWaveUI",
+  "keywords": [],
+  "author": "Kyle Gagnon",
+  "license": "ISC",
   "type": "module",
-  "files": [
-    "index.css",
-    "dist/"
-  ],
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "types": "src/index.ts",
   "exports": {
-    "./index.css": "./index.css",
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
     }
   },
+  "files": [
+    "dist/"
+  ],
   "scripts": {
-    "build": "tsup src --dts",
-    "build:fast": "tsup src",
-    "dev": "tsup src --dts --watch",
+    "build": "tsup src/index.ts --dts",
+    "build:fast": "tsup src/index.ts",
+    "dev": "pnpm build:fast --watch",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest run --watch",
     "test:coverage": "vitest run --coverage",
@@ -26,11 +35,10 @@
     "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",
     "clean:dist": "rm -rf dist",
     "clean:node_modules": "rm -rf node_modules",
-    "clean": "pnpm run clean:dist && pnpm run clean:node_modules"
+    "clean": "pnpm clean:dist && pnpm clean:node_modules",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
   },
-  "keywords": [],
-  "author": "Kyle Gagnon",
-  "license": "ISC",
   "peerDependencies": {
     "@novawaveui/core": "^1.0.0",
     "@novawaveui/theme": "^1.0.0",
@@ -48,10 +56,10 @@
     "@novawaveui/provider": "workspace:*",
     "@novawaveui/theme": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
-    "@novawaveui/vite-config": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
-  }
+  },
+  "clean-package": "../../../build/clean-package.config.json"
 }

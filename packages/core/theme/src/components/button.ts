@@ -1,4 +1,7 @@
-import { tv, VariantProps } from 'tailwind-variants';
+import {
+  createNonSlotComposer,
+  ExtractVariantNonSlottedProps,
+} from '@novawaveui/tailwind-composer';
 import {
   bordered,
   dataFocusRing,
@@ -8,7 +11,7 @@ import {
   solid,
 } from '../common/styles';
 
-export const buttonStyles = tv({
+export const buttonStyles = createNonSlotComposer({
   base: [
     'z-0',
     'group',
@@ -209,7 +212,7 @@ export const buttonStyles = tv({
       color: 'neutral',
       variant: 'ghost',
       className: [
-        ghost.neutral,
+        ...ghost.neutral,
         'data-[hover=true]:!bg-neutral-background',
         'data-[hover=true]:!text-neutral-foreground',
       ],
@@ -218,7 +221,7 @@ export const buttonStyles = tv({
       color: 'primary',
       variant: 'ghost',
       className: [
-        ghost.primary,
+        ...ghost.primary,
         'data-[hover=true]:!bg-primary-background',
         'data-[hover=true]:!text-primary-foreground',
       ],
@@ -227,7 +230,7 @@ export const buttonStyles = tv({
       color: 'secondary',
       variant: 'ghost',
       className: [
-        ghost.secondary,
+        ...ghost.secondary,
         'data-[hover=true]:!bg-secondary-background',
         'data-[hover=true]:!text-secondary-foreground',
       ],
@@ -236,7 +239,7 @@ export const buttonStyles = tv({
       color: 'success',
       variant: 'ghost',
       className: [
-        ghost.success,
+        ...ghost.success,
         'data-[hover=true]:!bg-success-background',
         'data-[hover=true]:!text-success-foreground',
       ],
@@ -245,7 +248,7 @@ export const buttonStyles = tv({
       color: 'warning',
       variant: 'ghost',
       className: [
-        ghost.warning,
+        ...ghost.warning,
         'data-[hover=true]:!bg-warning-background',
         'data-[hover=true]:!text-warning-foreground',
       ],
@@ -254,7 +257,7 @@ export const buttonStyles = tv({
       color: 'danger',
       variant: 'ghost',
       className: [
-        ghost.danger,
+        ...ghost.danger,
         'data-[hover=true]:!bg-danger-background',
         'data-[hover=true]:!text-danger-foreground',
       ],
@@ -360,7 +363,7 @@ export const buttonStyles = tv({
   ],
 });
 
-export const buttonGroup = tv({
+export const buttonGroup = createNonSlotComposer({
   base: 'inline-flex items-center justify-center h-auto',
   variants: {
     fullWidth: {
@@ -378,5 +381,6 @@ export const buttonGroup = tv({
 
 export type ButtonStyles = typeof buttonStyles;
 export type ButtonGroupStyles = typeof buttonGroup;
-export type ButtonVariantProps = VariantProps<ButtonStyles>;
-export type ButtonGroupVariantProps = VariantProps<ButtonGroupStyles>;
+export type ButtonVariantProps = ExtractVariantNonSlottedProps<ButtonStyles>;
+export type ButtonGroupVariantProps =
+  ExtractVariantNonSlottedProps<ButtonGroupStyles>;

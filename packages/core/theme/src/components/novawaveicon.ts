@@ -1,6 +1,9 @@
-import { tv, VariantProps } from 'tailwind-variants';
+import {
+  createNonSlotComposer,
+  ExtractVariantNonSlottedProps,
+} from '@novawaveui/tailwind-composer';
 
-export const novaWaveIconStyles = tv({
+export const novaWaveIconStyles = createNonSlotComposer({
   base: '',
   variants: {
     color: {
@@ -19,4 +22,5 @@ export const novaWaveIconStyles = tv({
 
 export type NovaWaveIconStyles = typeof novaWaveIconStyles;
 
-export type NovaWaveIconVariantProps = VariantProps<NovaWaveIconStyles>;
+export type NovaWaveIconVariantProps =
+  ExtractVariantNonSlottedProps<NovaWaveIconStyles>;

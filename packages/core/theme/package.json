@@ -3,45 +3,52 @@
   "version": "1.0.0",
   "description": "The default theme for Nova Wave UI",
   "keywords": [],
+  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
+  "license": "ISC",
   "type": "module",
-  "files": [
-    "dist/"
-  ],
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "types": "src/index.ts",
   "exports": {
     "./theme.css": "./theme.css",
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
     }
   },
+  "files": [
+    "theme.css",
+    "dist/"
+  ],
   "scripts": {
     "build": "pnpm run build:ts && pnpm run build:css",
-    "build:fast": " pnpm run build:fast-ts",
-    "build:fast-ts": "tsup src",
-    "build:ts": "tsup src --dts",
+    "build:ts": "tsup src/index.ts --dts",
+    "build:fast-ts": "tsup src/index.ts",
+    "build:fast": "pnpm run build:fast-ts",
     "build:css": "tailwindcss -i theme.css -o ./dist/theme.css --minify",
-    "dev": "tsup src --dts --watch",
-    "test": "echo 'No test scripts for the theme package.'",
+    "dev": "pnpm build:fast --watch",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint",
     "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",
     "clean:dist": "rm -rf dist",
     "clean:node_modules": "rm -rf node_modules",
-    "clean": "pnpm run clean:dist && pnpm run clean:node_modules"
+    "clean": "pnpm run clean:dist && pnpm run clean:node_modules",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
   },
-  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
-  "license": "ISC",
   "dependencies": {
-    "tailwind-variants": "^0.3.1"
+    "@novawaveui/tailwind-composer": "workspace:*",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.0.2"
   },
   "devDependencies": {
-    "@novawaveui/core": "workspace:*",
     "@novawaveui/eslint-config": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
-    "@novawaveui/vite-config": "workspace:*",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
     "@tailwindcss/cli": "^4.0.3",
-    "@tailwindcss/vite": "^4.0.3"
-  }
+    "@tailwindcss/vite": "^4.0.3",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:"
+  },
+  "clean-package": "./build/clean-package.config.json"
 }

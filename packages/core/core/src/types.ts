@@ -1,3 +1,4 @@
+import { ClassValue } from '@novawaveui/tailwind-composer';
 import React from 'react';
 
 /**
@@ -129,3 +130,10 @@ export const DOMEventNames = new Set([
   'onAnimationIteration',
   'onTransitionEnd',
 ]);
+
+/**
+ * Converts a list of slot names into a mapping of class names.
+ */
+export type SlotsToClasses<S extends string> = {
+  [key in S]?: Exclude<ClassValue, 0n>;
+};

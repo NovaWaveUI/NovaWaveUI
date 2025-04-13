@@ -3,6 +3,7 @@ import type { {{capitalize componentName}}VariantProps } from '@novawaveui/theme
 import { useMemo } from 'react';
 import { NovaWaveUIProps } from '@novawaveui/core';
 import { useDOMRef } from '@novawaveui/react-utils';
+import { {{componentName}}Styles } from '@novawaveui/theme';
 
 interface Props extends NovaWaveUIProps<'div'> {
   /**
@@ -27,20 +28,9 @@ export function use{{capitalize componentName}}(props: Use{{capitalize component
   // Set up the ref for the DOM node
   const domRef = useDOMRef(ref);
 
-  const styles = useMemo(() => ()
-    {{componentName}}({
-      ...otherProps,
-      className,
-    }),
-    [className, otherProps]
-  );
-
   return {
     Root,
     domRef,
-    styles,
     ...otherProps,
   };
 }
-
-export type {{capitalize componentName}}Props = ReturnType<typeof use{{capitalize componentName}}>;

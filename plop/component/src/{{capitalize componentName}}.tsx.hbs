@@ -6,9 +6,9 @@ export interface {{capitalize componentName}}Props extends Use{{capitalize compo
 
 const {{capitalize componentName}} = React.forwardRef(
   (props: {{capitalize componentName}}Props, ref: React.ForwardedRef<HTMLDivElement>) => {
-    const { Root, domRef, children, styles, ...otherProps } = use{{capitalize componentName}}({...props, ref});
+    const { Root, domRef, children, ...otherProps } = use{{capitalize componentName}}({...props, ref});
 
-    return (<Root ref={domRef} className={styles} {...otherProps}>{children}</Root>);
+    return (<Root ref={domRef} {...otherProps}>{children}</Root>);
   }
 );
 
