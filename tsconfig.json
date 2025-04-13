@@ -16,7 +16,12 @@
     "noImplicitAny": false,
     "emitDeclarationOnly": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "types": ["jest", "@testing-library/jest-dom"],
+    "types": [
+      "jest",
+      "@testing-library/jest-dom",
+      "@types/jest",
+      "@testing-library/jest-dom/jest-globals"
+    ],
     "jsx": "react-jsx"
   },
   "include": ["packages"]

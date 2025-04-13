@@ -128,6 +128,9 @@ importers:
       '@testing-library/user-event':
         specifier: ^14.6.1
         version: 14.6.1(@testing-library/dom@10.4.0)
+      '@types/jest':
+        specifier: ^29.5.14
+        version: 29.5.14
       '@types/jest-axe':
         specifier: ^3.5.9
         version: 3.5.9

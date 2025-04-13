@@ -36,6 +36,8 @@ export function createNonSlotComposer<TVariants extends NonSlottedVariants>(
 
   const variantKeys = Object.keys(variantConfig) as (keyof TVariants)[];
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const composer: NonSlottedComposerReturn<TVariants> = (input = {}) => {
     // If no configuration is provided, then return undefined
     if (!config) return undefined;
@@ -86,14 +88,14 @@ export function createNonSlotComposer<TVariants extends NonSlottedVariants>(
     if (extraClassName) classes.push(extraClassName);
 
     // Return the final merged classes using twMerge
-    return twMerge(...classes.filter(Boolean));
+    return twMerge(...classes.filter(Boolean)) ?? '';
   };
 
   composer.variantKeys = variantKeys;
-  composer.defaultVariants = config.defaultVariants;
+  composer.defaultVariants = config.defaultVariants ?? {};
 
   // Now, add the extend function
-  composer.extend = <TNewVariants extends NonSlottedVariants>(newConfig: {
+  composer.extend = <TNewVariants extends NonSlottedVariants>(newConfig?: {
     variants?: MergePartialNonSlottedVariants<TVariants, TNewVariants>;
     defaultVariants?: NonSlottedDefaultVariants<
       MergeNonSlottedVariants<TVariants, TNewVariants>
@@ -102,7 +104,7 @@ export function createNonSlotComposer<TVariants extends NonSlottedVariants>(
       MergeNonSlottedVariants<TVariants, TNewVariants>
     >;
   }): ExtendedNonSlottedComposerReturn<TVariants, TNewVariants> => {
-    const merged = deepMergeNonSlotConfig(config, newConfig);
+    const merged = deepMergeNonSlotConfig(config, newConfig ?? {});
     return createNonSlotComposer(
       merged
     ) as unknown as ExtendedNonSlottedComposerReturn<TVariants, TNewVariants>;
