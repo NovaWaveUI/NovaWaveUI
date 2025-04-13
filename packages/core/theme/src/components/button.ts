@@ -91,7 +91,7 @@ export const buttonStyles = createNonSlotComposer({
     {
       color: 'neutral',
       variant: 'solid',
-      className: ['neutral-solid', 'bg-amber-600'],
+      className: 'neutral-solid',
     },
     {
       color: 'primary',

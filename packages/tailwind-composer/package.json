@@ -21,7 +21,7 @@
   },
   "scripts": {
     "dev": "tsup --watch",
-    "build": "tsup",
+    "build": "tsup --dts",
     "clean:dist": "rm -rf dist/",
     "clean:node_modules": "rm -rf node_modules/",
     "clean": "pnpm run clean:dist && npm run clean:node_modules",

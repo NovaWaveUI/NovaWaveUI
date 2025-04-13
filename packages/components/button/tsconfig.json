@@ -2,10 +2,7 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "dist/",
-    "paths": {
-      "@novawaveui/*": ["../../*/src"]
-    }
+    "outDir": "dist/"
   },
-  "include": ["src/**/*", "__tests__/**/*"]
+  "include": ["src"]
 }

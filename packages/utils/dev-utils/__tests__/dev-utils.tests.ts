@@ -1,4 +1,4 @@
-import { describe, expect, it } from '@testing-library/jest-dom';
+import { describe, expect, it } from '@jest/globals';
 
 describe('dev-utils', () => {
   it('should pass a placeholder test', () => {

@@ -1,7 +1,6 @@
 {
   "schema": "http://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "composite": true,
     "forceConsistentCasingInFileNames": true,
     "allowImportingTsExtensions": true,
     "target": "ESNext",
@@ -20,5 +19,5 @@
     "types": ["jest", "@testing-library/jest-dom"],
     "jsx": "react-jsx"
   },
-  "include": ["packages/**/*"]
+  "include": ["packages"]
 }

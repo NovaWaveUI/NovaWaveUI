@@ -1,6 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
 import { render } from '@testing-library/react';
-// @ts-expect-error - For some reason, jest tests have an issue with React
 import React, { useMemo } from 'react';
 import {
   createNonSlotComposer,
@@ -131,7 +130,11 @@ describe('core', () => {
         ],
       })
     );
-    const wrapper = render(<ExtendedButton color="olive" rounded="lg" />);
+    const wrapper = render(
+      <ExtendedButton color="olive" rounded="lg">
+        Button
+      </ExtendedButton>
+    );
     const buttonElement = wrapper.container.querySelector('button');
     console.log(buttonElement?.className);
 

@@ -91,7 +91,6 @@ export function createNonSlotComposer<TVariants extends NonSlottedVariants>(
 
   composer.variantKeys = variantKeys;
   composer.defaultVariants = config.defaultVariants;
-  composer.__variantTypes = undefined as unknown as TVariants;
 
   // Now, add the extend function
   composer.extend = <TNewVariants extends NonSlottedVariants>(newConfig: {

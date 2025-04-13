@@ -228,8 +228,6 @@ export type NonSlottedComposerReturn<TVariants extends NonSlottedVariants> = {
   variantKeys: Array<keyof TVariants>;
 
   defaultVariants: NonSlottedDefaultVariants<TVariants>;
-
-  __variantTypes: TVariants;
 };
 
 export type ExtractVariantNonSlottedProps<T> =
