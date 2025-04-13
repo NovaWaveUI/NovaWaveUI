@@ -34,7 +34,7 @@ expect.extend({
 });
 
 declare module '@jest/globals' {
-  interface Mathers<R> {
+  interface Matchers<R> {
     toHaveClass(expected: string | string[]): R;
   }
 }

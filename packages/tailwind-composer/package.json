@@ -24,7 +24,7 @@
     "build": "tsup --dts",
     "clean:dist": "rm -rf dist/",
     "clean:node_modules": "rm -rf node_modules/",
-    "clean": "pnpm run clean:dist && npm run clean:node_modules",
+    "clean": "pnpm run clean:dist && pnpm run clean:node_modules",
     "test": "jest --config jest.config.js",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix"

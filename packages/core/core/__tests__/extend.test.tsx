@@ -77,7 +77,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const { children, className, ...rest } = props;
     const [, variantProps] = mapPropsToVariants(
       props,
-      testButtonStyles.variantKeys!,
+      testButtonStyles.variantKeys,
       false
     );
 
@@ -135,8 +135,6 @@ describe('core', () => {
         Button
       </ExtendedButton>
     );
-    const buttonElement = wrapper.container.querySelector('button');
-    console.log(buttonElement?.className);
 
     expect(() => wrapper.unmount()).not.toThrow();
   });

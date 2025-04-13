@@ -1,5 +1,5 @@
 const baseConfig = require('./jest.base.config');
-const path = require('path');
+const path = require('node:path');
 
 // Resolve the path of the root of the monorepo
 const rootDir = path.resolve(__dirname, '.');

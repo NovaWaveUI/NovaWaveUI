@@ -91,13 +91,13 @@ export function getProps<TComposer extends ComposerKind>(
  */
 export function extendComponent<
   TComponent extends React.ElementType,
-  TCompser extends ComposerKind,
+  TComposer extends ComposerKind,
 >(
   BaseComponent: TComponent,
-  composer: TCompser
-): ExtendedComponentType<TComponent, TCompser> {
+  composer: TComposer
+): ExtendedComponentType<TComponent, TComposer> {
   // Create the types for the extended component
-  type VariantProps = VariantPropsOf<TCompser>;
+  type VariantProps = VariantPropsOf<TComposer>;
   type BaseComponentProps = React.ComponentProps<TComponent>;
   type ExtendedComponentProps = Omit<BaseComponentProps, keyof VariantProps> &
     VariantProps;

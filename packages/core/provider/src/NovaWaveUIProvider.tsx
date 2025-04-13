@@ -82,11 +82,9 @@ export const NovaWaveUIProvider = ({
 
     if (storedMode) return storedMode;
 
-    // eslint-disable-next-line unicorn/prefer-global-this
-    const prefersDarkMode = window.matchMedia(
-      '(prefers-color-scheme: dark)'
-    ).matches;
-
+    const prefersDarkMode =
+      typeof globalThis !== 'undefined' &&
+      globalThis.matchMedia('(prefers-color-scheme: dark)').matches;
     return prefersDarkMode ? 'dark' : 'light';
   });
 

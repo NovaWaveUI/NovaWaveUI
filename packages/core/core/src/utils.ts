@@ -164,10 +164,13 @@ export const mapPropsToVariants = <
   }, {} as Partial<T>);
 
   if (filter) {
-    const omitted = Object.keys(props)
-      .filter(key => !variants.includes(key as K))
-      // eslint-disable-next-line unicorn/no-array-reduce
-      .reduce((acc, key) => ({ ...acc, [key]: props[key] }), {} as Partial<T>);
+    // Create the omitted object directly without spread in reduce
+    const omitted = {} as Partial<T>;
+    for (const key of Object.keys(props).filter(
+      key => !variants.includes(key as K)
+    )) {
+      omitted[key as keyof T] = props[key as keyof T];
+    }
 
     return [omitted, pickedProps] as [
       Omit<T, Extract<keyof T, K>>,

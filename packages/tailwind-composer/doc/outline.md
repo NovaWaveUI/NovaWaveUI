@@ -2,18 +2,20 @@
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Definitions](#definitions)
-- [Goals](#goals)
-- [Design](#design)
-  - [Overview](#overview)
-  - [Tools](#tools)
-  - [Psuedo Code](#psuedo-code)
-  - [Types](#types)
-
-## Introduction
-
-This document outlines the design and goals of the tailwind-composer project. It outlines why the project was created, what it aims to achieve, and how it will be implemented. The how it will be implemented section will include the tools and a general thought process for the design.
+- [tailwind-composer Code Design / Outline](#tailwind-composer-code-design--outline)
+  - [Table of Contents](#table-of-contents)
+    - [Tailwind Composer](#tailwind-composer)
+      - [How It Works](#how-it-works)
+        - [Non-Slot Based Component](#non-slot-based-component)
+        - [Non-Slot Based Component](#non-slot-based-component-1)
+        - [Extends](#extends)
+  - [Definitions](#definitions)
+  - [Goals](#goals)
+  - [Design](#design)
+    - [Overview](#overview)
+    - [Tools](#tools)
+    - [Libraries](#libraries)
+    - [Psuedo Code](#psuedo-code)
 
 There will be some sort of psuedo code to help outline the design and thought process.
 
@@ -29,107 +31,108 @@ The user defines a component design using a configuration. This configuration co
 
 ##### Non-Slot Based Component
 
+The user defines a component design using a configuration. This configuration contains various customization options to define the component. To allow for complex designs, tailwind merge is used to merge classes together, creating a hierarchy of classes that enables overriding and default styles. Here are the options in the configuration:
+
+##### Non-Slot Based Component
+
 - `base` - The base tailwind classes that are used for the component. These classes apply in every state / variant of the component. These classes will be applied first but can be overriden by variants / compound variants.
 - `extends` - The styles to inherit from another design definition. This allows for reusing of styles. These get applied after the base but before the variants / compound variants.
 - `variants` - A list of different options for the component. Each variant has a value and a value of tailwind classes. The value is used to determine which variant is applied. These get applied after the extends but before the compound variants. For example, a button component could have a `color` variant. The `color` variant could have different values like `primary`, `secondary`, `success`, etc. The value of the variant is used to determine which variant is applied. The value of the variant can include many different styles. Variants are also applied in the order of definition. So if another variant would change the style of a variant above, the new variant would override the previous variant's conflicting styles. For example, if a `color` variant is defined after a `size` variant and the `color` variant changes the padding, the padding would be changed.
 - `compoundVariants` - Compound variants are a list of conditions of when to apply another style. These are applied after the variants. For example, you can say that when a button is `primary` for `color` and `sm` for `size` that you can apply a different style. Compound variants are applied in the order of definition. So if another compound variant would change the style of a compound variant above, the new compound variant would override the previous compound variant's conflicting styles. Compound variants are applied after the variants. For example, if a `color` variant is defined after a `size` variant and the `color` variant changes the padding, the padding would be changed. There can be many different compound variants as they are a list of conditions of when a variant is active. So `primary` and `sm` could be one, and `secondary` and `lg` could be another. You can also list multiple values per variant. For example, you can say that when a button is `primary` or `secondary` and `sm` for `size` that you can apply a different style.
 - `defaultVariants` - The default value for each variant. If not specified, the first value of the variant is used. This is useful for when you pass in no variant values to the styles.
-
-Below is an example of a component design configuration. This includes various variants and what the expected output would be.
-
-```typescript
-const buttonStyle = createVariants({
-    base: 'flex z-0 items-center justify-center max-w-full px-4 py-2',
-    extends: [ focusRingStyles, hoverStyles ],
-    variants: {
-        color: {
-            primary: 'text-white bg-blue-500',
-            secondary: 'text-white bg-gray-500',
-            success: 'text-white bg-green-500',
-            danger: 'text-white bg-red-500',
-        },
-        style: {
-            solid: '',
-            outline: 'bg-transparent border',
-        }
-        size: {
-            sm: 'text-sm px-2 py-1',
-            md: 'text-md px-3 py-2',
-            lg: 'text-lg px-4 py-3',
-        },
-        radius: {
-            none: 'rounded-none',
-            sm: 'rounded-sm',
-            md: 'rounded-md',
-            lg: 'rounded-lg',
-            full: 'rounded-full',
-        },
-        isDisabled: {
-            true: 'cursor-not-allowed opacity-50',
-        }
-    },
-    compoundVariants: [
-        {
-            color: 'primary',
-            style: 'outline',
-            className: 'text-blue-500 border-blue-500',
-        },
-        {
-            color: 'secondary',
-            style: 'outline',
-            className: 'text-gray-500 border-gray-500',
-        },
-        {
-            color: 'success',
-            style: 'outline',
-            className: 'text-green-500 border-green-500',
-        },
-        {
-            color: 'danger',
-            style: 'outline',
-            className: 'text-red-500 border-red-500',
-        },
-        {
-            color: ['primary', 'secondary'],
-            size: 'sm',
-            className: 'text-sm px-2 py-1',
-        },
-        {
-            color: ['primary', 'secondary'],
-            size: 'md',
-            className: 'text-md px-3 py-2',
-        },
-        {
-            color: ['primary', 'secondary'],
-            size: 'lg',
-            className: 'text-lg px-4 py-3',
-        },
-    ],
-    defaultVariants: {
-        color: 'primary',
-        style: 'solid',
-        size: 'md',
-        radius: 'md',
-        isDisabled: false,
-    }
-});
+  const buttonStyle = createVariants({
+  base: 'flex z-0 items-center justify-center max-w-full px-4 py-2',
+  extends: [ focusRingStyles, hoverStyles ],
+  variants: {
+  color: {
+  primary: 'text-white bg-blue-500',
+  secondary: 'text-white bg-gray-500',
+  success: 'text-white bg-green-500',
+  danger: 'text-white bg-red-500',
+  },
+  style: {
+  solid: '',
+  outline: 'bg-transparent border',
+  }
+  size: {
+  sm: 'text-sm px-2 py-1',
+  md: 'text-md px-3 py-2',
+  lg: 'text-lg px-4 py-3',
+  },
+  radius: {
+  none: 'rounded-none',
+  sm: 'rounded-sm',
+  md: 'rounded-md',
+  lg: 'rounded-lg',
+  full: 'rounded-full',
+  },
+  isDisabled: {
+  true: 'cursor-not-allowed opacity-50',
+  }
+  },
+  compoundVariants: [
+  {
+  color: 'primary',
+  style: 'outline',
+  className: 'text-blue-500 border-blue-500',
+  },
+  {
+  color: 'secondary',
+  style: 'outline',
+  className: 'text-gray-500 border-gray-500',
+  },
+  {
+  color: 'success',
+  style: 'outline',
+  className: 'text-green-500 border-green-500',
+  },
+  {
+  color: 'danger',
+  style: 'outline',
+  className: 'text-red-500 border-red-500',
+  },
+  {
+  color: ['primary', 'secondary'],
+  size: 'sm',
+  className: 'text-sm px-2 py-1',
+  },
+  {
+  color: ['primary', 'secondary'],
+  size: 'md',
+  className: 'text-md px-3 py-2',
+  },
+  {
+  color: ['primary', 'secondary'],
+  size: 'lg',
+  className: 'text-lg px-4 py-3',
+  },
+  ],
+  defaultVariants: {
+  color: 'primary',
+  style: 'solid',
+  size: 'md',
+  radius: 'md',
+  isDisabled: false,
+  }
+  });
 
 const buttonStyles = buttonStyle({
-    color: 'primary',
-    style: 'outline',
-    size: 'sm',
-    radius: 'md',
-    isDisabled: false,
+color: 'primary',
+style: 'outline',
+size: 'sm',
+radius: 'md',
+isDisabled: false,
 });
 
 // Usage
 <button className={buttonStyles}>
-    Button
+Button
 </button>
 
 // Output
 buttonStyles: "flex z-0 items-center justify-center max-w-full bg-blue-500 text-blue-500 border-blue-500 text-sm px-2 py-1 rounded-md"
-```
+
+````
 
 ##### Slot Based Component
 
@@ -202,8 +205,8 @@ const cardStyle = createVariants({
         },
     ],
     defaultVariants:{
-        color:'primary'
-        size:'md'
+        color:'primary',
+        size:'md',
     }
 });
 
@@ -230,7 +233,7 @@ header().styles(): "flex items-center justify-between p-2 border-b"
 title().styles(): "text-lg font-bold text-blue-700"
 content().styles(): "p-2"
 footer().styles(): "flex items-center justify-between p-2 border-t"
-```
+````
 
 ##### Extends
 
@@ -287,7 +290,7 @@ const extendedCardStyle = cardStyle.extend({
         },
     ],
     defaultVariants:{
-        color:'warning'
+        color:'warning',
     }
 });
 ```
