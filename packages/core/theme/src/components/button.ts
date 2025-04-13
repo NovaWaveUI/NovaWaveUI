@@ -47,7 +47,7 @@ export const buttonStyles = createNonSlotComposer({
     },
     size: {
       sm: 'px-3 min-w-16 min-h-8 gap-2 text-sm',
-      md: 'px-64 min-w-20 min-h-10 gap-2 text-base',
+      md: 'px-4 min-w-20 min-h-10 gap-2 text-base',
       lg: 'px-6 min-w-24 min-h-12 gap-3 text-lg',
     },
     radius: {
