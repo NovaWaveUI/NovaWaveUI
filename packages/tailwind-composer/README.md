@@ -13,11 +13,11 @@ Unlike traditional approaches, Tailwind Composer is designed to:
 
 ## Inspiration
 
-This library is heavily inspired by the amazing work of tailwind-variants. I truly love their approach, and Tailwind Composer was born from my desire to build something similar while exploring different ideas around extendability and customization.
+This library is heavily inspired by the amazing work of tailwind-variants. I truly love their approach, and Tailwind Composer was born from my desire to build something similar while exploring different ideas around extendibility and customization.
 
 I want to make it clear: tailwind-variants is an incredible library, and I don’t claim to match their level of polish or speed of development. Tailwind Composer is simply my take on a similar concept with a focus on deep customization and slot-based designs.
 
-### Key Differences from Tailwind Variants:
+### Key Differences from Tailwind Variants
 
 Extending works differently, allowing for more flexibility in modifying existing designs.
 No built-in responsive variants (yet) – currently, it focuses on base styles and states.

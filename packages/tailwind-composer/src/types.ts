@@ -405,7 +405,7 @@ export type ExtendedSlottedComposerReturn<
 >;
 
 // Extract variant props
-export type ExtractVariantSlottedProps<
-  TSlots extends SlotMap,
-  TVariants extends SlottedVariants<TSlots>,
-> = SlottedVariantInputValue<TSlots, TVariants>;
+export type ExtractVariantSlottedProps<T> =
+  T extends SlottedComposerReturn<infer TSlots, infer TVariants>
+    ? SlottedVariantInputValue<TSlots, TVariants>
+    : never;

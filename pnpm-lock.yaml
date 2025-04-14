@@ -295,6 +295,43 @@ importers:
         specifier: 'catalog:'
         version: 19.1.0(react@19.1.0)
 
+  packages/components/checkbox:
+    dependencies:
+      '@novawaveui/aria-utils':
+        specifier: workspace:*
+        version: link:../../utils/aria-utils
+      '@novawaveui/react-utils':
+        specifier: workspace:*
+        version: link:../../utils/react-utils
+    devDependencies:
+      '@novawaveui/core':
+        specifier: workspace:*
+        version: link:../../core/core
+      '@novawaveui/eslint-config':
+        specifier: workspace:*
+        version: link:../../tools/eslint-config
+      '@novawaveui/provider':
+        specifier: workspace:*
+        version: link:../../core/provider
+      '@novawaveui/theme':
+        specifier: workspace:*
+        version: link:../../core/theme
+      '@novawaveui/typescript-config':
+        specifier: workspace:*
+        version: link:../../tools/typescript-config
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.1.1
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.1.2(@types/react@19.1.1)
+      react:
+        specifier: 'catalog:'
+        version: 19.1.0
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.1.0(react@19.1.0)
+
   packages/components/icon:
     dependencies:
       '@novawaveui/aria-utils':
