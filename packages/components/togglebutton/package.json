@@ -1,0 +1,69 @@
+{
+  "name": "@novawaveui/togglebutton",
+  "version": "1.0.0",
+  "description": "The toggle button is used to activate a state or switch between two modes",
+  "keywords": [],
+  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
+  "license": "ISC",
+  "type": "module",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
+    }
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --dts",
+    "build:fast": "tsup src/index.ts",
+    "dev": "pnpm build:fast --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "jest",
+    "lint": "eslint",
+    "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",
+    "clean:dist": "rm -rf dist",
+    "clean:node_modules": "rm -rf node_modules",
+    "clean": "pnpm clean:dist && pnpm clean:node_modules",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
+  "peerDependencies": {
+    "@novawaveui/core": "^1.0.0",
+    "@novawaveui/theme": "^1.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "dependencies": {
+    "@novawaveui/aria-utils": "workspace:*",
+    "@novawaveui/react-utils": "workspace:*",
+    "@novawaveui/use-merge-refs": "workspace:*",
+    "@react-aria/button": "^3.12.1",
+    "@react-aria/focus": "catalog:",
+    "@react-aria/interactions": "catalog:",
+    "@react-aria/utils": "catalog:",
+    "@react-types/button": "^3.11.0",
+    "@react-types/shared": "catalog:"
+  },
+  "devDependencies": {
+    "@novawaveui/core": "workspace:*",
+    "@novawaveui/eslint-config": "workspace:*",
+    "@novawaveui/provider": "workspace:*",
+    "@novawaveui/theme": "workspace:*",
+    "@novawaveui/typescript-config": "workspace:*",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "clean-package": "../../../build/clean-package.config.json"
+}

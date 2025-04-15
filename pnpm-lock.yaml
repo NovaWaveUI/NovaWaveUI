@@ -372,6 +372,64 @@ importers:
         specifier: 'catalog:'
         version: 19.1.0(react@19.1.0)
 
+  packages/components/togglebutton:
+    dependencies:
+      '@novawaveui/aria-utils':
+        specifier: workspace:*
+        version: link:../../utils/aria-utils
+      '@novawaveui/react-utils':
+        specifier: workspace:*
+        version: link:../../utils/react-utils
+      '@novawaveui/use-merge-refs':
+        specifier: workspace:*
+        version: link:../../hooks/use-merge-refs
+      '@react-aria/button':
+        specifier: ^3.12.1
+        version: 3.13.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@react-aria/focus':
+        specifier: 'catalog:'
+        version: 3.20.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@react-aria/interactions':
+        specifier: 'catalog:'
+        version: 3.25.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@react-aria/utils':
+        specifier: 'catalog:'
+        version: 3.28.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@react-types/button':
+        specifier: ^3.11.0
+        version: 3.12.0(react@19.1.0)
+      '@react-types/shared':
+        specifier: 'catalog:'
+        version: 3.29.0(react@19.1.0)
+    devDependencies:
+      '@novawaveui/core':
+        specifier: workspace:*
+        version: link:../../core/core
+      '@novawaveui/eslint-config':
+        specifier: workspace:*
+        version: link:../../tools/eslint-config
+      '@novawaveui/provider':
+        specifier: workspace:*
+        version: link:../../core/provider
+      '@novawaveui/theme':
+        specifier: workspace:*
+        version: link:../../core/theme
+      '@novawaveui/typescript-config':
+        specifier: workspace:*
+        version: link:../../tools/typescript-config
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.1.1
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.1.2(@types/react@19.1.1)
+      react:
+        specifier: 'catalog:'
+        version: 19.1.0
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.1.0(react@19.1.0)
+
   packages/core/core:
     dependencies:
       '@novawaveui/aria-utils':

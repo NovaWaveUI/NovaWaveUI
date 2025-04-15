@@ -1,0 +1,8 @@
+/**
+ * This file is an unprocessed CSS file that is used to define the theme of the library.
+ * The intent is that this file is consumed by the consumer in the TailwindCSS build process by importing this file.
+ */
+
+:root {
+    --tb-background-untoggled
+}
