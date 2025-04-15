@@ -1,6 +1,6 @@
 # Overview
 
-(What is the component and what does it do?)
+The checkbox component is used to allow users to select one or more options from a set. A set can be one or more items. For example, a user can select multiple items of food from a menu, or the checkbox can be used to agree to terms and conditions.
 
 ## Component Structure
 
@@ -13,7 +13,11 @@ div
 (What would the pseudo HTML look like? You can add the slots to the markup)
 
 ```jsx
-<div>{children}</div>
+<root>
+  <inputWrapper>
+    <input type="checkbox" />
+  </inputWrapper>
+</root>
 ```
 
 ### What might the API look like?
@@ -21,9 +25,9 @@ div
 (What might the API look like?)
 
 ```jsx
-<div>
-  Example
-</div>
+<Checkbox color="primary" size="md" radius="lg" isDefaultChecked>
+  Label
+</Checkbox>
 ```
 
 ### What slots are available?
