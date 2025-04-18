@@ -12,11 +12,6 @@ interface Props extends NovaWaveUIProps<'button'> {
   ref?: React.Ref<HTMLButtonElement | null>;
 
   /**
-   * Whether or not the button is toggled
-   */
-  isToggled?: boolean;
-
-  /**
    * Is icon only
    */
   isIconOnly?: boolean;

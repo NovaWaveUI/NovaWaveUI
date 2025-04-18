@@ -37,7 +37,7 @@ export const toggleButtonStyles = createNonSlotComposer({
     isDisabled: {
       true: '!pointer-events-none opacity-50',
     },
-    isToggled: {
+    isSelected: {
       true: '',
       false: '',
     },
@@ -66,12 +66,12 @@ export const toggleButtonStyles = createNonSlotComposer({
     radius: 'md',
     isIconOnly: false,
     isDisabled: false,
-    isToggled: false,
+    isSelected: false,
   },
   compoundVariants: [
     {
       variant: 'solid',
-      isToggled: false,
+      isSelected: false,
       className: 'bg-neutral-200 text-neutral-900 hover:bg-neutral-300',
     },
   ],
