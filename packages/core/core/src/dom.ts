@@ -5,6 +5,35 @@ const dataAttributeRegex = /^data-.+/;
 const ariaAttributeRegex = /^aria-.+/;
 const eventHandlerRegex = /^on[A-Z].+/;
 
+const framerMotionProps = new Set([
+  'initial',
+  'animate',
+  'exit',
+  'variants',
+  'transition',
+  'whileHover',
+  'whileTap',
+  'whileFocus',
+  'whileDrag',
+]);
+const framerMotionEvents = new Set([
+  'onAnimationStart',
+  'onAnimationComplete',
+  'onAnimationCancel',
+  'onDragStart',
+  'onDragEnd',
+  'onDrag',
+  'onDragEnter',
+  'onDragLeave',
+  'onDragOver',
+  'onDragExit',
+]);
+const framerMotionEventsRegex = new RegExp(
+  `^(${[...framerMotionEvents]
+    .map(event => event.replace(/^on/, ''))
+    .join('|')})$`
+);
+
 interface FilterOptions {
   /**
    * Whether or not to filter.
@@ -23,6 +52,10 @@ interface FilterOptions {
    */
   filterEventHandlers?: boolean;
   /**
+   * Whether or not to filter out Framer Motion props.
+   */
+  filterFramerMotionProps?: boolean;
+  /**
    * The list of additional props to filter out.
    */
   omitProps?: Set<string>;
@@ -38,6 +71,10 @@ interface FilterOptions {
    * The list of event handlers to filter out.
    */
   omitEventHandlers?: Set<string>;
+  /**
+   * The list of Framer Motion props to filter out.
+   */
+  omitFramerMotionProps?: Set<string>;
 }
 
 /**
@@ -59,10 +96,12 @@ export function filterDOMProps<T extends React.ElementType = 'div'>(
     filterAllDataAttrs = false,
     filterAriaAttrs = false,
     filterEventHandlers = false,
+    filterFramerMotionProps = false,
     omitProps = new Set(),
     omitDataAttrs = new Set(),
     omitAriaAttrs = new Set(),
     omitEventHandlers = new Set(),
+    omitFramerMotionProps = new Set(),
   } = options;
 
   if (!enabled) {
@@ -84,6 +123,7 @@ export function filterDOMProps<T extends React.ElementType = 'div'>(
     'role',
     'tabIndex',
     'style',
+    'className',
   ]);
 
   for (const [key, value] of Object.entries(props)) {
@@ -136,12 +176,34 @@ export function filterDOMProps<T extends React.ElementType = 'div'>(
       }
     }
 
+    // Test if this is a Framer Motion prop
+    if (framerMotionProps.has(key)) {
+      // If we are filtering out Framer Motion props, skip this prop
+      if (filterFramerMotionProps) {
+        continue;
+      }
+      // If this is an `omitFramerMotionProps` prop, skip this prop
+      if (omitFramerMotionProps.has(key)) {
+        continue;
+      }
+    }
+
+    // Test if this is a Framer Motion event handler
+    if (
+      framerMotionEventsRegex.test(key) && // If we are filtering out Framer Motion event handlers, skip this prop
+      filterFramerMotionProps
+    ) {
+      continue;
+    }
+
     // Check if this is a standard DOM attribute
     if (
       standardProps.has(key) ||
       eventHandlerRegex.test(key) ||
       dataAttributeRegex.test(key) ||
-      ariaAttributeRegex.test(key)
+      ariaAttributeRegex.test(key) ||
+      framerMotionProps.has(key) ||
+      framerMotionEventsRegex.test(key)
     ) {
       validProps[key] = value;
     }

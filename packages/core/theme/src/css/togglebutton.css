@@ -1,0 +1,56 @@
+/**
+ * This file is an unprocessed CSS file that is used to define the theme of the library.
+ * The intent is that this file is consumed by the consumer in the TailwindCSS build process by importing this file.
+ */
+
+/**
+ * The file is used to define custom CSS variables for the toggle button component. It handles
+ * the light and dark mode.
+ */
+:root {
+  --tb-background-solid-untoggled: var(--neutral-200);
+  --tb-background-solid-untoggled-hover: var(--neutral-300);
+  --tb-background-solid-untoggled-active: var(--neutral-400);
+  --tb-text-solid-untoggled: var(--neutral-900);
+
+  --tb-border-bordered-untoggled: var(--neutral-300);
+  --tb-border-bordered-untoggled-hover: var(--neutral-400);
+  --tb-border-bordered-untoggled-active: var(--neutral-500);
+  --tb-text-bordered-untoggled: var(--neutral-900);
+
+  --tb-background-faded-untoggled: var(--neutral-50);
+  --tb-background-faded-untoggled-hover: var(--neutral-100);
+  --tb-background-faded-untoggled-active: var(--neutral-200);
+  --tb-text-faded-untoggled: var(--neutral-900);
+
+  --tb-border-ghost-untoggled: var(--neutral-300);
+  --tb-border-ghost-untoggled-hover: var(--neutral-400);
+  --tb-background-ghost-untoggled-hover: var(--neutral-400);
+  --tb-border-ghost-untoggled-active: var(--neutral-500);
+  --tb-background-ghost-untoggled-active: var(--neutral-500);
+  --tb-text-ghost-untoggled: var(--neutral-900);
+}
+
+:root[data-mode='dark'] {
+  --tb-background-solid-untoggled: var(--neutral-800);
+  --tb-background-solid-untoggled-hover: var(--neutral-700);
+  --tb-background-solid-untoggled-active: var(--neutral-600);
+  --tb-text-solid-untoggled: var(--neutral-100);
+
+  --tb-border-bordered-untoggled: var(--neutral-700);
+  --tb-border-bordered-untoggled-hover: var(--neutral-600);
+  --tb-border-bordered-untoggled-active: var(--neutral-500);
+  --tb-text-bordered-untoggled: var(--neutral-100);
+
+  --tb-background-faded-untoggled: var(--neutral-900);
+  --tb-background-faded-untoggled-hover: var(--neutral-800);
+  --tb-background-faded-untoggled-active: var(--neutral-700);
+  --tb-text-faded-untoggled: var(--neutral-100);
+
+  --tb-border-ghost-untoggled: var(--neutral-700);
+  --tb-border-ghost-untoggled-hover: var(--neutral-600);
+  --tb-background-ghost-untoggled-hover: var(--neutral-600);
+  --tb-border-ghost-untoggled-active: var(--neutral-500);
+  --tb-background-ghost-untoggled-active: var(--neutral-500);
+  --tb-text-ghost-untoggled: var(--neutral-100);
+}

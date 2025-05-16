@@ -6,6 +6,7 @@
  * - Surface: Surface is used to define the background color of a component (e.g. card, modal, etc.)
  */
 
+@import './src/css/togglebutton.css';
 @source 'dist/';
 
 :root {

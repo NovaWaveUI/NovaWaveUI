@@ -1,8 +1,16 @@
 {
-  "name": "@novawaveui/motion",
+  "name": "@novawaveui/togglebutton",
   "version": "1.0.0",
-  "description": "The package contains motion capabilities for the NovaWaveUI framework. It contains custom hooks and utilities for creating animations while exporting the motion library.",
-  "keywords": [],
+  "description": "The toggle button is used to activate a state or switch between two modes",
+  "keywords": [
+    "button",
+    "toggle",
+    "switch",
+    "aria",
+    "react",
+    "react-aria",
+    "ui"
+  ],
   "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
   "license": "ISC",
   "type": "module",
@@ -28,9 +36,7 @@
     "build:fast": "tsup src/index.ts",
     "dev": "pnpm build:fast --watch",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest run --watch",
-    "test:coverage": "vitest run --coverage",
+    "test": "jest",
     "lint": "eslint",
     "format": "prettier --write . --config ../../../.prettierrc --ignore-path ../../../.prettierignore",
     "clean:dist": "rm -rf dist",
@@ -40,16 +46,34 @@
     "postpack": "clean-package restore"
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "motion": "^12.4.10"
+    "@novawaveui/core": "^1.0.0",
+    "@novawaveui/motion": "^1.0.0",
+    "@novawaveui/theme": "^1.0.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "dependencies": {
+    "@novawaveui/aria-utils": "workspace:*",
+    "@novawaveui/react-utils": "workspace:*",
+    "@novawaveui/use-merge-refs": "workspace:*",
+    "@react-aria/button": "^3.13.0",
+    "@react-aria/focus": "catalog:",
+    "@react-aria/interactions": "catalog:",
+    "@react-aria/utils": "catalog:",
+    "@react-stately/toggle": "^3.8.3",
+    "@react-types/button": "^3.12.0",
+    "@react-types/shared": "catalog:"
   },
   "devDependencies": {
+    "@novawaveui/core": "workspace:*",
     "@novawaveui/eslint-config": "workspace:*",
+    "@novawaveui/motion": "workspace:*",
+    "@novawaveui/novawaveicon": "workspace:*",
+    "@novawaveui/provider": "workspace:*",
+    "@novawaveui/theme": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "motion": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
