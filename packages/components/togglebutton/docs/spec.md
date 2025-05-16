@@ -2,7 +2,7 @@
 
 The ToggleButton component is a UI element that allows users to switch between two states, typically "on" and "off". It operates similarly to a checkbox or switch, in that it can be toggled between two states.
 
-### Checkbox Vs Switch Vs ToggleButton
+## Checkbox Vs Switch Vs ToggleButton
 
 - **Checkbox**: A checkbox is a binary input that allows users to select or deselect an option. It is typically represented as a square box that can be checked or unchecked.
 - **Switch**: A switch is a UI element that allows users to toggle between two states, typically "on" and "off". It is often represented as a sliding button or toggle that moves between two positions.
@@ -42,7 +42,7 @@ return (
     size="medium"
     radius="medium"
     isDisabled={false}
-    isToggled
+    isToggled={isToggled}
     onClick={chain(buttonProps.onClick, handleToggle)}
   >
     Toggle Me
@@ -106,7 +106,7 @@ For the ToggleButton component, they will look similar to the button component, 
 - True
 - False
 
-There will be a compound variant that will match the is loaded to the color, state, and variant.
+There will be a compound variant that matches the variant, color, and toggled state.
 
 ## API
 

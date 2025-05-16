@@ -42,7 +42,7 @@ export type UseMotionComponentOptions = {
  * A hook that when given any React component or intrinsic element, returns a
  * motion component and the props to be passed to it.
  *
- * @param opions - The options for the `useMotionComponent` hook.
+ * @param options - The options for the `useMotionComponent` hook.
  * @returns - The `Component` and `motionProps` to be used in the component.
  */
 export function useMotionComponent<

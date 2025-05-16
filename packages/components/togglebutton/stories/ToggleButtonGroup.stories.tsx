@@ -3,6 +3,7 @@ import ToggleButtonGroup from '../src/ToggleButtonGroup';
 import { toggleButtonGroup } from '@novawaveui/theme';
 import { ToggleButton } from '../src';
 import { NovaWaveIcon } from '@novawaveui/novawaveicon';
+import React from 'react';
 
 const meta = {
   title: 'Components/Toggle Button Group',
@@ -52,7 +53,7 @@ const defaultProps = {
   ...toggleButtonGroup.defaultVariants,
 };
 
-const Template = (args: any) => {
+const Template = (args: React.ComponentProps<typeof ToggleButtonGroup>) => {
   return (
     <ToggleButtonGroup {...args}>
       <ToggleButton id="button1">Button 1</ToggleButton>
@@ -69,7 +70,9 @@ export const Default = {
   },
 };
 
-const TemplateIcons = (args: any) => {
+const TemplateIcons = (
+  args: React.ComponentProps<typeof ToggleButtonGroup>
+) => {
   return (
     <ToggleButtonGroup {...args}>
       <ToggleButton id="bold" isIconOnly>
@@ -92,7 +95,9 @@ export const IconOnly = {
   },
 };
 
-const TemplateOneDisabled = (args: any) => {
+const TemplateOneDisabled = (
+  args: React.ComponentProps<typeof ToggleButtonGroup>
+) => {
   return (
     <ToggleButtonGroup {...args}>
       <ToggleButton id="button1" isDisabled>

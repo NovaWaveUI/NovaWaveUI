@@ -22,6 +22,6 @@ const ToggleButton = React.forwardRef(
   }
 );
 
-ToggleButton.displayName = 'NovawaveUI.Togglebutton';
+ToggleButton.displayName = 'NovawaveUI.ToggleButton';
 
 export default ToggleButton;

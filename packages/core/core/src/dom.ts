@@ -71,6 +71,10 @@ interface FilterOptions {
    * The list of event handlers to filter out.
    */
   omitEventHandlers?: Set<string>;
+  /**
+   * The list of Framer Motion props to filter out.
+   */
+  omitFramerMotionProps?: Set<string>;
 }
 
 /**
@@ -97,6 +101,7 @@ export function filterDOMProps<T extends React.ElementType = 'div'>(
     omitDataAttrs = new Set(),
     omitAriaAttrs = new Set(),
     omitEventHandlers = new Set(),
+    omitFramerMotionProps = new Set(),
   } = options;
 
   if (!enabled) {
@@ -178,21 +183,17 @@ export function filterDOMProps<T extends React.ElementType = 'div'>(
         continue;
       }
       // If this is an `omitFramerMotionProps` prop, skip this prop
-      if (omitProps.has(key)) {
+      if (omitFramerMotionProps.has(key)) {
         continue;
       }
     }
 
     // Test if this is a Framer Motion event handler
-    if (framerMotionEventsRegex.test(key)) {
-      // If we are filtering out Framer Motion event handlers, skip this prop
-      if (filterFramerMotionProps) {
-        continue;
-      }
-      // If this is an `omitFramerMotionEvents` prop, skip this prop
-      if (omitProps.has(key)) {
-        continue;
-      }
+    if (
+      framerMotionEventsRegex.test(key) && // If we are filtering out Framer Motion event handlers, skip this prop
+      filterFramerMotionProps
+    ) {
+      continue;
     }
 
     // Check if this is a standard DOM attribute

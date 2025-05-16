@@ -12,4 +12,4 @@ npm install @novawaveui/togglebutton
 
 ## API Reference
 
-Put the API reference here (data, aria, props, etc).
+Put the API reference here (data, aria, props, etc.).

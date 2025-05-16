@@ -55,15 +55,12 @@ export type UseToggleButtonProps = Props &
   ToggleButtonVariantProps;
 
 export function useToggleButton(props: UseToggleButtonProps) {
-  const gloablContext = useNovaWaveUI();
+  const globalContext = useNovaWaveUI();
   const groupContext = useToggleButtonGroupContext();
 
   const {
     ref,
     as,
-    name,
-    value,
-    defaultSelected,
     color = groupContext?.color ?? 'neutral',
     variant = groupContext?.variant ?? 'solid',
     size = groupContext?.size ?? 'md',
@@ -72,7 +69,7 @@ export function useToggleButton(props: UseToggleButtonProps) {
     isDisabled: isDisabledProp = groupContext?.isDisabled ?? false,
     isSelected: isSelectedProp,
     fullWidth = false,
-    disableAnimations = gloablContext?.disableAnimations ??
+    disableAnimations = globalContext?.disableAnimations ??
       groupContext?.disableAnimations ??
       false,
     className,
@@ -169,6 +166,7 @@ export function useToggleButton(props: UseToggleButtonProps) {
       isSelected,
       fullWidth,
       disableAnimations,
+      isInteractive,
       groupContext,
       className,
     ]

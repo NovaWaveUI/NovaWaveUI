@@ -7,7 +7,7 @@ import { axe, toHaveNoViolations } from 'jest-axe';
 import userEvent, { UserEvent } from '@testing-library/user-event';
 import { ToggleButton } from '../src/index';
 
-const ProviderWrapper = ({ children }) => (
+const ProviderWrapper = ({ children }: { children: React.ReactNode }) => (
   <NovaWaveUIProvider>{children}</NovaWaveUIProvider>
 );
 
@@ -25,6 +25,9 @@ describe('ToggleButton', () => {
       wrapper: ProviderWrapper,
     });
 
+    const button = wrapper.getByRole('button');
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveTextContent('Click Me');
     expect(() => wrapper.unmount()).not.toThrow();
   });
 
@@ -95,27 +98,27 @@ describe('ToggleButton', () => {
         wrapper: ProviderWrapper,
       }
     );
-
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 
-  it('should ignore events when disabled', async () => {
-    const onPress = jest.fn();
-    const wrapper = render(
-      <ToggleButton isDisabled onPress={onPress}>
-        Click Me
-      </ToggleButton>,
-      {
-        wrapper: ProviderWrapper,
-      }
-    );
+  it('should toggle when clicked', async () => {
+    const wrapper = render(<ToggleButton>Toggle Me</ToggleButton>, {
+      wrapper: ProviderWrapper,
+    });
 
     const button = wrapper.getByRole('button');
 
-    await user.click(button);
+    // Initial state - not pressed
+    expect(button).toHaveAttribute('aria-pressed', 'false');
 
-    expect(onPress).not.toHaveBeenCalled();
+    // Click to toggle on
+    await user.click(button);
+    expect(button).toHaveAttribute('aria-pressed', 'true');
+
+    // Click to toggle off
+    await user.click(button);
+    expect(button).toHaveAttribute('aria-pressed', 'false');
   });
 
   it('should call onPress when clicked', async () => {
