@@ -65,9 +65,9 @@ export default function (plop) {
               return `${gen} name is required`;
             }
 
-            // Check to make sure the case is correct
-            if (value !== value.toLowerCase()) {
-              return `${gen} name must be in lowercase`;
+            // Check to make sure the case is either all lowercase or in camelCase
+            if (value !== value.toLowerCase() && value !== camelCase(value)) {
+              return `${gen} name must be in camelCase or all lowercase`;
             }
 
             // The name can't have spaces

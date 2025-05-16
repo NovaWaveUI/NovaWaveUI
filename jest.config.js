@@ -2,6 +2,7 @@
 const projectConfig = {
   projects: [
     '<rootDir>/packages/components/button/jest.config.js',
+    '<rootDir>/packages/components/togglebutton/jest.config.js',
     '<rootDir>/packages/core/core/jest.config.js',
     '<rootDir>/packages/tailwind-composer/jest.config.js',
   ],

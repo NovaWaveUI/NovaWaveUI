@@ -1,24 +1,27 @@
 import React from 'react';
-import { useTogglebutton, UseTogglebuttonProps } from './useToggleButton';
+import { useToggleButton, UseToggleButtonProps } from './useToggleButton';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface TogglebuttonProps extends UseTogglebuttonProps {}
+export interface ToggleButtonProps extends UseToggleButtonProps {}
 
-const Togglebutton = React.forwardRef(
-  (props: TogglebuttonProps, ref: React.ForwardedRef<HTMLButtonElement>) => {
-    const { Root, domRef, children, ...otherProps } = useTogglebutton({
-      ...props,
-      ref,
-    });
+const ToggleButton = React.forwardRef(
+  (props: ToggleButtonProps, ref: React.ForwardedRef<HTMLButtonElement>) => {
+    const { Root, domRef, children, startContent, endContent, getSlotProps } =
+      useToggleButton({
+        ...props,
+        ref,
+      });
 
     return (
-      <Root ref={domRef} {...otherProps}>
+      <Root ref={domRef} {...getSlotProps('base')}>
+        {startContent}
         {children}
+        {endContent}
       </Root>
     );
   }
 );
 
-Togglebutton.displayName = 'NovawaveUI.Togglebutton';
+ToggleButton.displayName = 'NovawaveUI.Togglebutton';
 
-export default Togglebutton;
+export default ToggleButton;

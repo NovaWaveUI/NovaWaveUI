@@ -2,7 +2,15 @@
   "name": "@novawaveui/togglebutton",
   "version": "1.0.0",
   "description": "The toggle button is used to activate a state or switch between two modes",
-  "keywords": [],
+  "keywords": [
+    "button",
+    "toggle",
+    "switch",
+    "aria",
+    "react",
+    "react-aria",
+    "ui"
+  ],
   "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
   "license": "ISC",
   "type": "module",
@@ -39,6 +47,7 @@
   },
   "peerDependencies": {
     "@novawaveui/core": "^1.0.0",
+    "@novawaveui/motion": "^1.0.0",
     "@novawaveui/theme": "^1.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -47,16 +56,19 @@
     "@novawaveui/aria-utils": "workspace:*",
     "@novawaveui/react-utils": "workspace:*",
     "@novawaveui/use-merge-refs": "workspace:*",
-    "@react-aria/button": "^3.12.1",
+    "@react-aria/button": "^3.13.0",
     "@react-aria/focus": "catalog:",
     "@react-aria/interactions": "catalog:",
     "@react-aria/utils": "catalog:",
-    "@react-types/button": "^3.11.0",
+    "@react-stately/toggle": "^3.8.3",
+    "@react-types/button": "^3.12.0",
     "@react-types/shared": "catalog:"
   },
   "devDependencies": {
     "@novawaveui/core": "workspace:*",
     "@novawaveui/eslint-config": "workspace:*",
+    "@novawaveui/motion": "workspace:*",
+    "@novawaveui/novawaveicon": "workspace:*",
     "@novawaveui/provider": "workspace:*",
     "@novawaveui/theme": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",

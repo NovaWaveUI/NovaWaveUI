@@ -41,18 +41,15 @@
   },
   "peerDependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  },
-  "dependencies": {
-    "@novawaveui/use-merge-refs": "workspace:*",
-    "framer-motion": "^12.4.10",
-    "motion": "catalog:"
+    "react-dom": "^19.0.0",
+    "motion": "^12.4.10"
   },
   "devDependencies": {
     "@novawaveui/eslint-config": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "motion": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
