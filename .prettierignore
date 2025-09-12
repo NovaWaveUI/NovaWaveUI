@@ -1,0 +1,4 @@
+dist/
+*.hbs
+coverage/
+node_modules/

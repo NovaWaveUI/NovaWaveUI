@@ -1,0 +1,35 @@
+name: '🚀 Chromatic Deployment'
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'dev'
+  pull_request:
+    branches:
+      - 'main'
+      - 'dev'
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        uses: ./.github/workflows/common-actions/install
+
+      - name: Build
+        shell: bash
+        run: pnpm build
+
+      - name: Chromatic Deployment
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          exitZeroOnChanges: true
+          buildCommand: pnpm sb:build
+          storybookBuildDir: storybook-static
+          onlyChanged: true

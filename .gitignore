@@ -1,0 +1,21 @@
+# Node / TypeScript / JavaScript
+node_modules/
+dist/
+*.log
+*.tsbuildinfo
+*.tsbuildinfo.*
+*.tsbuildinfo-*
+*.tsbuildinfo-*.json
+
+# Turbo Console Log
+*.turbo
+
+# Storybook
+*storybook.log
+storybook-static/
+
+# Coverage
+coverage/
+
+# tsup
+tsup.config.bundled*

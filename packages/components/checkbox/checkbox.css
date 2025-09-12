@@ -1,0 +1,10 @@
+@import '@novawaveui/theme';
+
+@layer components {
+  .nw-checkbox {
+    &[data-slot='root'] {
+      /* Base */
+      @apply z-0 relative max-w-fit inline-flex items-center justify-center cursor-pointer p-2 -m-2 select-none;
+    }
+  }
+}

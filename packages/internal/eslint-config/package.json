@@ -1,0 +1,17 @@
+{
+  "name": "@novawaveui/eslint-config",
+  "version": "1.0.0",
+  "description": "ESLint configuration for NovaWaveUI",
+  "private": true,
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    "./base": "./base.js",
+    "./react": "./react.js"
+  },
+  "keywords": [],
+  "author": "Kyle Gagnon",
+  "license": "MIT"
+}

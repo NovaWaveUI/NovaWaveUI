@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: 'en'
+early_access: false
+reviews:
+  profile: assertive
+  high_level_summary: true
+  review_status: true
+  abort_on_close: true
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    drafts: false
+    ignore_title_keywords:
+      - 'WIP'
+      - 'DO NOT MERGE'
+      - 'ci(changesets)'
+    base_branches:
+      - 'fix/*'
+      - 'feat/*'
+      - 'chore/*'
+      - 'refactor/*'
+      - 'dev'
+  poem: false

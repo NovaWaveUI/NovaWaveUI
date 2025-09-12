@@ -1,0 +1,297 @@
+@import '@novawaveui/theme';
+
+@layer components {
+  .nw-button {
+    /* Base */
+    @apply z-0 inline-flex relative flex-row items-center justify-center min-w-max outline-hidden select-none text-wrap overflow-hidden pointer-events-auto;
+    @apply [&>svg]:max-w-8;
+    @apply cursor-pointer;
+
+    /* Focus Visible */
+    &[data-focus-visible] {
+      @apply z-10 outline-solid outline-2 outline-primary-600 outline-offset-2;
+    }
+
+    &[data-pressed] {
+      @apply scale-95;
+    }
+
+    /* Size */
+    &[data-size='sm'] {
+      @apply px-3 min-w-16 min-h-8 text-sm;
+    }
+
+    &[data-size='md'] {
+      @apply px-4 min-w-20 min-h-10 text-base;
+    }
+
+    &[data-size='lg'] {
+      @apply px-6 min-w-24 min-h-12 gap-3 text-lg;
+    }
+
+    /* Radius */
+    &[data-radius='none'] {
+      @apply rounded-none;
+    }
+
+    &[data-radius='sm'] {
+      @apply rounded-small;
+    }
+
+    &[data-radius='md'] {
+      @apply rounded-medium;
+    }
+
+    &[data-radius='lg'] {
+      @apply rounded-large;
+    }
+
+    &[data-radius='xl'] {
+      @apply rounded-xlarge;
+    }
+
+    &[data-radius='full'] {
+      @apply rounded-full;
+    }
+
+    /* Disabled State */
+    &[data-disabled] {
+      @apply opacity-disabled pointer-events-none;
+    }
+
+    /* Loading State */
+    &[data-loading] {
+      @apply opacity-disabled pointer-events-none;
+    }
+
+    /* Icon Only */
+    &[data-icon-only] {
+      @apply px-0 !gap-0;
+
+      /* Size - Small */
+      &[data-size='sm'] {
+        @apply min-w-8 w-8 h-8;
+      }
+
+      /* Size - Medium */
+      &[data-size='md'] {
+        @apply min-w-10 w-10 h-10;
+      }
+
+      /* Size - Large */
+      &[data-size='lg'] {
+        @apply min-w-12 w-12 h-12;
+      }
+    }
+
+    /* Variants and Colors */
+    &[data-variant='solid'] {
+      /* Neutral */
+      &[data-color='neutral'] {
+        @apply bg-neutral-background text-white;
+
+        &:hover {
+          background: color-mix(
+            in oklch,
+            var(--color-neutral-background) 90%,
+            black
+          );
+        }
+        &[data-pressed] {
+          background: color-mix(
+            in oklch,
+            var(--color-neutral-background) 80%,
+            black
+          );
+        }
+      }
+
+      /* Primary */
+      &[data-color='primary'] {
+        @apply bg-primary-background text-white;
+
+        &:hover {
+          background: color-mix(
+            in oklch,
+            var(--color-primary-background) 90%,
+            black
+          );
+        }
+        &[data-pressed] {
+          background: color-mix(
+            in oklch,
+            var(--color-primary-background) 80%,
+            black
+          );
+        }
+      }
+
+      /* Secondary */
+      &[data-color='secondary'] {
+        @apply bg-secondary-background text-white;
+
+        &:hover {
+          background: color-mix(
+            in oklch,
+            var(--color-secondary-background) 90%,
+            black
+          );
+        }
+        &[data-pressed] {
+          background: color-mix(
+            in oklch,
+            var(--color-secondary-background) 80%,
+            black
+          );
+        }
+      }
+
+      /* Success */
+      &[data-color='success'] {
+        @apply bg-success-background text-white;
+
+        &:hover {
+          background: color-mix(
+            in oklch,
+            var(--color-success-background) 90%,
+            black
+          );
+        }
+        &[data-pressed] {
+          background: color-mix(
+            in oklch,
+            var(--color-success-background) 80%,
+            black
+          );
+        }
+      }
+
+      /* Warning */
+      &[data-color='warning'] {
+        @apply bg-warning-background text-white;
+
+        &:hover {
+          background: color-mix(
+            in oklch,
+            var(--color-warning-background) 90%,
+            black
+          );
+        }
+        &[data-pressed] {
+          background: color-mix(
+            in oklch,
+            var(--color-warning-background) 80%,
+            black
+          );
+        }
+      }
+
+      /* Danger */
+      &[data-color='danger'] {
+        @apply bg-danger-background text-white;
+
+        &:hover {
+          background: color-mix(
+            in oklch,
+            var(--color-danger-background) 90%,
+            black
+          );
+        }
+        &[data-pressed] {
+          background: color-mix(
+            in oklch,
+            var(--color-danger-background) 80%,
+            black
+          );
+        }
+      }
+    }
+
+    /* Outline */
+    &[data-variant='outline'] {
+      /* Base outline style */
+      @apply bg-transparent border-2 border-solid;
+
+      /* Neutral */
+      &[data-color='neutral'] {
+        @apply border-neutral text-neutral;
+
+        &:hover {
+          border-color: color-mix(in oklch, var(--border-neutral) 80%, black);
+        }
+        &[data-pressed] {
+          border-color: color-mix(in oklch, var(--border-neutral) 70%, black);
+        }
+      }
+
+      /* Primary */
+      &[data-color='primary'] {
+        @apply border-primary text-primary;
+
+        &:hover {
+          border-color: color-mix(in oklch, var(--border-primary) 80%, black);
+        }
+        &[data-pressed] {
+          border-color: color-mix(in oklch, var(--border-primary) 70%, black);
+        }
+      }
+
+      /* Secondary */
+      &[data-color='secondary'] {
+        @apply border-secondary text-secondary;
+
+        &:hover {
+          border-color: color-mix(in oklch, var(--border-secondary) 80%, black);
+        }
+        &[data-pressed] {
+          border-color: color-mix(in oklch, var(--border-secondary) 70%, black);
+        }
+      }
+
+      /* Success */
+      &[data-color='success'] {
+        @apply border-success text-success;
+
+        &:hover {
+          border-color: color-mix(in oklch, var(--border-success) 80%, black);
+        }
+        &[data-pressed] {
+          border-color: color-mix(in oklch, var(--border-success) 70%, black);
+        }
+      }
+
+      /* Warning */
+      &[data-color='warning'] {
+        @apply border-warning text-warning;
+
+        &:hover {
+          border-color: color-mix(in oklch, var(--border-warning) 80%, black);
+        }
+        &[data-pressed] {
+          border-color: color-mix(in oklch, var(--border-warning) 70%, black);
+        }
+      }
+
+      /* Danger */
+      &[data-color='danger'] {
+        @apply border-danger text-danger;
+
+        &:hover {
+          border-color: color-mix(in oklch, var(--border-danger) 80%, black);
+        }
+        &[data-pressed] {
+          border-color: color-mix(in oklch, var(--border-danger) 70%, black);
+        }
+      }
+    }
+
+    /* Ghost */
+    &[data-variant='ghost'] {
+      /* Base ghost style */
+      @apply bg-transparent border-2 border-solid;
+
+      &[data-color='neutral'] {
+      }
+    }
+  }
+}

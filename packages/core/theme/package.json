@@ -1,0 +1,20 @@
+{
+  "name": "@novawaveui/theme",
+  "version": "1.0.0",
+  "description": "The default theme configuration for NovaWaveUI",
+  "exports": {
+    ".": "./theme.css",
+    "./theme.css": "./theme.css"
+  },
+  "keywords": [
+    "theme",
+    "ui",
+    "novawaveui",
+    "design",
+    "system",
+    "tailwindcss",
+    "tailwind"
+  ],
+  "author": "Kyle Gagnon",
+  "license": "MIT"
+}
