@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import '@novawaveui/theme';
+@import '@novawaveui/theme/theme.css';
 @import '@novawaveui/button/button.css';
 @import '@novawaveui/checkbox/checkbox.css';
 

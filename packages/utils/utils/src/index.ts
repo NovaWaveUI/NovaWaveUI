@@ -1,7 +1,2 @@
-export {
-  dataAttr,
-  dataProps,
-  createDataPropsGetter,
-  createDataPropsGetterStyled,
-} from './dom';
+export { dataAttr, dataProps, createDataPropsGetter } from './dom';
 export { cn } from './cn';

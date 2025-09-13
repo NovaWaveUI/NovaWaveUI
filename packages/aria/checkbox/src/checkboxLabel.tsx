@@ -1,7 +1,7 @@
 import React from 'react';
 import { forwardRefWith, PolymorphicProps } from '@novawaveui/react-utils';
 import { useCheckboxContext } from './checkboxContext';
-import { getCheckboxDataProps } from './checkboxData';
+import { getCheckboxStateDataProps } from './checkboxData';
 
 type Props = {
   /**
@@ -25,10 +25,16 @@ const CheckboxLabel = forwardRefWith.ref<'label', Props>((props, ref) => {
   const labelProps = context.aria.labelProps;
   const mergedLabelProps = { ...labelProps, ...props };
 
-  const dataAttrs = getCheckboxDataProps(context, 'label');
+  const dataAttrs = getCheckboxStateDataProps(context);
 
   return (
-    <label {...mergedLabelProps} ref={ref} className={className} {...dataAttrs}>
+    <label
+      {...mergedLabelProps}
+      ref={ref}
+      className={className}
+      {...dataAttrs}
+      data-slot="label"
+    >
       {children}
     </label>
   );

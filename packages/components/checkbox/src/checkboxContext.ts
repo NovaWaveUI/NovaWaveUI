@@ -1,16 +1,11 @@
 import { createContext } from '@novawaveui/react-utils';
-import type {
-  NovaWaveUIColor,
-  NovaWaveUIRadiusSize,
-  NovaWaveUISize,
-  NovaWaveUIVariants,
-} from '@novawaveui/types';
+import type { NWColor, NWSize, NWRadius, NWVariant } from '@novawaveui/theme';
 
 export interface CheckboxStyledContextValue {
-  color: NovaWaveUIColor;
-  size: NovaWaveUISize;
-  radius: NovaWaveUIRadiusSize;
-  variant: NovaWaveUIVariants;
+  color: NWColor;
+  size: NWSize;
+  radius: NWRadius;
+  variant: NWVariant;
   isLoading?: boolean;
 }
 

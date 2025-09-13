@@ -5,7 +5,6 @@ import { cn } from '@novawaveui/utils';
 import { getCheckboxDataProps } from './checkboxData';
 import { useCheckboxStyleContext } from './checkboxContext';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export const CheckboxLabel = forwardRefWith.ref<'label', {}>((props, ref) => {
   const { children, className, ...rest } = props;
   const context = useCheckboxStyleContext();

@@ -4,7 +4,7 @@ import { useFocusRing } from '@react-aria/focus';
 import { useSafeLayoutEffect } from '@novawaveui/use-safe-layout-effect';
 import { forwardRefWith } from '@novawaveui/react-utils';
 import { useCheckboxContext } from './checkboxContext';
-import { getCheckboxDataProps } from './checkboxData';
+import { getCheckboxStateDataProps } from './checkboxData';
 
 export type CheckboxInputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
@@ -46,9 +46,11 @@ const CheckboxInput = forwardRefWith.ref<'input', CheckboxInputProps>(
     const mergedProps = mergeProps(mergedInputProps, focusProps);
 
     // Get the data attributes for the input
-    const dataAttrs = getCheckboxDataProps(context, 'input');
+    const dataAttrs = getCheckboxStateDataProps(context);
 
-    return <input {...mergedProps} ref={inputRef} {...dataAttrs} />;
+    return (
+      <input {...mergedProps} ref={inputRef} {...dataAttrs} data-slot="input" />
+    );
   }
 );
 

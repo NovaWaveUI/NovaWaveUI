@@ -1,4 +1,4 @@
-@import '@novawaveui/theme';
+@import '@novawaveui/theme/theme.css';
 
 @layer components {
   .nw-button {

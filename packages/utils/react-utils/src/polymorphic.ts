@@ -8,8 +8,12 @@ import React, {
 
 export type PolymorphicProps<E extends React.ElementType, P> = P & {
   as?: E;
-  asChild?: boolean;
 } & Omit<React.ComponentPropsWithoutRef<E>, keyof P | 'as'>;
+
+export type PolymorphicPropsAsChild<E extends React.ElementType, P> = P & {
+  as?: E;
+  asChild: true;
+} & Omit<React.ComponentPropsWithoutRef<E>, keyof P | 'as' | 'asChild'>;
 
 export type PolymorphicRef<E extends ElementType> =
   React.ComponentPropsWithRef<E>['ref'];
@@ -18,6 +22,27 @@ export type PolymorphicRef<E extends ElementType> =
 export function forwardRefWithAs<DefaultType extends ElementType, Props = {}>(
   render: (
     props: PolymorphicProps<DefaultType, Props>,
+    ref: PolymorphicRef<DefaultType>
+  ) => React.ReactElement | null
+) {
+  type Component = <E extends ElementType = DefaultType>(
+    props: PolymorphicProps<E, Props> & { ref?: PolymorphicRef<E> }
+  ) => React.ReactElement | null;
+
+  type Exotic = ForwardRefExoticComponent<
+    PolymorphicProps<DefaultType, Props> &
+      RefAttributes<PolymorphicRef<DefaultType>>
+  >;
+
+  return forwardRef(render as any) as Component & Exotic;
+}
+
+export function forwardRefWithAsChild<
+  DefaultType extends ElementType,
+  Props = {},
+>(
+  render: (
+    props: PolymorphicPropsAsChild<DefaultType, Props>,
     ref: PolymorphicRef<DefaultType>
   ) => React.ReactElement | null
 ) {

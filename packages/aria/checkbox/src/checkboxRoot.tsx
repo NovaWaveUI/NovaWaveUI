@@ -11,7 +11,7 @@ import { useHover, usePress } from '@react-aria/interactions';
 import { mergeProps } from '@react-aria/utils';
 import { FocusState } from '@novawaveui/types';
 import { CheckboxContextValue, CheckboxProvider } from './checkboxContext';
-import { getCheckboxDataProps } from './checkboxData';
+import { getCheckboxStateDataProps } from './checkboxData';
 
 type Props = RACheckboxProps & {
   className?: string;
@@ -78,7 +78,7 @@ const CheckboxRoot = forwardRefWith.as<'div', Props>((props, ref) => {
   };
 
   // Create the data attrributes for the states
-  const dataAttrs = getCheckboxDataProps(contextValue, 'root');
+  const dataAttrs = getCheckboxStateDataProps(contextValue);
 
   // Get the component
   const Component = as || 'div';
@@ -90,6 +90,7 @@ const CheckboxRoot = forwardRefWith.as<'div', Props>((props, ref) => {
         ref={domRef}
         {...mergedProps}
         {...dataAttrs}
+        data-slot="root"
       >
         {children}
       </Component>

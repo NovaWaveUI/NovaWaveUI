@@ -1,10 +1,47 @@
-@import '@novawaveui/theme';
+@import '@novawaveui/theme/theme.css';
 
 @layer components {
-  .nw-checkbox {
-    &[data-slot='root'] {
-      /* Base */
-      @apply z-0 relative max-w-fit inline-flex items-center justify-center cursor-pointer p-2 -m-2 select-none;
+  .nw-checkbox[data-slot='root'] {
+    /* Base */
+    @apply z-0 relative max-w-fit inline-flex items-center justify-center cursor-pointer p-2 -m-2 select-none;
+    @apply gap-2;
+  }
+
+  .nw-checkbox[data-slot='indicator'] {
+    /* Base */
+    @apply relative inline-flex items-center justify-center shrink-0 overflow-hidden align-middle;
+    /* Before */
+    @apply before:content-[''] before:absolute before:inset-0 before:border-solid before:border-2 before:box-border before:border-neutral;
+    @apply before:transition-colors;
+    /* After */
+    @apply after:content-[''] after:absolute after:inset-0 after:scale-0 after:opacity-0 after:origin-center after:bg-primary-300;
+    @apply after:transition-opacity after:duration-300;
+
+    /* Focus Visible */
+    &[data-focus-visible] {
+      @apply z-10 outline-solid outline-2 outline-primary-600 outline-offset-2;
+    }
+
+    &[data-checked] {
+      @apply after:scale-100 after:opacity-100;
+    }
+
+    &[data-pressed] {
+      @apply scale-95;
+    }
+  }
+
+  .nw-checkbox[data-slot='input'] {
+    /* Base - Visually hidden */
+    @apply sr-only;
+  }
+
+  .nw-checkbox[data-slot='icon'] {
+    /* Base */
+    @apply z-10 w-4 h-4 opacity-0 inset-0 pointer-events-none;
+
+    &[data-checked] {
+      @apply opacity-100;
     }
   }
 }

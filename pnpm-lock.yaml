@@ -322,7 +322,17 @@ importers:
         specifier: 'catalog:'
         version: 19.1.1
 
-  packages/core/theme: {}
+  packages/core/theme:
+    devDependencies:
+      '@novawaveui/eslint-config':
+        specifier: workspace:*
+        version: link:../../internal/eslint-config
+      '@novawaveui/typescript-config':
+        specifier: workspace:*
+        version: link:../../internal/typescript-config
+      '@novawaveui/vitest-config':
+        specifier: workspace:*
+        version: link:../../internal/vitest-config
 
   packages/core/types:
     devDependencies:

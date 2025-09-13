@@ -1,31 +1,42 @@
 import { forwardRefWith } from '@novawaveui/react-utils';
-import { AriaCheckbox } from '@novawaveui/aria-checkbox';
 import { cn } from '@novawaveui/utils';
 import { useCheckboxStyleContext } from './checkboxContext';
 import { getCheckboxDataProps } from './checkboxData';
+import {
+  getCheckboxStateDataProps,
+  useCheckboxContext,
+} from '@novawaveui/aria-checkbox';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export const CheckboxIcon = forwardRefWith.as<'div', {}>((props, ref) => {
-  const { children, className, ...rest } = props;
-  const context = useCheckboxStyleContext();
+export type CheckboxIconProps = React.HTMLAttributes<HTMLSpanElement>;
 
-  // Get the data attributes for the icon
-  const dataAttributes = getCheckboxDataProps(context);
+export const CheckboxIcon = forwardRefWith.as<'span', CheckboxIconProps>(
+  (props, ref) => {
+    const { children, className, as, ...rest } = props;
+    const styledContext = useCheckboxStyleContext();
+    const checkboxContext = useCheckboxContext();
 
-  return (
-    <AriaCheckbox.Icon
-      ref={ref}
-      className={cn('nw-checkbox', className)}
-      {...rest}
-      {...dataAttributes}
-    >
-      {children}
-    </AriaCheckbox.Icon>
-  );
-});
+    // Get the data attributes for the icon
+    const styledDataAttrs = getCheckboxDataProps(styledContext);
+    const stateDataAttrs = getCheckboxStateDataProps(checkboxContext);
+
+    const Component = as || 'span';
+
+    return (
+      <Component
+        ref={ref}
+        className={cn('nw-checkbox', className)}
+        {...styledDataAttrs}
+        {...stateDataAttrs}
+        aria-hidden="true"
+        data-slot="icon"
+        {...rest}
+      >
+        {children}
+      </Component>
+    );
+  }
+);
 
 CheckboxIcon.displayName = 'NovawaveUI.Checkbox.Icon';
 
 export default CheckboxIcon;
-
-export { type CheckboxIconProps } from '@novawaveui/aria-checkbox';

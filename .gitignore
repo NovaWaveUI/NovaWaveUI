@@ -6,6 +6,7 @@ dist/
 *.tsbuildinfo.*
 *.tsbuildinfo-*
 *.tsbuildinfo-*.json
+.pnpm-store/
 
 # Turbo Console Log
 *.turbo

@@ -36,9 +36,11 @@ export const Default = {
   render: (args: Story) => (
     <Checkbox.Root {...args}>
       <Checkbox.Input />
-      <Checkbox.Icon asChild>
-        <CheckIcon />
-      </Checkbox.Icon>
+      <Checkbox.Indicator>
+        <Checkbox.Icon>
+          <CheckIcon />
+        </Checkbox.Icon>
+      </Checkbox.Indicator>
       <Checkbox.Label>Checkbox</Checkbox.Label>
     </Checkbox.Root>
   ),

@@ -37,7 +37,7 @@ export const dataProps = (props: Record<string, any>): Record<string, any> => {
  * Factory to create a data-props getter function scoped to a component.
  *
  * @example
- * const getCheckboxDataProps = createDataPropsGetter<CheckboxContextValue, "root" | "icon" | "label">(
+ * const getCheckboxDataProps = createDataPropsGetter<CheckboxContextValue>(
  *   (ctx) => ({
  *     disabled: ctx.isDisabled,
  *     focused: ctx.isFocused,
@@ -51,18 +51,7 @@ export const dataProps = (props: Record<string, any>): Record<string, any> => {
  *   })
  * );
  */
-export function createDataPropsGetter<Context, Slots extends string>(
-  mapper: (ctx: Context) => Record<string, any>
-) {
-  return (ctx: Context, slot: Slots) => {
-    return {
-      'data-slot': slot,
-      ...dataProps(mapper(ctx)),
-    };
-  };
-}
-
-export function createDataPropsGetterStyled<Context>(
+export function createDataPropsGetter<Context>(
   mapper: (ctx: Context) => Record<string, any>
 ) {
   return (ctx: Context) => {

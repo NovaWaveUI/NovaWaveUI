@@ -1,12 +1,7 @@
 import React from 'react';
 import type { AriaCheckboxProps } from '@novawaveui/aria-checkbox';
 import { AriaCheckbox } from '@novawaveui/aria-checkbox';
-import {
-  NovaWaveUIColor,
-  NovaWaveUIRadiusSize,
-  NovaWaveUISize,
-  NovaWaveUIVariants,
-} from '@novawaveui/types';
+import { NWColor, NWVariant, NWSize, NWRadius } from '@novawaveui/theme';
 import { forwardRefWith } from '@novawaveui/react-utils';
 import { cn } from '@novawaveui/utils';
 import {
@@ -16,10 +11,10 @@ import {
 import { getCheckboxDataProps } from './checkboxData';
 
 export type CheckboxRootProps = AriaCheckboxProps & {
-  color?: NovaWaveUIColor;
-  variant?: NovaWaveUIVariants;
-  size?: NovaWaveUISize;
-  radius?: NovaWaveUIRadiusSize;
+  color?: NWColor;
+  variant?: NWVariant;
+  size?: NWSize;
+  radius?: NWRadius;
   isLoading?: boolean;
 };
 

@@ -1,0 +1,51 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+{
+  "name": "Node.js & TypeScript",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+
+  // Mount the repo to /workspace in the container.
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+
+  // Forward the SSH agent to the container
+  //"mounts": ["source=${env:SSH_AUTH_SOCK},target=/ssh-agent,type=bind"],
+  //"remoteEnv": {
+  //  "SSH_AUTH_SOCK": "/ssh-agent"
+  //},
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [
+    6006, // Storybook
+    3000, // Next.js
+    9229 // Node.js Debugger
+  ],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "pnpm install",
+
+  // Default user inside container (from node base image)
+  "remoteUser": "node",
+
+  // Add the IDs of extensions you want installed when the container is created.
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "infeng.vscode-react-typescript",
+        "xabikos.JavaScriptSnippets",
+        "ms-vscode.vscode-typescript-next",
+        "DavidAnson.vscode-markdownlint",
+        "burkeholland.simple-react-snippets",
+        "vitest.explorer",
+        "esbenp.prettier-vscode",
+        "VisualStudioExptTeam.vscodeintellicode",
+        "VisualStudioExptTeam.intellicode-api-usage-examples",
+        "bradlc.vscode-tailwindcss",
+        "austenc.tailwind-docs"
+      ]
+    }
+  }
+}
