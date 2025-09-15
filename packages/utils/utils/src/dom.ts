@@ -1,3 +1,5 @@
+import React from 'react';
+
 /**
  * Given a value, returns a value that can be used as a data attribute in JSX.
  *
@@ -59,4 +61,217 @@ export function createDataPropsGetter<Context>(
       ...dataProps(mapper(ctx)),
     };
   };
+}
+
+const dataAttributeRegex = /^data-.+/;
+const ariaAttributeRegex = /^aria-.+/;
+const eventHandlerRegex = /^on[A-Z].+/;
+
+/**
+ * The set of valid DOM event names.
+ */
+export const DOMEventNames = new Set([
+  'onCopy',
+  'onCut',
+  'onPaste',
+  'onLoad',
+  'onError',
+  'onWheel',
+  'onScroll',
+  'onCompositionEnd',
+  'onCompositionStart',
+  'onCompositionUpdate',
+  'onKeyDown',
+  'onKeyPress',
+  'onKeyUp',
+  'onFocus',
+  'onBlur',
+  'onChange',
+  'onInput',
+  'onSubmit',
+  'onClick',
+  'onContextMenu',
+  'onDoubleClick',
+  'onDrag',
+  'onDragEnd',
+  'onDragEnter',
+  'onDragExit',
+  'onDragLeave',
+  'onDragOver',
+  'onDragStart',
+  'onDrop',
+  'onMouseDown',
+  'onMouseEnter',
+  'onMouseLeave',
+  'onMouseMove',
+  'onMouseOut',
+  'onMouseOver',
+  'onMouseUp',
+  'onPointerDown',
+  'onPointerEnter',
+  'onPointerLeave',
+  'onPointerUp',
+  'onSelect',
+  'onTouchCancel',
+  'onTouchEnd',
+  'onTouchMove',
+  'onTouchStart',
+  'onAnimationStart',
+  'onAnimationEnd',
+  'onAnimationIteration',
+  'onTransitionEnd',
+]);
+
+/**
+ * A generic object that can be used to store any data attributes.
+ */
+export type DataAttributes = {
+  [dataAttr: string]: any;
+};
+
+/**
+ * A type that represents a valid DOM element.
+ */
+export type DOMAttributes<T = Element> = React.AriaAttributes &
+  React.DOMAttributes<T> &
+  DataAttributes & {
+    id?: string;
+    role?: React.AriaRole;
+    tabIndex?: number;
+    style?: React.CSSProperties;
+  };
+
+export interface DOMFilterOptions {
+  /**
+   * Whether the filtering is enabled or not.
+   */
+  enabled?: boolean;
+  /**
+   * Whether or not to filter all data attributes (data-*)
+   */
+  filterAllDataAttrs?: boolean;
+  /**
+   * Whether or not to filter all aria attributes (aria-*)
+   */
+  filterAriaAttrs?: boolean;
+  /**
+   * Whether or not to filter event handlers (on*)
+   */
+  filterEventHandlers?: boolean;
+  /**
+   * The list of additional props to filter.
+   */
+  omitProps?: Set<string>;
+  /**
+   * The list of `data-*` attributes to filter.
+   */
+  omitDataAttrs?: Set<string>;
+  /**
+   * The list of `aria-*` attributes to filter.
+   */
+  omitAriaAttrs?: Set<string>;
+  /**
+   * The list of event handlers to filter.
+   */
+  omitEventHandlers?: Set<string>;
+}
+
+export function filterDOMProps<T extends React.ElementType = 'div'>(
+  props: Record<string, any>,
+  options: DOMFilterOptions = {}
+): DOMAttributes<T> {
+  const {
+    enabled = true,
+    filterAllDataAttrs = false,
+    filterAriaAttrs = false,
+    filterEventHandlers = false,
+    omitProps = new Set<string>(),
+    omitDataAttrs = new Set<string>(),
+    omitAriaAttrs = new Set<string>(),
+    omitEventHandlers = new Set<string>(),
+  } = options;
+
+  if (!enabled) {
+    return props as DOMAttributes<T>;
+  }
+
+  // Start constructing the list of valid props
+  const validProps: Partial<DOMAttributes<T>> = {};
+
+  // Get the list of standard DOM attributes and event handlers for the element
+  const standardProps = new Set<string>([
+    'ref',
+    'dir',
+    'lang',
+    'hidden',
+    'inert',
+    'translate',
+    'id',
+    'role',
+    'tabIndex',
+    'style',
+  ]);
+
+  for (const [key, value] of Object.entries(props)) {
+    // Check if this prop should be filtered
+    if (omitProps.has(key)) {
+      continue;
+    }
+
+    // Test if this is a `data-*` attribute
+    if (dataAttributeRegex.test(key)) {
+      // If we are filtering all data attributes, skip it
+      if (filterAllDataAttrs) {
+        continue;
+      }
+
+      // If this specific data attribute is to be omitted, skip it
+      if (omitDataAttrs.has(key)) {
+        continue;
+      }
+    }
+
+    // Test if this is an `aria-*` attribute
+    if (ariaAttributeRegex.test(key)) {
+      // If we are filtering all aria attributes, skip it
+      if (filterAriaAttrs) {
+        continue;
+      }
+
+      // If this specific aria attribute is to be omitted, skip it
+      if (omitAriaAttrs.has(key)) {
+        continue;
+      }
+    }
+
+    // Test if this is an event handler
+    if (eventHandlerRegex.test(key)) {
+      // If we are filtering out event handlers, skip this prop
+      if (filterEventHandlers) {
+        continue;
+      }
+
+      // If this is an `omitEventHandlers` prop, skip this prop
+      if (omitEventHandlers.has(key)) {
+        continue;
+      }
+
+      // Next, check if this is a valid event handler
+      if (!DOMEventNames.has(key)) {
+        continue;
+      }
+    }
+
+    // Check if this is a standard DOM attribute
+    if (
+      standardProps.has(key) ||
+      eventHandlerRegex.test(key) ||
+      dataAttributeRegex.test(key) ||
+      ariaAttributeRegex.test(key)
+    ) {
+      validProps[key] = value;
+    }
+  }
+
+  return validProps as DOMAttributes<T>;
 }

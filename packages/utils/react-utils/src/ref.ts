@@ -11,38 +11,16 @@ import React, {
 } from 'react';
 
 /**
- * ReactRef is a type that can be used to define a React ref.
- * It can be a RefObject, MutableRefObject, or a Ref.
+ * Assigns a value to a ref (function or object).
  */
-export type ReactRef<T> =
-  | React.RefObject<T>
-  | React.MutableRefObject<T>
-  | React.Ref<T>;
-
-/**
- * Assigns a value to a ref.
- *
- * @param ref The ref to assign the value to.
- * @param value The value to assign to the ref.
- * @throws If the ref is not a function or does not have a current property.
- * @example
- *
- * ```tsx
- * const ref = React.useRef<HTMLDivElement>(null);
- *
- * assignRef(ref, document.createElement("div"));
- * ```
- */
-export function assignRef<T>(ref: ReactRef<T> | undefined, value: T) {
-  if (ref == undefined) {
-    return;
-  }
+export function assignRef<T>(ref: React.Ref<T> | undefined, value: T): void {
+  if (ref == null) return;
 
   if (typeof ref === 'function') {
     ref(value);
   } else {
     try {
-      (ref as any).current = value;
+      (ref as React.RefObject<T>).current = value;
     } catch {
       throw new Error(`Cannot assign value "${value}" to ref "${ref}"`);
     }
@@ -50,71 +28,80 @@ export function assignRef<T>(ref: ReactRef<T> | undefined, value: T) {
 }
 
 /**
- * Merges multiple refs into a single ref.
- *
- * @param refs The refs to merge.
- * @returns A ref that, when set, sets all the refs.
- * @example
- *
- * ```tsx
- * const ref1 = React.useRef<HTMLDivElement>(null);
- * const ref2 = React.useRef<HTMLDivElement>(null);
- * const mergedRef = mergeRefs(ref1, ref2);
- * ```
+ * Merges multiple refs into a single callback ref.
  */
 export function mergeRefs<T>(
-  ...refs: (ReactRef<T> | undefined)[]
-): ReactRef<T> {
-  return (node: T | null) => {
-    for (const ref of refs) assignRef(ref, node);
+  ...refs: (React.Ref<T> | undefined)[]
+): React.RefCallback<T> {
+  return (value: T) => {
+    refs.forEach(ref => assignRef(ref, value));
   };
 }
 
-export function toRefObject<T extends HTMLElement>(
-  ref?: React.Ref<T | null>
-): React.RefObject<T> {
-  // If the ref is already an object ref, return it as is
-  if (ref && typeof ref === 'object' && 'current' in ref) {
-    return ref as React.RefObject<T>;
-  }
+/**
+ * Internal utility that normalizes any ref into a MutableRefObject.
+ * Handles both callback refs and object refs, with cleanup support.
+ */
+export function useObjectRef<T>(ref?: React.Ref<T>): React.RefObject<T | null> {
+  const objRef = React.useRef<T | null>(null);
+  const cleanupRef = React.useRef<(() => void) | void>(undefined);
 
-  // Create a new ref object
-  const newRef = React.createRef<T | null>() as React.RefObject<T>;
-
-  // If the ref is a function, call it whenever `newRef.current` updates
-  if (typeof ref === 'function') {
-    return new Proxy(newRef, {
-      set(target, prop, value) {
-        if (prop === 'current') {
-          ref(value); // Call the function ref whenever current updates
-        }
-        return Reflect.set(target, prop, value);
+  return React.useMemo(
+    () => ({
+      get current() {
+        return objRef.current;
       },
-    }) as React.RefObject<T>;
-  }
+      set current(value: T | null) {
+        objRef.current = value;
 
-  // Otherwise, return the new ref object
-  return newRef;
+        // cleanup old
+        if (cleanupRef.current) {
+          cleanupRef.current();
+          cleanupRef.current = undefined;
+        }
+
+        if (ref) {
+          if (typeof ref === 'function') {
+            const maybeCleanup = ref(value);
+            if (typeof maybeCleanup === 'function') {
+              cleanupRef.current = maybeCleanup;
+            } else if (value !== null) {
+              cleanupRef.current = () => ref(null);
+            }
+          } else {
+            (ref as React.RefObject<T | null>).current = value;
+            if (value !== null) {
+              cleanupRef.current = () => {
+                (ref as React.RefObject<T | null>).current = null;
+              };
+            }
+          }
+        }
+      },
+    }),
+    [ref]
+  );
 }
 
 /**
- * Creates an always valid ref to the DOM node. If a ref is passed, it will
- * use that ref, otherwise it will create a new ref.
- * @param ref The ref to use (optional).
- * @returns A ref to the DOM node.
- * @example ```tsx
- * const ref = useDOMRef<HTMLDivElement>(null);
- * const ref = useDOMRef<HTMLDivElement>(someRef);
- * ```
+ * Ensures you always get a valid DOM ref object.
+ *
+ * - Works with object refs, callback refs, or nothing.
+ * - Internally uses `useObjectRef` for lifecycle correctness.
+ * - Defaults to HTMLElement, but you can narrow to any subclass.
+ *
+ * @example
+ * const ref = useDOMRef<HTMLInputElement>();
  */
 export function useDOMRef<T extends HTMLElement = HTMLElement>(
   ref?: React.Ref<T | null>
-): React.RefObject<T> {
-  const domRef = useRef<T>(null);
+): React.RefObject<T | null> {
+  const domRef = useObjectRef<T | null>(ref);
 
-  useImperativeHandle(ref, () => domRef.current ?? ({} as T));
+  // ensure parent ref always sees the DOM node
+  React.useImperativeHandle(ref, () => domRef.current ?? ({} as T));
 
-  return toRefObject(ref) ?? domRef;
+  return domRef;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type

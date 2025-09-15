@@ -1,22 +1,13 @@
 {
-  "name": "@novawaveui/checkbox",
+  "name": "@novawaveui/react",
   "version": "1.0.0",
-  "description": "The NovaWaveUI checkbox component",
+  "description": "NovaWaveUI's React component library",
   "type": "module",
-  "main": "src/index.ts",
-  "module": "src/index.ts",
-  "types": "src/index.ts",
-  "exports": {
-    ".": {
-      "types": "./src/index.ts",
-      "import": "./src/index.ts",
-      "require": "./src/index.ts"
-    },
-    "./checkbox.css": "./checkbox.css"
-  },
+  "main": "dist/index.js",
+  "module": "dist/index.cjs",
+  "types": "dist/index.d.ts",
   "files": [
-    "dist/",
-    "checkbox.css"
+    "dist/"
   ],
   "scripts": {
     "build": "tsup src/index.ts --dts",
@@ -25,12 +16,10 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "lint": "eslint . --ext .ts,.tsx",
-    "format": "prettier --write . ../../../.prettierrc --ignore-path ../../../.prettierignore",
+    "format": "prettier --write . ../../.prettierrc --ignore-path ../../.prettierignore",
     "clean:dist": "rm -rf dist",
     "clean:node_modules": "rm -rf node_modules",
-    "clean": "pnpm run clean:dist && pnpm run clean:node_modules",
-    "prepack": "clean-package",
-    "postpack": "clean-package restore"
+    "clean": "pnpm run clean:dist && pnpm run clean:node_modules"
   },
   "peerDependencies": {
     "@novawaveui/theme": ">=1.0.0",
@@ -38,21 +27,29 @@
     "react-dom": ">=19.0.0"
   },
   "dependencies": {
+    "@novawaveui/core": "workspace:*",
     "@novawaveui/react-utils": "workspace:*",
     "@novawaveui/types": "workspace:*",
-    "@novawaveui/utils": "workspace:*"
+    "@novawaveui/utils": "workspace:*",
+    "@react-aria/button": "^3.14.1",
+    "@react-aria/focus": "catalog:",
+    "@react-aria/interactions": "catalog:",
+    "@react-aria/utils": "catalog:",
+    "@react-types/button": "^3.14.0",
+    "@react-types/shared": "catalog:"
   },
   "devDependencies": {
-    "@heroicons/react": "^2.2.0",
     "@novawaveui/eslint-config": "workspace:*",
     "@novawaveui/theme": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
     "@novawaveui/vitest-config": "workspace:*",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
-  "clean-package": "../../../build/clean-package.config.json",
   "keywords": [],
-  "author": "Kyle Gagnon",
-  "license": "MIT"
+  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
+  "license": "MIT",
+  "packageManager": "pnpm@10.16.1"
 }

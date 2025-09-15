@@ -11,12 +11,6 @@
   "workspaceFolder": "/workspace",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
 
-  // Forward the SSH agent to the container
-  //"mounts": ["source=${env:SSH_AUTH_SOCK},target=/ssh-agent,type=bind"],
-  //"remoteEnv": {
-  //  "SSH_AUTH_SOCK": "/ssh-agent"
-  //},
-
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   "forwardPorts": [
     6006, // Storybook
@@ -25,7 +19,7 @@
   ],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "pnpm install",
+  "postCreateCommand": "yes | pnpm install",
 
   // Default user inside container (from node base image)
   "remoteUser": "node",
@@ -44,7 +38,9 @@
         "VisualStudioExptTeam.vscodeintellicode",
         "VisualStudioExptTeam.intellicode-api-usage-examples",
         "bradlc.vscode-tailwindcss",
-        "austenc.tailwind-docs"
+        "austenc.tailwind-docs",
+        "dbaeumer.vscode-eslint",
+        "EditorConfig.EditorConfig"
       ]
     }
   }

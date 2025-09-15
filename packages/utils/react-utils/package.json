@@ -33,6 +33,9 @@
   "peerDependencies": {
     "react": ">=19.0.0"
   },
+  "dependencies": {
+    "@react-aria/utils": "catalog:"
+  },
   "devDependencies": {
     "@novawaveui/eslint-config": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",

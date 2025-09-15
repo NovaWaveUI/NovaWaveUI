@@ -1,9 +1,0 @@
-{
-  "extends": "@novawaveui/typescript-config/react-library.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "outDir": "dist",
-    "esModuleInterop": true
-  },
-  "include": ["src", "__tests__"]
-}
