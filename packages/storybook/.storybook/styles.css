@@ -1,7 +1,5 @@
 @import 'tailwindcss';
 @import '@novawaveui/theme/theme.css';
-@import '@novawaveui/button/button.css';
-@import '@novawaveui/checkbox/checkbox.css';
 
 :root[data-theme='example'] {
   --blue-marguerite-50: oklch(96.24% 0.02 274.82);
