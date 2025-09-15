@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import '@novawaveui/theme/theme.css';
+@import '@novawaveui/react/button.css';
 
 :root[data-theme='example'] {
   --blue-marguerite-50: oklch(96.24% 0.02 274.82);

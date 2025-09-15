@@ -9,6 +9,9 @@
   "files": [
     "dist/"
   ],
+  "exports": {
+    "./button.css": "./styles/button.css"
+  },
   "scripts": {
     "build": "tsup src/index.ts --dts",
     "build:fast": "tsup src/index",
@@ -39,6 +42,7 @@
     "@react-types/shared": "catalog:"
   },
   "devDependencies": {
+    "@heroicons/react": "^2.2.0",
     "@novawaveui/eslint-config": "workspace:*",
     "@novawaveui/theme": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",

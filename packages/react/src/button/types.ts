@@ -1,6 +1,8 @@
 import { RenderProps, SlotProps } from '@novawaveui/react-utils';
+import { NWColor, NWRadius, NWSize, NWVariant } from '@novawaveui/theme';
 import type { AriaButtonProps } from '@react-aria/button';
 import { HoverEvents } from '@react-types/shared';
+import { ElementType } from 'react';
 
 export interface ButtonRenderProps {
   /**
@@ -35,11 +37,31 @@ export interface ButtonRenderProps {
   isLoading: boolean;
 }
 
-export interface ButtonProps
-  extends Omit<AriaButtonProps, 'children' | 'elementType'>,
+export interface ButtonStyleProps {
+  /**
+   * The color of the button.
+   */
+  color?: NWColor;
+  /**
+   * The variant of the button.
+   */
+  variant?: NWVariant;
+  /**
+   * The size of the button.
+   */
+  size?: NWSize;
+  /**
+   * The radius of the button.
+   */
+  radius?: NWRadius;
+}
+
+export interface ButtonProps<T extends ElementType = 'button'>
+  extends Omit<AriaButtonProps<T>, 'children' | 'elementType'>,
     HoverEvents,
     SlotProps,
-    RenderProps<ButtonRenderProps> {
+    RenderProps<ButtonRenderProps>,
+    ButtonStyleProps {
   /**
    * Whether or not the button is in a loading state.
    */
