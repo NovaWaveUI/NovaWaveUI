@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import Button from '../src/button/index';
+import type { ButtonProps } from '../src/button/index';
+import Button, { ButtonRoot } from '../src/button/index';
 import React from 'react';
 
 const meta: Meta<typeof Button> = {
@@ -123,4 +124,70 @@ export const StateControlled: Story = {
       </Button>
     );
   },
+};
+
+export const Polymorphic: Story = {
+  args: {
+    children: 'Button',
+    color: 'neutral',
+    size: 'md',
+    variant: 'solid',
+    radius: 'md',
+    isDisabled: false,
+    isLoading: false,
+  },
+  render: args => {
+    return (
+      <div className="flex flex-col gap-4">
+        <Button
+          {...(args as ButtonProps<'a'>)}
+          as="a"
+          href="#"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Link Button
+        </Button>
+        <Button {...(args as ButtonProps<'div'>)} as="div">
+          Div Button
+        </Button>
+        <Button {...(args as ButtonProps<'span'>)} as="span">
+          Span Button
+        </Button>
+      </div>
+    );
+  },
+};
+
+export const WithStartAndEndContent: Story = {
+  args: {
+    children: 'Button',
+    color: 'primary',
+    size: 'md',
+    variant: 'solid',
+    radius: 'md',
+    isDisabled: false,
+    isLoading: false,
+    startContent: '🚀',
+    endContent: '➡️',
+  },
+};
+
+export const SlotAPIWay: Story = {
+  args: {
+    children: 'Button',
+    color: 'primary',
+    size: 'md',
+    variant: 'solid',
+    radius: 'md',
+    isDisabled: false,
+    isLoading: false,
+  },
+  render: args => (
+    <Button.Root {...args}>
+      <Button.StartContent>🚀</Button.StartContent>
+      <Button.Text>Button</Button.Text>
+      <Button.EndContent>➡️</Button.EndContent>
+    </Button.Root>
+  ),
 };

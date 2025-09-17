@@ -18,7 +18,6 @@ export type PolymorphicPropsAsChild<E extends React.ElementType, P> = P & {
 export type PolymorphicRef<E extends ElementType> =
   React.ComponentPropsWithRef<E>['ref'];
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export function forwardRefWithAs<DefaultType extends ElementType, Props = {}>(
   render: (
     props: PolymorphicProps<DefaultType, Props>,

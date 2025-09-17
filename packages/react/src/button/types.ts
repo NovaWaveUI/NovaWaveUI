@@ -56,7 +56,7 @@ export interface ButtonStyleProps {
   radius?: NWRadius;
 }
 
-export interface ButtonProps<T extends ElementType = 'button'>
+export interface BaseButtonProps<T extends ElementType = 'button'>
   extends Omit<AriaButtonProps<T>, 'children' | 'elementType'>,
     HoverEvents,
     SlotProps,
@@ -68,4 +68,8 @@ export interface ButtonProps<T extends ElementType = 'button'>
   isLoading?: boolean;
 }
 
-export type ButtonContextValue = ButtonProps;
+export type ButtonContextValue = BaseButtonProps;
+
+export interface ButtonStateContext
+  extends ButtonRenderProps,
+    ButtonStyleProps {}
