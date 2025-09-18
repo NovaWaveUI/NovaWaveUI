@@ -10,7 +10,7 @@ import { ButtonRenderProps } from './types';
 import { getButtonDataAttrs, useButtonState } from './context';
 
 export type ButtonStartContentProps<T extends React.ElementType = 'span'> =
-  TextProps<T> & RenderProps<ButtonRenderProps>;
+  Omit<TextProps<T>, 'children'> & RenderProps<ButtonRenderProps>;
 
 const ButtonStartContent = forwardRefWith.as<
   'span',
@@ -37,7 +37,7 @@ const ButtonStartContent = forwardRefWith.as<
   };
 
   const renderProps = useRenderProps({
-    className: className,
+    className,
     style: style,
     children: children,
     values: renderValues,

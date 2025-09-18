@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ButtonProps } from '../src/button/index';
-import Button, { ButtonRoot } from '../src/button/index';
+import Button from '../src/button/index';
+import { UserIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 
 const meta: Meta<typeof Button> = {
@@ -185,9 +186,13 @@ export const SlotAPIWay: Story = {
   },
   render: args => (
     <Button.Root {...args}>
-      <Button.StartContent>🚀</Button.StartContent>
-      <Button.Text>Button</Button.Text>
-      <Button.EndContent>➡️</Button.EndContent>
+      <Button.StartContent>
+        <UserIcon />
+      </Button.StartContent>
+      <Button.Text>Log In</Button.Text>
+      <Button.EndContent>
+        <ArrowRightIcon />
+      </Button.EndContent>
     </Button.Root>
   ),
 };

@@ -1,10 +1,10 @@
 @import '@novawaveui/theme/theme.css';
 
 @layer components {
-  .nw-button {
+  /* Root Button */
+  .nw-button[data-slot='root'] {
     /* Base */
     @apply z-0 inline-flex relative flex-row items-center justify-center min-w-max outline-hidden select-none text-wrap overflow-hidden pointer-events-auto;
-    @apply [&>svg]:max-w-8;
     @apply cursor-pointer;
 
     /* Focus Visible */
@@ -18,11 +18,11 @@
 
     /* Size */
     &[data-size='sm'] {
-      @apply px-3 min-w-16 min-h-8 text-sm;
+      @apply px-3 min-w-16 min-h-8 gap-2 text-sm;
     }
 
     &[data-size='md'] {
-      @apply px-4 min-w-20 min-h-10 text-base;
+      @apply px-4 min-w-20 min-h-10 gap-2 text-base;
     }
 
     &[data-size='lg'] {
@@ -287,11 +287,37 @@
 
     /* Ghost */
     &[data-variant='ghost'] {
-      /* Base ghost style */
       @apply bg-transparent border-2 border-solid;
 
       &[data-color='neutral'] {
+        /* TODO: ghost neutral */
       }
+    }
+  }
+
+  /* Slot styling (scoped to root) */
+  .nw-button [data-slot='start-content'],
+  .nw-button [data-slot='end-content'] {
+    @apply inline-flex items-center justify-center;
+  }
+
+  .nw-button [data-slot='text'] {
+    @apply inline-flex items-center text-inherit;
+  }
+
+  /* Catch any direct child of start/end-content */
+  .nw-button [data-slot='start-content'] > *,
+  .nw-button [data-slot='end-content'] > * {
+    @apply w-4 h-4 flex-shrink-0 text-inherit;
+
+    /* Size - Small */
+    [data-size='sm'] & {
+      @apply w-3 h-3;
+    }
+
+    /* Size - Large */
+    [data-size='lg'] & {
+      @apply w-5 h-5;
     }
   }
 }

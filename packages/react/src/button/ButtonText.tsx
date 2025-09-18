@@ -9,8 +9,11 @@ import { Text, TextProps } from '../text';
 import { getButtonDataAttrs, useButtonState } from './context';
 import { ButtonRenderProps } from './types';
 
-export type ButtonTextProps<T extends React.ElementType = 'span'> =
-  TextProps<T> & RenderProps<ButtonRenderProps>;
+export type ButtonTextProps<T extends React.ElementType = 'span'> = Omit<
+  TextProps<T>,
+  'children'
+> &
+  RenderProps<ButtonRenderProps>;
 
 const ButtonText = forwardRefWith.as<'span', ButtonTextProps<'span'>>(
   (props, ref) => {

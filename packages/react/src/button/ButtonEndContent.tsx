@@ -9,8 +9,11 @@ import { Text, TextProps } from '../text';
 import { ButtonRenderProps } from './types';
 import { getButtonDataAttrs, useButtonState } from './context';
 
-export type ButtonEndContentProps<T extends React.ElementType = 'span'> =
-  TextProps<T> & RenderProps<ButtonRenderProps>;
+export type ButtonEndContentProps<T extends React.ElementType = 'span'> = Omit<
+  TextProps<T>,
+  'children'
+> &
+  RenderProps<ButtonRenderProps>;
 
 const ButtonEndContent = forwardRefWith.as<
   'span',
@@ -37,7 +40,7 @@ const ButtonEndContent = forwardRefWith.as<
   };
 
   const renderProps = useRenderProps({
-    className: className,
+    className,
     style: style,
     children: children,
     values: renderValues,
