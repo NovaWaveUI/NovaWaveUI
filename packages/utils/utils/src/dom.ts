@@ -176,7 +176,7 @@ export interface DOMFilterOptions {
   omitEventHandlers?: Set<string>;
 }
 
-export function filterDOMProps<T extends React.ElementType = 'div'>(
+export function filterDOMProps<T extends Element = HTMLDivElement>(
   props: Record<string, any>,
   options: DOMFilterOptions = {}
 ): DOMAttributes<T> {

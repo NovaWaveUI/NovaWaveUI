@@ -40,7 +40,8 @@
         "bradlc.vscode-tailwindcss",
         "austenc.tailwind-docs",
         "dbaeumer.vscode-eslint",
-        "EditorConfig.EditorConfig"
+        "EditorConfig.EditorConfig",
+        "unifiedjs.vscode-mdx"
       ]
     }
   }

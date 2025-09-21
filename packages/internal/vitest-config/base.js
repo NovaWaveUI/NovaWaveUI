@@ -5,7 +5,7 @@ export default defineConfig({
     globals: true,
     include: [
       'src/**/*.{test,spec}.{js,ts,jsx,tsx}',
-      '__tests__/*.{test,spec}.{js,ts,jsx,tsx}',
+      '__tests__/**/*.{test,spec}.{js,ts,jsx,tsx}',
     ],
     exclude: ['node_modules', '**/*.d.ts', 'dist', 'build'],
     reporters: ['default', 'verbose'],

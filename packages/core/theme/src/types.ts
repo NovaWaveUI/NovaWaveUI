@@ -4,17 +4,19 @@
 
 // Color options for components
 // This type is used to allow for TypeScript module augmentation
-export type NWColorOverride = {};
+export interface NWColorOverride {}
+
+export interface NWColors {
+  neutral: string;
+  primary: string;
+  secondary: string;
+  success: string;
+  warning: string;
+  danger: string;
+}
 
 // The default color options
-export type NWColor =
-  | 'neutral'
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | NWColorOverride[keyof NWColorOverride];
+export type NWColor = keyof NWColors | NWColorOverride[keyof NWColorOverride];
 
 // The variant options for components
 // This type is used to allow for TypeScript module augmentation

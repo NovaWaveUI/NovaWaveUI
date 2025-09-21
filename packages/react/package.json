@@ -3,18 +3,20 @@
   "version": "1.0.0",
   "description": "NovaWaveUI's React component library",
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.cjs",
-  "types": "dist/index.d.ts",
   "files": [
     "dist/"
   ],
   "exports": {
-    "./button.css": "./styles/button.css"
+    "./button.css": "./styles/button.css",
+    "./button": {
+      "import": "./dist/Button/index.js",
+      "require": "./dist/Button/index.cjs",
+      "types": "./dist/Button/index.d.ts"
+    }
   },
   "scripts": {
-    "build": "tsup src/index.ts --dts",
-    "build:fast": "tsup src/index",
+    "build": "tsup --dts",
+    "build:fast": "tsup",
     "dev": "pnpm build:fast --watch",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
@@ -39,7 +41,9 @@
     "@react-aria/interactions": "catalog:",
     "@react-aria/utils": "catalog:",
     "@react-types/button": "^3.14.0",
-    "@react-types/shared": "catalog:"
+    "@react-types/shared": "catalog:",
+    "react-aria": "^3.43.2",
+    "react-stately": "^3.41.0"
   },
   "devDependencies": {
     "@heroicons/react": "^2.2.0",

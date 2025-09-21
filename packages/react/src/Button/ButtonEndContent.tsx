@@ -5,17 +5,24 @@ import {
   useRenderProps,
 } from '@novawaveui/react-utils';
 import { cn } from '@novawaveui/utils';
-import { Text, TextProps } from '../text';
+import { Text, TextProps } from '../Text';
 import { ButtonRenderProps } from './types';
 import { getButtonDataAttrs, useButtonState } from './context';
+import { ButtonSlots } from './slots';
 
-export type ButtonStartContentProps<T extends React.ElementType = 'span'> =
-  Omit<TextProps<T>, 'children'> & RenderProps<ButtonRenderProps>;
+export type ButtonEndContentProps<T extends React.ElementType = 'span'> = Omit<
+  TextProps<T>,
+  'children'
+> &
+  RenderProps<ButtonRenderProps>;
 
-const ButtonStartContent = forwardRefWith.as<
+const ButtonEndContent = forwardRefWith.as<
   'span',
-  ButtonStartContentProps<'span'>
+  ButtonEndContentProps<'span'>
 >((props, ref) => {
+  // First, register the slot so that the slot system knows this slot is being used
+  ButtonSlots.useRegisterSlot('end-content');
+
   // Extract out the incompatible props
   const { children, className, style, ...rest } = props;
 
@@ -50,11 +57,11 @@ const ButtonStartContent = forwardRefWith.as<
       {...renderProps}
       {...dataAttrs}
       {...rest}
-      data-slot="start-content"
+      data-slot="end-content"
     />
   );
 });
 
-ButtonStartContent.displayName = 'NovaWaveUI.Button.StartContent';
+ButtonEndContent.displayName = 'NovaWaveUI.Button.EndContent';
 
-export default ButtonStartContent;
+export default ButtonEndContent;

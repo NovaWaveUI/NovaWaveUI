@@ -4,25 +4,40 @@ import {
   createContext as nwCreateContext,
 } from '@novawaveui/react-utils';
 import { createDataPropsGetter } from '@novawaveui/utils';
-import { ButtonContextValue, ButtonStateContext } from './types';
+import {
+  ButtonGroupContextValue,
+  ButtonGroupPropsContextValue,
+  ButtonPropsContextValue,
+  ButtonStateContextValue,
+} from './types';
 
 export const ButtonContext = createContext<
-  ContextValue<ButtonContextValue, HTMLButtonElement>
+  ContextValue<ButtonPropsContextValue, HTMLButtonElement>
 >({});
 ButtonContext.displayName = 'ButtonContext';
 
 export const ButtonProvider = ButtonContext.Provider;
 
+export const ButtonGroupPropsContext = createContext<
+  ContextValue<ButtonGroupPropsContextValue, HTMLDivElement>
+>({});
+
 export const [ButtonStateProvider, useButtonState] =
-  nwCreateContext<ButtonStateContext>({
+  nwCreateContext<ButtonStateContextValue>({
     name: 'ButtonStateContext',
     errorMessage:
       'useButtonState must be used within a Button component or a component wrapped with ButtonProvider',
     strict: true,
   });
 
-export const getButtonDataAttrs = createDataPropsGetter<ButtonStateContext>(
-  ctx => {
+export const [ButtonGroupProvider, useButtonGroup] =
+  nwCreateContext<ButtonGroupContextValue>({
+    name: 'ButtonGroupContext',
+    strict: false,
+  });
+
+export const getButtonDataAttrs =
+  createDataPropsGetter<ButtonStateContextValue>(ctx => {
     return {
       hovered: ctx.isHovered,
       focused: ctx.isFocused,
@@ -34,6 +49,6 @@ export const getButtonDataAttrs = createDataPropsGetter<ButtonStateContext>(
       variant: ctx.variant,
       size: ctx.size,
       radius: ctx.radius,
+      'in-group': ctx.isInGroup,
     };
-  }
-);
+  });

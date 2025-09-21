@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import '@novawaveui/theme/theme.css';
 @import '@novawaveui/react/button.css';
+@source '../../react/';
 
 :root[data-theme='example'] {
   --blue-marguerite-50: oklch(96.24% 0.02 274.82);
@@ -50,4 +51,16 @@
   --secondary-800: var(--coral-tree-800);
   --secondary-900: var(--coral-tree-900);
   --secondary-950: var(--coral-tree-950);
+}
+
+@layer components {
+  .nw-button[data-color='ocean'] {
+    @variant variant-solid {
+      @apply bg-cyan-600 text-white;
+
+      @variant hover {
+        background: color-mix(in oklch, var(--color-cyan-600) 90%, black);
+      }
+    }
+  }
 }

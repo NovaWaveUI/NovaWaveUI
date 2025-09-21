@@ -2,65 +2,68 @@
 
 @layer components {
   /* Root Button */
-  .nw-button[data-slot='root'] {
+  .nw-button {
     /* Base */
     @apply z-0 inline-flex relative flex-row items-center justify-center min-w-max outline-hidden select-none text-wrap overflow-hidden pointer-events-auto;
     @apply cursor-pointer;
+    /* Transition */
+    @apply transition-all duration-100 ease-in-out;
 
     /* Focus Visible */
-    &[data-focus-visible] {
+    @variant focus-visible {
       @apply z-10 outline-solid outline-2 outline-primary-600 outline-offset-2;
     }
 
-    &[data-pressed] {
+    /* Active/Pressed State */
+    @variant pressed {
       @apply scale-95;
     }
 
     /* Size */
-    &[data-size='sm'] {
+    @variant size-sm {
       @apply px-3 min-w-16 min-h-8 gap-2 text-sm;
     }
 
-    &[data-size='md'] {
+    @variant size-md {
       @apply px-4 min-w-20 min-h-10 gap-2 text-base;
     }
 
-    &[data-size='lg'] {
+    @variant size-lg {
       @apply px-6 min-w-24 min-h-12 gap-3 text-lg;
     }
 
     /* Radius */
-    &[data-radius='none'] {
+    @variant radius-none {
       @apply rounded-none;
     }
 
-    &[data-radius='sm'] {
+    @variant radius-sm {
       @apply rounded-small;
     }
 
-    &[data-radius='md'] {
+    @variant radius-md {
       @apply rounded-medium;
     }
 
-    &[data-radius='lg'] {
+    @variant radius-lg {
       @apply rounded-large;
     }
 
-    &[data-radius='xl'] {
+    @variant radius-xl {
       @apply rounded-xlarge;
     }
 
-    &[data-radius='full'] {
+    @variant radius-full {
       @apply rounded-full;
     }
 
     /* Disabled State */
-    &[data-disabled] {
+    @variant disabled {
       @apply opacity-disabled pointer-events-none;
     }
 
     /* Loading State */
-    &[data-loading] {
+    @variant loading {
       @apply opacity-disabled pointer-events-none;
     }
 
@@ -69,228 +72,205 @@
       @apply px-0 !gap-0;
 
       /* Size - Small */
-      &[data-size='sm'] {
+      @variant size-sm {
         @apply min-w-8 w-8 h-8;
       }
 
       /* Size - Medium */
-      &[data-size='md'] {
+      @variant size-md {
         @apply min-w-10 w-10 h-10;
       }
 
       /* Size - Large */
-      &[data-size='lg'] {
+      @variant size-lg {
         @apply min-w-12 w-12 h-12;
       }
     }
 
     /* Variants and Colors */
-    &[data-variant='solid'] {
+    @variant variant-solid {
       /* Neutral */
-      &[data-color='neutral'] {
-        @apply bg-neutral-background text-white;
-
-        &:hover {
-          background: color-mix(
-            in oklch,
-            var(--color-neutral-background) 90%,
-            black
-          );
-        }
-        &[data-pressed] {
-          background: color-mix(
-            in oklch,
-            var(--color-neutral-background) 80%,
-            black
-          );
-        }
+      @variant color-neutral {
+        @apply bg-neutral-background text-neutral-foreground;
+        @apply hover:bg-strong-neutral-background/10;
+        @apply pressed:bg-strong-neutral-background/20;
       }
 
       /* Primary */
-      &[data-color='primary'] {
-        @apply bg-primary-background text-white;
-
-        &:hover {
-          background: color-mix(
-            in oklch,
-            var(--color-primary-background) 90%,
-            black
-          );
-        }
-        &[data-pressed] {
-          background: color-mix(
-            in oklch,
-            var(--color-primary-background) 80%,
-            black
-          );
-        }
+      @variant color-primary {
+        @apply bg-primary-background text-primary-foreground;
+        @apply hover:bg-strong-primary-background/10;
+        @apply pressed:bg-strong-primary-background/20;
       }
 
       /* Secondary */
-      &[data-color='secondary'] {
-        @apply bg-secondary-background text-white;
-
-        &:hover {
-          background: color-mix(
-            in oklch,
-            var(--color-secondary-background) 90%,
-            black
-          );
-        }
-        &[data-pressed] {
-          background: color-mix(
-            in oklch,
-            var(--color-secondary-background) 80%,
-            black
-          );
-        }
+      @variant color-secondary {
+        @apply bg-secondary-background text-secondary-foreground;
+        @apply hover:bg-strong-secondary-background/10;
+        @apply pressed:bg-strong-secondary-background/20;
       }
 
       /* Success */
-      &[data-color='success'] {
-        @apply bg-success-background text-white;
-
-        &:hover {
-          background: color-mix(
-            in oklch,
-            var(--color-success-background) 90%,
-            black
-          );
-        }
-        &[data-pressed] {
-          background: color-mix(
-            in oklch,
-            var(--color-success-background) 80%,
-            black
-          );
-        }
+      @variant color-success {
+        @apply bg-success-background text-success-foreground;
+        @apply hover:bg-strong-success-background/10;
+        @apply pressed:bg-strong-success-background/20;
       }
 
       /* Warning */
-      &[data-color='warning'] {
-        @apply bg-warning-background text-white;
-
-        &:hover {
-          background: color-mix(
-            in oklch,
-            var(--color-warning-background) 90%,
-            black
-          );
-        }
-        &[data-pressed] {
-          background: color-mix(
-            in oklch,
-            var(--color-warning-background) 80%,
-            black
-          );
-        }
+      @variant color-warning {
+        @apply bg-warning-background text-warning-foreground;
+        @apply hover:bg-strong-warning-background/10;
+        @apply pressed:bg-strong-warning-background/20;
       }
 
       /* Danger */
-      &[data-color='danger'] {
-        @apply bg-danger-background text-white;
-
-        &:hover {
-          background: color-mix(
-            in oklch,
-            var(--color-danger-background) 90%,
-            black
-          );
-        }
-        &[data-pressed] {
-          background: color-mix(
-            in oklch,
-            var(--color-danger-background) 80%,
-            black
-          );
-        }
+      @variant color-danger {
+        @apply bg-danger-background text-danger-foreground;
+        @apply hover:bg-strong-danger-background/10;
+        @apply pressed:bg-strong-danger-background/20;
       }
     }
 
-    /* Outline */
-    &[data-variant='outline'] {
-      /* Base outline style */
-      @apply bg-transparent border-2 border-solid;
+    /* Bordered */
+    @variant variant-bordered {
+      /* Base border style */
+      @apply bg-transparent border-medium border-solid;
 
       /* Neutral */
-      &[data-color='neutral'] {
+      @variant color-neutral {
         @apply border-neutral text-neutral;
-
-        &:hover {
-          border-color: color-mix(in oklch, var(--border-neutral) 80%, black);
-        }
-        &[data-pressed] {
-          border-color: color-mix(in oklch, var(--border-neutral) 70%, black);
-        }
+        @apply hover:border-strong-neutral/20 hover:bg-subtle-neutral-background/95;
+        @apply pressed:border-strong-neutral/30;
       }
 
       /* Primary */
-      &[data-color='primary'] {
+      @variant color-primary {
         @apply border-primary text-primary;
-
-        &:hover {
-          border-color: color-mix(in oklch, var(--border-primary) 80%, black);
-        }
-        &[data-pressed] {
-          border-color: color-mix(in oklch, var(--border-primary) 70%, black);
-        }
+        @apply hover:border-strong-primary/20;
+        @apply pressed:border-strong-primary/30;
       }
 
       /* Secondary */
-      &[data-color='secondary'] {
+      @variant color-secondary {
         @apply border-secondary text-secondary;
-
-        &:hover {
-          border-color: color-mix(in oklch, var(--border-secondary) 80%, black);
-        }
-        &[data-pressed] {
-          border-color: color-mix(in oklch, var(--border-secondary) 70%, black);
-        }
+        @apply hover:border-strong-secondary/20;
+        @apply pressed:border-strong-secondary/30;
       }
 
       /* Success */
-      &[data-color='success'] {
+      @variant color-success {
         @apply border-success text-success;
-
-        &:hover {
-          border-color: color-mix(in oklch, var(--border-success) 80%, black);
-        }
-        &[data-pressed] {
-          border-color: color-mix(in oklch, var(--border-success) 70%, black);
-        }
+        @apply hover:border-strong-success/20;
+        @apply pressed:border-strong-success/30;
       }
 
       /* Warning */
-      &[data-color='warning'] {
+      @variant color-warning {
         @apply border-warning text-warning;
-
-        &:hover {
-          border-color: color-mix(in oklch, var(--border-warning) 80%, black);
-        }
-        &[data-pressed] {
-          border-color: color-mix(in oklch, var(--border-warning) 70%, black);
-        }
+        @apply hover:border-strong-warning/20;
+        @apply pressed:border-strong-warning/30;
       }
 
       /* Danger */
-      &[data-color='danger'] {
+      @variant color-danger {
         @apply border-danger text-danger;
-
-        &:hover {
-          border-color: color-mix(in oklch, var(--border-danger) 80%, black);
-        }
-        &[data-pressed] {
-          border-color: color-mix(in oklch, var(--border-danger) 70%, black);
-        }
+        @apply hover:border-strong-danger/20;
+        @apply pressed:border-strong-danger/30;
       }
     }
 
     /* Ghost */
-    &[data-variant='ghost'] {
-      @apply bg-transparent border-2 border-solid;
+    @variant variant-ghost {
+      @apply bg-transparent border-medium border-solid;
 
-      &[data-color='neutral'] {
-        /* TODO: ghost neutral */
+      /* Neutral */
+      @variant color-neutral {
+        @apply border-neutral text-neutral;
+        @apply hover:border-transparent hover:text-neutral-foreground hover:bg-strong-neutral-background/5;
+        @apply pressed:bg-strong-neutral-background/10;
+      }
+
+      /* Primary */
+      @variant color-primary {
+        @apply border-primary text-primary;
+        @apply hover:border-transparent hover:text-primary-foreground hover:bg-strong-primary-background/5;
+        @apply pressed:bg-strong-primary-background/10;
+      }
+
+      /* Secondary */
+      @variant color-secondary {
+        @apply border-secondary text-secondary;
+        @apply hover:border-transparent hover:text-secondary-foreground hover:bg-strong-secondary-background/5;
+        @apply pressed:bg-strong-secondary-background/10;
+      }
+
+      /* Success */
+      @variant color-success {
+        @apply border-success text-success;
+        @apply hover:border-transparent hover:text-success-foreground hover:bg-strong-success-background/5;
+        @apply pressed:bg-strong-success-background/10;
+      }
+
+      /* Warning */
+      @variant color-warning {
+        @apply border-warning text-warning;
+        @apply hover:border-transparent hover:text-warning-foreground hover:bg-strong-warning-background/5;
+        @apply pressed:bg-strong-warning-background/10;
+      }
+
+      /* Danger */
+      @variant color-danger {
+        @apply border-danger text-danger;
+        @apply hover:border-transparent hover:text-danger-foreground hover:bg-strong-danger-background/5;
+        @apply pressed:bg-strong-danger-background/10;
+      }
+    }
+
+    /* Light */
+    @variant variant-light {
+      @apply bg-transparent border-transparent;
+
+      /* Neutral */
+      @variant color-neutral {
+        @apply text-neutral;
+        @apply hover:bg-subtle-neutral-background/90;
+        @apply active:bg-subtle-neutral-background/80;
+      }
+
+      /* Primary */
+      @variant color-primary {
+        @apply text-primary;
+        @apply hover:bg-subtle-primary-background/90;
+        @apply active:bg-subtle-primary-background/80;
+      }
+
+      /* Secondary */
+      @variant color-secondary {
+        @apply text-secondary;
+        @apply hover:bg-subtle-secondary-background/90;
+        @apply active:bg-subtle-secondary-background/80;
+      }
+
+      /* Success */
+      @variant color-success {
+        @apply text-success;
+        @apply hover:bg-subtle-success-background/90;
+        @apply active:bg-subtle-success-background/80;
+      }
+
+      /* Warning */
+      @variant color-warning {
+        @apply text-warning;
+        @apply hover:bg-subtle-warning-background/90;
+        @apply active:bg-subtle-warning-background/80;
+      }
+
+      /* Danger */
+      @variant color-danger {
+        @apply text-danger;
+        @apply hover:bg-subtle-danger-background/90;
+        @apply active:bg-subtle-danger-background/80;
       }
     }
   }
@@ -299,6 +279,21 @@
   .nw-button [data-slot='start-content'],
   .nw-button [data-slot='end-content'] {
     @apply inline-flex items-center justify-center;
+
+    /* Size - Small */
+    @variant size-sm {
+      @apply w-3 h-3;
+    }
+
+    /* Size - Medium */
+    @variant size-md {
+      @apply w-4 h-4;
+    }
+
+    /* Size - Large */
+    @variant size-lg {
+      @apply w-5 h-5;
+    }
   }
 
   .nw-button [data-slot='text'] {
@@ -308,16 +303,55 @@
   /* Catch any direct child of start/end-content */
   .nw-button [data-slot='start-content'] > *,
   .nw-button [data-slot='end-content'] > * {
-    @apply w-4 h-4 flex-shrink-0 text-inherit;
+    @apply flex-shrink-0 text-inherit;
+  }
 
-    /* Size - Small */
-    [data-size='sm'] & {
-      @apply w-3 h-3;
+  /* Button Group */
+  .nw-button-group {
+    @apply inline-flex items-center justify-center h-auto;
+
+    @variant orientation-horizontal {
+      @apply flex-row;
     }
 
-    /* Size - Large */
-    [data-size='lg'] & {
-      @apply w-5 h-5;
+    @variant orientation-vertical {
+      @apply flex-col;
+    }
+  }
+
+  .nw-button-group[data-orientation='horizontal'] {
+    & [data-in-group] {
+      @apply -ms-0.5;
+
+      &:first-child {
+        @apply rounded-e-none;
+      }
+
+      &:last-child {
+        @apply rounded-s-none;
+      }
+
+      &:not(:first-child):not(:last-child) {
+        @apply rounded-none;
+      }
+    }
+  }
+
+  .nw-button-group[data-orientation='vertical'] {
+    & [data-in-group] {
+      @apply -mt-0.5;
+
+      &:first-child {
+        @apply mt-0 rounded-b-none;
+      }
+
+      &:last-child {
+        @apply rounded-t-none;
+      }
+
+      &:not(:first-child):not(:last-child) {
+        @apply rounded-none;
+      }
     }
   }
 }

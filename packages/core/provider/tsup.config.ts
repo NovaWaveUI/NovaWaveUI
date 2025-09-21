@@ -4,8 +4,5 @@ export default defineConfig((options: Options) => ({
   format: ['cjs', 'esm'],
   target: 'es2020',
   clean: true,
-  banner: {
-    js: '"use client";',
-  },
   ...options,
 }));

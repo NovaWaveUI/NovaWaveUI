@@ -1,1 +1,1 @@
-export type { AsProps } from './types';
+export { createSlotSystem } from './SlotSystem';

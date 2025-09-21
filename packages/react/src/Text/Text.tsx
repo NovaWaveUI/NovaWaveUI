@@ -26,6 +26,6 @@ const Text = forwardRefWith.as<'span', TextProps<'span'>>((props, ref) => {
   );
 });
 
-Text.displayName = 'Text';
+Text.displayName = 'NovaWaveUI.Text';
 
 export default Text;

@@ -1,7 +1,7 @@
 {
-  "name": "@novawaveui/checkbox",
+  "name": "@novawaveui/provider",
   "version": "1.0.0",
-  "description": "The NovaWaveUI checkbox component",
+  "description": "The NovaWaveUI provider is used to assist in setting themes dynamically.",
   "type": "module",
   "main": "src/index.ts",
   "module": "src/index.ts",
@@ -11,12 +11,10 @@
       "types": "./src/index.ts",
       "import": "./src/index.ts",
       "require": "./src/index.ts"
-    },
-    "./checkbox.css": "./checkbox.css"
+    }
   },
   "files": [
-    "dist/",
-    "checkbox.css"
+    "dist/"
   ],
   "scripts": {
     "build": "tsup src/index.ts --dts",
@@ -33,26 +31,19 @@
     "postpack": "clean-package restore"
   },
   "peerDependencies": {
-    "@novawaveui/theme": ">=1.0.0",
-    "react": ">=19.0.0",
-    "react-dom": ">=19.0.0"
-  },
-  "dependencies": {
-    "@novawaveui/react-utils": "workspace:*",
-    "@novawaveui/types": "workspace:*",
-    "@novawaveui/utils": "workspace:*"
+    "react": ">=19.0.0"
   },
   "devDependencies": {
-    "@heroicons/react": "^2.2.0",
     "@novawaveui/eslint-config": "workspace:*",
-    "@novawaveui/theme": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
     "@novawaveui/vitest-config": "workspace:*",
-    "react": "catalog:",
-    "react-dom": "catalog:"
+    "react": "catalog:"
   },
-  "clean-package": "../../../build/clean-package.config.json",
   "keywords": [],
+  "clean-package": "../../../build/clean-package.config.json",
   "author": "Kyle Gagnon",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "react-aria": "^3.43.2"
+  }
 }

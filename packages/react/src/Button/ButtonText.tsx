@@ -5,9 +5,10 @@ import {
   useRenderProps,
 } from '@novawaveui/react-utils';
 import { cn } from '@novawaveui/utils';
-import { Text, TextProps } from '../text';
+import { Text, TextProps } from '../Text';
 import { getButtonDataAttrs, useButtonState } from './context';
 import { ButtonRenderProps } from './types';
+import { ButtonSlots } from './slots';
 
 export type ButtonTextProps<T extends React.ElementType = 'span'> = Omit<
   TextProps<T>,
@@ -17,6 +18,9 @@ export type ButtonTextProps<T extends React.ElementType = 'span'> = Omit<
 
 const ButtonText = forwardRefWith.as<'span', ButtonTextProps<'span'>>(
   (props, ref) => {
+    // First, register the slot so that the slot system knows this slot is being used
+    ButtonSlots.useRegisterSlot('text');
+
     // First, extract the `as` prop and the rest of the props
     const { children, className, style, ...rest } = props;
 

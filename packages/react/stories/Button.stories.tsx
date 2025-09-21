@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import type { ButtonProps } from '../src/button/index';
-import Button from '../src/button/index';
+import type { ButtonProps } from '../src/Button/index';
+import Button from '../src/Button/index';
 import { UserIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 
@@ -35,7 +35,7 @@ const meta: Meta<typeof Button> = {
     },
     variant: {
       control: 'select',
-      options: ['solid', 'outline', 'ghost', 'light'],
+      options: ['solid', 'bordered', 'ghost', 'light'],
       description: 'The variant of the button.',
       defaultValue: 'solid',
     },
@@ -71,6 +71,66 @@ export const Default: Story = {
     isDisabled: false,
     isLoading: false,
   },
+};
+
+export const Colors: Story = {
+  args: {
+    children: 'Button',
+    size: 'md',
+    variant: 'solid',
+    radius: 'md',
+    isDisabled: false,
+    isLoading: false,
+  },
+  render: args => (
+    <div className="flex flex-col gap-4 max-w-3xs">
+      <Button {...args} color="neutral">
+        Neutral
+      </Button>
+      <Button {...args} color="primary">
+        Primary
+      </Button>
+      <Button {...args} color="secondary">
+        Secondary
+      </Button>
+      <Button {...args} color="success">
+        Success
+      </Button>
+      <Button {...args} color="warning">
+        Warning
+      </Button>
+      <Button {...args} color="danger">
+        Danger
+      </Button>
+    </div>
+  ),
+};
+
+export const Variants: Story = {
+  args: {
+    children: 'Button',
+    color: 'primary',
+    size: 'md',
+    radius: 'md',
+    isDisabled: false,
+    isLoading: false,
+  },
+  render: args => (
+    <div className="flex flex-col gap-4 max-w-3xs">
+      <Button {...args} variant="solid">
+        Solid
+      </Button>
+      <Button {...args} variant="bordered">
+        Bordered
+      </Button>
+      <Button {...args} variant="ghost">
+        Ghost
+      </Button>
+      <Button {...args} variant="light">
+        Light
+      </Button>
+    </div>
+  ),
 };
 
 export const ChildrenFunction: Story = {
@@ -120,7 +180,12 @@ export const StateControlled: Story = {
     };
 
     return (
-      <Button {...args} isLoading={isLoading} onPress={handleClick}>
+      <Button
+        {...args}
+        isLoading={isLoading}
+        onPress={handleClick}
+        type="submit"
+      >
         {isLoading ? 'Loading...' : 'Click Me'}
       </Button>
     );
