@@ -11,7 +11,7 @@
 
     /* Focus Visible */
     @variant focus-visible {
-      @apply z-10 outline-solid outline-2 outline-primary-600 outline-offset-2;
+      @apply focus-outline;
     }
 
     /* Active/Pressed State */
@@ -188,42 +188,42 @@
       @variant color-neutral {
         @apply border-neutral text-neutral;
         @apply hover:border-transparent hover:text-neutral-foreground hover:bg-strong-neutral-background/5;
-        @apply pressed:bg-strong-neutral-background/10;
+        @apply pressed:bg-strong-neutral-background/10 pressed:text-neutral-foreground pressed:border-transparent;
       }
 
       /* Primary */
       @variant color-primary {
         @apply border-primary text-primary;
         @apply hover:border-transparent hover:text-primary-foreground hover:bg-strong-primary-background/5;
-        @apply pressed:bg-strong-primary-background/10;
+        @apply pressed:bg-strong-primary-background/10 pressed:text-primary-foreground pressed:border-transparent;
       }
 
       /* Secondary */
       @variant color-secondary {
         @apply border-secondary text-secondary;
         @apply hover:border-transparent hover:text-secondary-foreground hover:bg-strong-secondary-background/5;
-        @apply pressed:bg-strong-secondary-background/10;
+        @apply pressed:bg-strong-secondary-background/10 pressed:text-secondary-foreground pressed:border-transparent;
       }
 
       /* Success */
       @variant color-success {
         @apply border-success text-success;
         @apply hover:border-transparent hover:text-success-foreground hover:bg-strong-success-background/5;
-        @apply pressed:bg-strong-success-background/10;
+        @apply pressed:bg-strong-success-background/10 pressed:text-success-foreground pressed:border-transparent;
       }
 
       /* Warning */
       @variant color-warning {
         @apply border-warning text-warning;
         @apply hover:border-transparent hover:text-warning-foreground hover:bg-strong-warning-background/5;
-        @apply pressed:bg-strong-warning-background/10;
+        @apply pressed:bg-strong-warning-background/10 pressed:text-warning-foreground pressed:border-transparent;
       }
 
       /* Danger */
       @variant color-danger {
         @apply border-danger text-danger;
         @apply hover:border-transparent hover:text-danger-foreground hover:bg-strong-danger-background/5;
-        @apply pressed:bg-strong-danger-background/10;
+        @apply pressed:bg-strong-danger-background/10 pressed:text-danger-foreground pressed:border-transparent;
       }
     }
 

@@ -253,6 +253,9 @@
   --color-strong-base: black;
 
   --background-default: var(--neutral-50);
+
+  --focus-visible-outline-color: var(--primary-600);
+  --focus-visible-outline-width: 2px;
 }
 
 :root[data-mode='dark'] {
@@ -324,6 +327,8 @@
   --color-strong-base: white;
 
   --background-default: var(--neutral-800);
+
+  --focus-visible-outline-color: var(--primary-400);
 }
 
 @theme inline {
@@ -564,4 +569,8 @@
     --value(--color-*, [*]),
     var(--mix-in) calc(--modifier(integer) * 1%)
   );
+}
+
+@utility focus-outline {
+  @apply z-10 outline-solid outline-(length:--focus-visible-outline-width) outline-(color:--focus-visible-outline-color) outline-offset-2;
 }

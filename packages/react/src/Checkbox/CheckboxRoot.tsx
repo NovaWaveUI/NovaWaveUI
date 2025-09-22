@@ -1,12 +1,12 @@
+import { useMemo } from 'react';
 import {
   forwardRefWith,
   useContextProps,
   useDOMRef,
   useRenderProps,
 } from '@novawaveui/react-utils';
-import { BaseCheckboxProps, CheckboxRenderProps } from './types';
-import { CheckboxContext, useCheckboxState } from './context';
 import {
+  mergeProps,
   useCheckbox,
   useCheckboxGroupItem,
   useFocusRing,
@@ -14,7 +14,18 @@ import {
   VisuallyHidden,
 } from 'react-aria';
 import { useToggleState } from 'react-stately';
-import { useMemo } from 'react';
+import { cn, filterDOMProps } from '@novawaveui/utils';
+import {
+  BaseCheckboxProps,
+  CheckboxRenderProps,
+  CheckboxStateContextValue,
+} from './types';
+import {
+  CheckboxContext,
+  CheckboxStateProvider,
+  getCheckboxDataAttrs,
+  useCheckboxState,
+} from './context';
 
 const CheckboxRoot = forwardRefWith.ref<'label', BaseCheckboxProps>(
   (props, ref) => {
@@ -116,17 +127,68 @@ const CheckboxRoot = forwardRefWith.ref<'label', BaseCheckboxProps>(
 
     const renderProps = useRenderProps({
       ...ctxProps,
+      className: cn('nw-checkbox', ctxProps.className),
       values: renderValues,
-      defaultClassName: 'nw-checkbox',
-      className: ctxProps.className,
+      defaultClassName: cn('nw-checkbox', ctxProps.className),
     });
 
+    const DOMProps = filterDOMProps(restProps);
+
+    const stateCtx = useMemo<CheckboxStateContextValue>(
+      () => ({
+        color,
+        size,
+        radius,
+        isDisabled,
+        isFocused,
+        isFocusVisible,
+        isHovered,
+        isPressed,
+        isReadOnly,
+        isSelected,
+        isInvalid,
+        isRequired: ctxProps.isRequired || false,
+        isIndeterminate: ctxProps.isIndeterminate || false,
+      }),
+      [
+        color,
+        size,
+        radius,
+        isDisabled,
+        isFocused,
+        isFocusVisible,
+        isHovered,
+        isPressed,
+        isReadOnly,
+        isSelected,
+        isInvalid,
+        ctxProps.isRequired,
+        ctxProps.isIndeterminate,
+      ]
+    );
+
+    const dataAttrs = getCheckboxDataAttrs(stateCtx);
+
     return (
-      <label>
-        <VisuallyHidden elementType="span">
-          <input ref={inputRef} />
-        </VisuallyHidden>
-      </label>
+      <CheckboxStateProvider value={stateCtx}>
+        <label
+          ref={domRef}
+          className={renderProps.className}
+          style={renderProps.style}
+          {...mergeProps(DOMProps, hoverProps, labelProps)}
+          {...dataAttrs}
+          data-slot="root"
+        >
+          <VisuallyHidden elementType="span">
+            <input ref={inputRef} {...mergeProps(inputProps, focusProps)} />
+          </VisuallyHidden>
+          {renderProps.children}
+        </label>
+      </CheckboxStateProvider>
     );
   }
 );
+
+CheckboxRoot.displayName = 'NovaWaveUI.CheckboxRoot';
+
+export default CheckboxRoot;

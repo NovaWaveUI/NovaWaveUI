@@ -1,0 +1,30 @@
+@import '@novawaveui/theme/theme.css';
+
+@layer components {
+  /* Root Checkbox */
+  .nw-checkbox {
+    /* Base */
+    @apply z-0 relative max-w-fit inline-flex items-center justify-center cursor-pointer p-2 -m-2 select-none;
+    @apply gap-2;
+  }
+
+  .nw-checkbox [data-slot='indicator'] {
+    @apply flex items-center justify-center;
+
+    @variant size-sm {
+      @apply w-4 h-4;
+    }
+
+    @variant size-md {
+      @apply w-5 h-5;
+    }
+  }
+
+  .nw-checkbox [data-slot='checkbox-icon'] {
+    @apply w-4 h-4;
+  }
+
+  .nw-checkbox [data-slot='checkbox-icon'] > * {
+    @apply flex-shrink-0 text-inherit;
+  }
+}

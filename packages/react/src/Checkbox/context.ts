@@ -28,7 +28,7 @@ export const [CheckboxStateProvider, useCheckboxState] =
     name: 'CheckboxStateContext',
     errorMessage:
       'useCheckboxStated must be used within a Checkbox component or a component wrapped with CheckboxProvider',
-    strict: true,
+    strict: false,
   });
 
 export const [CheckboxGroupStateProvider, useCheckboxGroupState] =

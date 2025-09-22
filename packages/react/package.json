@@ -12,6 +12,12 @@
       "import": "./dist/Button/index.js",
       "require": "./dist/Button/index.cjs",
       "types": "./dist/Button/index.d.ts"
+    },
+    "./checkbox.css": "./styles/checkbox.css",
+    "./checkbox": {
+      "import": "./dist/Checkbox/index.js",
+      "require": "./dist/Checkbox/index.cjs",
+      "types": "./dist/Checkbox/index.d.ts"
     }
   },
   "scripts": {
@@ -58,6 +64,5 @@
   },
   "keywords": [],
   "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
-  "license": "MIT",
-  "packageManager": "pnpm@10.16.1"
+  "license": "MIT"
 }
