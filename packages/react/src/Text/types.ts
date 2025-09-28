@@ -1,6 +1,6 @@
-import React, { ElementType } from 'react';
+import { ElementType } from 'react';
+import { PolymorphicProps } from '@novawaveui/react-utils';
 
-export type TextProps<T extends ElementType = 'span'> =
-  React.ComponentPropsWithoutRef<T>;
+export type TextProps<T extends ElementType = 'span'> = PolymorphicProps<T, {}>;
 
 export type TextContextValue = TextProps;

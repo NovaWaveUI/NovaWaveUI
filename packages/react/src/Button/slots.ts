@@ -1,4 +1,10 @@
-import { createSlotSystem } from '@novawaveui/core';
+import { createSlotSystem } from '@novawaveui/react-utils';
+import { ButtonTextProps } from './ButtonText';
+import { ButtonStartContentProps } from './ButtonStartContent';
+import { ButtonEndContentProps } from './ButtonEndContent';
 
-export const buttonSlots = ['text', 'start-content', 'end-content'] as const;
-export const ButtonSlots = createSlotSystem(buttonSlots);
+export const ButtonSlots = createSlotSystem<{
+  text: ButtonTextProps<any>;
+  startContent: ButtonStartContentProps<any>;
+  endContent: ButtonEndContentProps<any>;
+}>();

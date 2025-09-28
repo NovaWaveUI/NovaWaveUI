@@ -6,7 +6,7 @@ import {
 import { LabelProps } from './types';
 import { LabelContext } from './context';
 
-const Label = forwardRefWith.as<'label', LabelProps<'label'>>((props, ref) => {
+const Label = forwardRefWith.as<'label', LabelProps>((props, ref) => {
   // Extract the `as` prop and the rest of the props
   const { as: Component = 'label', children, ...rest } = props;
 

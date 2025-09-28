@@ -1,74 +1,8 @@
-import React from 'react';
 import { RenderProps, SlotProps } from '@novawaveui/react-utils';
 import { NWColor, NWRadius, NWSize } from '@novawaveui/theme';
-import {
-  DisabledState,
-  FocusState,
-  HoverState,
-  PressState,
-  ReadOnlyState,
-  SelectionState,
-} from '@novawaveui/types';
-import { HoverEvents } from '@react-types/shared';
-import { AriaCheckboxGroupProps, AriaCheckboxProps } from 'react-aria';
+import { DisabledState, ReadOnlyState } from '@novawaveui/types';
+import { AriaCheckboxGroupProps } from 'react-aria';
 import { CheckboxGroupState } from 'react-stately';
-
-export interface CheckboxRenderProps
-  extends FocusState,
-    HoverState,
-    PressState,
-    DisabledState,
-    ReadOnlyState,
-    SelectionState {
-  /**
-   * Whether or not the checkbox is currently indeterminate.
-   * @selector [data-indeterminate]
-   */
-  isIndeterminate: boolean;
-  /**
-   * Whether or not the checkbox is required.
-   * @selector [data-required]
-   */
-  isRequired: boolean;
-  /**
-   * Whether or not the checkbox is invalid.
-   * @selector [data-invalid]
-   */
-  isInvalid: boolean;
-}
-
-export interface CheckboxStyleProps {
-  /**
-   * The color of the checkbox.
-   */
-  color?: NWColor;
-  /**
-   * The size of the checkbox.
-   */
-  size?: NWSize;
-  /**
-   * The radius of the checkbox.
-   */
-  radius?: NWRadius;
-}
-
-export interface CheckboxRootProps
-  extends Omit<AriaCheckboxProps, 'children' | 'className' | 'style'>,
-    HoverEvents,
-    SlotProps,
-    RenderProps<CheckboxRenderProps>,
-    CheckboxStyleProps {
-  /**
-   * A ref to the internal input element.
-   */
-  inputRef?: React.RefObject<HTMLInputElement | null>;
-}
-
-export type CheckboxPropsContextValue = CheckboxRootProps;
-
-export interface CheckboxStateContextValue
-  extends CheckboxRenderProps,
-    CheckboxStyleProps {}
 
 export interface CheckboxGroupRenderProps extends DisabledState, ReadOnlyState {
   /**
@@ -115,7 +49,7 @@ export interface CheckboxGroupProps
 
 export type CheckboxGroupPropsContextValue = CheckboxGroupProps;
 
-export interface CheckboxGroupStateContextValue
+export interface CheckboxGroupNWStateContextValue
   extends CheckboxGroupRenderProps {
   /**
    * The color of the checkbox group.

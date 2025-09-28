@@ -1,120 +1,138 @@
 import React, { useMemo } from 'react';
 import {
-  useDOMRef,
   useContextProps,
-  forwardRefWith,
   useRenderProps,
+  SlotProps,
+  RenderProps,
+  PolymorphicProps,
 } from '@novawaveui/react-utils';
-import { useButton } from '@react-aria/button';
+import { AriaButtonProps, useButton } from '@react-aria/button';
 import { cn, filterDOMProps } from '@novawaveui/utils';
 import { useHover } from '@react-aria/interactions';
 import { mergeProps } from '@react-aria/utils';
 import { useFocusRing } from '@react-aria/focus';
-import { DOMAttributes, FocusableElement } from '@react-types/shared';
 import {
-  ButtonContext,
+  DOMAttributes,
+  FocusableElement,
+  HoverEvents,
+} from '@react-types/shared';
+import {
+  ButtonPropsProvider,
   ButtonStateProvider,
   getButtonDataAttrs,
   useButtonGroup,
 } from './context';
 import {
-  BaseButtonProps,
   ButtonRenderProps,
   ButtonStateContextValue,
+  ButtonStyleProps,
 } from './types';
 import { ButtonSlots } from './slots';
 
-const ButtonRoot = forwardRefWith.as<'button', BaseButtonProps<'button'>>(
-  (props, ref) => {
-    // First, extract the `as` prop and the rest of the props
-    const { as: Component = 'button', ...restProps } = props;
+export type ButtonRootProps<T extends React.ElementType> = PolymorphicProps<
+  T,
+  Omit<AriaButtonProps<T>, 'children' | 'elementType'> &
+    HoverEvents &
+    SlotProps &
+    RenderProps<ButtonRenderProps> &
+    ButtonStyleProps & {
+      /**
+       * Whether or not the button is in a loading state.
+       */
+      isLoading?: boolean;
+    }
+>;
 
-    // Next, get the context props (if there is any), a context may not exist,
-    // if it doesn't, we just use the original props
-    // We also get the ref from the context and merge it with the original ref
-    // so we can have access to the DOM element
-    const [ctxProps, ctxRef] = useContextProps(restProps, ref, ButtonContext);
+export function ButtonRoot<T extends React.ElementType = 'button'>(
+  props: ButtonRootProps<T>
+) {
+  const { as: Component = 'button', ref, ...restProps } = props;
 
-    // Create a DOM ref using the merged refs
-    const domRef = useDOMRef(ctxRef);
+  // Next, get the context props (if there is any), a context may not exist,
+  // if it doesn't, we just use the original props
+  // We also get the ref from the context and merge it with the original ref
+  // so we can have access to the DOM element
+  const [ctxProps, mergedRef] = useContextProps(
+    restProps,
+    ref,
+    ButtonPropsProvider
+  );
 
-    // Get the props from the group if possible
-    const buttonGroup = useButtonGroup();
-    const isInGroup = !!buttonGroup;
+  // Get the props from the group if possible
+  const buttonGroup = useButtonGroup();
+  const isInGroup = !!buttonGroup;
 
-    // Spread out and set default values for the props
-    const {
-      color = buttonGroup?.color ?? 'neutral',
-      size = buttonGroup?.size ?? 'md',
-      variant = buttonGroup?.variant ?? 'solid',
-      radius = buttonGroup?.radius ?? 'md',
-      isDisabled = buttonGroup?.isDisabled ?? false,
-      isLoading = false,
-    } = ctxProps;
+  // Spread out and set default values for the props
+  const {
+    color = buttonGroup?.color ?? 'neutral',
+    size = buttonGroup?.size ?? 'md',
+    variant = buttonGroup?.variant ?? 'solid',
+    radius = buttonGroup?.radius ?? 'md',
+    isDisabled = buttonGroup?.isDisabled ?? false,
+    isLoading = false,
+  } = ctxProps;
 
-    // Get the button props from the useButton hook
-    // This will handle all the accessibility features for us
-    // We pass the DOM ref to the hook so it can manage the focus
-    // and other interactions
-    // eslint-disable-next-line prefer-const
-    let { buttonProps, isPressed } = useButton(
-      {
-        ...ctxProps,
-        isDisabled,
-        elementType: Component as React.ElementType,
-      },
-      domRef
-    );
-    // Disable all interactions if the button is disabled or loading
-    const isInteractive = useMemo(
-      () => !isDisabled && !isLoading,
-      [isDisabled, isLoading]
-    );
-    buttonProps = useDisableInteractions(buttonProps, isInteractive);
+  // Disable all interactions if the button is disabled or loading
+  const isInteractive = useMemo(
+    () => !isDisabled && !isLoading,
+    [isDisabled, isLoading]
+  );
 
-    // Get the hover interactions
-    const { isHovered, hoverProps } = useHover(ctxProps);
-
-    // Get the focus props
-    const { focusProps, isFocused, isFocusVisible } = useFocusRing();
-
-    // Prepare the render props
-    const renderValues: ButtonRenderProps = {
-      isPressed,
-      isDisabled,
-      isHovered,
-      isFocused,
-      isFocusVisible,
-      isLoading,
-    };
-
-    // Get the render props using the useRenderProps utility
-    // This will allow us to use the render props pattern
-    // and pass the render values to the children
-    const renderProps = useRenderProps({
+  // Get the button props from the useButton hook
+  // This will handle all the accessibility features for us
+  // We pass the DOM ref to the hook so it can manage the focus
+  // and other interactions
+  // eslint-disable-next-line prefer-const
+  let { buttonProps, isPressed } = useButton(
+    {
       ...ctxProps,
-      className: cn('nw-button', ctxProps.className),
-      values: renderValues,
-      defaultClassName: cn('nw-button', ctxProps.className),
-    });
+      isDisabled: !isInteractive,
+      elementType: Component as React.ElementType,
+    },
+    mergedRef
+  );
+  // Filter DOM props to ensure mergeProps receives plain objects
+  const filteredCtxProps = filterDOMProps<T>(ctxProps);
+  const disabledInteractionProps = useDisableInteractions(
+    buttonProps,
+    isInteractive
+  );
+  const mergedButtonProps = mergeProps(
+    disabledInteractionProps,
+    filteredCtxProps
+  );
 
-    const DOMProps = filterDOMProps(ctxProps);
+  // Get the hover interactions
+  const { isHovered, hoverProps } = useHover({
+    ...ctxProps,
+    isDisabled: !isInteractive,
+  });
 
-    const buttonStateContext: ButtonStateContextValue = useMemo(() => {
-      return {
-        isDisabled,
-        isLoading,
-        isPressed,
-        isHovered,
-        isFocused,
-        isFocusVisible,
-        color,
-        size,
-        variant,
-        radius,
-        isInGroup,
-      };
-    }, [
+  // Get the focus props
+  const { focusProps, isFocused, isFocusVisible } = useFocusRing();
+
+  // Prepare the render props
+  const renderValues: ButtonRenderProps = {
+    isPressed,
+    isDisabled,
+    isHovered,
+    isFocused,
+    isFocusVisible,
+    isLoading,
+  };
+
+  // Get the render props using the useRenderProps utility
+  // This will allow us to use the render props pattern
+  // and pass the render values to the children
+  const renderProps = useRenderProps({
+    ...ctxProps,
+    className: cn('nw-button', ctxProps.className),
+    values: renderValues,
+    defaultClassName: cn('nw-button', ctxProps.className),
+  });
+
+  const buttonStateContext: ButtonStateContextValue = useMemo(() => {
+    return {
       isDisabled,
       isLoading,
       isPressed,
@@ -126,37 +144,46 @@ const ButtonRoot = forwardRefWith.as<'button', BaseButtonProps<'button'>>(
       variant,
       radius,
       isInGroup,
-    ]);
+    };
+  }, [
+    isDisabled,
+    isLoading,
+    isPressed,
+    isHovered,
+    isFocused,
+    isFocusVisible,
+    color,
+    size,
+    variant,
+    radius,
+    isInGroup,
+  ]);
 
-    const dataAttrs = getButtonDataAttrs(buttonStateContext);
+  const dataAttrs = getButtonDataAttrs(buttonStateContext);
 
-    return (
-      <ButtonSlots.Provider>
-        <ButtonStateProvider value={buttonStateContext}>
-          <Component
-            ref={domRef}
-            {...mergeProps(DOMProps, buttonProps, hoverProps, focusProps)}
-            type={
-              Component === 'button' &&
-              // @ts-expect-error TS doesn't know about our type override
-              buttonProps.type === 'submit' &&
-              !isInteractive
-                ? 'button'
-                : // @ts-expect-error TS doesn't know about our type override
-                  buttonProps.type
-            } // Prevent form submission if button is disabled or loading
-            className={renderProps.className}
-            style={renderProps.style}
-            {...dataAttrs}
-            data-slot="root"
-          >
-            {renderProps.children}
-          </Component>
-        </ButtonStateProvider>
-      </ButtonSlots.Provider>
-    );
-  }
-);
+  return (
+    <ButtonSlots.Provider value={{}}>
+      <ButtonStateProvider value={buttonStateContext}>
+        <Component
+          ref={mergedRef}
+          {...mergeProps(mergedButtonProps, hoverProps, focusProps)}
+          type={
+            Component === 'button' &&
+            // @ts-expect-error TS doesn't know about our type override
+            buttonProps.type === 'submit' &&
+            !isInteractive
+              ? 'button'
+              : // @ts-expect-error TS doesn't know about our type override
+                buttonProps.type
+          } // Prevent form submission if button is disabled or loading
+          {...renderProps}
+          {...dataAttrs}
+          data-slot="root"
+        />
+      </ButtonStateProvider>
+    </ButtonSlots.Provider>
+  );
+}
 
 function useDisableInteractions(
   props: DOMAttributes<FocusableElement>,
@@ -180,6 +207,6 @@ function useDisableInteractions(
   return newProps as DOMAttributes<FocusableElement>;
 }
 
-ButtonRoot.displayName = 'Button';
+ButtonRoot.displayName = 'NovaWaveUI.Button.Root';
 
 export default ButtonRoot;

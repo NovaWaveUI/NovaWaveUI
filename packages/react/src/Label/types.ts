@@ -5,4 +5,4 @@ export type LabelProps<T extends ElementType = 'label'> =
     as?: T;
   };
 
-export type LabelContextValue = LabelProps;
+export type LabelContextValue<T extends ElementType = 'label'> = LabelProps<T>;

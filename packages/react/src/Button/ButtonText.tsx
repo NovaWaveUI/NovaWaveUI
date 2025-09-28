@@ -1,65 +1,58 @@
 import React from 'react';
 import {
-  forwardRefWith,
+  PolymorphicProps,
   RenderProps,
   useRenderProps,
 } from '@novawaveui/react-utils';
 import { cn } from '@novawaveui/utils';
-import { Text, TextProps } from '../Text';
-import { getButtonDataAttrs, useButtonState } from './context';
+import { useButtonState } from './context';
 import { ButtonRenderProps } from './types';
 import { ButtonSlots } from './slots';
+import { useButtonRenderContext } from './state';
 
-export type ButtonTextProps<T extends React.ElementType = 'span'> = Omit<
-  TextProps<T>,
-  'children'
-> &
-  RenderProps<ButtonRenderProps>;
+export type ButtonTextProps<T extends React.ElementType> = PolymorphicProps<
+  T,
+  RenderProps<ButtonRenderProps>
+>;
 
-const ButtonText = forwardRefWith.as<'span', ButtonTextProps<'span'>>(
-  (props, ref) => {
-    // First, register the slot so that the slot system knows this slot is being used
-    ButtonSlots.useRegisterSlot('text');
+function ButtonText<T extends React.ElementType = 'span'>(
+  props: ButtonTextProps<T>
+) {
+  // Register the slot
+  ButtonSlots.useRegisterSlot('text');
 
-    // First, extract the `as` prop and the rest of the props
-    const { children, className, style, ...rest } = props;
+  // Extract the props for this slot from the context
+  const slotProps = ButtonSlots.useSlot('text', props);
 
-    // Get the button state context so that we can get the current state
-    // and data properties
-    const buttonStateCtx = useButtonState();
+  // First, extract the `as` prop and the rest of the props
+  const {
+    as: Component = 'span',
+    children,
+    className,
+    style,
+    ...rest
+  } = slotProps;
 
-    // Get the data attributes from the context
-    const dataAttrs = getButtonDataAttrs(buttonStateCtx);
+  // Get the button state context so that we can get the current state
+  // and data properties
+  const buttonStateCtx = useButtonState();
 
-    const renderValues: ButtonRenderProps = {
-      isPressed: buttonStateCtx.isPressed,
-      isDisabled: buttonStateCtx.isDisabled,
-      isHovered: buttonStateCtx.isHovered,
-      isFocused: buttonStateCtx.isFocused,
-      isFocusVisible: buttonStateCtx.isFocusVisible,
-      isLoading: buttonStateCtx.isLoading,
-    };
+  // Get the data attributes from the context
+  const { dataAttrs, renderValues } = useButtonRenderContext(buttonStateCtx);
 
-    const renderProps = useRenderProps({
-      className: className,
-      style: style,
-      children: children,
-      values: renderValues,
-      defaultClassName: cn('nw-button', className),
-    });
+  const renderProps = useRenderProps({
+    className: className,
+    style: style,
+    children: children,
+    values: renderValues,
+    defaultClassName: cn('nw-button', className),
+  });
 
-    return (
-      <Text
-        ref={ref}
-        {...renderProps}
-        {...dataAttrs}
-        {...rest}
-        data-slot="text"
-      />
-    );
-  }
-);
+  return (
+    <Component {...rest} {...dataAttrs} {...renderProps} data-slot="text" />
+  );
+}
 
-ButtonText.displayName = 'ButtonText';
+ButtonText.displayName = 'NovaWaveUI.Button.Text';
 
 export default ButtonText;

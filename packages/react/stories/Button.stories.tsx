@@ -59,7 +59,7 @@ const meta: Meta<typeof Button> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<ButtonProps>;
 
 export const Default: Story = {
   args: {
@@ -135,7 +135,7 @@ export const Variants: Story = {
 
 export const ChildrenFunction: Story = {
   args: {
-    children: props => (props.isLoading ? 'Loading...' : 'Button'),
+    children: ({ isLoading }) => (isLoading ? 'Loading...' : 'Button'),
     color: 'primary',
     size: 'md',
     variant: 'solid',
@@ -260,4 +260,40 @@ export const SlotAPIWay: Story = {
       </Button.EndContent>
     </Button.Root>
   ),
+};
+
+export const NextJSLink: Story = {
+  args: {
+    children: 'Button',
+    color: 'primary',
+    size: 'md',
+    variant: 'solid',
+    radius: 'md',
+    isDisabled: false,
+    isLoading: false,
+  },
+  render: args => {
+    // Simulating Next.js Link component
+    const Link = React.forwardRef<
+      HTMLAnchorElement,
+      React.ComponentPropsWithoutRef<'a'>
+    >(({ href, children, ...rest }, ref) => (
+      <a href={href} ref={ref} {...rest}>
+        {children}
+      </a>
+    ));
+    Link.displayName = 'Link';
+
+    return (
+      <Button
+        {...(args as ButtonProps<'a'>)}
+        as={Link}
+        href="#"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Go to Home
+      </Button>
+    );
+  },
 };

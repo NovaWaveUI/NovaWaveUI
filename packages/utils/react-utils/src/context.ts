@@ -3,7 +3,7 @@
 
 import React from 'react';
 
-export interface CreateContextOptions {
+export interface CreateContextOptions<ContextType> {
   /**
    * If `true`, the context will be created in strict mode.
    * Strict mode will throw an error if the context is accessed outside of a provider.
@@ -18,6 +18,10 @@ export interface CreateContextOptions {
    * The name of the context. This is used for debugging purposes.
    */
   name?: string;
+  /**
+   * The default value of the context. This is used if the context is accessed outside of a provider and strict mode is disabled.
+   */
+  defaultValue?: ContextType | (() => ContextType) | null | undefined;
 }
 
 /**
@@ -31,16 +35,21 @@ export type CreateContextReturn<T> = [
 ];
 
 export const createContext = <ContextType>(
-  options: CreateContextOptions = {}
+  options: CreateContextOptions<ContextType> = {}
 ): CreateContextReturn<ContextType> => {
   const {
     strict,
     errorMessage = 'useContext must be used within a Provider with a value',
     name,
+    defaultValue = {} as ContextType,
   } = options;
 
   // Create the React context
-  const Context = React.createContext<ContextType | undefined>(undefined);
+  const resolvedDefValue =
+    typeof defaultValue === 'function'
+      ? (defaultValue as () => ContextType)()
+      : defaultValue;
+  const Context = React.createContext<ContextType | null>(resolvedDefValue);
 
   // Set the display name of the context
   Context.displayName = name;

@@ -1,9 +1,4 @@
-import { forwardRefWithAs, forwardRefWithAsChild } from './polymorphic';
-import { forwardRefWithRef } from './ref';
-
 export type { CreateContextOptions, CreateContextReturn } from './context';
-export type { NonPolymorphicProps } from './ref';
-export type { PolymorphicProps, PolymorphicRef } from './polymorphic';
 export type { SlotProps } from './types';
 export type {
   ChildrenOrFunction,
@@ -21,25 +16,15 @@ export type {
   SlottedValue,
 } from './provider';
 
+export type { PolymorphicProps } from './polymorphic';
+export { PolymorphicComponent, renderPolymorphic } from './polymorphic';
+
 export { createContext } from './context';
-export {
-  assignRef,
-  mergeRefs,
-  useDOMRef,
-  forwardRefWithRef,
-  useObjectRef,
-} from './ref';
-export {
-  forwardRefWithAs,
-  forwardRefWithAsChild,
-  withAsChild,
-} from './polymorphic';
+export { assignRef, mergeRefs, useDOMRef, useObjectRef } from './ref';
 export { Provider } from './provider';
 export { useSlottedContext, useContextProps } from './utils';
-export { useRenderProps } from './render';
+export { useRenderProps, getRenderValues } from './render';
 
-export const forwardRefWith = {
-  as: forwardRefWithAs,
-  asChild: forwardRefWithAsChild,
-  ref: forwardRefWithRef,
-} as const;
+export { createSlotSystem } from './SlotSystem';
+
+export type { SlotSystem } from './SlotSystem';

@@ -1,14 +1,11 @@
-import {
-  forwardRefWith,
-  useContextProps,
-  useDOMRef,
-} from '@novawaveui/react-utils';
+import React from 'react';
+import { useContextProps, useDOMRef } from '@novawaveui/react-utils';
 import { TextProps } from './types';
 import { TextContext } from './context';
 
-const Text = forwardRefWith.as<'span', TextProps<'span'>>((props, ref) => {
+function Text<T extends React.ElementType = 'span'>(props: TextProps<T>) {
   // Extract the `as` prop and the rest of the props
-  const { as: Component = 'span', children, ...rest } = props;
+  const { as: Component = 'span', children, ref, ...rest } = props;
 
   // Next, get the context props (if there is any), a context may not exist,
   // if it doesn't, we just use the original props
@@ -24,7 +21,7 @@ const Text = forwardRefWith.as<'span', TextProps<'span'>>((props, ref) => {
       {children}
     </Component>
   );
-});
+}
 
 Text.displayName = 'NovaWaveUI.Text';
 

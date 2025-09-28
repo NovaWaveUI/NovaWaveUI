@@ -5,8 +5,8 @@ export { default as ButtonEndContent } from './ButtonEndContent';
 export { default } from './Button';
 export { default as ButtonGroup } from './ButtonGroup';
 
+export type { ButtonProps } from './Button';
 export type {
-  BaseButtonProps as ButtonProps,
   ButtonRenderProps,
   ButtonGroupProps,
   ButtonGroupRenderProps,
@@ -19,8 +19,8 @@ export type {
   ButtonGroupStyleProps,
 } from './types';
 export {
-  ButtonContext,
-  ButtonProvider,
+  ButtonPropsContext,
+  ButtonPropsProvider,
   ButtonGroupPropsContext,
   ButtonGroupProvider,
   ButtonStateProvider,

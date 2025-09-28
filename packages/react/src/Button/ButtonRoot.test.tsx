@@ -62,6 +62,7 @@ describe('ButtonRoot', () => {
       </ButtonRoot>
     );
     const btn = getByRole('button');
+    console.log(btn);
     fireEvent.click(btn);
     expect(onClick).not.toHaveBeenCalled();
     expect(btn).toHaveAttribute('data-loading', 'true');

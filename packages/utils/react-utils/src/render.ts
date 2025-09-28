@@ -124,3 +124,16 @@ export function useRenderProps<T>(
     defaultChildren,
   ]);
 }
+
+export function getRenderValues<TContext extends object, TRender>(
+  ctx: TContext
+): TRender {
+  const result: Partial<TRender> = {};
+  const renderKeys = Object.keys(ctx).filter(
+    key => (key as keyof TRender) !== undefined
+  ) as Array<keyof TRender>;
+  for (const key of renderKeys) {
+    (result as any)[key] = (ctx as any)[key];
+  }
+  return result as TRender;
+}

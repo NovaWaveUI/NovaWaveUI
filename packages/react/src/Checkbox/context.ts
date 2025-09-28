@@ -1,41 +1,20 @@
-import { createContext } from 'react';
-import {
-  ContextValue,
-  createContext as nwCreateContext,
-} from '@novawaveui/react-utils';
+import { ContextValue, createContext } from '@novawaveui/react-utils';
 import { createDataPropsGetter } from '@novawaveui/utils';
 import {
-  CheckboxGroupPropsContextValue,
+  CheckboxGroupStateContextValue,
   CheckboxPropsContextValue,
   CheckboxStateContextValue,
 } from './types';
 
-export const CheckboxContext = createContext<
-  ContextValue<CheckboxPropsContextValue, HTMLLabelElement>
->({});
-CheckboxContext.displayName = 'NovaWaveUI.CheckboxContext';
-
-export const CheckboxProvider = CheckboxContext.Provider;
-
-export const CheckboxGroupContext = createContext<
-  ContextValue<CheckboxGroupPropsContextValue, HTMLDivElement>
->({});
-CheckboxGroupContext.displayName = 'NovaWaveUI.CheckboxGroupContext';
-export const CheckboxGroupProvider = CheckboxGroupContext.Provider;
-
-export const [CheckboxStateProvider, useCheckboxState] =
-  nwCreateContext<CheckboxStateContextValue>({
-    name: 'CheckboxStateContext',
-    errorMessage:
-      'useCheckboxStated must be used within a Checkbox component or a component wrapped with CheckboxProvider',
+export const [CheckboxPropsContext, useCheckboxProps, CheckboxPropsProvider] =
+  createContext<ContextValue<CheckboxPropsContextValue, HTMLLabelElement>>({
+    name: 'NovaWaveUI.CheckboxPropsContext',
     strict: false,
   });
 
-export const [CheckboxGroupStateProvider, useCheckboxGroupState] =
-  nwCreateContext<CheckboxGroupPropsContextValue>({
-    name: 'CheckboxGroupContext',
-    errorMessage:
-      'useCheckboxGroupState must be used within a CheckboxGroup component or a component wrapped with CheckboxGroupProvider',
+export const [CheckboxStateProvider, useCheckboxState, CheckboxStateContext] =
+  createContext<CheckboxStateContextValue>({
+    name: 'NovaWaveUI.CheckboxStateContext',
     strict: false,
   });
 
@@ -49,6 +28,22 @@ export const getCheckboxDataAttrs =
       disabled: ctx.isDisabled,
       indeterminate: ctx.isIndeterminate,
       selected: ctx.isSelected,
+      color: ctx.color,
+      size: ctx.size,
+      radius: ctx.radius,
+      'is-required': ctx.isRequired,
+      'read-only': ctx.isReadOnly,
+      invalid: ctx.isInvalid,
+    };
+  });
+
+export const getCheckboxGroupDataAttrs =
+  createDataPropsGetter<CheckboxGroupStateContextValue>(ctx => {
+    return {
+      disabled: ctx.isDisabled,
+      'read-only': ctx.isReadOnly,
+      'is-required': ctx.isRequired,
+      invalid: ctx.isInvalid,
       color: ctx.color,
       size: ctx.size,
       radius: ctx.radius,

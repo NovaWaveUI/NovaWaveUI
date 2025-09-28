@@ -452,6 +452,7 @@
   --text-color-secondary: var(--text-secondary);
   --text-color-on-secondary: var(--text-on-secondary);
   --text-color-success: var(--text-success);
+  --text-color-on-success: var(--text-on-success);
   --text-color-warning: var(--text-warning);
   --text-color-on-warning: var(--text-on-warning);
   --text-color-danger: var(--text-danger);

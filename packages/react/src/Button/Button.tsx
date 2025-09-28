@@ -1,39 +1,32 @@
 import React, { ElementType } from 'react';
-import { forwardRefWith } from '@novawaveui/react-utils';
-import { BaseButtonProps } from './types';
-import ButtonRoot from './ButtonRoot';
+import ButtonRoot, { ButtonRootProps } from './ButtonRoot';
 import ButtonStartContent from './ButtonStartContent';
 import ButtonEndContent from './ButtonEndContent';
 import ButtonText from './ButtonText';
 
-export interface ButtonProps<T extends ElementType = 'button'>
-  extends BaseButtonProps<T> {
-  startContent?: React.ReactNode;
-  endContent?: React.ReactNode;
+export type ButtonProps<T extends ElementType = 'button'> =
+  ButtonRootProps<T> & {
+    startContent?: React.ReactNode;
+    endContent?: React.ReactNode;
+  };
+
+function Button<T extends ElementType = 'button'>(props: ButtonProps<T>) {
+  const { startContent, endContent, children, ...restProps } = props;
+
+  return (
+    <ButtonRoot {...(restProps as ButtonRootProps<T>)}>
+      {startContent && <ButtonStartContent>{startContent}</ButtonStartContent>}
+      {children && <ButtonText>{children}</ButtonText>}
+      {endContent && <ButtonEndContent>{endContent}</ButtonEndContent>}
+    </ButtonRoot>
+  );
 }
 
-const Button = Object.assign(
-  forwardRefWith.as<'button', ButtonProps<'button'>>((props, ref) => {
-    const { startContent, endContent, children, ...restProps } = props;
-
-    return (
-      <ButtonRoot ref={ref} {...restProps}>
-        {startContent && (
-          <ButtonStartContent>{startContent}</ButtonStartContent>
-        )}
-        {children && <ButtonText>{children}</ButtonText>}
-        {endContent && <ButtonEndContent>{endContent}</ButtonEndContent>}
-      </ButtonRoot>
-    );
-  }),
-  {
-    Root: ButtonRoot,
-    StartContent: ButtonStartContent,
-    EndContent: ButtonEndContent,
-    Text: ButtonText,
-  }
-);
-
 Button.displayName = 'NovaWaveUI.Button';
+
+Button.Root = ButtonRoot;
+Button.StartContent = ButtonStartContent;
+Button.EndContent = ButtonEndContent;
+Button.Text = ButtonText;
 
 export default Button;

@@ -1,4 +1,4 @@
-import React, { Context, ForwardedRef, RefObject, useMemo } from 'react';
+import React, { Context, RefObject, useMemo } from 'react';
 import { mergeProps } from '@react-aria/utils';
 import { ContextValue, DEFAULT_SLOT, SlottedContextValue } from './provider';
 import { SlotProps } from './types';
@@ -8,7 +8,7 @@ export function useSlottedContext<T>(
   context: Context<SlottedContextValue<T>>,
   slot?: string | null
 ): T | null | undefined {
-  const contextValue = React.useContext(context);
+  const contextValue = React.useContext<SlottedContextValue<T>>(context);
 
   if (contextValue == undefined) {
     return contextValue as T | null | undefined;
@@ -44,7 +44,7 @@ export function useSlottedContext<T>(
 
 export function useContextProps<T, U extends SlotProps, E extends Element>(
   props: T & SlotProps,
-  ref: ForwardedRef<E> | undefined,
+  ref: React.Ref<any> | undefined,
   context: Context<ContextValue<U, E>>
 ): [T, RefObject<E | null>] {
   const contextValue = useSlottedContext(context, props.slot) || {};

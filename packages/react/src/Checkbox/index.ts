@@ -4,8 +4,9 @@ export { default as CheckboxIndicator } from './CheckboxIndicator';
 export { default as CheckboxLabel } from './CheckboxLabel';
 export { default as CheckboxIcon } from './CheckboxIcon';
 
+export type { CheckboxProps } from './Checkbox';
 export type {
-  BaseCheckboxProps as CheckboxProps,
+  CheckboxRootProps as BaseCheckboxProps,
   CheckboxRenderProps,
   CheckboxStyleProps,
   CheckboxGroupStateContextValue,

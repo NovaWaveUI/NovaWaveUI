@@ -3,7 +3,7 @@ import React from 'react';
 import { LabelContextValue } from './types';
 
 export const LabelContext = React.createContext<
-  ContextValue<LabelContextValue, HTMLLabelElement>
+  ContextValue<LabelContextValue<any>, HTMLLabelElement>
 >({});
 
 LabelContext.displayName = 'NovaWaveUI.LabelContext';

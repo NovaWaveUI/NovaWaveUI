@@ -1,44 +1,42 @@
 import React from 'react';
 import {
-  forwardRefWith,
+  PolymorphicProps,
   RenderProps,
   useRenderProps,
 } from '@novawaveui/react-utils';
 import { cn } from '@novawaveui/utils';
-import { Text, TextProps } from '../Text';
 import { ButtonRenderProps } from './types';
-import { getButtonDataAttrs, useButtonState } from './context';
+import { useButtonState } from './context';
 import { ButtonSlots } from './slots';
+import { useButtonRenderContext } from './state';
 
-export type ButtonStartContentProps<T extends React.ElementType = 'span'> =
-  Omit<TextProps<T>, 'children'> & RenderProps<ButtonRenderProps>;
+export type ButtonStartContentProps<T extends React.ElementType> =
+  PolymorphicProps<T, RenderProps<ButtonRenderProps>>;
 
-const ButtonStartContent = forwardRefWith.as<
-  'span',
-  ButtonStartContentProps<'span'>
->((props, ref) => {
+function ButtonStartContent<T extends React.ElementType = 'span'>(
+  props: ButtonStartContentProps<T>
+) {
   // First, register the slot so that the slot system knows this slot is being used
-  ButtonSlots.useRegisterSlot('start-content');
+  ButtonSlots.useRegisterSlot('startContent');
 
-  // Extract out the incompatible props
-  const { children, className, style, ...rest } = props;
+  // Get the slot props
+  const slotProps = ButtonSlots.useSlot('startContent', props);
+
+  // Get the children, className and style from the slot props
+  const {
+    as: Component = 'span',
+    children,
+    className,
+    style,
+    ...rest
+  } = slotProps;
 
   // Get the button state context so that we get the current state
   // and data properties
   const buttonStateCtx = useButtonState();
 
   // Get the data attributes from the context
-  const dataAttrs = getButtonDataAttrs(buttonStateCtx);
-
-  // Get the render values
-  const renderValues: ButtonRenderProps = {
-    isPressed: buttonStateCtx.isPressed,
-    isDisabled: buttonStateCtx.isDisabled,
-    isHovered: buttonStateCtx.isHovered,
-    isFocused: buttonStateCtx.isFocused,
-    isFocusVisible: buttonStateCtx.isFocusVisible,
-    isLoading: buttonStateCtx.isLoading,
-  };
+  const { dataAttrs, renderValues } = useButtonRenderContext(buttonStateCtx);
 
   const renderProps = useRenderProps({
     className,
@@ -49,15 +47,14 @@ const ButtonStartContent = forwardRefWith.as<
   });
 
   return (
-    <Text
-      ref={ref}
-      {...renderProps}
-      {...dataAttrs}
+    <Component
       {...rest}
+      {...dataAttrs}
+      {...renderProps}
       data-slot="start-content"
     />
   );
-});
+}
 
 ButtonStartContent.displayName = 'NovaWaveUI.Button.StartContent';
 

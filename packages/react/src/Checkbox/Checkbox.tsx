@@ -1,6 +1,6 @@
 import React from 'react';
 import { forwardRefWith, useDOMRef } from '@novawaveui/react-utils';
-import { BaseCheckboxProps } from './types';
+import { CheckboxRootProps } from './types';
 import { CheckIcon } from './CheckIcon';
 import { LineIcon } from './LineIcon';
 import CheckboxRoot from './CheckboxRoot';
@@ -8,7 +8,7 @@ import CheckboxIndicator from './CheckboxIndicator';
 import CheckboxLabel from './CheckboxLabel';
 import CheckboxIcon from './CheckboxIcon';
 
-export interface CheckboxProps extends BaseCheckboxProps {
+export interface CheckboxProps extends CheckboxRootProps {
   checkboxIcon?: React.ReactNode;
   indeterminateIcon?: React.ReactNode;
 }

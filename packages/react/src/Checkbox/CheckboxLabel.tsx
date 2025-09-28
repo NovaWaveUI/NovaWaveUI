@@ -1,66 +1,47 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import {
-  forwardRefWith,
+  PolymorphicProps,
+  renderPolymorphic,
   RenderProps,
   useRenderProps,
 } from '@novawaveui/react-utils';
-import { TextProps, Text } from '../Text';
 import { CheckboxRenderProps } from './types';
-import { getCheckboxDataAttrs, useCheckboxState } from './context';
+import { useCheckboxState } from './context';
+import { useCheckboxRenderContext } from './state';
 
-export type CheckboxLabelProps<T extends React.ElementType = 'span'> = Omit<
-  TextProps<T>,
-  'children'
-> &
-  RenderProps<CheckboxRenderProps>;
+export type CheckboxLabelProps<T extends React.ElementType> = PolymorphicProps<
+  T,
+  RenderProps<CheckboxRenderProps>
+>;
 
-const CheckboxLabel = forwardRefWith.as<'span', CheckboxLabelProps<'span'>>(
-  (props, ref) => {
-    const { className, style, children, ...rest } = props;
+export default function CheckboxLabel<T extends React.ElementType = 'span'>(
+  props: CheckboxLabelProps<T>
+) {
+  const { className, style, children, ...rest } = props;
 
-    // Get the checkbox state so that we get the current state
-    // and data properties
-    const checkboxStateCtx = useCheckboxState();
+  // Get the checkbox state so that we get the current state
+  // and data properties
+  const checkboxStateCtx = useCheckboxState();
 
-    // Get the data attributes from the context
-    const dataAttrs = getCheckboxDataAttrs(checkboxStateCtx);
+  // Get the data attributes and render values from the context
+  const { dataAttrs, renderValues } =
+    useCheckboxRenderContext(checkboxStateCtx);
 
-    // Get the render values
-    const renderValues = useMemo<CheckboxRenderProps>(
-      () => ({
-        isDisabled: checkboxStateCtx.isDisabled,
-        isSelected: checkboxStateCtx.isSelected,
-        isIndeterminate: checkboxStateCtx.isIndeterminate,
-        isHovered: checkboxStateCtx.isHovered,
-        isFocused: checkboxStateCtx.isFocused,
-        isFocusVisible: checkboxStateCtx.isFocusVisible,
-        isPressed: checkboxStateCtx.isPressed,
-        isRequired: checkboxStateCtx.isRequired,
-        isInvalid: checkboxStateCtx.isInvalid,
-        isReadOnly: checkboxStateCtx.isReadOnly,
-      }),
-      [checkboxStateCtx]
-    );
+  const renderProps = useRenderProps({
+    className,
+    style,
+    children,
+    values: renderValues,
+  });
 
-    const renderProps = useRenderProps({
-      className,
-      style,
-      children,
-      values: renderValues,
-    });
+  const finalProps = {
+    ...rest,
+    ...dataAttrs,
+    ...renderProps,
+    'data-slot': 'label',
+  };
 
-    return (
-      <Text
-        ref={ref}
-        {...renderProps}
-        {...dataAttrs}
-        {...rest}
-        data-slot="label"
-      />
-    );
-  }
-);
+  return renderPolymorphic(finalProps, 'span');
+}
 
-CheckboxLabel.displayName = 'NovaWaveUI.CheckboxLabel';
-
-export default CheckboxLabel;
+CheckboxLabel.displayName = 'NovaWaveUI.Checkbox.Label';

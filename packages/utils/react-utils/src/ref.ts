@@ -1,20 +1,11 @@
-/* eslint-disable no-unused-vars */
-import React, {
-  ComponentPropsWithoutRef,
-  ComponentPropsWithRef,
-  ElementType,
-  forwardRef,
-  ForwardRefExoticComponent,
-  RefAttributes,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import React, { useEffect, useRef } from 'react';
 
 /**
  * Assigns a value to a ref (function or object).
  */
 export function assignRef<T>(ref: React.Ref<T> | undefined, value: T): void {
-  if (ref == null) return;
+  // eslint-disable-next-line unicorn/no-null
+  if (ref == null || ref == undefined) return;
 
   if (typeof ref === 'function') {
     ref(value);
@@ -34,7 +25,7 @@ export function mergeRefs<T>(
   ...refs: (React.Ref<T> | undefined)[]
 ): React.RefCallback<T> {
   return (value: T) => {
-    refs.forEach(ref => assignRef(ref, value));
+    for (const ref of refs) assignRef(ref, value);
   };
 }
 
@@ -66,12 +57,14 @@ export function useObjectRef<T>(ref?: React.Ref<T>): React.RefObject<T | null> {
             if (typeof maybeCleanup === 'function') {
               cleanupRef.current = maybeCleanup;
             } else if (value !== null) {
+              // eslint-disable-next-line unicorn/no-null
               cleanupRef.current = () => ref(null);
             }
           } else {
             (ref as React.RefObject<T | null>).current = value;
             if (value !== null) {
               cleanupRef.current = () => {
+                // eslint-disable-next-line unicorn/no-null
                 (ref as React.RefObject<T | null>).current = null;
               };
             }
@@ -93,39 +86,20 @@ export function useObjectRef<T>(ref?: React.Ref<T>): React.RefObject<T | null> {
  * @example
  * const ref = useDOMRef<HTMLInputElement>();
  */
-export function useDOMRef<T extends HTMLElement = HTMLElement>(
+export function useDOMRef<T extends Element = HTMLElement>(
   ref?: React.Ref<T | null>
 ): React.RefObject<T | null> {
-  const domRef = useObjectRef<T | null>(ref);
+  const domRef = useRef<T>(null);
 
-  // ensure parent ref always sees the DOM node
-  React.useImperativeHandle(ref, () => domRef.current ?? ({} as T));
+  // Always sync external ref
+  useEffect(() => {
+    if (!ref) return;
+    if (typeof ref === 'function') {
+      ref(domRef.current);
+    } else {
+      ref.current = domRef.current;
+    }
+  }, [ref]);
 
   return domRef;
 }
-
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export function forwardRefWithRef<TElement extends ElementType, Props = {}>(
-  render: (
-    props: Props & ComponentPropsWithoutRef<TElement>,
-    ref: ComponentPropsWithRef<TElement>['ref']
-  ) => React.ReactElement | null
-) {
-  type Component = (
-    props: Props &
-      ComponentPropsWithoutRef<TElement> & {
-        ref?: ComponentPropsWithRef<TElement>['ref'];
-      }
-  ) => React.ReactElement | null;
-
-  type Exotic = ForwardRefExoticComponent<
-    Props &
-      ComponentPropsWithoutRef<TElement> &
-      RefAttributes<ComponentPropsWithRef<TElement>['ref']>
-  >;
-
-  return forwardRef(render as any) as Component & Exotic;
-}
-
-export type NonPolymorphicProps<T extends ElementType, Props> = Props &
-  Omit<ComponentPropsWithoutRef<T>, keyof Props>;

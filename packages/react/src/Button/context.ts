@@ -1,8 +1,4 @@
-import { createContext } from 'react';
-import {
-  ContextValue,
-  createContext as nwCreateContext,
-} from '@novawaveui/react-utils';
+import { ContextValue, createContext } from '@novawaveui/react-utils';
 import { createDataPropsGetter } from '@novawaveui/utils';
 import {
   ButtonGroupContextValue,
@@ -11,28 +7,30 @@ import {
   ButtonStateContextValue,
 } from './types';
 
-export const ButtonContext = createContext<
+export const [ButtonPropsContext, , ButtonPropsProvider] = createContext<
   ContextValue<ButtonPropsContextValue, HTMLButtonElement>
->({});
-ButtonContext.displayName = 'ButtonContext';
+>({
+  name: 'NovaWaveUI.ButtonPropsContext',
+  strict: false,
+});
 
-export const ButtonProvider = ButtonContext.Provider;
-
-export const ButtonGroupPropsContext = createContext<
-  ContextValue<ButtonGroupPropsContextValue, HTMLDivElement>
->({});
+export const [ButtonGroupPropsContext, , ButtonGroupPropsProvider] =
+  createContext<ContextValue<ButtonGroupPropsContextValue, HTMLDivElement>>({
+    name: 'NovaWaveUI.ButtonGroupPropsContext',
+    strict: false,
+  });
 
 export const [ButtonStateProvider, useButtonState] =
-  nwCreateContext<ButtonStateContextValue>({
-    name: 'ButtonStateContext',
+  createContext<ButtonStateContextValue>({
+    name: 'NovaWaveUI.ButtonStateContext',
     errorMessage:
       'useButtonState must be used within a Button component or a component wrapped with ButtonProvider',
     strict: true,
   });
 
 export const [ButtonGroupProvider, useButtonGroup] =
-  nwCreateContext<ButtonGroupContextValue>({
-    name: 'ButtonGroupContext',
+  createContext<ButtonGroupContextValue>({
+    name: 'NovaWaveUI.ButtonGroupContext',
     strict: false,
   });
 
