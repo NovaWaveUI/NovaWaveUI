@@ -1,25 +1,30 @@
-import { ElementType } from 'react';
-import { PolymorphicProps, useRenderProps } from '@novawaveui/react-utils';
+import React from 'react';
+import {
+  PolymorphicProps,
+  RenderProps,
+  useRenderProps,
+} from '@novawaveui/react-utils';
 import { filterDOMProps } from '@novawaveui/utils';
 import { Slot } from '../Slot';
+import { CheckboxGroupRenderProps } from './types';
+import { CheckboxGroupSlots } from './slots';
 import { useCheckboxGroupNWState } from './context';
 import { useCheckboxGroupRenderContext } from './state';
-import { CheckboxGroupSlots } from './slots';
 
-export type CheckboxGroupLabelProps<T extends ElementType = 'span'> = Omit<
-  PolymorphicProps<T, {}>,
-  'children'
->;
+export type CheckboxGroupDescriptionProps<T extends React.ElementType> =
+  PolymorphicProps<T, RenderProps<CheckboxGroupRenderProps>>;
 
-export default function CheckboxGroupLabel<T extends ElementType = 'span'>(
-  props: CheckboxGroupLabelProps<T>
-) {
+export default function CheckboxGroupDescription<
+  T extends React.ElementType = 'span',
+>(props: CheckboxGroupDescriptionProps<T>) {
   // First, register the slot
-  CheckboxGroupSlots.useRegisterSlot('checkbox-group-label');
+  CheckboxGroupSlots.useRegisterSlot('checkbox-group-description');
 
   // Get the slot props
-  const slotProps = CheckboxGroupSlots.useSlot('checkbox-group-label', props);
-  console.log('slotProps', slotProps);
+  const slotProps = CheckboxGroupSlots.useSlot(
+    'checkbox-group-description',
+    props
+  );
 
   const { as: Component = 'span', asChild, ...rest } = slotProps;
 
@@ -47,11 +52,11 @@ export default function CheckboxGroupLabel<T extends ElementType = 'span'>(
   return (
     <RenderedComponent
       {...filteredProps}
-      {...renderProps}
       {...dataAttrs}
-      data-slot="checkbox-group-label"
+      {...renderProps}
+      data-slot="checkbox-group-description"
     />
   );
 }
 
-CheckboxGroupLabel.displayName = 'NovaWaveUI.CheckboxGroup.Label';
+CheckboxGroupDescription.displayName = 'NovaWaveUI.CheckboxGroup.Description';

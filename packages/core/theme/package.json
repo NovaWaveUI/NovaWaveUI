@@ -12,11 +12,11 @@
       "import": "./src/index.ts",
       "require": "./src/index.ts"
     },
-    "./theme.css": "./theme.css"
+    "./index.css": "./index.css"
   },
   "files": [
     "dist/",
-    "theme.css"
+    "index.css"
   ],
   "scripts": {
     "build": "tsup src/index.ts --dts",
@@ -48,5 +48,8 @@
   ],
   "clean-package": "../../../build/clean-package.config.json",
   "author": "Kyle Gagnon",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "tailwindcss": "^4.1.12"
+  }
 }

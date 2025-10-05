@@ -1,7 +1,5 @@
 @import 'tailwindcss';
-@import '@novawaveui/theme/theme.css';
-@import '@novawaveui/react/button.css';
-@import '@novawaveui/react/checkbox.css';
+@import '@novawaveui/theme/index.css';
 @source '../../react/';
 
 :root[data-theme='example'] {

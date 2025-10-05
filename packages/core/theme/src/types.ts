@@ -1,66 +1,60 @@
 /**
- * This file contains the type definitions for the design system.
+ * Type definitions for the NovaWaveUI design system.
+ *
+ * Consumers can use `declare module "@novawaveui/theme"` to
+ * augment these interfaces in order to add or remove options.
  */
 
-// Color options for components
-// This type is used to allow for TypeScript module augmentation
+// ---------------- Colors ----------------
 export interface NWColorOverride {}
+export interface NWColorRemove {}
 
-export interface NWColors {
-  neutral: string;
-  primary: string;
-  secondary: string;
-  success: string;
-  warning: string;
-  danger: string;
-}
+export type NWColors =
+  | 'neutral'
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'warning'
+  | 'danger';
 
-// The default color options
-export type NWColor = keyof NWColors | NWColorOverride[keyof NWColorOverride];
+export type NWColor =
+  | Exclude<
+      'neutral' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger',
+      keyof NWColorRemove
+    >
+  | NWColorOverride[keyof NWColorOverride];
 
-// The variant options for components
-// This type is used to allow for TypeScript module augmentation
-export type NWVariantOverride = {};
+// ---------------- Variants ----------------
+export interface NWVariantOverride {}
+export interface NWVariantRemove {}
 
-// The default variant options
 export type NWVariant =
-  | 'solid'
-  | 'bordered'
-  | 'flat'
-  | 'light'
-  | 'ghost'
+  | Exclude<
+      'solid' | 'bordered' | 'flat' | 'light' | 'ghost',
+      keyof NWVariantRemove
+    >
   | NWVariantOverride[keyof NWVariantOverride];
 
-// The size options for components
-// This type is used to allow for TypeScript module augmentation
-export type NWSizeOverride = {};
+// ---------------- Sizes ----------------
+export interface NWSizeOverride {}
+export interface NWSizeRemove {}
 
-// The default size options
-export type NWSize = 'sm' | 'md' | 'lg' | NWSizeOverride[keyof NWSizeOverride];
+export type NWSize =
+  | Exclude<'sm' | 'md' | 'lg', keyof NWSizeRemove>
+  | NWSizeOverride[keyof NWSizeOverride];
 
-// The radius options for components
-// This type is used to allow for TypeScript module augmentation
-export type NWRadiusOverride = {};
+// ---------------- Radius ----------------
+export interface NWRadiusOverride {}
+export interface NWRadiusRemove {}
 
-// The default radius options
 export type NWRadius =
-  | 'none'
-  | 'sm'
-  | 'md'
-  | 'lg'
-  | 'xl'
-  | 'full'
+  | Exclude<'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full', keyof NWRadiusRemove>
   | NWRadiusOverride[keyof NWRadiusOverride];
 
-// The shadow options for components
-// This type is used to allow for TypeScript module augmentation
-export type NWShadowOverride = {};
+// ---------------- Shadows ----------------
+export interface NWShadowOverride {}
+export interface NWShadowRemove {}
 
-// The default shadow options
 export type NWShadow =
-  | 'none'
-  | 'sm'
-  | 'md'
-  | 'lg'
-  | 'xl'
+  | Exclude<'none' | 'sm' | 'md' | 'lg' | 'xl', keyof NWShadowRemove>
   | NWShadowOverride[keyof NWShadowOverride];

@@ -1,5 +1,4 @@
 import { ContextValue, createContext } from '@novawaveui/react-utils';
-import { createDataPropsGetter } from '@novawaveui/utils';
 import {
   CheckboxGroupNWStateContextValue,
   CheckboxGroupPropsContextValue,
@@ -23,16 +22,3 @@ export const [
     'useCheckboxGroupNWState must be used within a CheckboxGroup component or a component wrapped with CheckboxGroupNWStateProvider',
   strict: false,
 });
-
-export const getCheckboxGroupDataAttrs =
-  createDataPropsGetter<CheckboxGroupNWStateContextValue>(ctx => {
-    return {
-      disabled: ctx.isDisabled,
-      'read-only': ctx.isReadOnly,
-      'is-required': ctx.isRequired,
-      invalid: ctx.isInvalid,
-      color: ctx.color,
-      size: ctx.size,
-      radius: ctx.radius,
-    };
-  });

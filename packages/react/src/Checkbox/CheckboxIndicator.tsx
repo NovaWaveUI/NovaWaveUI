@@ -1,10 +1,10 @@
-import {
-  PolymorphicComponent,
-  PolymorphicProps,
-} from '@novawaveui/react-utils';
 import React from 'react';
+import { PolymorphicProps } from '@novawaveui/react-utils';
+import { filterDOMProps } from '@novawaveui/utils';
+import { Slot } from '../Slot';
 import { useCheckboxState } from './context';
 import { useCheckboxRenderContext } from './state';
+import { CheckboxSlots } from './slots';
 
 export type CheckboxIndicatorProps<T extends React.ElementType> =
   PolymorphicProps<T, {}>;
@@ -12,7 +12,19 @@ export type CheckboxIndicatorProps<T extends React.ElementType> =
 export default function CheckboxIndicator<T extends React.ElementType = 'div'>(
   props: CheckboxIndicatorProps<T>
 ) {
-  const { as: Component = 'div', children, ...rest } = props;
+  // First, register the slot so that the slot system knows this slot is being used
+  CheckboxSlots.useRegisterSlot('indicator');
+
+  // Next get any slot props
+  const slotProps = CheckboxSlots.useSlot(
+    'indicator',
+    props
+  ) as CheckboxIndicatorProps<T>;
+
+  const { as: Component = 'div', asChild, ...rest } = slotProps;
+
+  // Determine if we should filter DOM props (only for intrinsic elements)
+  const shouldFilterDOMProps = typeof Component === 'string' && !asChild;
 
   // Get the checkbox state so that we get the current state
   // and data properties
@@ -21,15 +33,15 @@ export default function CheckboxIndicator<T extends React.ElementType = 'div'>(
   // Get the data attributes from the context
   const { dataAttrs } = useCheckboxRenderContext(checkboxStateCtx);
 
-  // Create a final object of props to spread onto the element
-  const finalProps = {
-    ...dataAttrs,
-    ...rest,
-    'data-slot': 'indicator',
-    children,
-  };
+  const DOMProps = filterDOMProps<T>(rest, {
+    enabled: shouldFilterDOMProps,
+  });
 
-  return <PolymorphicComponent as={Component} {...finalProps} />;
+  const RenderedComponent = asChild ? Slot : Component;
+
+  return (
+    <RenderedComponent {...DOMProps} {...dataAttrs} data-slot="indicator" />
+  );
 }
 
 CheckboxIndicator.displayName = 'NovaWaveUI.Checkbox.Indicator';

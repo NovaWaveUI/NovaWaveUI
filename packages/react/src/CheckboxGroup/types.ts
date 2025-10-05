@@ -71,4 +71,8 @@ export interface CheckboxGroupNWStateContextValue
    * The validation errors of the checkbox group.
    */
   validationErrors?: string[];
+  /**
+   * The orientation of the checkbox group.
+   */
+  orientation?: 'vertical' | 'horizontal';
 }

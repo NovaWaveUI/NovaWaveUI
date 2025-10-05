@@ -1,4 +1,4 @@
-export { default as ButtonRoot } from './ButtonRoot';
+export { default as Button } from './ButtonRoot';
 export { default as ButtonText } from './ButtonText';
 export { default as ButtonStartContent } from './ButtonStartContent';
 export { default as ButtonEndContent } from './ButtonEndContent';

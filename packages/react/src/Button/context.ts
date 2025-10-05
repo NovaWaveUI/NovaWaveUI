@@ -18,6 +18,7 @@ export const [ButtonGroupPropsContext, , ButtonGroupPropsProvider] =
   createContext<ContextValue<ButtonGroupPropsContextValue, HTMLDivElement>>({
     name: 'NovaWaveUI.ButtonGroupPropsContext',
     strict: false,
+    defaultValue: {},
   });
 
 export const [ButtonStateProvider, useButtonState] =

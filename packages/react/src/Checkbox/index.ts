@@ -13,8 +13,4 @@ export type {
   CheckboxStateContextValue,
   CheckboxPropsContextValue,
 } from './types';
-export {
-  CheckboxContext,
-  CheckboxProvider,
-  CheckboxStateProvider,
-} from './context';
+export { CheckboxStateProvider } from './context';

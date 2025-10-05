@@ -1,27 +1,29 @@
-import { ElementType } from 'react';
-import { PolymorphicProps, useRenderProps } from '@novawaveui/react-utils';
+import React from 'react';
+import {
+  PolymorphicProps,
+  RenderProps,
+  useRenderProps,
+} from '@novawaveui/react-utils';
 import { filterDOMProps } from '@novawaveui/utils';
 import { Slot } from '../Slot';
+import { CheckboxGroupSlots } from './slots';
 import { useCheckboxGroupNWState } from './context';
 import { useCheckboxGroupRenderContext } from './state';
-import { CheckboxGroupSlots } from './slots';
+import { CheckboxGroupRenderProps } from './types';
 
-export type CheckboxGroupLabelProps<T extends ElementType = 'span'> = Omit<
-  PolymorphicProps<T, {}>,
-  'children'
->;
+export type CheckboxGroupWrapperProps<T extends React.ElementType> =
+  PolymorphicProps<T, RenderProps<CheckboxGroupRenderProps>>;
 
-export default function CheckboxGroupLabel<T extends ElementType = 'span'>(
-  props: CheckboxGroupLabelProps<T>
-) {
+export default function CheckboxGroupWrapper<
+  T extends React.ElementType = 'div',
+>(props: CheckboxGroupWrapperProps<T>) {
   // First, register the slot
-  CheckboxGroupSlots.useRegisterSlot('checkbox-group-label');
+  CheckboxGroupSlots.useRegisterSlot('checkbox-group-wrapper');
 
   // Get the slot props
-  const slotProps = CheckboxGroupSlots.useSlot('checkbox-group-label', props);
-  console.log('slotProps', slotProps);
+  const slotProps = CheckboxGroupSlots.useSlot('checkbox-group-wrapper', props);
 
-  const { as: Component = 'span', asChild, ...rest } = slotProps;
+  const { as: Component = 'div', asChild, ...rest } = slotProps;
 
   // Determine if we should filter the props
   const shouldFilterProps = typeof Component === 'string' && !asChild;
@@ -47,11 +49,10 @@ export default function CheckboxGroupLabel<T extends ElementType = 'span'>(
   return (
     <RenderedComponent
       {...filteredProps}
-      {...renderProps}
       {...dataAttrs}
-      data-slot="checkbox-group-label"
+      {...renderProps}
+      role="presentation"
+      data-slot="checkbox-group-wrapper"
     />
   );
 }
-
-CheckboxGroupLabel.displayName = 'NovaWaveUI.CheckboxGroup.Label';

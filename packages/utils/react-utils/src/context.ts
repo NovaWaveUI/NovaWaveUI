@@ -41,15 +41,19 @@ export const createContext = <ContextType>(
     strict,
     errorMessage = 'useContext must be used within a Provider with a value',
     name,
-    defaultValue = {} as ContextType,
+    defaultValue,
   } = options;
 
   // Create the React context
   const resolvedDefValue =
-    typeof defaultValue === 'function'
-      ? (defaultValue as () => ContextType)()
-      : defaultValue;
-  const Context = React.createContext<ContextType | null>(resolvedDefValue);
+    defaultValue !== undefined && defaultValue !== null
+      ? typeof defaultValue === 'function'
+        ? (defaultValue as () => ContextType)()
+        : defaultValue
+      : undefined;
+  const Context = React.createContext<ContextType | null | undefined>(
+    resolvedDefValue
+  );
 
   // Set the display name of the context
   Context.displayName = name;

@@ -47,7 +47,7 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
-      exclude: /^(ref|as)$/,
+      exclude: /^(ref|as|asChild)$/,
     },
     backgrounds: {
       dark: { name: 'Dark', value: '#333' },

@@ -1,66 +1,78 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import {
-  forwardRefWith,
+  PolymorphicProps,
   RenderProps,
   useRenderProps,
 } from '@novawaveui/react-utils';
-import { TextProps, Text } from '../Text';
+import { filterDOMProps } from '@novawaveui/utils';
+import { Slot } from '../Slot';
 import { CheckboxRenderProps } from './types';
-import { getCheckboxDataAttrs, useCheckboxState } from './context';
+import { useCheckboxState } from './context';
+import { useCheckboxRenderContext } from './state';
+import { LineIcon } from './LineIcon';
+import { CheckIcon } from './CheckIcon';
+import { CheckboxSlots } from './slots';
 
-export type CheckboxIconProps<T extends React.ElementType = 'span'> = Omit<
-  TextProps<T>,
-  'children'
-> &
-  RenderProps<CheckboxRenderProps>;
+export type CheckboxIconProps<T extends React.ElementType> = PolymorphicProps<
+  T,
+  RenderProps<CheckboxRenderProps>
+>;
 
-const CheckboxIcon = forwardRefWith.as<'span', CheckboxIconProps<'span'>>(
-  (props, ref) => {
-    const { className, style, children, ...rest } = props;
+export default function CheckboxIcon<T extends React.ElementType = 'span'>(
+  props: CheckboxIconProps<T>
+) {
+  // First, register the slot so that the slot system knows this slot is being used
+  CheckboxSlots.useRegisterSlot('checkbox-icon');
 
-    // Get the checkbox state so that we get the current state
-    // and data properties
-    const checkboxStateCtx = useCheckboxState();
+  // Next get any slot props
+  const slotProps = CheckboxSlots.useSlot(
+    'checkbox-icon',
+    props
+  ) as CheckboxIconProps<T>;
 
-    // Get the data attributes from the context
-    const dataAttrs = getCheckboxDataAttrs(checkboxStateCtx);
+  const { as: Component = 'span', asChild, ...rest } = slotProps;
+  let { children } = slotProps;
 
-    // Get the render values
-    const renderValues = useMemo<CheckboxRenderProps>(
-      () => ({
-        isDisabled: checkboxStateCtx.isDisabled,
-        isSelected: checkboxStateCtx.isSelected,
-        isIndeterminate: checkboxStateCtx.isIndeterminate,
-        isHovered: checkboxStateCtx.isHovered,
-        isFocused: checkboxStateCtx.isFocused,
-        isFocusVisible: checkboxStateCtx.isFocusVisible,
-        isPressed: checkboxStateCtx.isPressed,
-        isRequired: checkboxStateCtx.isRequired,
-        isInvalid: checkboxStateCtx.isInvalid,
-        isReadOnly: checkboxStateCtx.isReadOnly,
-      }),
-      [checkboxStateCtx]
-    );
+  // Determine if we should filter DOM props (only for intrinsic elements)
+  const shouldFilterDOMProps = typeof Component === 'string' && !asChild;
 
-    const renderProps = useRenderProps({
-      className,
-      style,
-      children,
-      values: renderValues,
-    });
+  // Get the checkbox state so that we get the current state
+  // and data properties
+  const checkboxStateCtx = useCheckboxState();
 
-    return (
-      <Text
-        ref={ref}
-        {...renderProps}
-        {...dataAttrs}
-        {...rest}
-        data-slot="checkbox-icon"
-      />
-    );
+  // Get the data attributes from the context
+  const { dataAttrs, renderValues } =
+    useCheckboxRenderContext(checkboxStateCtx);
+
+  if (!children) {
+    children = ({ isIndeterminate }) =>
+      isIndeterminate ? <LineIcon /> : <CheckIcon />;
   }
-);
+
+  const renderProps = useRenderProps({
+    ...rest,
+    children,
+    values: renderValues,
+  });
+
+  const filteredProps = filterDOMProps<T>(rest, {
+    enabled: shouldFilterDOMProps,
+  });
+
+  const RenderedComponent = asChild ? Slot : Component;
+
+  return (
+    <RenderedComponent
+      {...filteredProps}
+      {...dataAttrs}
+      className={renderProps.className}
+      style={renderProps.style}
+      data-slot="checkbox-icon"
+      aria-hidden={true}
+    >
+      {renderProps.children}
+    </RenderedComponent>
+  );
+}
 
 CheckboxIcon.displayName = 'NovaWaveUI.CheckboxIcon';
-
-export default CheckboxIcon;

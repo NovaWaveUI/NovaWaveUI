@@ -1,13 +1,12 @@
 import React, { useMemo } from 'react';
-import { cn } from '@novawaveui/utils';
+import { cn, filterDOMProps } from '@novawaveui/utils';
 import {
   PolymorphicProps,
   RenderProps,
   useContextProps,
-  useDOMRef,
   useRenderProps,
 } from '@novawaveui/react-utils';
-import { filterDOMProps } from '@react-aria/utils';
+import { Slot } from '../Slot';
 import {
   ButtonGroupContextValue,
   ButtonGroupOrientation,
@@ -16,7 +15,7 @@ import {
 } from './types';
 import { ButtonGroupPropsProvider, ButtonGroupProvider } from './context';
 
-export type ButtonGroupRootProps<T extends React.ElementType = 'div'> =
+export type ButtonGroupRootProps<T extends React.ElementType> =
   PolymorphicProps<
     T,
     ButtonGroupStyleProps &
@@ -37,26 +36,14 @@ export type ButtonGroupRootProps<T extends React.ElementType = 'div'> =
 export default function ButtonGroup<T extends React.ElementType = 'div'>(
   props: ButtonGroupRootProps<T>
 ) {
-  // Extract the `as` prop and the rest of the props
-  const {
-    as: Component = 'div',
-    children,
-    className,
-    style,
-    ref,
-    ...rest
-  } = props;
-
   // Next, get the context props (if there is any), and merge it with
   // the local props
-  const [ctxProps, ctxRef] = useContextProps(
-    rest,
-    ref,
-    ButtonGroupPropsProvider
-  );
+  const [ctxProps, ctxRef] = useContextProps(props, ButtonGroupPropsProvider);
 
   // Next, extract out default values for the props
   const {
+    as: Component = 'div',
+    asChild,
     isDisabled = false,
     orientation = 'horizontal',
     color = 'neutral',
@@ -65,8 +52,8 @@ export default function ButtonGroup<T extends React.ElementType = 'div'>(
     radius = 'md',
   } = ctxProps;
 
-  // Merge the refs
-  const domRef = useDOMRef(ctxRef);
+  // Determine if we should filter DOM props (only for intrinsic elements)
+  const shouldFilterDOMProps = typeof Component === 'string' && !asChild;
 
   // Create a render props value
   const renderValues: ButtonGroupRenderProps = {
@@ -81,9 +68,6 @@ export default function ButtonGroup<T extends React.ElementType = 'div'>(
   } = useRenderProps({
     ...ctxProps,
     values: renderValues,
-    children,
-    className,
-    style,
   });
 
   // Create a context value for the button group provider
@@ -98,13 +82,17 @@ export default function ButtonGroup<T extends React.ElementType = 'div'>(
     };
   }, [color, size, variant, radius, isDisabled, orientation]);
 
-  const DOMProps = filterDOMProps(ctxProps as any);
+  const filteredProps = filterDOMProps<T>(ctxProps, {
+    enabled: shouldFilterDOMProps,
+  });
+
+  const RenderedComponent = asChild ? Slot : Component;
 
   return (
-    <Component
-      ref={domRef}
+    <RenderedComponent
+      ref={ctxRef}
       className={cn('nw-button-group', renderPropsClassName)}
-      {...DOMProps}
+      {...filteredProps}
       {...renderProps}
       role="group"
       data-orientation={orientation}
@@ -112,7 +100,7 @@ export default function ButtonGroup<T extends React.ElementType = 'div'>(
       <ButtonGroupProvider value={contextValue}>
         {renderPropsChildren}
       </ButtonGroupProvider>
-    </Component>
+    </RenderedComponent>
   );
 }
 

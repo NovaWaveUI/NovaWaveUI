@@ -18,7 +18,7 @@ import {
 } from 'react-aria';
 import { useToggleState } from 'react-stately';
 import { cn, filterDOMProps } from '@novawaveui/utils';
-import { useCheckboxGroupNWState } from 'src/CheckboxGroup';
+import { useCheckboxGroupNWState } from '../CheckboxGroup';
 import {
   CheckboxRenderProps,
   CheckboxStateContextValue,
@@ -29,6 +29,7 @@ import {
   CheckboxStateProvider,
   getCheckboxDataAttrs,
 } from './context';
+import { CheckboxSlots } from './slots';
 
 export type CheckboxRootProps = Omit<
   AriaCheckboxProps,
@@ -42,18 +43,14 @@ export type CheckboxRootProps = Omit<
      * A ref to the internal input element.
      */
     inputRef?: React.Ref<HTMLInputElement | null>;
-    /**
-     * A ref to the internal DOM element (label).
-     */
-    ref?: React.Ref<HTMLLabelElement | null>;
   };
 
 export default function CheckboxRoot(props: CheckboxRootProps) {
   // Extract out the user provided ref for the input element
-  const { inputRef: userProvidedInputRef, ref, ...rest } = props;
+  const { inputRef: userProvidedInputRef, ...rest } = props;
 
   // Get the context props, if any, and merge them with the original props
-  const [ctxProps, ctxRef] = useContextProps(rest, ref, CheckboxPropsProvider);
+  const [ctxProps, ctxRef] = useContextProps(rest, CheckboxPropsProvider);
 
   // Create a merged ref to the DOM element
   const domRef = useDOMRef(ctxRef);
@@ -149,8 +146,6 @@ export default function CheckboxRoot(props: CheckboxRootProps) {
     defaultClassName: cn('nw-checkbox', ctxProps.className),
   });
 
-  const DOMProps = filterDOMProps(restProps);
-
   const stateCtx = useMemo<CheckboxStateContextValue>(
     () => ({
       color,
@@ -186,22 +181,26 @@ export default function CheckboxRoot(props: CheckboxRootProps) {
 
   const dataAttrs = getCheckboxDataAttrs(stateCtx);
 
+  const filteredProps = filterDOMProps(restProps);
+
   return (
-    <CheckboxStateProvider value={stateCtx}>
-      <label
-        ref={domRef}
-        className={renderProps.className}
-        style={renderProps.style}
-        {...mergeProps(DOMProps, hoverProps, labelProps)}
-        {...dataAttrs}
-        data-slot="root"
-      >
-        <VisuallyHidden elementType="span">
-          <input ref={inputRef} {...mergeProps(inputProps, focusProps)} />
-        </VisuallyHidden>
-        {renderProps.children}
-      </label>
-    </CheckboxStateProvider>
+    <CheckboxSlots.Provider value={{}}>
+      <CheckboxStateProvider value={stateCtx}>
+        <label
+          ref={domRef}
+          className={renderProps.className}
+          style={renderProps.style}
+          {...mergeProps(filteredProps, hoverProps, labelProps)}
+          {...dataAttrs}
+          data-slot="root"
+        >
+          <VisuallyHidden elementType="span">
+            <input ref={inputRef} {...mergeProps(inputProps, focusProps)} />
+          </VisuallyHidden>
+          {renderProps.children}
+        </label>
+      </CheckboxStateProvider>
+    </CheckboxSlots.Provider>
   );
 }
 

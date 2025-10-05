@@ -234,9 +234,18 @@ export const WithStartAndEndContent: Story = {
     radius: 'md',
     isDisabled: false,
     isLoading: false,
-    startContent: '🚀',
-    endContent: '➡️',
   },
+  render: args => (
+    <Button {...args}>
+      <Button.StartContent>
+        <UserIcon />
+      </Button.StartContent>
+      <Button.Text>Log In</Button.Text>
+      <Button.EndContent>
+        <ArrowRightIcon />
+      </Button.EndContent>
+    </Button>
+  ),
 };
 
 export const SlotAPIWay: Story = {
@@ -250,7 +259,7 @@ export const SlotAPIWay: Story = {
     isLoading: false,
   },
   render: args => (
-    <Button.Root {...args}>
+    <Button {...args}>
       <Button.StartContent>
         <UserIcon />
       </Button.StartContent>
@@ -258,7 +267,7 @@ export const SlotAPIWay: Story = {
       <Button.EndContent>
         <ArrowRightIcon />
       </Button.EndContent>
-    </Button.Root>
+    </Button>
   ),
 };
 
@@ -292,8 +301,31 @@ export const NextJSLink: Story = {
         target="_blank"
         rel="noreferrer"
       >
-        Go to Home
+        Home
       </Button>
+    );
+  },
+};
+
+export const AsChildProp: Story = {
+  args: {
+    color: 'neutral',
+    size: 'md',
+    variant: 'solid',
+    radius: 'md',
+    isDisabled: false,
+    isLoading: false,
+    asChild: true,
+  },
+  render: args => {
+    return (
+      <div className="flex flex-col gap-4">
+        <Button {...(args as ButtonProps<'button'>)}>
+          <a href="#" target="_blank" rel="noreferrer">
+            Link Button
+          </a>
+        </Button>
+      </div>
     );
   },
 };

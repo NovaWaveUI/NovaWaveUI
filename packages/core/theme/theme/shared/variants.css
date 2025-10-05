@@ -1,0 +1,51 @@
+/* Common data-* design system variants */
+@custom-variant hover (&[data-hovered="true"]);
+@custom-variant pressed (&[data-pressed="true"]);
+@custom-variant focus (&[data-focus="true"]);
+@custom-variant disabled (&[data-disabled="true"]);
+@custom-variant selected (&[data-selected="true"]);
+@custom-variant checked (&[data-checked="true"]);
+@custom-variant expanded (&[data-expanded="true"]);
+@custom-variant hidden (&[data-hidden="true"]);
+@custom-variant visible (&[data-visible="true"]);
+@custom-variant loading (&[data-loading="true"]);
+@custom-variant focus-visible (&[data-focus-visible="true"]);
+@custom-variant invalid (&[data-invalid="true"]);
+@custom-variant valid (&[data-valid="true"]);
+@custom-variant open (&[data-open="true"]);
+@custom-variant orientation-horizontal (&[data-orientation="horizontal"]);
+@custom-variant orientation-vertical (&[data-orientation="vertical"]);
+@custom-variant dark (&[data-mode="dark"]);
+@custom-variant light (&[data-mode="light"]);
+
+/* NovaWaveUI data-* design system variants */
+/* Size */
+@custom-variant size-sm (&[data-size="sm"]);
+@custom-variant size-md (&[data-size="md"]);
+@custom-variant size-lg (&[data-size="lg"]);
+
+/* Color */
+@custom-variant color-neutral (&[data-color="neutral"]);
+@custom-variant color-primary (&[data-color="primary"]);
+@custom-variant color-secondary (&[data-color="secondary"]);
+@custom-variant color-success (&[data-color="success"]);
+@custom-variant color-warning (&[data-color="warning"]);
+@custom-variant color-danger (&[data-color="danger"]);
+
+/* Variant */
+@custom-variant variant-solid (&[data-variant="solid"]);
+@custom-variant variant-bordered (&[data-variant="bordered"]);
+@custom-variant variant-ghost (&[data-variant="ghost"]);
+@custom-variant variant-light (&[data-variant="light"]);
+
+/* Radius */
+@custom-variant radius-none (&[data-radius="none"]);
+@custom-variant radius-sm (&[data-radius="sm"]);
+@custom-variant radius-md (&[data-radius="md"]);
+@custom-variant radius-lg (&[data-radius="lg"]);
+@custom-variant radius-xl (&[data-radius="xl"]);
+@custom-variant radius-full (&[data-radius="full"]);
+
+/* Dark Mode */
+@custom-variant mode-dark (&[data-mode="dark"]);
+@custom-variant mode-light (&[data-mode="light"]);

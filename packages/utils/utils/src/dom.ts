@@ -1,4 +1,4 @@
-import React, { ElementType } from 'react';
+import React, { ElementType, JSX } from 'react';
 
 /**
  * Given a value, returns a value that can be used as a data attribute in JSX.
@@ -141,6 +141,11 @@ export type DOMAttributes<T = ElementType> = React.AriaAttributes &
     style?: React.CSSProperties;
   };
 
+export type FilteredProps<T extends React.ElementType> =
+  T extends keyof JSX.IntrinsicElements
+    ? DOMAttributes<T>
+    : React.ComponentProps<T>;
+
 export interface DOMFilterOptions {
   /**
    * Whether the filtering is enabled or not.
@@ -179,7 +184,7 @@ export interface DOMFilterOptions {
 export function filterDOMProps<T extends ElementType = 'div'>(
   props: Record<string, any>,
   options: DOMFilterOptions = {}
-): DOMAttributes<T> {
+): FilteredProps<T> {
   const {
     enabled = true,
     filterAllDataAttrs = false,
@@ -192,7 +197,7 @@ export function filterDOMProps<T extends ElementType = 'div'>(
   } = options;
 
   if (!enabled) {
-    return props as DOMAttributes<T>;
+    return props as FilteredProps<T>;
   }
 
   // Start constructing the list of valid props
@@ -329,6 +334,15 @@ export function filterDOMProps<T extends ElementType = 'div'>(
     'wrap',
   ]);
 
+  const reactValidProps = new Set<string>([
+    'ref',
+    'key',
+    'children',
+    'id',
+    'style',
+    'className',
+  ]);
+
   for (const [key, value] of Object.entries(props)) {
     // Check if this prop should be filtered
     if (omitProps.has(key)) {
@@ -384,11 +398,12 @@ export function filterDOMProps<T extends ElementType = 'div'>(
       standardProps.has(key) ||
       eventHandlerRegex.test(key) ||
       dataAttributeRegex.test(key) ||
-      ariaAttributeRegex.test(key)
+      ariaAttributeRegex.test(key) ||
+      reactValidProps.has(key)
     ) {
       validProps[key] = value;
     }
   }
 
-  return validProps as DOMAttributes<T>;
+  return validProps as FilteredProps<T>;
 }

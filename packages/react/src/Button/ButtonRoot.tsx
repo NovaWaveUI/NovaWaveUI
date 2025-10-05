@@ -16,6 +16,7 @@ import {
   FocusableElement,
   HoverEvents,
 } from '@react-types/shared';
+import { Slot } from '../Slot';
 import {
   ButtonPropsProvider,
   ButtonStateProvider,
@@ -46,17 +47,13 @@ export type ButtonRootProps<T extends React.ElementType> = PolymorphicProps<
 export function ButtonRoot<T extends React.ElementType = 'button'>(
   props: ButtonRootProps<T>
 ) {
-  const { as: Component = 'button', ref, ...restProps } = props;
+  const { as: Component = 'button', asChild, ...restProps } = props;
 
   // Next, get the context props (if there is any), a context may not exist,
   // if it doesn't, we just use the original props
   // We also get the ref from the context and merge it with the original ref
   // so we can have access to the DOM element
-  const [ctxProps, mergedRef] = useContextProps(
-    restProps,
-    ref,
-    ButtonPropsProvider
-  );
+  const [ctxProps, mergedRef] = useContextProps(restProps, ButtonPropsProvider);
 
   // Get the props from the group if possible
   const buttonGroup = useButtonGroup();
@@ -71,6 +68,9 @@ export function ButtonRoot<T extends React.ElementType = 'button'>(
     isDisabled = buttonGroup?.isDisabled ?? false,
     isLoading = false,
   } = ctxProps;
+
+  // Determine if we should filter DOM props (only for intrinsic elements)
+  const shouldFilterDOMProps = typeof Component === 'string' && !asChild;
 
   // Disable all interactions if the button is disabled or loading
   const isInteractive = useMemo(
@@ -92,7 +92,9 @@ export function ButtonRoot<T extends React.ElementType = 'button'>(
     mergedRef
   );
   // Filter DOM props to ensure mergeProps receives plain objects
-  const filteredCtxProps = filterDOMProps<T>(ctxProps);
+  const filteredCtxProps = filterDOMProps<T>(ctxProps, {
+    enabled: shouldFilterDOMProps,
+  }) as Record<string, unknown>;
   const disabledInteractionProps = useDisableInteractions(
     buttonProps,
     isInteractive
@@ -161,10 +163,12 @@ export function ButtonRoot<T extends React.ElementType = 'button'>(
 
   const dataAttrs = getButtonDataAttrs(buttonStateContext);
 
+  const RenderedComponent = asChild ? Slot : Component;
+
   return (
     <ButtonSlots.Provider value={{}}>
       <ButtonStateProvider value={buttonStateContext}>
-        <Component
+        <RenderedComponent
           ref={mergedRef}
           {...mergeProps(mergedButtonProps, hoverProps, focusProps)}
           type={

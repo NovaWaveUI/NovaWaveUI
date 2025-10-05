@@ -1,0 +1,316 @@
+@theme inline {
+  /* These add the normal shades to stuff like text, background, border, and so on */
+  /* We will make specific variables for text, background, border, and so on */
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+  --color-neutral-950: var(--neutral-950);
+
+  --color-primary-50: var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-800: var(--primary-800);
+  --color-primary-900: var(--primary-900);
+  --color-primary-950: var(--primary-950);
+
+  --color-secondary-50: var(--secondary-50);
+  --color-secondary-100: var(--secondary-100);
+  --color-secondary-200: var(--secondary-200);
+  --color-secondary-300: var(--secondary-300);
+  --color-secondary-400: var(--secondary-400);
+  --color-secondary-500: var(--secondary-500);
+  --color-secondary-600: var(--secondary-600);
+  --color-secondary-700: var(--secondary-700);
+  --color-secondary-800: var(--secondary-800);
+  --color-secondary-900: var(--secondary-900);
+  --color-secondary-950: var(--secondary-950);
+
+  --color-success-50: var(--success-50);
+  --color-success-100: var(--success-100);
+  --color-success-200: var(--success-200);
+  --color-success-300: var(--success-300);
+  --color-success-400: var(--success-400);
+  --color-success-500: var(--success-500);
+  --color-success-600: var(--success-600);
+  --color-success-700: var(--success-700);
+  --color-success-800: var(--success-800);
+  --color-success-900: var(--success-900);
+  --color-success-950: var(--success-950);
+
+  --color-warning-50: var(--warning-50);
+  --color-warning-100: var(--warning-100);
+  --color-warning-200: var(--warning-200);
+  --color-warning-300: var(--warning-300);
+  --color-warning-400: var(--warning-400);
+  --color-warning-500: var(--warning-500);
+  --color-warning-600: var(--warning-600);
+  --color-warning-700: var(--warning-700);
+  --color-warning-800: var(--warning-800);
+  --color-warning-900: var(--warning-900);
+  --color-warning-950: var(--warning-950);
+
+  --color-danger-50: var(--danger-50);
+  --color-danger-100: var(--danger-100);
+  --color-danger-200: var(--danger-200);
+  --color-danger-300: var(--danger-300);
+  --color-danger-400: var(--danger-400);
+  --color-danger-500: var(--danger-500);
+  --color-danger-600: var(--danger-600);
+  --color-danger-700: var(--danger-700);
+  --color-danger-800: var(--danger-800);
+  --color-danger-900: var(--danger-900);
+  --color-danger-950: var(--danger-950);
+
+  /* Background and Surface */
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-strong: var(--surface-strong);
+
+  /* Background Scoped to Intent */
+  /* Neutral */
+  --background-color-neutral: var(--neutral-background);
+  --background-color-neutral-hover: var(--neutral-background-hover);
+  --background-color-neutral-active: var(--neutral-background-active);
+  --background-color-neutral-subtle: var(--neutral-background-subtle);
+  --background-color-neutral-subtle-hover: var(
+    --neutral-background-subtle-hover
+  );
+  --background-color-neutral-subtle-active: var(
+    --neutral-background-subtle-active
+  );
+  --background-color-neutral-strong: var(--neutral-background-strong);
+  --background-color-neutral-strong-hover: var(
+    --neutral-background-strong-hover
+  );
+  --background-color-neutral-strong-active: var(
+    --neutral-background-strong-active
+  );
+  --background-color-neutral-inverse: var(--neutral-background-inverse);
+
+  /* Primary */
+  --background-color-primary: var(--primary-background);
+  --background-color-primary-hover: var(--primary-background-hover);
+  --background-color-primary-active: var(--primary-background-active);
+  --background-color-primary-subtle: var(--primary-background-subtle);
+  --background-color-primary-subtle-hover: var(
+    --primary-background-subtle-hover
+  );
+  --background-color-primary-subtle-active: var(
+    --primary-background-subtle-active
+  );
+  --background-color-primary-strong: var(--primary-background-strong);
+  --background-color-primary-strong-hover: var(
+    --primary-background-strong-hover
+  );
+  --background-color-primary-strong-active: var(
+    --primary-background-strong-active
+  );
+  --background-color-primary-inverse: var(--primary-background-inverse);
+
+  /* Secondary */
+  --background-color-secondary: var(--secondary-background);
+  --background-color-secondary-hover: var(--secondary-background-hover);
+  --background-color-secondary-active: var(--secondary-background-active);
+  --background-color-secondary-subtle: var(--secondary-background-subtle);
+  --background-color-secondary-subtle-hover: var(
+    --secondary-background-subtle-hover
+  );
+  --background-color-secondary-subtle-active: var(
+    --secondary-background-subtle-active
+  );
+  --background-color-secondary-strong: var(--secondary-background-strong);
+  --background-color-secondary-strong-hover: var(
+    --secondary-background-strong-hover
+  );
+  --background-color-secondary-strong-active: var(
+    --secondary-background-strong-active
+  );
+  --background-color-secondary-inverse: var(--secondary-background-inverse);
+
+  /* Success */
+  --background-color-success: var(--success-background);
+  --background-color-success-hover: var(--success-background-hover);
+  --background-color-success-active: var(--success-background-active);
+  --background-color-success-subtle: var(--success-background-subtle);
+  --background-color-success-subtle-hover: var(
+    --success-background-subtle-hover
+  );
+  --background-color-success-subtle-active: var(
+    --success-background-subtle-active
+  );
+  --background-color-success-strong: var(--success-background-strong);
+  --background-color-success-strong-hover: var(
+    --success-background-strong-hover
+  );
+  --background-color-success-strong-active: var(
+    --success-background-strong-active
+  );
+  --background-color-success-inverse: var(--success-background-inverse);
+
+  /* Warning */
+  --background-color-warning: var(--warning-background);
+  --background-color-warning-hover: var(--warning-background-hover);
+  --background-color-warning-active: var(--warning-background-active);
+  --background-color-warning-subtle: var(--warning-background-subtle);
+  --background-color-warning-subtle-hover: var(
+    --warning-background-subtle-hover
+  );
+  --background-color-warning-subtle-active: var(
+    --warning-background-subtle-active
+  );
+  --background-color-warning-strong: var(--warning-background-strong);
+  --background-color-warning-strong-hover: var(
+    --warning-background-strong-hover
+  );
+  --background-color-warning-strong-active: var(
+    --warning-background-strong-active
+  );
+  --background-color-warning-inverse: var(--warning-background-inverse);
+
+  /* Danger */
+  --background-color-danger: var(--danger-background);
+  --background-color-danger-hover: var(--danger-background-hover);
+  --background-color-danger-active: var(--danger-background-active);
+  --background-color-danger-subtle: var(--danger-background-subtle);
+  --background-color-danger-subtle-hover: var(--danger-background-subtle-hover);
+  --background-color-danger-subtle-active: var(
+    --danger-background-subtle-active
+  );
+  --background-color-danger-strong: var(--danger-background-strong);
+  --background-color-danger-strong-hover: var(--danger-background-strong-hover);
+  --background-color-danger-strong-active: var(
+    --danger-background-strong-active
+  );
+  --background-color-danger-inverse: var(--danger-background-inverse);
+
+  /* Text */
+  /* Neutral */
+  --text-color-neutral: var(--text-neutral);
+  --text-color-neutral-subtle: var(--text-neutral-subtle);
+  --text-color-neutral-strong: var(--text-neutral-strong);
+  --text-color-on-neutral: var(--text-on-neutral);
+  --text-color-on-neutral-subtle: var(--text-on-neutral-subtle);
+  --text-color-on-neutral-strong: var(--text-on-neutral-strong);
+  --text-color-on-neutral-inverse: var(--text-on-neutral-inverse);
+
+  /* Primary */
+  --text-color-primary: var(--text-primary);
+  --text-color-primary-subtle: var(--text-primary-subtle);
+  --text-color-primary-strong: var(--text-primary-strong);
+  --text-color-on-primary: var(--text-on-primary);
+  --text-color-on-primary-subtle: var(--text-on-primary-subtle);
+  --text-color-on-primary-strong: var(--text-on-primary-strong);
+  --text-color-on-primary-inverse: var(--text-on-primary-inverse);
+
+  /* Secondary */
+  --text-color-secondary: var(--text-secondary);
+  --text-color-secondary-subtle: var(--text-secondary-subtle);
+  --text-color-secondary-strong: var(--text-secondary-strong);
+  --text-color-on-secondary: var(--text-on-secondary);
+  --text-color-on-secondary-subtle: var(--text-on-secondary-subtle);
+  --text-color-on-secondary-strong: var(--text-on-secondary-strong);
+  --text-color-on-secondary-inverse: var(--text-on-secondary-inverse);
+
+  /* Success */
+  --text-color-success: var(--text-success);
+  --text-color-success-subtle: var(--text-success-subtle);
+  --text-color-success-strong: var(--text-success-strong);
+  --text-color-on-success: var(--text-on-success);
+  --text-color-on-success-subtle: var(--text-on-success-subtle);
+  --text-color-on-success-strong: var(--text-on-success-strong);
+  --text-color-on-success-inverse: var(--text-on-success-inverse);
+
+  /* Warning */
+  --text-color-warning: var(--text-warning);
+  --text-color-warning-subtle: var(--text-warning-subtle);
+  --text-color-warning-strong: var(--text-warning-strong);
+  --text-color-on-warning: var(--text-on-warning);
+  --text-color-on-warning-subtle: var(--text-on-warning-subtle);
+  --text-color-on-warning-strong: var(--text-on-warning-strong);
+  --text-color-on-warning-inverse: var(--text-on-warning-inverse);
+
+  /* Danger */
+  --text-color-danger: var(--text-danger);
+  --text-color-danger-subtle: var(--text-color-danger-subtle);
+  --text-color-danger-strong: var(--text-color-danger-strong);
+  --text-color-on-danger: var(--text-on-danger);
+  --text-color-on-danger-subtle: var(--text-on-danger-subtle);
+  --text-color-on-danger-strong: var(--text-on-danger-strong);
+  --text-color-on-danger-inverse: var(--text-on-danger-inverse);
+
+  /* Border */
+  /* Neutral */
+  --border-color-neutral: var(--border-neutral);
+  --border-color-neutral-hover: var(--border-neutral-hover);
+  --border-color-neutral-active: var(--border-neutral-active);
+
+  /* Primary */
+  --border-color-primary: var(--border-primary);
+  --border-color-primary-hover: var(--border-primary-hover);
+  --border-color-primary-active: var(--border-primary-active);
+
+  /* Secondary */
+  --border-color-secondary: var(--border-secondary);
+  --border-color-secondary-hover: var(--border-secondary-hover);
+  --border-color-secondary-active: var(--border-secondary-active);
+
+  /* Success */
+  --border-color-success: var(--border-success);
+  --border-color-success-hover: var(--border-success-hover);
+  --border-color-success-active: var(--border-success-active);
+
+  /* Warning */
+  --border-color-warning: var(--border-warning);
+  --border-color-warning-hover: var(--border-warning-hover);
+  --border-color-warning-active: var(--border-warning-active);
+
+  /* Danger */
+  --border-color-danger: var(--border-danger);
+  --border-color-danger-hover: var(--border-danger-hover);
+  --border-color-danger-active: var(--border-danger-active);
+
+  /* Text Link */
+  --text-color-link: var(--text-link);
+  --text-color-link-hover: var(--text-link-hover);
+  --text-color-link-active: var(--text-link-active);
+  --text-color-link-visited: var(--text-link-visited);
+  --text-color-link-disabled: var(--text-link-disabled);
+
+  /* Focus Outline */
+  --outline-color-focus-visible: var(--focus-visible-outline-color);
+  --outline-width-focus-visible: var(--focus-visible-outline-width);
+
+  /* Radius */
+  --radius-none: var(--radius-none);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-full: var(--radius-full);
+
+  /* Border Size */
+  --border-width-none: var(--border-size-none);
+  --border-width-sm: var(--border-size-sm);
+  --border-width-md: var(--border-size-md);
+  --border-width-lg: var(--border-size-lg);
+
+  /* Opacity */
+  --opacity-disabled: var(--opacity-disabled);
+}
+
+@utility focus-outline {
+  @apply outline-none;
+}

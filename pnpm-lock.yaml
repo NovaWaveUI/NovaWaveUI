@@ -200,6 +200,10 @@ importers:
         version: 19.1.1
 
   packages/core/theme:
+    dependencies:
+      tailwindcss:
+        specifier: ^4.1.12
+        version: 4.1.12
     devDependencies:
       '@novawaveui/eslint-config':
         specifier: workspace:*

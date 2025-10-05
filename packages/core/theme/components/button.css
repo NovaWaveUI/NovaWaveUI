@@ -1,5 +1,3 @@
-@import '@novawaveui/theme/theme.css';
-
 @layer components {
   /* Root Button */
   .nw-button {
@@ -38,19 +36,19 @@
     }
 
     @variant radius-sm {
-      @apply rounded-small;
+      @apply rounded-sm;
     }
 
     @variant radius-md {
-      @apply rounded-medium;
+      @apply rounded-md;
     }
 
     @variant radius-lg {
-      @apply rounded-large;
+      @apply rounded-lg;
     }
 
     @variant radius-xl {
-      @apply rounded-xlarge;
+      @apply rounded-xl;
     }
 
     @variant radius-full {
@@ -91,139 +89,139 @@
     @variant variant-solid {
       /* Neutral */
       @variant color-neutral {
-        @apply bg-neutral-background text-neutral-foreground;
-        @apply hover:bg-strong-neutral-background/10;
-        @apply pressed:bg-strong-neutral-background/20;
+        @apply bg-neutral text-on-neutral;
+        @apply hover:bg-neutral-hover;
+        @apply pressed:bg-neutral-active;
       }
 
       /* Primary */
       @variant color-primary {
-        @apply bg-primary-background text-primary-foreground;
-        @apply hover:bg-strong-primary-background/10;
-        @apply pressed:bg-strong-primary-background/20;
+        @apply bg-primary text-on-primary;
+        @apply hover:bg-primary-hover;
+        @apply pressed:bg-primary-active;
       }
 
       /* Secondary */
       @variant color-secondary {
-        @apply bg-secondary-background text-secondary-foreground;
-        @apply hover:bg-strong-secondary-background/10;
-        @apply pressed:bg-strong-secondary-background/20;
+        @apply bg-secondary text-on-secondary;
+        @apply hover:bg-secondary-hover;
+        @apply pressed:bg-secondary-active;
       }
 
       /* Success */
       @variant color-success {
-        @apply bg-success-background text-success-foreground;
-        @apply hover:bg-strong-success-background/10;
-        @apply pressed:bg-strong-success-background/20;
+        @apply bg-success text-on-success;
+        @apply hover:bg-success-hover;
+        @apply pressed:bg-success-active;
       }
 
       /* Warning */
       @variant color-warning {
-        @apply bg-warning-background text-warning-foreground;
-        @apply hover:bg-strong-warning-background/10;
-        @apply pressed:bg-strong-warning-background/20;
+        @apply bg-warning text-on-warning;
+        @apply hover:bg-warning-hover;
+        @apply pressed:bg-warning-active;
       }
 
       /* Danger */
       @variant color-danger {
-        @apply bg-danger-background text-danger-foreground;
-        @apply hover:bg-strong-danger-background/10;
-        @apply pressed:bg-strong-danger-background/20;
+        @apply bg-danger text-on-danger;
+        @apply hover:bg-danger-hover;
+        @apply pressed:bg-danger-active;
       }
     }
 
     /* Bordered */
     @variant variant-bordered {
       /* Base border style */
-      @apply bg-transparent border-medium border-solid;
+      @apply bg-transparent border-md border-solid;
 
       /* Neutral */
       @variant color-neutral {
         @apply border-neutral text-neutral;
-        @apply hover:border-strong-neutral/20 hover:bg-subtle-neutral-background/95;
-        @apply pressed:border-strong-neutral/30;
+        @apply hover:border-neutral-hover;
+        @apply pressed:border-neutral-active;
       }
 
       /* Primary */
       @variant color-primary {
         @apply border-primary text-primary;
-        @apply hover:border-strong-primary/20;
-        @apply pressed:border-strong-primary/30;
+        @apply hover:border-primary-hover;
+        @apply pressed:border-primary-active;
       }
 
       /* Secondary */
       @variant color-secondary {
         @apply border-secondary text-secondary;
-        @apply hover:border-strong-secondary/20;
-        @apply pressed:border-strong-secondary/30;
+        @apply hover:border-secondary-hover;
+        @apply pressed:border-secondary-active;
       }
 
       /* Success */
       @variant color-success {
         @apply border-success text-success;
-        @apply hover:border-strong-success/20;
-        @apply pressed:border-strong-success/30;
+        @apply hover:border-success-hover;
+        @apply pressed:border-success-active;
       }
 
       /* Warning */
       @variant color-warning {
         @apply border-warning text-warning;
-        @apply hover:border-strong-warning/20;
-        @apply pressed:border-strong-warning/30;
+        @apply hover:border-warning-hover;
+        @apply pressed:border-warning-active;
       }
 
       /* Danger */
       @variant color-danger {
         @apply border-danger text-danger;
-        @apply hover:border-strong-danger/20;
-        @apply pressed:border-strong-danger/30;
+        @apply hover:border-danger-hover;
+        @apply pressed:border-danger-active;
       }
     }
 
     /* Ghost */
     @variant variant-ghost {
-      @apply bg-transparent border-medium border-solid;
+      @apply bg-transparent border-md border-solid;
 
       /* Neutral */
       @variant color-neutral {
         @apply border-neutral text-neutral;
-        @apply hover:border-transparent hover:text-neutral-foreground hover:bg-strong-neutral-background/5;
-        @apply pressed:bg-strong-neutral-background/10 pressed:text-neutral-foreground pressed:border-transparent;
+        @apply hover:border-transparent hover:text-on-neutral hover:bg-neutral-hover;
+        @apply pressed:bg-neutral-active pressed:text-on-neutral pressed:border-transparent;
       }
 
       /* Primary */
       @variant color-primary {
         @apply border-primary text-primary;
-        @apply hover:border-transparent hover:text-primary-foreground hover:bg-strong-primary-background/5;
-        @apply pressed:bg-strong-primary-background/10 pressed:text-primary-foreground pressed:border-transparent;
+        @apply hover:border-transparent hover:text-on-primary hover:bg-primary-hover;
+        @apply pressed:bg-primary-active pressed:text-on-primary pressed:border-transparent;
       }
 
       /* Secondary */
       @variant color-secondary {
         @apply border-secondary text-secondary;
-        @apply hover:border-transparent hover:text-secondary-foreground hover:bg-strong-secondary-background/5;
-        @apply pressed:bg-strong-secondary-background/10 pressed:text-secondary-foreground pressed:border-transparent;
+        @apply hover:border-transparent hover:text-on-secondary hover:bg-secondary-hover;
+        @apply pressed:bg-secondary-active pressed:text-on-secondary pressed:border-transparent;
       }
 
       /* Success */
       @variant color-success {
         @apply border-success text-success;
-        @apply hover:border-transparent hover:text-success-foreground hover:bg-strong-success-background/5;
-        @apply pressed:bg-strong-success-background/10 pressed:text-success-foreground pressed:border-transparent;
+        @apply hover:border-transparent hover:text-on-success hover:bg-success-hover;
+        @apply pressed:bg-success-active pressed:text-on-success pressed:border-transparent;
       }
 
       /* Warning */
       @variant color-warning {
         @apply border-warning text-warning;
-        @apply hover:border-transparent hover:text-warning-foreground hover:bg-strong-warning-background/5;
-        @apply pressed:bg-strong-warning-background/10 pressed:text-warning-foreground pressed:border-transparent;
+        @apply hover:border-transparent hover:text-on-warning hover:bg-warning-hover;
+        @apply pressed:bg-warning-active pressed:text-on-warning pressed:border-transparent;
       }
 
       /* Danger */
       @variant color-danger {
         @apply border-danger text-danger;
-        @apply hover:border-transparent hover:text-danger-foreground hover:bg-strong-danger-background/5;
-        @apply pressed:bg-strong-danger-background/10 pressed:text-danger-foreground pressed:border-transparent;
+        @apply hover:border-transparent hover:text-on-danger hover:bg-danger-hover;
+        @apply pressed:bg-danger-active pressed:text-on-danger pressed:border-transparent;
       }
     }
 
@@ -234,43 +232,43 @@
       /* Neutral */
       @variant color-neutral {
         @apply text-neutral;
-        @apply hover:bg-subtle-neutral-background/90;
-        @apply active:bg-subtle-neutral-background/80;
+        @apply hover:bg-neutral-subtle-hover hover:text-on-neutral-subtle;
+        @apply pressed:bg-neutral-subtle-active pressed:text-on-neutral-subtle;
       }
 
       /* Primary */
       @variant color-primary {
         @apply text-primary;
-        @apply hover:bg-subtle-primary-background/90;
-        @apply active:bg-subtle-primary-background/80;
+        @apply hover:bg-primary-subtle-hover hover:text-on-primary-subtle;
+        @apply pressed:bg-primary-subtle-active pressed:text-on-primary-subtle;
       }
 
       /* Secondary */
       @variant color-secondary {
         @apply text-secondary;
-        @apply hover:bg-subtle-secondary-background/90;
-        @apply active:bg-subtle-secondary-background/80;
+        @apply hover:bg-secondary-subtle-hover hover:text-on-secondary-subtle;
+        @apply pressed:bg-secondary-subtle-active pressed:text-on-secondary-subtle;
       }
 
       /* Success */
       @variant color-success {
         @apply text-success;
-        @apply hover:bg-subtle-success-background/90;
-        @apply active:bg-subtle-success-background/80;
+        @apply hover:bg-success-subtle-hover hover:text-on-success-subtle;
+        @apply pressed:bg-success-subtle-active pressed:text-on-success-subtle;
       }
 
       /* Warning */
       @variant color-warning {
         @apply text-warning;
-        @apply hover:bg-subtle-warning-background/90;
-        @apply active:bg-subtle-warning-background/80;
+        @apply hover:bg-warning-subtle-hover hover:text-on-warning-subtle;
+        @apply pressed:bg-warning-subtle-active pressed:text-on-warning-subtle;
       }
 
       /* Danger */
       @variant color-danger {
         @apply text-danger;
-        @apply hover:bg-subtle-danger-background/90;
-        @apply active:bg-subtle-danger-background/80;
+        @apply hover:bg-danger-subtle-hover hover:text-on-danger-subtle;
+        @apply pressed:bg-danger-subtle-active pressed:text-on-danger-subtle;
       }
     }
   }

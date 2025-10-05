@@ -1,0 +1,12 @@
+/* Import Tailwind base theme */
+@import 'tailwindcss';
+
+/* Import shared theme styles */
+@import './theme/shared/theme.css';
+@import './theme/shared/variants.css';
+
+/* Import default theme variables */
+@import './theme/default/variables.css';
+
+/* Import component styles */
+@import './components/index.css';

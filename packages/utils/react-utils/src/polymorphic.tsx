@@ -7,6 +7,10 @@ export type PolymorphicProps<T extends ElementType, Props = {}> = Props &
      * The component or HTML element to render as.
      */
     as?: T;
+    /**
+     * If `true`, the component will render its children directly without wrapping them in the specified `as` component.
+     */
+    asChild?: boolean;
   };
 
 export type PolyRuntimeProps = {

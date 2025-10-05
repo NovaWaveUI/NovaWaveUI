@@ -10,6 +10,7 @@ export const [CheckboxPropsContext, useCheckboxProps, CheckboxPropsProvider] =
   createContext<ContextValue<CheckboxPropsContextValue, HTMLLabelElement>>({
     name: 'NovaWaveUI.CheckboxPropsContext',
     strict: false,
+    defaultValue: {},
   });
 
 export const [CheckboxStateProvider, useCheckboxState, CheckboxStateContext] =

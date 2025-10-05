@@ -4,7 +4,8 @@ import {
   RenderProps,
   useRenderProps,
 } from '@novawaveui/react-utils';
-import { cn } from '@novawaveui/utils';
+import { filterDOMProps } from '@novawaveui/utils';
+import { Slot } from '../Slot';
 import { ButtonRenderProps } from './types';
 import { useButtonState } from './context';
 import { ButtonSlots } from './slots';
@@ -20,16 +21,16 @@ function ButtonEndContent<T extends React.ElementType = 'span'>(
   ButtonSlots.useRegisterSlot('endContent');
 
   // Get the slot props
-  const slotProps = ButtonSlots.useSlot('endContent', props);
+  const slotProps = ButtonSlots.useSlot(
+    'endContent',
+    props
+  ) as ButtonEndContentProps<T>;
 
   // Get the children, className and style from the slot props
-  const {
-    as: Component = 'span',
-    children,
-    className,
-    style,
-    ...rest
-  } = slotProps;
+  const { as: Component = 'span', asChild, ...rest } = slotProps;
+
+  // Determine if we should filter DOM props (only for intrinsic elements)
+  const shouldFilterDOMProps = typeof Component === 'string' && !asChild;
 
   // Get the button state context so that we get the current state
   // and data properties
@@ -39,16 +40,19 @@ function ButtonEndContent<T extends React.ElementType = 'span'>(
   const { dataAttrs, renderValues } = useButtonRenderContext(buttonStateCtx);
 
   const renderProps = useRenderProps({
-    className,
-    style: style,
-    children: children,
+    ...rest,
     values: renderValues,
-    defaultClassName: cn('nw-button', className),
   });
 
+  const filteredProps = filterDOMProps<T>(rest, {
+    enabled: shouldFilterDOMProps,
+  });
+
+  const RenderedComponent = asChild ? Slot : Component;
+
   return (
-    <Component
-      {...rest}
+    <RenderedComponent
+      {...filteredProps}
       {...dataAttrs}
       {...renderProps}
       data-slot="end-content"

@@ -43,14 +43,13 @@ export function useSlottedContext<T>(
 }
 
 export function useContextProps<T, U extends SlotProps, E extends Element>(
-  props: T & SlotProps,
-  ref: React.Ref<any> | undefined,
+  props: T & SlotProps & { ref?: React.Ref<any> },
   context: Context<ContextValue<U, E>>
 ): [T, RefObject<E | null>] {
   const contextValue = useSlottedContext(context, props.slot) || {};
   const { ref: contextRef, ...contextProps } = contextValue as any;
   const mergedRef = useObjectRef(
-    useMemo(() => mergeRefs(ref, contextRef), [ref, contextRef])
+    useMemo(() => mergeRefs(props.ref, contextRef), [props.ref, contextRef])
   );
   const mergedProps = mergeProps(props, contextProps) as T;
 
