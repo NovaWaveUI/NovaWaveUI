@@ -13,15 +13,15 @@ export type {
   ButtonStyleProps,
   ButtonGroupContextValue,
   ButtonGroupOrientation as ButtonOrientation,
-  ButtonPropsContextValue,
+  ButtonContextValue as ButtonPropsContextValue,
   ButtonStateContextValue,
   ButtonGroupPropsContextValue,
   ButtonGroupStyleProps,
 } from './types';
 export {
-  ButtonPropsContext,
-  ButtonPropsProvider,
-  ButtonGroupPropsContext,
-  ButtonGroupProvider,
+  ButtonProvider as ButtonPropsContext,
+  ButtonContext as ButtonPropsProvider,
+  ButtonGroupNWContext as ButtonGroupPropsContext,
+  ButtonGroupNWContext as ButtonGroupProvider,
   ButtonStateProvider,
 } from './context';

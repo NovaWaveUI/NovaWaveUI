@@ -1,22 +1,22 @@
 /* Common data-* design system variants */
-@custom-variant hover (&[data-hovered="true"]);
-@custom-variant pressed (&[data-pressed="true"]);
-@custom-variant focus (&[data-focus="true"]);
-@custom-variant disabled (&[data-disabled="true"]);
-@custom-variant selected (&[data-selected="true"]);
-@custom-variant checked (&[data-checked="true"]);
-@custom-variant expanded (&[data-expanded="true"]);
-@custom-variant hidden (&[data-hidden="true"]);
-@custom-variant visible (&[data-visible="true"]);
-@custom-variant loading (&[data-loading="true"]);
-@custom-variant focus-visible (&[data-focus-visible="true"]);
-@custom-variant invalid (&[data-invalid="true"]);
-@custom-variant valid (&[data-valid="true"]);
-@custom-variant open (&[data-open="true"]);
-@custom-variant orientation-horizontal (&[data-orientation="horizontal"]);
-@custom-variant orientation-vertical (&[data-orientation="vertical"]);
-@custom-variant dark (&[data-mode="dark"]);
-@custom-variant light (&[data-mode="light"]);
+@custom-variant data-hover (&[data-hovered="true"]);
+@custom-variant data-pressed (&[data-pressed="true"]);
+@custom-variant data-focus (&[data-focus="true"]);
+@custom-variant data-disabled (&[data-disabled="true"]);
+@custom-variant data-selected (&[data-selected="true"]);
+@custom-variant data-checked (&[data-checked="true"]);
+@custom-variant data-expanded (&[data-expanded="true"]);
+@custom-variant data-hidden (&[data-hidden="true"]);
+@custom-variant data-visible (&[data-visible="true"]);
+@custom-variant data-loading (&[data-loading="true"]);
+@custom-variant data-focus-visible (&[data-focus-visible="true"]);
+@custom-variant data-invalid (&[data-invalid="true"]);
+@custom-variant data-valid (&[data-valid="true"]);
+@custom-variant data-open (&[data-open="true"]);
+@custom-variant data-orientation-horizontal (&[data-orientation="horizontal"]);
+@custom-variant data-orientation-vertical (&[data-orientation="vertical"]);
+@custom-variant data-dark (&[data-mode="dark"]);
+@custom-variant data-light (&[data-mode="light"]);
 
 /* NovaWaveUI data-* design system variants */
 /* Size */
@@ -49,3 +49,55 @@
 /* Dark Mode */
 @custom-variant mode-dark (&[data-mode="dark"]);
 @custom-variant mode-light (&[data-mode="light"]);
+
+/* Group Variants */
+@custom-variant group-data-hover (.nw-group[data-hovered="true"] &);
+@custom-variant group-data-pressed (.nw-group[data-pressed="true"] &);
+@custom-variant group-data-focus (.nw-group[data-focus="true"] &);
+@custom-variant group-data-disabled (.nw-group[data-disabled="true"] &);
+@custom-variant group-data-selected (.nw-group[data-selected="true"] &);
+@custom-variant group-data-checked (.nw-group[data-checked="true"] &);
+@custom-variant group-data-expanded (.nw-group[data-expanded="true"] &);
+@custom-variant group-data-hidden (.nw-group[data-hidden="true"] &);
+@custom-variant group-data-visible (.nw-group[data-visible="true"] &);
+@custom-variant group-data-loading (.nw-group[data-loading="true"] &);
+@custom-variant group-data-focus-visible (.nw-group[data-focus-visible="true"] &);
+@custom-variant group-data-invalid (.nw-group[data-invalid="true"] &);
+@custom-variant group-data-valid (.nw-group[data-valid="true"] &);
+@custom-variant group-data-open (.nw-group[data-open="true"] &);
+@custom-variant group-data-orientation-horizontal (.nw-group[data-orientation="horizontal"] &);
+@custom-variant group-data-orientation-vertical (.nw-group[data-orientation="vertical"] &);
+@custom-variant group-data-dark (.nw-group[data-mode="dark"] &);
+@custom-variant group-data-light (.nw-group[data-mode="light"] &);
+
+/* NovaWaveUI Group Variants */
+/* Size */
+@custom-variant group-size-sm (.nw-group[data-size="sm"] &);
+@custom-variant group-size-md (.nw-group[data-size="md"] &);
+@custom-variant group-size-lg (.nw-group[data-size="lg"] &);
+
+/* Color */
+@custom-variant group-color-neutral (.nw-group[data-color="neutral"] &);
+@custom-variant group-color-primary (.nw-group[data-color="primary"] &);
+@custom-variant group-color-secondary (.nw-group[data-color="secondary"] &);
+@custom-variant group-color-success (.nw-group[data-color="success"] &);
+@custom-variant group-color-warning (.nw-group[data-color="warning"] &);
+@custom-variant group-color-danger (.nw-group[data-color="danger"] &);
+
+/* Variant */
+@custom-variant group-variant-solid (.nw-group[data-variant="solid"] &);
+@custom-variant group-variant-bordered (.nw-group[data-variant="bordered"] &);
+@custom-variant group-variant-ghost (.nw-group[data-variant="ghost"] &);
+@custom-variant group-variant-light (.nw-group[data-variant="light"] &);
+
+/* Radius */
+@custom-variant group-radius-none (.nw-group[data-radius="none"] &);
+@custom-variant group-radius-sm (.nw-group[data-radius="sm"] &);
+@custom-variant group-radius-md (.nw-group[data-radius="md"] &);
+@custom-variant group-radius-lg (.nw-group[data-radius="lg"] &);
+@custom-variant group-radius-xl (.nw-group[data-radius="xl"] &);
+@custom-variant group-radius-full (.nw-group[data-radius="full"] &);
+
+/* Dark Mode */
+@custom-variant group-mode-dark (.nw-group[data-mode="dark"] &);
+@custom-variant group-mode-light (.nw-group[data-mode="light"] &);

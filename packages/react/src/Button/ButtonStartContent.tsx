@@ -1,25 +1,15 @@
 import React from 'react';
-import {
-  PolymorphicProps,
-  RenderProps,
-  useRenderProps,
-} from '@novawaveui/react-utils';
+import { useRenderProps } from '@novawaveui/react-utils';
 import { filterDOMProps } from '@novawaveui/utils';
 import { Slot } from '../Slot';
-import { ButtonRenderProps } from './types';
+import { ButtonStartContentProps } from './types';
 import { useButtonState } from './context';
 import { ButtonSlots } from './slots';
 import { useButtonRenderContext } from './state';
 
-export type ButtonStartContentProps<T extends React.ElementType> =
-  PolymorphicProps<T, RenderProps<ButtonRenderProps>>;
-
 function ButtonStartContent<T extends React.ElementType = 'span'>(
   props: ButtonStartContentProps<T>
 ) {
-  // First, register the slot so that the slot system knows this slot is being used
-  ButtonSlots.useRegisterSlot('startContent');
-
   // Get the slot props
   const slotProps = ButtonSlots.useSlot('startContent', props);
 

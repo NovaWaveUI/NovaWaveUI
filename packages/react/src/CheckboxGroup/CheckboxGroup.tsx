@@ -1,9 +1,10 @@
 import React from 'react';
-import CheckboxGroupRoot, { CheckboxGroupRootProps } from './CheckboxGroupRoot';
+import CheckboxGroupRoot from './CheckboxGroupRoot';
 import CheckboxGroupLabel from './CheckboxGroupLabel';
 import CheckboxGroupDescription from './CheckboxGroupDescription';
 import CheckboxGroupError from './CheckboxGroupError';
 import CheckboxGroupWrapper from './CheckboxGroupWrapper';
+import { CheckboxGroupRootProps } from './types';
 
 export type CheckboxGroupProps<T extends React.ElementType> =
   CheckboxGroupRootProps<T>;

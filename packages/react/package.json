@@ -7,13 +7,11 @@
     "dist/"
   ],
   "exports": {
-    "./button.css": "./styles/button.css",
     "./button": {
       "import": "./dist/Button/index.js",
       "require": "./dist/Button/index.cjs",
       "types": "./dist/Button/index.d.ts"
     },
-    "./checkbox.css": "./styles/checkbox.css",
     "./checkbox": {
       "import": "./dist/Checkbox/index.js",
       "require": "./dist/Checkbox/index.cjs",

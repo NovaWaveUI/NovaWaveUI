@@ -1,25 +1,15 @@
 import React, { useMemo } from 'react';
-import {
-  PolymorphicProps,
-  RenderProps,
-  useRenderProps,
-} from '@novawaveui/react-utils';
+import { useRenderProps } from '@novawaveui/react-utils';
 import { filterDOMProps } from '@novawaveui/utils';
 import { Slot } from '../Slot';
-import { CheckboxGroupRenderProps } from './types';
+import { CheckboxGroupErrorProps } from './types';
 import { useCheckboxGroupRenderContext } from './state';
-import { useCheckboxGroupNWState } from './context';
+import { useCheckboxGroupState } from './context';
 import { CheckboxGroupSlots } from './slots';
-
-export type CheckboxGroupErrorProps<T extends React.ElementType> =
-  PolymorphicProps<T, RenderProps<CheckboxGroupRenderProps>>;
 
 export default function CheckboxGroupError<
   T extends React.ElementType = 'span',
 >(props: CheckboxGroupErrorProps<T>) {
-  // First, register the slot
-  CheckboxGroupSlots.useRegisterSlot('checkbox-group-error');
-
   // Get the slot props
   const slotProps = CheckboxGroupSlots.useSlot('checkbox-group-error', props);
 
@@ -30,12 +20,12 @@ export default function CheckboxGroupError<
 
   // Get the NovaWaveUI checkbox group state context so that we can get the current state
   // and data properties
-  const nwGroupState = useCheckboxGroupNWState();
+  const nwGroupState = useCheckboxGroupState();
 
   const { dataAttrs, renderValues } =
     useCheckboxGroupRenderContext(nwGroupState);
-  console.log(nwGroupState);
 
+  // Only show the children if the checkbox group is in an invalid state
   const resolvedChildren = useMemo(
     () => (children && nwGroupState.isInvalid ? children : undefined),
     [children, renderValues.isInvalid]

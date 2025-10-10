@@ -1,4 +1,4 @@
-import { createSlotSystem } from '@novawaveui/react-utils';
+import { createSlotSystem } from '../utils/slots';
 import { CheckboxIconProps } from './CheckboxIcon';
 import { CheckboxLabelProps } from './CheckboxLabel';
 import { CheckboxIndicatorProps } from './CheckboxIndicator';

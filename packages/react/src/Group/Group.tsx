@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import {
-  forwardRefWith,
   useContextProps,
   useDOMRef,
   useRenderProps,
@@ -12,13 +11,13 @@ import { dataProps, filterDOMProps } from '@novawaveui/utils';
 import { GroupProps, GroupRenderProps } from './types';
 import { GroupContext } from './context';
 
-const Group = forwardRefWith.as<'div', GroupProps<'div'>>((props, ref) => {
+export default function Group(props: GroupProps) {
   // Extract the `as` prop and the rest of the props
   const { as: Component = 'div', children, ...rest } = props;
 
   // Next, get the context props (if there is any), and merge it with
   // the local props
-  const [ctxProps, ctxRef] = useContextProps(rest, ref, GroupContext);
+  const [ctxProps, ctxRef] = useContextProps(rest, GroupContext);
 
   const { isLoading = false } = ctxProps;
 
@@ -90,8 +89,6 @@ const Group = forwardRefWith.as<'div', GroupProps<'div'>>((props, ref) => {
       {renderProps.children}
     </Component>
   );
-});
+}
 
 Group.displayName = 'NovaWaveUI.Group';
-
-export default Group;

@@ -24,7 +24,3 @@ export { assignRef, mergeRefs, useDOMRef, useObjectRef } from './ref';
 export { Provider } from './provider';
 export { useSlottedContext, useContextProps } from './utils';
 export { useRenderProps, getRenderValues } from './render';
-
-export { createSlotSystem } from './SlotSystem';
-
-export type { SlotSystem } from './SlotSystem';

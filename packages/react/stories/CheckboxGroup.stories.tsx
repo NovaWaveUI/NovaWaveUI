@@ -105,8 +105,8 @@ export const Default: Story = {
     isDisabled: false,
   },
   render: args => (
-    <CheckboxGroup {...args} defaultValue={['react']} label="Frameworks Used">
-      <CheckboxGroup.Label />
+    <CheckboxGroup {...args} defaultValue={['react']}>
+      <CheckboxGroup.Label>Frameworks Used</CheckboxGroup.Label>
       <CheckboxGroup.Wrapper>
         <CustomCheckbox value="react">React</CustomCheckbox>
         <CustomCheckbox value="vue">Vue</CustomCheckbox>
@@ -132,8 +132,8 @@ export const Horizontal: Story = {
     orientation: 'horizontal',
   },
   render: args => (
-    <CheckboxGroup {...args} defaultValue={['react']} label="Frameworks Used">
-      <CheckboxGroup.Label />
+    <CheckboxGroup {...args} defaultValue={['react']}>
+      <CheckboxGroup.Label>Frameworks Used</CheckboxGroup.Label>
       <CheckboxGroup.Wrapper>
         <CustomCheckbox value="react">React</CustomCheckbox>
         <CustomCheckbox value="vue">Vue</CustomCheckbox>
@@ -159,8 +159,8 @@ export const Required: Story = {
     isRequired: true,
   },
   render: args => (
-    <CheckboxGroup {...args} defaultValue={['react']} label="Frameworks Used">
-      <CheckboxGroup.Label />
+    <CheckboxGroup {...args} defaultValue={['react']}>
+      <CheckboxGroup.Label>Frameworks Used</CheckboxGroup.Label>
       <CheckboxGroup.Wrapper>
         <CustomCheckbox value="react">React</CustomCheckbox>
         <CustomCheckbox value="vue">Vue</CustomCheckbox>
@@ -185,8 +185,8 @@ export const Disabled: Story = {
     isDisabled: true,
   },
   render: args => (
-    <CheckboxGroup {...args} defaultValue={['react']} label="Frameworks Used">
-      <CheckboxGroup.Label />
+    <CheckboxGroup {...args} defaultValue={['react']}>
+      <CheckboxGroup.Label>Frameworks Used</CheckboxGroup.Label>
       <CheckboxGroup.Wrapper>
         <CustomCheckbox value="react">React</CustomCheckbox>
         <CustomCheckbox value="vue">Vue</CustomCheckbox>
@@ -215,10 +215,9 @@ export const WithError: Story = {
         defaultValue={[]}
         isRequired
         validationBehavior="native"
-        label="Frameworks Used"
         errorMessage="You must select at least one framework."
       >
-        <CheckboxGroup.Label />
+        <CheckboxGroup.Label>Frameworks Used</CheckboxGroup.Label>
         <CheckboxGroup.Wrapper>
           <CustomCheckbox value="react">React</CustomCheckbox>
           <CustomCheckbox value="vue">Vue</CustomCheckbox>

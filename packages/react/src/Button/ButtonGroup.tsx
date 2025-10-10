@@ -13,7 +13,7 @@ import {
   ButtonGroupRenderProps,
   ButtonGroupStyleProps,
 } from './types';
-import { ButtonGroupPropsProvider, ButtonGroupProvider } from './context';
+import { ButtonGroupContext, ButtonGroupNWContext } from './context';
 
 export type ButtonGroupRootProps<T extends React.ElementType> =
   PolymorphicProps<
@@ -38,7 +38,7 @@ export default function ButtonGroup<T extends React.ElementType = 'div'>(
 ) {
   // Next, get the context props (if there is any), and merge it with
   // the local props
-  const [ctxProps, ctxRef] = useContextProps(props, ButtonGroupPropsProvider);
+  const [ctxProps, ctxRef] = useContextProps(props, ButtonGroupContext);
 
   // Next, extract out default values for the props
   const {
@@ -97,9 +97,9 @@ export default function ButtonGroup<T extends React.ElementType = 'div'>(
       role="group"
       data-orientation={orientation}
     >
-      <ButtonGroupProvider value={contextValue}>
+      <ButtonGroupNWContext value={contextValue}>
         {renderPropsChildren}
-      </ButtonGroupProvider>
+      </ButtonGroupNWContext>
     </RenderedComponent>
   );
 }

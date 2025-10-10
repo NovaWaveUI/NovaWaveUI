@@ -1,8 +1,8 @@
-import { RenderProps, SlotProps } from '@novawaveui/react-utils';
+import React, { ElementType } from 'react';
+import { PolymorphicProps, RenderProps } from '@novawaveui/react-utils';
 import { NWColor, NWRadius, NWSize, NWVariant } from '@novawaveui/theme';
 import type { AriaButtonProps } from '@react-aria/button';
 import { HoverEvents } from '@react-types/shared';
-import { ElementType } from 'react';
 import { GroupProps } from 'src/Group';
 
 export type ButtonGroupOrientation = 'horizontal' | 'vertical';
@@ -59,21 +59,52 @@ export interface ButtonStyleProps {
   radius?: NWRadius;
 }
 
-export interface BaseButtonProps<T extends ElementType = 'button'>
-  extends Omit<AriaButtonProps<T>, 'children' | 'elementType'>,
-    HoverEvents,
-    SlotProps,
-    RenderProps<ButtonRenderProps>,
-    ButtonStyleProps {
-  /**
-   * Whether or not the button is in a loading state.
-   */
-  isLoading?: boolean;
-}
+// ===========================
+// Root
+// ===========================
+export type ButtonRootProps<T extends React.ElementType> = PolymorphicProps<
+  T,
+  Omit<AriaButtonProps<T>, 'children' | 'elementType'> &
+    HoverEvents &
+    RenderProps<ButtonRenderProps> &
+    ButtonStyleProps & {
+      /**
+       * Whether or not the button is in a loading state.
+       */
+      isLoading?: boolean;
+    }
+>;
 
-export type ButtonPropsContextValue<T extends ElementType = 'button'> =
-  BaseButtonProps<T>;
+//============================
+// End Content
+//============================
+export type ButtonEndContentProps<T extends React.ElementType> =
+  PolymorphicProps<T, RenderProps<ButtonRenderProps>>;
 
+//============================
+// Start Content
+//============================
+export type ButtonStartContentProps<T extends React.ElementType> =
+  PolymorphicProps<T, RenderProps<ButtonRenderProps>>;
+
+//============================
+// Text
+//============================
+export type ButtonTextProps<T extends React.ElementType> = PolymorphicProps<
+  T,
+  RenderProps<ButtonRenderProps>
+>;
+
+// ===========================
+// Context
+// ===========================
+// The ButtonContextValue is same as ButtonRootProps as you can configure
+// the button props from anywhere using the context.
+export type ButtonContextValue<T extends ElementType = 'button'> =
+  ButtonRootProps<T>;
+
+// The ButtonStateContextValue is the state of the button that is used
+// internally and is not configurable from outside.
 export interface ButtonStateContextValue
   extends ButtonRenderProps,
     ButtonStyleProps {

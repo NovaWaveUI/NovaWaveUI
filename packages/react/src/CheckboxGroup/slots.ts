@@ -1,8 +1,10 @@
-import { createSlotSystem } from '@novawaveui/react-utils';
-import { CheckboxGroupLabelProps } from './CheckboxGroupLabel';
-import { CheckboxGroupDescriptionProps } from './CheckboxGroupDescription';
-import { CheckboxGroupErrorProps } from './CheckboxGroupError';
-import { CheckboxGroupWrapperProps } from './CheckboxGroupWrapper';
+import { createSlotSystem } from '../utils/slots';
+import {
+  CheckboxGroupDescriptionProps,
+  CheckboxGroupErrorProps,
+  CheckboxGroupLabelProps,
+  CheckboxGroupWrapperProps,
+} from './types';
 
 export const CheckboxGroupSlots = createSlotSystem<{
   'checkbox-group-label': CheckboxGroupLabelProps<any>;

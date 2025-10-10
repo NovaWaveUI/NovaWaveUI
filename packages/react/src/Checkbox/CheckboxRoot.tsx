@@ -18,7 +18,7 @@ import {
 } from 'react-aria';
 import { useToggleState } from 'react-stately';
 import { cn, filterDOMProps } from '@novawaveui/utils';
-import { useCheckboxGroupNWState } from '../CheckboxGroup';
+import { useCheckboxGroupState } from '../CheckboxGroup';
 import {
   CheckboxRenderProps,
   CheckboxStateContextValue,
@@ -59,7 +59,7 @@ export default function CheckboxRoot(props: CheckboxRootProps) {
   const inputRef = useDOMRef<HTMLInputElement>(userProvidedInputRef);
 
   // Get the props from the group if possible
-  const groupState = useCheckboxGroupNWState();
+  const groupState = useCheckboxGroupState();
   const isInGroup = !!groupState;
 
   // Spread out and set default values for the props

@@ -3,23 +3,24 @@ import { createDataPropsGetter } from '@novawaveui/utils';
 import {
   ButtonGroupContextValue,
   ButtonGroupPropsContextValue,
-  ButtonPropsContextValue,
+  ButtonContextValue,
   ButtonStateContextValue,
 } from './types';
 
-export const [ButtonPropsContext, , ButtonPropsProvider] = createContext<
-  ContextValue<ButtonPropsContextValue, HTMLButtonElement>
+export const [ButtonProvider, , ButtonContext] = createContext<
+  ContextValue<ButtonContextValue, HTMLButtonElement>
 >({
-  name: 'NovaWaveUI.ButtonPropsContext',
+  name: 'NovaWaveUI.ButtonContext',
   strict: false,
 });
 
-export const [ButtonGroupPropsContext, , ButtonGroupPropsProvider] =
-  createContext<ContextValue<ButtonGroupPropsContextValue, HTMLDivElement>>({
-    name: 'NovaWaveUI.ButtonGroupPropsContext',
-    strict: false,
-    defaultValue: {},
-  });
+export const [ButtonGroupProvider, , ButtonGroupContext] = createContext<
+  ContextValue<ButtonGroupPropsContextValue, HTMLDivElement>
+>({
+  name: 'NovaWaveUI.ButtonGroupContext',
+  strict: false,
+  defaultValue: {},
+});
 
 export const [ButtonStateProvider, useButtonState] =
   createContext<ButtonStateContextValue>({
@@ -29,7 +30,7 @@ export const [ButtonStateProvider, useButtonState] =
     strict: true,
   });
 
-export const [ButtonGroupProvider, useButtonGroup] =
+export const [ButtonGroupNWContext, useButtonGroup] =
   createContext<ButtonGroupContextValue>({
     name: 'NovaWaveUI.ButtonGroupContext',
     strict: false,

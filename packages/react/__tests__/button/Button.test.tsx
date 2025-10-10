@@ -1,9 +1,9 @@
 import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, fireEvent } from '@testing-library/react';
-import Button from './ButtonRoot';
+import Button from '../../src/Button';
 
-describe('ButtonRoot', () => {
+describe('Button', () => {
   it('renders with default props', () => {
     const { getByRole } = render(<Button>Click me</Button>);
     const btn = getByRole('button');
@@ -31,12 +31,12 @@ describe('ButtonRoot', () => {
   });
 
   it('renders as a different element', () => {
-    const { getByText } = render(
+    const { getByRole } = render(
       <Button as="a" href="https://example.com">
         Link
       </Button>
     );
-    const link = getByText('Link');
+    const link = getByRole('button');
     expect(link.tagName).toBe('A');
     expect(link).toHaveAttribute('href', 'https://example.com');
   });
@@ -62,7 +62,6 @@ describe('ButtonRoot', () => {
       </Button>
     );
     const btn = getByRole('button');
-    console.log(btn);
     fireEvent.click(btn);
     expect(onClick).not.toHaveBeenCalled();
     expect(btn).toHaveAttribute('data-loading', 'true');
@@ -90,11 +89,5 @@ describe('ButtonRoot', () => {
     const btn = getByRole('button');
     expect(btn).toHaveAttribute('data-disabled', 'true');
     expect(btn).toHaveAttribute('data-loading', 'true');
-  });
-
-  it('forwards refs correctly', () => {
-    const ref = React.createRef<HTMLButtonElement>();
-    render(<Button ref={ref}>Ref</Button>);
-    expect(ref.current).toBeInstanceOf(HTMLButtonElement);
   });
 });

@@ -3,8 +3,17 @@
   "version": "1.0.0",
   "description": "The base of the NovaWaveUI monorepo",
   "type": "module",
+  "packageManager": "pnpm@8.6.0",
   "scripts": {
-    "test": "echo \"No tests available\" && exit 0",
+    "build": "pnpm -w dlx turbo run build",
+    "build:fast": "pnpm -w dlx turbo run build:fast",
+    "dev": "pnpm -w dlx turbo run dev",
+    "test": "pnpm -w dlx turbo run test",
+    "lint": "pnpm -w dlx turbo run lint",
+    "typeCheck": "pnpm -w dlx turbo run typeCheck",
+    "clean": "pnpm -w dlx turbo run clean",
+    "clean:dist": "pnpm -w dlx turbo run clean:dist",
+    "storybook": "pnpm --filter storybook run storybook",
     "prepare": "husky"
   },
   "keywords": [

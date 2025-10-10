@@ -1,8 +1,9 @@
 import React from 'react';
-import ButtonRoot, { ButtonRootProps } from './ButtonRoot';
+import ButtonRoot from './ButtonRoot';
 import ButtonStartContent from './ButtonStartContent';
 import ButtonEndContent from './ButtonEndContent';
 import ButtonText from './ButtonText';
+import { ButtonRootProps } from './types';
 
 export type ButtonProps<T extends React.ElementType = 'button'> =
   ButtonRootProps<T>;

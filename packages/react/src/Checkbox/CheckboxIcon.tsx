@@ -21,9 +21,6 @@ export type CheckboxIconProps<T extends React.ElementType> = PolymorphicProps<
 export default function CheckboxIcon<T extends React.ElementType = 'span'>(
   props: CheckboxIconProps<T>
 ) {
-  // First, register the slot so that the slot system knows this slot is being used
-  CheckboxSlots.useRegisterSlot('checkbox-icon');
-
   // Next get any slot props
   const slotProps = CheckboxSlots.useSlot(
     'checkbox-icon',

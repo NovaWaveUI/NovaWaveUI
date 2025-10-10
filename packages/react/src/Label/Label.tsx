@@ -1,18 +1,14 @@
-import {
-  forwardRefWith,
-  useContextProps,
-  useDOMRef,
-} from '@novawaveui/react-utils';
+import { useContextProps, useDOMRef } from '@novawaveui/react-utils';
 import { LabelProps } from './types';
 import { LabelContext } from './context';
 
-const Label = forwardRefWith.as<'label', LabelProps>((props, ref) => {
+export default function Label(props: LabelProps) {
   // Extract the `as` prop and the rest of the props
   const { as: Component = 'label', children, ...rest } = props;
 
   // Next, get the context props (if there is any) and merge with
   // the local props
-  const [ctxProps, ctxRef] = useContextProps(rest, ref, LabelContext);
+  const [ctxProps, ctxRef] = useContextProps(rest, LabelContext);
 
   // Create a DOM ref using the merged refs
   const domRef = useDOMRef(ctxRef);
@@ -22,8 +18,6 @@ const Label = forwardRefWith.as<'label', LabelProps>((props, ref) => {
       {children}
     </Component>
   );
-});
+}
 
 Label.displayName = 'NovaWaveUI.Label';
-
-export default Label;

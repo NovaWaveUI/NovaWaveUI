@@ -17,9 +17,6 @@ export type CheckboxLabelProps<T extends Exclude<React.ElementType, 'label'>> =
 export default function CheckboxLabel<
   T extends Exclude<React.ElementType, 'label'> = 'span',
 >(props: CheckboxLabelProps<T>) {
-  // First, register the slot so that the slot system knows this slot is being used
-  CheckboxSlots.useRegisterSlot('label');
-
   // Next get any slot props
   const slotProps = CheckboxSlots.useSlot(
     'label',
@@ -51,12 +48,7 @@ export default function CheckboxLabel<
   const RenderedComponent = asChild ? Slot : Component;
 
   return (
-    <RenderedComponent
-      {...filteredProps}
-      {...dataAttrs}
-      {...renderProps}
-      data-slot="label"
-    />
+    <RenderedComponent {...filteredProps} {...renderProps} data-slot="label" />
   );
 }
 

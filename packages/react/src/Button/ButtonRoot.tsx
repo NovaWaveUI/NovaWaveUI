@@ -1,48 +1,24 @@
 import React, { useMemo } from 'react';
-import {
-  useContextProps,
-  useRenderProps,
-  SlotProps,
-  RenderProps,
-  PolymorphicProps,
-} from '@novawaveui/react-utils';
-import { AriaButtonProps, useButton } from '@react-aria/button';
+import { useContextProps, useRenderProps } from '@novawaveui/react-utils';
+import { useButton } from '@react-aria/button';
 import { cn, filterDOMProps } from '@novawaveui/utils';
 import { useHover } from '@react-aria/interactions';
 import { mergeProps } from '@react-aria/utils';
 import { useFocusRing } from '@react-aria/focus';
-import {
-  DOMAttributes,
-  FocusableElement,
-  HoverEvents,
-} from '@react-types/shared';
+import { DOMAttributes, FocusableElement } from '@react-types/shared';
 import { Slot } from '../Slot';
 import {
-  ButtonPropsProvider,
+  ButtonContext,
   ButtonStateProvider,
   getButtonDataAttrs,
   useButtonGroup,
 } from './context';
 import {
   ButtonRenderProps,
+  ButtonRootProps,
   ButtonStateContextValue,
-  ButtonStyleProps,
 } from './types';
 import { ButtonSlots } from './slots';
-
-export type ButtonRootProps<T extends React.ElementType> = PolymorphicProps<
-  T,
-  Omit<AriaButtonProps<T>, 'children' | 'elementType'> &
-    HoverEvents &
-    SlotProps &
-    RenderProps<ButtonRenderProps> &
-    ButtonStyleProps & {
-      /**
-       * Whether or not the button is in a loading state.
-       */
-      isLoading?: boolean;
-    }
->;
 
 export function ButtonRoot<T extends React.ElementType = 'button'>(
   props: ButtonRootProps<T>
@@ -53,7 +29,7 @@ export function ButtonRoot<T extends React.ElementType = 'button'>(
   // if it doesn't, we just use the original props
   // We also get the ref from the context and merge it with the original ref
   // so we can have access to the DOM element
-  const [ctxProps, mergedRef] = useContextProps(restProps, ButtonPropsProvider);
+  const [ctxProps, mergedRef] = useContextProps(restProps, ButtonContext);
 
   // Get the props from the group if possible
   const buttonGroup = useButtonGroup();

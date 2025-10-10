@@ -1,15 +1,16 @@
 export type {
-  CheckboxGroupNWStateContextValue,
-  CheckboxGroupPropsContextValue,
+  CheckboxGroupStateContextValue,
+  CheckboxGroupContextValue as CheckboxGroupPropsContextValue,
   CheckboxGroupRenderProps,
   CheckboxGroupStyleProps,
+  CheckboxGroupLabelProps,
+  CheckboxGroupDescriptionProps,
+  CheckboxGroupErrorProps,
+  CheckboxGroupWrapperProps,
+  CheckboxGroupRootProps,
 } from './types';
 
 export type { CheckboxGroupProps } from './CheckboxGroup';
-export type { CheckboxGroupRootProps } from './CheckboxGroupRoot';
-export type { CheckboxGroupLabelProps } from './CheckboxGroupLabel';
-export type { CheckboxGroupDescriptionProps } from './CheckboxGroupDescription';
-export type { CheckboxGroupErrorProps } from './CheckboxGroupError';
 
 export { default } from './CheckboxGroup';
 export { default as CheckboxGroupRoot } from './CheckboxGroupRoot';
@@ -18,9 +19,9 @@ export { default as CheckboxGroupDescription } from './CheckboxGroupDescription'
 export { default as CheckboxGroupError } from './CheckboxGroupError';
 
 export {
-  CheckboxGroupNWStateContext,
-  CheckboxGroupNWStateProvider,
-  CheckboxGroupPropsContext,
-  CheckboxGroupPropsProvider,
-  useCheckboxGroupNWState,
+  CheckboxGroupStateContext as CheckboxGroupNWStateContext,
+  CheckboxGroupStateProvider as CheckboxGroupNWStateProvider,
+  CheckboxGroupContext as CheckboxGroupPropsContext,
+  CheckboxGroupProvider as CheckboxGroupPropsProvider,
+  useCheckboxGroupState,
 } from './context';
