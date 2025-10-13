@@ -8,17 +8,14 @@ describe('SlotSystem', () => {
     const Slots = createSlotSystem<{
       test: { ref?: any; 'data-testid'?: string };
     }>();
-    const { Provider, useSlot, useSlotPresence } = Slots;
+    const { Provider, useSlot } = Slots;
 
     function Consumer() {
       const slotProps = useSlot('test', { 'data-testid': 'slot-el' });
-      const presence = useSlotPresence();
 
       return (
         <>
-          <div data-testid="presence-count">
-            {presence.has('test') ? '1' : '0'}
-          </div>
+          <div data-testid="presence-count">{slotProps.ref ? '1' : '0'}</div>
           {/* render an element that will attach the slot ref */}
           <div {...slotProps}>Hello</div>
         </>

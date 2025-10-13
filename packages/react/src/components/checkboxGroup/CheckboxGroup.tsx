@@ -9,7 +9,7 @@ import { useCheckboxGroupState } from 'react-stately';
 import { AriaCheckboxGroupProps, useCheckboxGroup } from 'react-aria';
 import { cn, filterDOMProps } from '@novawaveui/utils';
 import { Slot } from '../slot';
-import { useLabelledBy } from '../../utils/aria/useLabel';
+import { useSlot } from '../../utils';
 import { CheckboxGroupRenderProps, CheckboxGroupStyleProps } from './types';
 import { useCheckboxGroupRenderContext } from './state';
 import {
@@ -46,16 +46,19 @@ export type CheckboxGroupProps<T extends React.ElementType> = Omit<
 export function CheckboxGroup<T extends React.ElementType = 'div'>(
   props: CheckboxGroupProps<T>
 ) {
+  // Get the context props (if there is any), a context may not exist,
+  // and merge with the local props
+  const ctxProps = useContextProps(props, useCheckboxGroupContextProps);
+
   // Extract the `as` prop and the rest of the props
-  const { as: Component = 'div', asChild, ...rest } = props;
+  const { as: Component = 'div', asChild, ...rest } = ctxProps;
 
   // Determine if we should filter the DOM props
   const shouldFilterDOMProps = typeof Component === 'string' && !asChild;
 
-  // Get the context props (if there is any), a context may not exist,
-  // and merge with the local props
-  const ctxProps = useContextProps(rest, useCheckboxGroupContextProps);
-
+  const [labelRef, label] = useSlot(
+    !ctxProps['aria-label'] && !ctxProps['aria-labelledby']
+  );
   // Spread out and set default values for the props
   const {
     children,
@@ -68,10 +71,7 @@ export function CheckboxGroup<T extends React.ElementType = 'div'>(
     isReadOnly = false,
     isRequired = false,
     orientation = 'vertical',
-    'aria-labelledby': ariaLabelledBy,
   } = ctxProps;
-
-  const { resolvedLabel, registerLabelId } = useLabelledBy(ariaLabelledBy);
 
   // Call the React Aria useCheckboxGroup to get the group props
   // This will handle all the accessibility features for us
@@ -87,7 +87,7 @@ export function CheckboxGroup<T extends React.ElementType = 'div'>(
   } = useCheckboxGroup(
     {
       ...ctxProps,
-      'aria-labelledby': resolvedLabel,
+      label,
     },
     groupState
   );
@@ -106,7 +106,6 @@ export function CheckboxGroup<T extends React.ElementType = 'div'>(
       validationDetails,
       validationErrors,
       orientation,
-      setLabelId: registerLabelId,
     }),
     [
       color,
@@ -120,7 +119,6 @@ export function CheckboxGroup<T extends React.ElementType = 'div'>(
       validationDetails,
       validationErrors,
       orientation,
-      registerLabelId,
     ]
   );
 
@@ -151,8 +149,8 @@ export function CheckboxGroup<T extends React.ElementType = 'div'>(
     <CheckboxGroupSlots.Provider
       value={{
         label: {
+          ref: labelRef,
           ...labelProps,
-          'aria-labelledby': ariaLabelledBy ? undefined : resolvedLabel,
         },
         description: descriptionProps,
         error: errorMessageProps,

@@ -19,9 +19,9 @@
     /* Sizes */
     @apply size-5;
     @apply border-solid border-2;
-    @apply radius-none:rounded-none radius-sm:rounded-sm radius-md:rounded-md radius-lg:rounded-lg radius-full:rounded-full;
+    @apply group-radius-none:rounded-none group-radius-sm:rounded-sm group-radius-md:rounded-md group-radius-lg:rounded-lg group-radius-full:rounded-full;
     @apply transition-all duration-100 ease-in-out origin-center;
-    @apply active:scale-95;
+    @apply group-active:scale-95;
     @apply group-size-sm:size-4;
     @apply group-size-lg:size-6;
 
@@ -31,51 +31,51 @@
     /* Color Variants */
     @variant group-color-neutral {
       @apply border-neutral text-on-neutral;
-      @apply hover:bg-neutral-subtle;
+      @apply group-hover:bg-neutral-subtle;
       @apply group-data-selected:bg-neutral group-data-selected:border-transparent;
-      @apply group-data-selected:hover:bg-neutral-hover;
+      @apply group-data-selected:group-hover:bg-neutral-hover;
     }
 
     @variant group-color-primary {
       @apply border-primary text-on-primary;
-      @apply hover:bg-primary-subtle;
+      @apply group-hover:bg-primary-subtle;
       @apply group-data-selected:bg-primary group-data-selected:border-transparent;
-      @apply group-data-selected:hover:bg-primary-hover;
+      @apply group-data-selected:group-hover:bg-primary-hover;
     }
 
     @variant group-color-secondary {
       @apply border-secondary text-on-secondary;
-      @apply hover:bg-secondary-subtle;
+      @apply group-hover:bg-secondary-subtle;
       @apply group-data-selected:bg-secondary group-data-selected:border-transparent;
-      @apply group-data-selected:hover:bg-secondary-hover;
+      @apply group-data-selected:group-hover:bg-secondary-hover;
     }
 
     @variant group-color-success {
       @apply border-success text-on-success;
-      @apply hover:bg-success-subtle;
+      @apply group-hover:bg-success-subtle;
       @apply group-data-selected:bg-success group-data-selected:border-transparent;
-      @apply group-data-selected:hover:bg-success-hover;
+      @apply group-data-selected:group-hover:bg-success-hover;
     }
 
     @variant group-color-warning {
       @apply border-warning text-on-warning;
-      @apply hover:bg-warning-subtle;
+      @apply group-hover:bg-warning-subtle;
       @apply group-data-selected:bg-warning group-data-selected:border-transparent;
-      @apply group-data-selected:hover:bg-warning-hover;
+      @apply group-data-selected:group-hover:bg-warning-hover;
     }
 
     @variant group-color-danger {
       @apply border-danger text-on-danger;
-      @apply hover:bg-danger-subtle;
+      @apply group-hover:bg-danger-subtle;
       @apply group-data-selected:bg-danger group-data-selected:border-transparent;
-      @apply group-data-selected:hover:bg-danger-hover;
+      @apply group-data-selected:group-hover:bg-danger-hover;
     }
 
     @variant group-data-invalid {
       @apply border-danger text-on-danger;
-      @apply hover:bg-danger-subtle;
+      @apply group-hover:bg-danger-subtle;
       @apply group-data-selected:bg-danger group-data-selected:border-transparent;
-      @apply group-data-selected:hover:bg-danger-hover;
+      @apply group-data-selected:group-hover:bg-danger-hover;
     }
   }
 

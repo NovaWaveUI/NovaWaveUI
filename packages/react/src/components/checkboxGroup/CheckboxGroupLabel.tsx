@@ -4,7 +4,6 @@ import {
   RenderProps,
   useRenderProps,
 } from '@novawaveui/react-utils';
-import { Key } from 'react-aria';
 import { filterDOMProps } from '@novawaveui/utils';
 import { Slot } from '../slot';
 import { CheckboxGroupRenderProps } from './types';
@@ -14,12 +13,7 @@ import { useCheckboxGroupRenderContext } from './state';
 
 // The label props of the checkbox group
 export type CheckboxGroupLabelProps<T extends React.ElementType> =
-  PolymorphicProps<T, RenderProps<CheckboxGroupRenderProps>> & {
-    /**
-     * The ID of the element. Used to link the label to the checkbox group for accessibility.
-     */
-    id?: Key;
-  };
+  PolymorphicProps<T, RenderProps<CheckboxGroupRenderProps>>;
 
 export function CheckboxGroupLabel<T extends React.ElementType = 'span'>(
   props: CheckboxGroupLabelProps<T>
