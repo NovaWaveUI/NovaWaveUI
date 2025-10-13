@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import type { ButtonProps } from '../src/Button/index';
-import Button from '../src/Button/index';
+import type { ButtonProps } from '../src/components/button/index';
+import { Button } from '../src/components/button/index';
 import { UserIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 
@@ -59,7 +59,7 @@ const meta: Meta<typeof Button> = {
 };
 
 export default meta;
-type Story = StoryObj<ButtonProps>;
+type Story = StoryObj<ButtonProps<any>>;
 
 export const Default: Story = {
   args: {

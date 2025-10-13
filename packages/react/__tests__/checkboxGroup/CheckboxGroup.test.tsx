@@ -1,7 +1,7 @@
 import React from 'react';
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
-import CheckboxGroup from '../../src/CheckboxGroup';
+import { CheckboxGroup } from '../../src/components/checkboxGroup';
 
 describe('CheckboxGroup', () => {
   it('should set aria-labelledby when passed as a prop', () => {

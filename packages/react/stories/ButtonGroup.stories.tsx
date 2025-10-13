@@ -1,8 +1,8 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import type { ButtonGroupProps } from '../src/Button/index';
-import { ButtonGroup } from '../src/Button/index';
-import Button from '../src/Button/index';
+import type { ButtonGroupProps } from '../src/components/buttonGroup';
+import { ButtonGroup } from '../src/components/buttonGroup';
+import { Button } from '../src/components/button/index';
 
 const meta: Meta<typeof ButtonGroup> = {
   title: 'Components/Button Group',
@@ -64,7 +64,7 @@ const meta: Meta<typeof ButtonGroup> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof ButtonGroup>;
+type Story = StoryObj<ButtonGroupProps<any>>;
 
 export const Default: Story = {
   args: {

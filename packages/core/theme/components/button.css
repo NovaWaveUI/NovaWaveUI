@@ -5,17 +5,22 @@
     @apply z-0 inline-flex relative flex-row items-center justify-center min-w-max outline-hidden select-none text-wrap overflow-hidden pointer-events-auto;
     @apply cursor-pointer;
     /* Transition */
-    @apply transition-all duration-100 ease-in-out;
+    @apply motion-safe:transition-all motion-safe:duration-100 motion-safe:ease-in-out;
 
     /* Focus Visible */
-    @variant focus-visible {
-      @apply focus-outline;
-    }
+    @apply focus-visible:focus-outline;
 
-    /* Active/Pressed State */
-    @variant pressed {
-      @apply scale-95;
-    }
+    /* Active */
+    @apply motion-safe:active:scale-95;
+
+    /* Radius */
+    @apply rounded-md;
+    @apply radius-none:rounded-none;
+    @apply radius-sm:rounded-sm;
+    @apply radius-md:rounded-md;
+    @apply radius-lg:rounded-lg;
+    @apply radius-xl:rounded-xl;
+    @apply radius-full:rounded-full;
 
     /* Size */
     @variant size-sm {
@@ -30,38 +35,13 @@
       @apply px-6 min-w-24 min-h-12 gap-3 text-lg;
     }
 
-    /* Radius */
-    @variant radius-none {
-      @apply rounded-none;
-    }
-
-    @variant radius-sm {
-      @apply rounded-sm;
-    }
-
-    @variant radius-md {
-      @apply rounded-md;
-    }
-
-    @variant radius-lg {
-      @apply rounded-lg;
-    }
-
-    @variant radius-xl {
-      @apply rounded-xl;
-    }
-
-    @variant radius-full {
-      @apply rounded-full;
-    }
-
     /* Disabled State */
-    @variant disabled {
+    @variant data-disabled {
       @apply opacity-disabled pointer-events-none;
     }
 
     /* Loading State */
-    @variant loading {
+    @variant data-loading {
       @apply opacity-disabled pointer-events-none;
     }
 
@@ -91,42 +71,42 @@
       @variant color-neutral {
         @apply bg-neutral text-on-neutral;
         @apply hover:bg-neutral-hover;
-        @apply pressed:bg-neutral-active;
+        @apply active:bg-neutral-active;
       }
 
       /* Primary */
       @variant color-primary {
         @apply bg-primary text-on-primary;
         @apply hover:bg-primary-hover;
-        @apply pressed:bg-primary-active;
+        @apply active:bg-primary-active;
       }
 
       /* Secondary */
       @variant color-secondary {
         @apply bg-secondary text-on-secondary;
         @apply hover:bg-secondary-hover;
-        @apply pressed:bg-secondary-active;
+        @apply active:bg-secondary-active;
       }
 
       /* Success */
       @variant color-success {
         @apply bg-success text-on-success;
         @apply hover:bg-success-hover;
-        @apply pressed:bg-success-active;
+        @apply active:bg-success-active;
       }
 
       /* Warning */
       @variant color-warning {
         @apply bg-warning text-on-warning;
         @apply hover:bg-warning-hover;
-        @apply pressed:bg-warning-active;
+        @apply active:bg-warning-active;
       }
 
       /* Danger */
       @variant color-danger {
         @apply bg-danger text-on-danger;
         @apply hover:bg-danger-hover;
-        @apply pressed:bg-danger-active;
+        @apply active:bg-danger-active;
       }
     }
 
@@ -139,42 +119,42 @@
       @variant color-neutral {
         @apply border-neutral text-neutral;
         @apply hover:border-neutral-hover;
-        @apply pressed:border-neutral-active;
+        @apply active:border-neutral-active;
       }
 
       /* Primary */
       @variant color-primary {
         @apply border-primary text-primary;
         @apply hover:border-primary-hover;
-        @apply pressed:border-primary-active;
+        @apply active:border-primary-active;
       }
 
       /* Secondary */
       @variant color-secondary {
         @apply border-secondary text-secondary;
         @apply hover:border-secondary-hover;
-        @apply pressed:border-secondary-active;
+        @apply active:border-secondary-active;
       }
 
       /* Success */
       @variant color-success {
         @apply border-success text-success;
         @apply hover:border-success-hover;
-        @apply pressed:border-success-active;
+        @apply active:border-success-active;
       }
 
       /* Warning */
       @variant color-warning {
         @apply border-warning text-warning;
         @apply hover:border-warning-hover;
-        @apply pressed:border-warning-active;
+        @apply active:border-warning-active;
       }
 
       /* Danger */
       @variant color-danger {
         @apply border-danger text-danger;
         @apply hover:border-danger-hover;
-        @apply pressed:border-danger-active;
+        @apply active:border-danger-active;
       }
     }
 
@@ -186,42 +166,42 @@
       @variant color-neutral {
         @apply border-neutral text-neutral;
         @apply hover:border-transparent hover:text-on-neutral hover:bg-neutral-hover;
-        @apply pressed:bg-neutral-active pressed:text-on-neutral pressed:border-transparent;
+        @apply active:bg-neutral-active active:text-on-neutral active:border-transparent;
       }
 
       /* Primary */
       @variant color-primary {
         @apply border-primary text-primary;
         @apply hover:border-transparent hover:text-on-primary hover:bg-primary-hover;
-        @apply pressed:bg-primary-active pressed:text-on-primary pressed:border-transparent;
+        @apply active:bg-primary-active active:text-on-primary active:border-transparent;
       }
 
       /* Secondary */
       @variant color-secondary {
         @apply border-secondary text-secondary;
         @apply hover:border-transparent hover:text-on-secondary hover:bg-secondary-hover;
-        @apply pressed:bg-secondary-active pressed:text-on-secondary pressed:border-transparent;
+        @apply active:bg-secondary-active active:text-on-secondary active:border-transparent;
       }
 
       /* Success */
       @variant color-success {
         @apply border-success text-success;
         @apply hover:border-transparent hover:text-on-success hover:bg-success-hover;
-        @apply pressed:bg-success-active pressed:text-on-success pressed:border-transparent;
+        @apply active:bg-success-active active:text-on-success active:border-transparent;
       }
 
       /* Warning */
       @variant color-warning {
         @apply border-warning text-warning;
         @apply hover:border-transparent hover:text-on-warning hover:bg-warning-hover;
-        @apply pressed:bg-warning-active pressed:text-on-warning pressed:border-transparent;
+        @apply active:bg-warning-active active:text-on-warning active:border-transparent;
       }
 
       /* Danger */
       @variant color-danger {
         @apply border-danger text-danger;
         @apply hover:border-transparent hover:text-on-danger hover:bg-danger-hover;
-        @apply pressed:bg-danger-active pressed:text-on-danger pressed:border-transparent;
+        @apply active:bg-danger-active active:text-on-danger active:border-transparent;
       }
     }
 
@@ -233,88 +213,67 @@
       @variant color-neutral {
         @apply text-neutral;
         @apply hover:bg-neutral-subtle-hover hover:text-on-neutral-subtle;
-        @apply pressed:bg-neutral-subtle-active pressed:text-on-neutral-subtle;
+        @apply active:bg-neutral-subtle-active active:text-on-neutral-subtle;
       }
 
       /* Primary */
       @variant color-primary {
         @apply text-primary;
         @apply hover:bg-primary-subtle-hover hover:text-on-primary-subtle;
-        @apply pressed:bg-primary-subtle-active pressed:text-on-primary-subtle;
+        @apply active:bg-primary-subtle-active active:text-on-primary-subtle;
       }
 
       /* Secondary */
       @variant color-secondary {
         @apply text-secondary;
         @apply hover:bg-secondary-subtle-hover hover:text-on-secondary-subtle;
-        @apply pressed:bg-secondary-subtle-active pressed:text-on-secondary-subtle;
+        @apply active:bg-secondary-subtle-active active:text-on-secondary-subtle;
       }
 
       /* Success */
       @variant color-success {
         @apply text-success;
         @apply hover:bg-success-subtle-hover hover:text-on-success-subtle;
-        @apply pressed:bg-success-subtle-active pressed:text-on-success-subtle;
+        @apply active:bg-success-subtle-active active:text-on-success-subtle;
       }
 
       /* Warning */
       @variant color-warning {
         @apply text-warning;
         @apply hover:bg-warning-subtle-hover hover:text-on-warning-subtle;
-        @apply pressed:bg-warning-subtle-active pressed:text-on-warning-subtle;
+        @apply active:bg-warning-subtle-active active:text-on-warning-subtle;
       }
 
       /* Danger */
       @variant color-danger {
         @apply text-danger;
         @apply hover:bg-danger-subtle-hover hover:text-on-danger-subtle;
-        @apply pressed:bg-danger-subtle-active pressed:text-on-danger-subtle;
+        @apply active:bg-danger-subtle-active active:text-on-danger-subtle;
       }
     }
   }
 
   /* Slot styling (scoped to root) */
-  .nw-button [data-slot='start-content'],
-  .nw-button [data-slot='end-content'] {
-    @apply inline-flex items-center justify-center;
-
-    /* Size - Small */
-    @variant size-sm {
-      @apply w-3 h-3;
-    }
-
-    /* Size - Medium */
-    @variant size-md {
-      @apply w-4 h-4;
-    }
-
-    /* Size - Large */
-    @variant size-lg {
-      @apply w-5 h-5;
-    }
+  .nw-button > [data-slot='start-content'],
+  .nw-button > [data-slot='end-content'] {
+    @apply inline-flex items-center justify-center w-4 h-4;
+    @apply group-size-sm:w-3 group-size-sm:h-3 group-size-lg:w-5 group-size-lg:h-5;
   }
 
-  .nw-button [data-slot='text'] {
+  .nw-button > [data-slot='text'] {
     @apply inline-flex items-center text-inherit;
   }
 
   /* Catch any direct child of start/end-content */
-  .nw-button [data-slot='start-content'] > *,
-  .nw-button [data-slot='end-content'] > * {
+  .nw-button > [data-slot='start-content'] > *,
+  .nw-button > [data-slot='end-content'] > * {
     @apply flex-shrink-0 text-inherit;
   }
 
   /* Button Group */
   .nw-button-group {
-    @apply inline-flex items-center justify-center h-auto;
-
-    @variant orientation-horizontal {
-      @apply flex-row;
-    }
-
-    @variant orientation-vertical {
-      @apply flex-col;
-    }
+    @apply inline-flex items-center justify-center h-auto flex-row;
+    @apply data-orientation-horizontal:flex-row data-orientation-vertical:flex-col;
   }
 
   .nw-button-group[data-orientation='horizontal'] {

@@ -89,6 +89,7 @@ const preview: Preview = {
         items: [
           { value: 'novawaveui', title: 'Default' },
           { value: 'example', title: 'Example' },
+          { value: 'tailwind', title: 'Tailwind' },
         ],
         dynamicTitle: true,
       },

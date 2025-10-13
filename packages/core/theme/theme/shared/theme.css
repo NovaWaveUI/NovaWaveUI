@@ -312,5 +312,5 @@
 }
 
 @utility focus-outline {
-  @apply outline-none;
+  @apply z-10 outline-solid outline-(length:--focus-visible-outline-width) outline-(color:--focus-visible-outline-color) outline-offset-2;
 }

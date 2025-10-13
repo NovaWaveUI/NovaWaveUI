@@ -1,7 +1,7 @@
-import React, { Context, RefObject, useMemo } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { Context, useMemo } from 'react';
 import { mergeProps } from '@react-aria/utils';
-import { ContextValue, DEFAULT_SLOT, SlottedContextValue } from './provider';
-import { SlotProps } from './types';
+import { DEFAULT_SLOT, SlottedContextValue } from './provider';
 import { mergeRefs, useObjectRef } from './ref';
 
 export function useSlottedContext<T>(
@@ -42,16 +42,32 @@ export function useSlottedContext<T>(
   return contextValue as T | null | undefined;
 }
 
-export function useContextProps<T, U extends SlotProps, E extends Element>(
-  props: T & SlotProps & { ref?: React.Ref<any> },
-  context: Context<ContextValue<U, E>>
-): [T, RefObject<E | null>] {
-  const contextValue = useSlottedContext(context, props.slot) || {};
-  const { ref: contextRef, ...contextProps } = contextValue as any;
-  const mergedRef = useObjectRef(
-    useMemo(() => mergeRefs(props.ref, contextRef), [props.ref, contextRef])
-  );
-  const mergedProps = mergeProps(props, contextProps) as T;
+export function useContextProps<
+  T extends React.ElementType,
+  P extends React.ComponentPropsWithRef<T> = React.ComponentPropsWithRef<T>,
+>(props: P, contextFn: () => P): P {
+  const contextValue = contextFn() ?? ({} as P);
 
-  return [mergedProps, mergedRef];
+  const propRef = (props as any).ref as React.Ref<any> | undefined;
+  const contextRef = (contextValue as any).ref as React.Ref<any> | undefined;
+
+  const propObjectRef = useObjectRef(propRef);
+  const contextObjectRef = useObjectRef(contextRef);
+
+  const mergedRef = useMemo(
+    () => mergeRefs(propObjectRef, contextObjectRef),
+    [propObjectRef, contextObjectRef]
+  );
+
+  // strip refs so mergeProps doesn't clobber them
+  const { ref: _c, ...contextProps } = contextValue as any;
+  const { ref: _p, ...ownProps } = props as any;
+
+  // context first, own props override
+  const mergedProps = mergeProps(
+    contextProps,
+    ownProps
+  ) as React.ComponentPropsWithRef<T>;
+
+  return { ...mergedProps, ref: mergedRef } as React.ComponentPropsWithRef<T>;
 }

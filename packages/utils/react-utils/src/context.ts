@@ -28,11 +28,7 @@ export interface CreateContextOptions<ContextType> {
  * A return type for creating a context.
  * It returns a provider, a hook to get the context, and the context itself.
  */
-export type CreateContextReturn<T> = [
-  React.Provider<T>,
-  () => T,
-  React.Context<T>,
-];
+export type CreateContextReturn<T> = [React.Context<T>, () => T];
 
 export const createContext = <ContextType>(
   options: CreateContextOptions<ContextType> = {}
@@ -75,9 +71,5 @@ export const createContext = <ContextType>(
     return context as ContextType;
   };
 
-  return [
-    Context.Provider,
-    useContext,
-    Context,
-  ] as CreateContextReturn<ContextType>;
+  return [Context, useContext] as CreateContextReturn<ContextType>;
 };

@@ -1,9 +1,9 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import type { CheckboxProps } from '../src/Checkbox/index';
-import Checkbox from '../src/Checkbox/index';
-import { LineIcon } from '../src/Checkbox/LineIcon';
-import { CheckIcon } from '../src/Checkbox/CheckIcon';
+import type { CheckboxProps } from '../src/components/checkbox/index';
+import { Checkbox } from '../src/components/checkbox/index';
+import { LineIcon } from '../src/components/checkbox/icons/LineIcon';
+import { CheckIcon } from '../src/components/checkbox/icons/CheckIcon';
 import { HeartIcon } from '@heroicons/react/24/solid';
 
 const meta: Meta<typeof Checkbox> = {
