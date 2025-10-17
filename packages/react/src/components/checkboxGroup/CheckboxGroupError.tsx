@@ -51,11 +51,7 @@ export function CheckboxGroupError<T extends React.ElementType = 'span'>(
   const RenderedComponent = asChild ? Slot : Component;
 
   return (
-    <RenderedComponent
-      {...filteredProps}
-      {...renderProps}
-      data-slot="checkbox-group-error"
-    />
+    <RenderedComponent {...filteredProps} {...renderProps} data-slot="error" />
   );
 }
 

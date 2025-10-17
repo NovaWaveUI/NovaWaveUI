@@ -131,9 +131,10 @@ export function CheckboxGroup<T extends React.ElementType = 'div'>(
   const renderProps = useRenderProps({
     ...ctxProps,
     values: renderValues,
-    className: cn('nw-checkbox-group', className),
+    className: cn('nw-checkbox-group group', className),
     style,
     children,
+    defaultClassName: cn('nw-checkbox-group group', className),
   });
 
   const filteredProps = filterDOMProps<T>(

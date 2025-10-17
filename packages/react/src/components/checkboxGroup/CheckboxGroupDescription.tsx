@@ -46,7 +46,7 @@ export function CheckboxGroupDescription<T extends React.ElementType = 'span'>(
     <RenderedComponent
       {...filteredProps}
       {...renderProps}
-      data-slot="checkbox-group-description"
+      data-slot="description"
     />
   );
 }

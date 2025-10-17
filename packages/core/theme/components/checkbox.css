@@ -110,70 +110,32 @@
   .nw-checkbox-group [data-slot='wrapper'] {
     @apply inline-flex;
     @apply gap-4;
-
-    /* Orientation Variants */
-    @variant data-orientation-vertical {
-      @apply flex-col;
-    }
-
-    @variant data-orientation-horizontal {
-      @apply flex-row;
-    }
+    @apply group-data-orientation-horizontal:flex-row group-data-orientation-horizontal:items-center;
+    @apply group-data-orientation-vertical:flex-col group-data-orientation-vertical:items-start;
   }
 
   .nw-checkbox-group [data-slot='label'] {
     @apply text-base text-neutral font-medium;
-    @apply select-none;
-    @variant data-disabled {
-      @apply opacity-disabled;
-    }
-
-    &[data-is-required]::after {
-      @apply content-['*'] text-danger ml-0.5;
-    }
-
-    /* Size Variants */
-    @variant size-sm {
-      @apply text-sm;
-    }
-
-    /* Medium is default */
-
-    @variant size-lg {
-      @apply text-lg;
-    }
+    @apply select-none group-data-disabled:opacity-disabled;
+    @apply group-data-size-sm:text-sm;
+    @apply group-data-size-lg:text-lg;
+    @apply group-data-required:after:content-['*'] group-data-required:after:text-danger group-data-required:after:ml-0.5;
   }
 
-  .nw-checkbox-group > [data-slot='description'] {
+  .nw-checkbox-group [data-slot='description'] {
     @apply text-sm text-neutral-subtle;
     @apply select-none;
-    @variant data-disabled {
-      @apply opacity-disabled;
-    }
-
-    /* Size Variants */
-    @variant size-sm {
-      @apply text-xs;
-    }
-
-    /* Medium is default */
-
-    @variant size-lg {
-      @apply text-base;
-    }
-
-    /* Invalid State */
-    @variant invalid {
-      @apply text-danger;
-    }
+    @apply group-data-disabled:opacity-disabled;
+    @apply group-data-size-sm:text-xs;
+    @apply group-data-size-lg:text-base;
+    @apply group-data-invalid:text-danger;
   }
 
   .nw-checkbox-group [data-slot='error'] {
     @apply text-sm text-danger;
     @apply select-none;
-
-    @variant data-disabled {
-      @apply opacity-disabled;
-    }
+    @apply group-data-disabled:opacity-disabled;
+    @apply group-data-size-sm:text-xs;
+    @apply group-data-size-lg:text-base;
   }
 }
