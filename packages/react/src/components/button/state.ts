@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { createDataPropsGetter } from '@novawaveui/utils';
+import { createDataPropsGetter } from '../../utils';
 import { ButtonRenderProps } from './types';
 import { ButtonStateContextType } from './context';
 
@@ -16,7 +16,6 @@ export const getButtonDataAttrs = createDataPropsGetter<ButtonStateContextType>(
       variant: ctx.variant,
       size: ctx.size,
       radius: ctx.radius,
-      'in-group': ctx.isInGroup,
     };
   }
 );

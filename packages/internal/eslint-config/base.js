@@ -18,9 +18,9 @@ import vitest from '@vitest/eslint-plugin';
 
 export default tseslint.config(
   eslint.configs.recommended,
-  ...tseslint.configs.recommended,
-  eslintPluginUnicorn.configs['recommended'],
+  eslintPluginUnicorn.configs.recommended,
   importXPlugin.flatConfigs.recommended,
+  tseslint.configs.recommended,
   {
     ignores: [
       'node_modules/',
@@ -33,10 +33,6 @@ export default tseslint.config(
     ],
   },
   {
-    plugins: {
-      '@typescript-eslint': tseslint.plugin,
-      reactPlugin,
-    },
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {

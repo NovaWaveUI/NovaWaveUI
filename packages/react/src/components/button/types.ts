@@ -1,4 +1,4 @@
-import { NWColor, NWRadius, NWSize, NWVariant } from '@novawaveui/theme';
+import { NWColor, NWRadius, NWSize, NWVariant } from '@novawaveui/types';
 
 export interface ButtonRenderProps {
   /**

@@ -1,10 +1,4 @@
-import React, { useMemo } from 'react';
-import {
-  RenderProps,
-  useContextProps,
-  useDOMRef,
-  useRenderProps,
-} from '@novawaveui/react-utils';
+import React from 'react';
 import {
   AriaCheckboxProps,
   HoverEvents,
@@ -16,15 +10,22 @@ import {
   VisuallyHidden,
 } from 'react-aria';
 import { useToggleState } from 'react-stately';
-import { cn, dataProps, filterDOMProps } from '@novawaveui/utils';
-import { useCheckboxGroupState } from '../checkboxGroup';
+import { cn, dataProps, filterDOMProps } from '../../utils';
 import {
-  CheckboxRenderProps,
+  Provider,
+  RenderProps,
+  useContextProps,
+  useDOMRef,
+  useRenderProps,
+} from '../../utils/react';
+import { useCheckboxGroupState } from '../checkboxGroup';
+import { LabelContext } from '../label';
+import { CheckboxRenderProps, CheckboxStyleProps } from './types';
+import {
+  CheckboxState,
   CheckboxStateContextValue,
-  CheckboxStyleProps,
-} from './types';
-import { CheckboxState, useCheckboxContextProps } from './context';
-import { CheckboxSlots } from './slots';
+  useCheckboxContextProps,
+} from './context';
 
 export type CheckboxProps = Omit<
   AriaCheckboxProps,
@@ -80,7 +81,8 @@ export function Checkbox(props: CheckboxProps) {
     isReadOnly,
     isSelected,
   } = isInGroup
-    ? useCheckboxGroupItem(
+    ? // eslint-disable-next-line react-hooks/rules-of-hooks
+      useCheckboxGroupItem(
         {
           ...ctxProps,
           // Value is optional for standalone checkboxes, but required for CheckboxGroup items;
@@ -93,12 +95,14 @@ export function Checkbox(props: CheckboxProps) {
         groupState.state,
         inputRef
       )
-    : useCheckbox(
+    : // eslint-disable-next-line react-hooks/rules-of-hooks
+      useCheckbox(
         {
           ...ctxProps,
           children:
             typeof ctxProps.children === 'function' ? true : ctxProps.children,
         },
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         useToggleState(ctxProps),
         inputRef
       );
@@ -111,20 +115,7 @@ export function Checkbox(props: CheckboxProps) {
     isDisabled: !isInteractive,
   });
 
-  const renderValues = useMemo<CheckboxRenderProps>(() => {
-    return {
-      isDisabled,
-      isFocused,
-      isFocusVisible,
-      isHovered,
-      isPressed,
-      isReadOnly,
-      isSelected,
-      isInvalid,
-      isRequired: ctxProps.isRequired || false,
-      isIndeterminate: ctxProps.isIndeterminate || false,
-    };
-  }, [
+  const renderValues: CheckboxRenderProps = {
     isDisabled,
     isFocused,
     isFocusVisible,
@@ -133,49 +124,37 @@ export function Checkbox(props: CheckboxProps) {
     isReadOnly,
     isSelected,
     isInvalid,
-    ctxProps.isRequired,
-    ctxProps.isIndeterminate,
-  ]);
+    isRequired: ctxProps.isRequired || false,
+    isIndeterminate: ctxProps.isIndeterminate || false,
+  };
 
   const renderProps = useRenderProps({
     ...ctxProps,
-    className: cn('nw-checkbox group', ctxProps.className),
+    className: cn('nw-checkbox', ctxProps.className),
     values: renderValues,
-    defaultClassName: cn('nw-checkbox group', ctxProps.className),
+    defaultClassName: cn('nw-checkbox', ctxProps.className),
   });
 
-  const stateCtx = useMemo<CheckboxStateContextValue>(
-    () => ({
-      color,
-      size,
-      radius,
-      isDisabled,
-      isFocused,
-      isFocusVisible,
-      isHovered,
-      isPressed,
-      isReadOnly,
-      isSelected,
-      isInvalid,
-      isRequired: ctxProps.isRequired || false,
-      isIndeterminate: ctxProps.isIndeterminate || false,
+  const stateCtx: CheckboxStateContextValue = {
+    color,
+    size,
+    radius,
+    isDisabled,
+    isFocused,
+    isFocusVisible,
+    isHovered,
+    isPressed,
+    isReadOnly,
+    isSelected,
+    isInvalid,
+    isRequired: ctxProps.isRequired || false,
+    isIndeterminate: ctxProps.isIndeterminate || false,
+    styleDataAttrs: dataProps({
+      color: color,
+      size: size,
+      radius: radius,
     }),
-    [
-      color,
-      size,
-      radius,
-      isDisabled,
-      isFocused,
-      isFocusVisible,
-      isHovered,
-      isPressed,
-      isReadOnly,
-      isSelected,
-      isInvalid,
-      ctxProps.isRequired,
-      ctxProps.isIndeterminate,
-    ]
-  );
+  };
 
   const dataAttrs = dataProps({
     hovered: stateCtx.isHovered,
@@ -196,7 +175,7 @@ export function Checkbox(props: CheckboxProps) {
   const filteredProps = filterDOMProps(restProps);
 
   return (
-    <CheckboxSlots.Provider value={{}}>
+    <Provider values={[[LabelContext, { ...labelProps, as: 'span' }]]}>
       <CheckboxState.Provider value={stateCtx}>
         <label
           ref={domRef}
@@ -205,6 +184,7 @@ export function Checkbox(props: CheckboxProps) {
           {...mergeProps(filteredProps, hoverProps, labelProps)}
           {...dataAttrs}
           data-slot="root"
+          data-component="checkbox"
         >
           <VisuallyHidden elementType="span">
             <input ref={inputRef} {...mergeProps(inputProps, focusProps)} />
@@ -212,7 +192,7 @@ export function Checkbox(props: CheckboxProps) {
           {renderProps.children}
         </label>
       </CheckboxState.Provider>
-    </CheckboxSlots.Provider>
+    </Provider>
   );
 }
 

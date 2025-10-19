@@ -1,15 +1,14 @@
 import React, { ElementType, useMemo } from 'react';
+import { useCheckboxGroupState } from 'react-stately';
+import { AriaCheckboxGroupProps, useCheckboxGroup } from 'react-aria';
+import { cn, filterDOMProps, useSlot } from '../../utils';
 import {
   PolymorphicProps,
   RenderProps,
   useContextProps,
   useRenderProps,
-} from '@novawaveui/react-utils';
-import { useCheckboxGroupState } from 'react-stately';
-import { AriaCheckboxGroupProps, useCheckboxGroup } from 'react-aria';
-import { cn, filterDOMProps } from '@novawaveui/utils';
+} from '../../utils/react';
 import { Slot } from '../slot';
-import { useSlot } from '../../utils';
 import { CheckboxGroupRenderProps, CheckboxGroupStyleProps } from './types';
 import { useCheckboxGroupRenderContext } from './state';
 import {
@@ -131,10 +130,10 @@ export function CheckboxGroup<T extends React.ElementType = 'div'>(
   const renderProps = useRenderProps({
     ...ctxProps,
     values: renderValues,
-    className: cn('nw-checkbox-group group', className),
+    className: cn('nw-checkbox-group', className),
     style,
     children,
-    defaultClassName: cn('nw-checkbox-group group', className),
+    defaultClassName: cn('nw-checkbox-group', className),
   });
 
   const filteredProps = filterDOMProps<T>(
@@ -163,6 +162,7 @@ export function CheckboxGroup<T extends React.ElementType = 'div'>(
           {...filteredProps}
           {...renderProps}
           {...dataAttrs}
+          data-component="checkbox-group"
         />
       </CheckboxGroupStateContext.Provider>
     </CheckboxGroupSlots.Provider>

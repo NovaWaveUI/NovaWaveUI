@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
-import { createDataPropsGetter } from '@novawaveui/utils';
-import { CheckboxRenderProps, CheckboxStateContextValue } from './types';
+import { createDataPropsGetter } from '../../utils';
+import { CheckboxRenderProps } from './types';
+import { CheckboxStateContextValue } from './context';
 
 export const getCheckboxDataAttrs =
   createDataPropsGetter<CheckboxStateContextValue>(ctx => {

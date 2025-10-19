@@ -1,12 +1,9 @@
 packages:
-  - packages/aria/*
-  - packages/components/*
   - packages/core/*
   - packages/internal/*
   - packages/storybook
-  - packages/utils/*
-  - packages/hooks/*
   - packages/react
+  - packages/apps/*
 
 catalog:
   '@novawaveui/tailwind-composer': ^1.3.1

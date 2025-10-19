@@ -11,8 +11,10 @@ export type {
 } from './uiStates';
 
 export type {
-  NovaWaveUIColor,
-  NovaWaveUISize,
-  NovaWaveUIRadiusSize,
-  NovaWaveUIVariants,
-} from './designSystem';
+  NWColor,
+  NWColors,
+  NWVariant,
+  NWSize,
+  NWRadius,
+  NWShadow,
+} from './theme';

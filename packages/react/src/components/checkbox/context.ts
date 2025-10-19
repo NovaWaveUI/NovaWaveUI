@@ -1,10 +1,12 @@
-import { createContext } from '@novawaveui/react-utils';
+import { createContext } from '../../utils/react';
 import { CheckboxProps } from './Checkbox';
 import { CheckboxRenderProps, CheckboxStyleProps } from './types';
 
 export interface CheckboxStateContextValue
   extends CheckboxRenderProps,
-    CheckboxStyleProps {}
+    CheckboxStyleProps {
+  styleDataAttrs?: Record<string, any>;
+}
 
 export const [CheckboxContext, useCheckboxContextProps] =
   createContext<CheckboxProps>({

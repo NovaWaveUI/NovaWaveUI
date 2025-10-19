@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "The base of the NovaWaveUI monorepo",
   "type": "module",
-  "packageManager": "pnpm@8.6.0",
+  "packageManager": "pnpm@10.18.3",
   "scripts": {
     "build": "pnpm -w dlx turbo run build",
     "build:fast": "pnpm -w dlx turbo run build:fast",

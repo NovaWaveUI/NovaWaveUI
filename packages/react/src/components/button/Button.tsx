@@ -1,22 +1,19 @@
 import React, { useMemo } from 'react';
+import { AriaButtonProps, useButton } from '@react-aria/button';
+import { useHover } from '@react-aria/interactions';
+import { mergeProps } from '@react-aria/utils';
+import { useFocusRing } from '@react-aria/focus';
+import { HoverEvents } from '@react-types/shared';
 import {
   PolymorphicProps,
   RenderProps,
   useContextProps,
   useRenderProps,
-} from '@novawaveui/react-utils';
-import { AriaButtonProps, useButton } from '@react-aria/button';
-import { cn, createDataPropsGetter, filterDOMProps } from '@novawaveui/utils';
-import { useHover } from '@react-aria/interactions';
-import { mergeProps } from '@react-aria/utils';
-import { useFocusRing } from '@react-aria/focus';
-import {
-  DOMAttributes,
-  FocusableElement,
-  HoverEvents,
-} from '@react-types/shared';
+} from '../../utils/react';
+import { cn, createDataPropsGetter, filterDOMProps } from '../../utils';
 import { Slot } from '../slot';
 import { useButtonGroup } from '../buttonGroup';
+import { useDisableInteractions } from '../../hooks';
 import { ButtonRenderProps, ButtonStyleProps } from './types';
 import {
   ButtonStateContext,
@@ -120,9 +117,9 @@ export function Button<T extends React.ElementType = 'button'>(
   // and pass the render values to the children
   const renderProps = useRenderProps({
     ...ctxProps,
-    className: cn('nw-button group', ctxProps.className),
+    className: cn('nw-button', ctxProps.className),
     values: renderValues,
-    defaultClassName: cn('nw-button group', ctxProps.className),
+    defaultClassName: cn('nw-button', ctxProps.className),
   });
 
   const buttonStateContext: ButtonStateContextType = useMemo(() => {
@@ -188,7 +185,9 @@ export function Button<T extends React.ElementType = 'button'>(
           } // Prevent form submission if button is disabled or loading
           {...renderProps}
           {...dataAttrs(buttonStateContext)}
+          data-is-in-group={isInGroup || undefined}
           data-slot="root"
+          data-component="button"
         />
       </ButtonStateContext.Provider>
     </ButtonSlots.Provider>
@@ -196,33 +195,3 @@ export function Button<T extends React.ElementType = 'button'>(
 }
 
 Button.displayName = 'NovaWaveUI.Button';
-
-/**
- * useDisableInteractions is a hook that removes all interaction handlers based
- * on a DOM element if it is not interactive (disabled or loading).
- *
- * @param props The props to filter
- * @param isInteractive Whether or not the element is active.
- * @returns A list of filtered props based on the interactivity.
- */
-function useDisableInteractions(
-  props: DOMAttributes<FocusableElement>,
-  isInteractive: boolean
-) {
-  if (isInteractive) {
-    return props;
-  }
-
-  // Create a shallow copy and remove all interaction handlers except focus/blur
-  const newProps = { ...props } as Record<string, unknown>;
-  for (const key in newProps) {
-    if (
-      key.startsWith('on') &&
-      typeof newProps[key] === 'function' &&
-      !(key.includes('Focus') || key.includes('Blur'))
-    ) {
-      delete newProps[key];
-    }
-  }
-  return newProps as DOMAttributes<FocusableElement>;
-}

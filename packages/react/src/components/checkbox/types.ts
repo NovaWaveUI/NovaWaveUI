@@ -1,6 +1,4 @@
 import React from 'react';
-import { RenderProps, SlotProps } from '@novawaveui/react-utils';
-import { NWColor, NWRadius, NWSize } from '@novawaveui/theme';
 import {
   DisabledState,
   FocusState,
@@ -8,10 +6,14 @@ import {
   PressState,
   ReadOnlyState,
   SelectionState,
+  NWColor,
+  NWRadius,
+  NWSize,
 } from '@novawaveui/types';
 import { HoverEvents } from '@react-types/shared';
 import { AriaCheckboxGroupProps, AriaCheckboxProps } from 'react-aria';
 import { CheckboxGroupState } from 'react-stately';
+import { RenderProps } from '../../utils/react';
 
 export interface CheckboxRenderProps
   extends FocusState,
@@ -55,7 +57,6 @@ export interface CheckboxStyleProps {
 export interface CheckboxRootProps
   extends Omit<AriaCheckboxProps, 'children' | 'className' | 'style'>,
     HoverEvents,
-    SlotProps,
     RenderProps<CheckboxRenderProps>,
     CheckboxStyleProps {
   /**
@@ -65,10 +66,6 @@ export interface CheckboxRootProps
 }
 
 export type CheckboxPropsContextValue = CheckboxRootProps;
-
-export interface CheckboxStateContextValue
-  extends CheckboxRenderProps,
-    CheckboxStyleProps {}
 
 export interface CheckboxGroupRenderProps extends DisabledState, ReadOnlyState {
   /**
@@ -109,7 +106,6 @@ export interface CheckboxGroupStyleProps {
 
 export interface CheckboxGroupProps
   extends Omit<AriaCheckboxGroupProps, 'children'>,
-    SlotProps,
     RenderProps<CheckboxGroupRenderProps>,
     CheckboxGroupStyleProps {}
 

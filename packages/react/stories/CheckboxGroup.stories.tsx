@@ -67,6 +67,13 @@ const meta: Meta<typeof CheckboxGroup> = {
         defaultValue: { summary: 'false' },
       },
     },
+    isInvalid: {
+      control: 'boolean',
+      description: 'Whether the checkbox group is in an invalid state.',
+      table: {
+        defaultValue: { summary: 'false' },
+      },
+    },
     orientation: {
       control: 'select',
       options: ['vertical', 'horizontal'],
@@ -105,21 +112,23 @@ export const Default: Story = {
     isDisabled: false,
   },
   render: args => (
-    <CheckboxGroup {...args} defaultValue={['react']}>
-      <CheckboxGroup.Label>Frameworks Used</CheckboxGroup.Label>
-      <CheckboxGroup.Wrapper>
-        <CustomCheckbox value="react">React</CustomCheckbox>
-        <CustomCheckbox value="vue">Vue</CustomCheckbox>
-        <CustomCheckbox value="angular" isDisabled>
-          Angular (Disabled)
-        </CustomCheckbox>
-        <CustomCheckbox value="svelte">Svelte</CustomCheckbox>
-      </CheckboxGroup.Wrapper>
-      <CheckboxGroup.Description>
-        Select all that apply.
-      </CheckboxGroup.Description>
-      <CheckboxGroup.Error />
-    </CheckboxGroup>
+    <div className="flex gap-4">
+      <CheckboxGroup {...args} defaultValue={['react']}>
+        <CheckboxGroup.Label>Frameworks Used</CheckboxGroup.Label>
+        <CheckboxGroup.Wrapper>
+          <CustomCheckbox value="react">React</CustomCheckbox>
+          <CustomCheckbox value="vue">Vue</CustomCheckbox>
+          <CustomCheckbox value="angular" isDisabled>
+            Angular (Disabled)
+          </CustomCheckbox>
+          <CustomCheckbox value="svelte">Svelte</CustomCheckbox>
+        </CheckboxGroup.Wrapper>
+        <CheckboxGroup.Description>
+          Select all that apply.
+        </CheckboxGroup.Description>
+        <CheckboxGroup.Error />
+      </CheckboxGroup>
+    </div>
   ),
 };
 

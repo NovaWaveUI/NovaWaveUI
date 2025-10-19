@@ -6,7 +6,7 @@
  * other components can pass down props to the button component
  * and its subcomponents from anywhere in the tree.
  */
-import { createContext } from '@novawaveui/react-utils';
+import { createContext } from '../../utils/react';
 import { ButtonProps } from './Button';
 import { ButtonRenderProps, ButtonStyleProps } from './types';
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { PolymorphicProps, useRenderProps } from '@novawaveui/react-utils';
-import { filterDOMProps } from '@novawaveui/utils';
+import { PolymorphicProps, useRenderProps } from '../../utils/react';
+import { cn, filterDOMProps } from '../../utils';
 import { Slot } from '../slot';
 import { CheckboxGroupSlots } from './slots';
 import { useCheckboxGroupStateContext } from './context';
@@ -24,11 +24,14 @@ export function CheckboxGroupWrapper<T extends React.ElementType = 'div'>(
   // and data properties
   const nwGroupState = useCheckboxGroupStateContext();
 
-  const { renderValues } = useCheckboxGroupRenderContext(nwGroupState);
+  const { dataAttrs, renderValues } =
+    useCheckboxGroupRenderContext(nwGroupState);
 
   const renderProps = useRenderProps({
     ...rest,
     values: renderValues,
+    className: cn('nw-checkbox-group-wrapper', rest.className),
+    defaultClassName: cn('nw-checkbox-group-wrapper', rest.className),
   });
 
   const filteredProps = filterDOMProps<T>(rest, {
@@ -41,6 +44,7 @@ export function CheckboxGroupWrapper<T extends React.ElementType = 'div'>(
     <RenderedComponent
       {...filteredProps}
       {...renderProps}
+      {...dataAttrs}
       role="presentation"
       data-slot="wrapper"
     />

@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
-import { cn, filterDOMProps } from '@novawaveui/utils';
+import { cn, filterDOMProps } from '../../utils';
 import {
   PolymorphicProps,
   RenderProps,
   useContextProps,
   useRenderProps,
-} from '@novawaveui/react-utils';
+} from '../../utils/react';
 import { Slot } from '../slot';
 import {
   ButtonGroupOrientation,
@@ -108,6 +108,7 @@ export function ButtonGroup<T extends React.ElementType = 'div'>(
       {...renderProps}
       role="group"
       data-orientation={orientation}
+      data-component="button-group"
     >
       <ButtonGroupStateContext.Provider value={contextValue}>
         {renderPropsChildren}

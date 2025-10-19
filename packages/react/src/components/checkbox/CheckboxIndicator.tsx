@@ -1,8 +1,8 @@
 import React from 'react';
-import { filterDOMProps } from '@novawaveui/utils';
-import { PolymorphicProps } from '@novawaveui/react-utils';
+import { cn, filterDOMProps } from '../../utils';
+import { PolymorphicProps } from '../../utils/react';
 import { Slot } from '../slot';
-import { CheckboxSlots } from './slots';
+import { useCheckboxState } from './context';
 
 export type CheckboxIndicatorProps<T extends React.ElementType> =
   PolymorphicProps<T, {}>;
@@ -10,13 +10,9 @@ export type CheckboxIndicatorProps<T extends React.ElementType> =
 export function CheckboxIndicator<T extends React.ElementType = 'div'>(
   props: CheckboxIndicatorProps<T>
 ) {
-  // Next get any slot props
-  const slotProps = CheckboxSlots.useSlot(
-    'indicator',
-    props
-  ) as CheckboxIndicatorProps<T>;
+  const { as: Component = 'div', asChild, ...rest } = props;
 
-  const { as: Component = 'div', asChild, ...rest } = slotProps;
+  const checkboxStateCtx = useCheckboxState();
 
   // Determine if we should filter DOM props (only for intrinsic elements)
   const shouldFilterDOMProps = typeof Component === 'string' && !asChild;
@@ -27,7 +23,14 @@ export function CheckboxIndicator<T extends React.ElementType = 'div'>(
 
   const RenderedComponent = asChild ? Slot : Component;
 
-  return <RenderedComponent {...DOMProps} data-slot="indicator" />;
+  return (
+    <RenderedComponent
+      {...DOMProps}
+      className={cn('nw-checkbox-indicator', rest.className)}
+      {...checkboxStateCtx.styleDataAttrs}
+      data-slot="indicator"
+    />
+  );
 }
 
 CheckboxIndicator.displayName = 'NovaWaveUI.Checkbox.Indicator';

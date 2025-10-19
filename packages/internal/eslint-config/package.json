@@ -13,5 +13,8 @@
   },
   "keywords": [],
   "author": "Kyle Gagnon",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "eslint-plugin-react-hooks": "^7.0.0"
+  }
 }

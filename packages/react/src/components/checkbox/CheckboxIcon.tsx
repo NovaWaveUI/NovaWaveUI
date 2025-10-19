@@ -1,72 +1,55 @@
 import React from 'react';
-import {
-  PolymorphicProps,
-  RenderProps,
-  useRenderProps,
-} from '@novawaveui/react-utils';
-import { filterDOMProps } from '@novawaveui/utils';
-import { Slot } from '../slot';
+import { cn } from '../../utils';
+import { RenderProps, useRenderProps } from '../../utils/react';
+import { Text, TextProps } from '../primitives/text';
 import { CheckboxRenderProps } from './types';
-import { CheckboxSlots } from './slots';
 import { useCheckboxState } from './context';
 import { useCheckboxRenderContext } from './state';
 import { CheckIcon, LineIcon } from './icons';
 
-export type CheckboxIconProps<T extends React.ElementType> = PolymorphicProps<
-  T,
-  RenderProps<CheckboxRenderProps>
->;
+export type CheckboxIconProps<T extends React.ElementType> = Omit<
+  TextProps<T>,
+  'children' | 'style'
+> &
+  RenderProps<CheckboxRenderProps>;
 
 export function CheckboxIcon<T extends React.ElementType = 'span'>(
   props: CheckboxIconProps<T>
 ) {
-  // Next get any slot props
-  const slotProps = CheckboxSlots.useSlot(
-    'checkbox-icon',
-    props
-  ) as CheckboxIconProps<T>;
-
-  const { as: Component = 'span', asChild, ...rest } = slotProps;
-  let { children } = slotProps;
-
-  // Determine if we should filter DOM props (only for intrinsic elements)
-  const shouldFilterDOMProps = typeof Component === 'string' && !asChild;
+  const { style, children: childrenProp, ...rest } = props;
 
   // Get the checkbox state so that we get the current state
   // and data properties
   const checkboxStateCtx = useCheckboxState();
 
   // Get the data attributes from the context
-  const { renderValues } = useCheckboxRenderContext(checkboxStateCtx);
+  const { dataAttrs, renderValues } =
+    useCheckboxRenderContext(checkboxStateCtx);
+
+  let children = childrenProp;
 
   if (!children) {
-    children = ({ isIndeterminate }) =>
+    children = ({ isIndeterminate }: CheckboxRenderProps) =>
       isIndeterminate ? <LineIcon /> : <CheckIcon />;
   }
 
   const renderProps = useRenderProps({
     ...rest,
     children,
+    className: cn('nw-checkbox-icon', props.className),
     values: renderValues,
+    defaultClassName: cn('nw-checkbox-icon', props.className),
   });
 
-  const filteredProps = filterDOMProps<T>(rest, {
-    enabled: shouldFilterDOMProps,
-  });
+  const textIconProps = {
+    ...rest,
+    ...renderProps,
+    ...dataAttrs,
+    'aria-hidden': true,
+    'data-slot': 'checkbox-icon' as const,
+  } as TextProps<T>;
 
-  const RenderedComponent = asChild ? Slot : Component;
-
-  return (
-    <RenderedComponent
-      {...filteredProps}
-      className={renderProps.className}
-      style={renderProps.style}
-      data-slot="checkbox-icon"
-      aria-hidden={true}
-    >
-      {renderProps.children}
-    </RenderedComponent>
-  );
+  return <Text {...textIconProps} />;
 }
 
 CheckboxIcon.displayName = 'NovaWaveUI.CheckboxIcon';

@@ -1,8 +1,0 @@
-{
-  "extends": "@novawaveui/typescript-config/ts-library.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "outDir": "dist"
-  },
-  "include": ["src", "__tests__"]
-}

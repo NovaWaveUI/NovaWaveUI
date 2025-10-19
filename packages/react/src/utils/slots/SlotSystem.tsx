@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { createContext, JSX, useContext, useMemo } from 'react';
 import { mergeProps } from '@react-aria/utils';
-import { mergeRefs } from '@novawaveui/react-utils';
+import { mergeRefs } from '../react';
 
 export type SlotConfig = Record<string, object | undefined>;
 

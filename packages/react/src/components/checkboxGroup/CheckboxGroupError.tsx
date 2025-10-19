@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
+import { cn, filterDOMProps } from '../../utils';
 import {
   PolymorphicProps,
   RenderProps,
   useRenderProps,
-} from '@novawaveui/react-utils';
-import { filterDOMProps } from '@novawaveui/utils';
+} from '../../utils/react';
 import { Slot } from '../slot';
 import { CheckboxGroupRenderProps } from './types';
 import { CheckboxGroupSlots } from './slots';
@@ -30,7 +30,8 @@ export function CheckboxGroupError<T extends React.ElementType = 'span'>(
   // and data properties
   const nwGroupState = useCheckboxGroupStateContext();
 
-  const { renderValues } = useCheckboxGroupRenderContext(nwGroupState);
+  const { dataAttrs, renderValues } =
+    useCheckboxGroupRenderContext(nwGroupState);
 
   // Only show the children if the checkbox group is in an invalid state
   const resolvedChildren = useMemo(
@@ -42,6 +43,8 @@ export function CheckboxGroupError<T extends React.ElementType = 'span'>(
     ...rest,
     children: resolvedChildren,
     values: renderValues,
+    className: cn('nw-checkbox-group-error', rest.className),
+    defaultClassName: cn('nw-checkbox-group-error', rest.className),
   });
 
   const filteredProps = filterDOMProps<T>(rest, {
@@ -51,7 +54,12 @@ export function CheckboxGroupError<T extends React.ElementType = 'span'>(
   const RenderedComponent = asChild ? Slot : Component;
 
   return (
-    <RenderedComponent {...filteredProps} {...renderProps} data-slot="error" />
+    <RenderedComponent
+      {...filteredProps}
+      {...renderProps}
+      {...dataAttrs}
+      data-slot="error"
+    />
   );
 }
 

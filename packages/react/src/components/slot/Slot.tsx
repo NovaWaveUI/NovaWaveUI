@@ -4,9 +4,9 @@
  *
  * Thank you to the Radix UI team for their amazing work!
  */
-import { mergeRefs } from '@novawaveui/react-utils';
 import React from 'react';
 import { mergeProps } from 'react-aria';
+import { mergeRefs } from '../../utils/react';
 
 const SLOTTABLE_SYMBOL = Symbol('novawaveui.slottable');
 
@@ -22,7 +22,7 @@ interface SlottableComponent extends React.FC<SlottableProps> {
   __nwId__: symbol;
 }
 
-export const Slottable: SlottableComponent = ({ children }) => {
+export const Slottable: SlottableComponent = ({ children }: SlottableProps) => {
   return <>{children}</>;
 };
 Slottable.__nwId__ = SLOTTABLE_SYMBOL;

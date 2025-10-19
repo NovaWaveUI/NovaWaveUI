@@ -1,6 +1,6 @@
 @layer components {
   /* Root Checkbox */
-  .nw-checkbox {
+  [data-component='checkbox'] {
     /* Base */
     @apply z-0 relative max-w-fit inline-flex items-center justify-center cursor-pointer p-2 -m-2 select-none;
     @apply gap-2 size-lg:gap-3;
@@ -14,128 +14,138 @@
     }
   }
 
-  .nw-checkbox [data-slot='indicator'] {
+  [data-component='checkbox'] [data-slot='indicator'] {
     @apply relative flex items-center justify-center bg-transparent;
-    /* Sizes */
-    @apply size-5;
     @apply border-solid border-2;
-    @apply group-radius-none:rounded-none group-radius-sm:rounded-sm group-radius-md:rounded-md group-radius-lg:rounded-lg group-radius-full:rounded-full;
+
+    /* Group Radius Variants */
+    @apply radius-none:rounded-none;
+    @apply radius-sm:rounded-sm;
+    @apply radius-md:rounded-md;
+    @apply radius-lg:rounded-lg;
+    @apply radius-full:rounded-full;
+
+    /* Transitions & Transform */
     @apply transition-all duration-100 ease-in-out origin-center;
-    @apply group-active:scale-95;
-    @apply group-size-sm:size-4;
-    @apply group-size-lg:size-6;
+    @apply active:scale-95;
+
+    /* Size Variants */
+    @apply size-sm:size-4;
+    @apply size-md:size-5;
+    @apply size-lg:size-6;
 
     /* Focus Visible */
     @apply focus-visible:focus-outline;
 
     /* Color Variants */
-    @variant group-color-neutral {
+    @variant color-neutral {
       @apply border-neutral text-on-neutral;
-      @apply group-hover:bg-neutral-subtle;
-      @apply group-data-selected:bg-neutral group-data-selected:border-transparent;
-      @apply group-data-selected:group-hover:bg-neutral-hover;
+      @apply hover:bg-neutral-subtle;
+      @apply data-selected:bg-neutral data-selected:border-transparent;
+      @apply data-selected:hover:bg-neutral-hover;
     }
 
-    @variant group-color-primary {
+    @variant color-primary {
       @apply border-primary text-on-primary;
-      @apply group-hover:bg-primary-subtle;
-      @apply group-data-selected:bg-primary group-data-selected:border-transparent;
-      @apply group-data-selected:group-hover:bg-primary-hover;
+      @apply hover:bg-primary-subtle;
+      @apply data-selected:bg-primary data-selected:border-transparent;
+      @apply data-selected:hover:bg-primary-hover;
     }
 
-    @variant group-color-secondary {
+    @variant color-secondary {
       @apply border-secondary text-on-secondary;
-      @apply group-hover:bg-secondary-subtle;
-      @apply group-data-selected:bg-secondary group-data-selected:border-transparent;
-      @apply group-data-selected:group-hover:bg-secondary-hover;
+      @apply hover:bg-secondary-subtle;
+      @apply data-selected:bg-secondary data-selected:border-transparent;
+      @apply data-selected:hover:bg-secondary-hover;
     }
 
-    @variant group-color-success {
+    @variant color-success {
       @apply border-success text-on-success;
-      @apply group-hover:bg-success-subtle;
-      @apply group-data-selected:bg-success group-data-selected:border-transparent;
-      @apply group-data-selected:group-hover:bg-success-hover;
+      @apply hover:bg-success-subtle;
+      @apply data-selected:bg-success data-selected:border-transparent;
+      @apply data-selected:hover:bg-success-hover;
     }
 
-    @variant group-color-warning {
+    @variant color-warning {
       @apply border-warning text-on-warning;
-      @apply group-hover:bg-warning-subtle;
-      @apply group-data-selected:bg-warning group-data-selected:border-transparent;
-      @apply group-data-selected:group-hover:bg-warning-hover;
+      @apply hover:bg-warning-subtle;
+      @apply data-selected:bg-warning data-selected:border-transparent;
+      @apply data-selected:hover:bg-warning-hover;
     }
 
-    @variant group-color-danger {
+    @variant color-danger {
       @apply border-danger text-on-danger;
-      @apply group-hover:bg-danger-subtle;
-      @apply group-data-selected:bg-danger group-data-selected:border-transparent;
-      @apply group-data-selected:group-hover:bg-danger-hover;
+      @apply hover:bg-danger-subtle;
+      @apply data-selected:bg-danger data-selected:border-transparent;
+      @apply data-selected:hover:bg-danger-hover;
     }
 
-    @variant group-data-invalid {
+    @variant invalid {
       @apply border-danger text-on-danger;
-      @apply group-hover:bg-danger-subtle;
-      @apply group-data-selected:bg-danger group-data-selected:border-transparent;
-      @apply group-data-selected:group-hover:bg-danger-hover;
+      @apply hover:bg-danger-subtle;
+      @apply data-selected:bg-danger data-selected:border-transparent;
+      @apply data-selected:hover:bg-danger-hover;
     }
   }
 
-  .nw-checkbox [data-slot='checkbox-icon'] {
+  [data-component='checkbox'] [data-slot='checkbox-icon'] {
     @apply inset-0 flex items-center justify-center opacity-0 pointer-events-none;
     @apply transition-opacity duration-100 ease-in-out;
-    @apply group-data-selected:opacity-100;
+    @apply data-selected:opacity-100;
     @apply size-full;
     @apply text-inherit;
   }
 
-  .nw-checkbox [data-slot='checkbox-icon'] > * {
+  [data-component='checkbox'] [data-slot='checkbox-icon'] > * {
     @apply z-10 flex-shrink-0 text-inherit;
   }
 
-  .nw-checkbox [data-slot='label'] {
+  [data-component='checkbox'] [data-slot='label'] {
     @apply text-neutral;
     @apply select-none;
-    @apply group-size-sm:text-sm;
-    @apply group-size-md:text-base;
-    @apply group-size-lg:text-lg;
-    @apply group-data-required:after:content-['*'] group-data-required:after:text-danger group-data-required:after:ml-0.5;
+    @apply size-sm:text-sm;
+    @apply size-md:text-base;
+    @apply size-lg:text-lg;
+    @apply required:after:content-['*'] required:after:text-danger required:after:ml-0.5;
 
     /* Invalid State */
-    @apply group-data-invalid:text-danger;
+    @apply data-invalid:text-danger;
   }
 
-  .nw-checkbox-group {
+  [data-component='checkbox-group'] [data-slot='root'] {
     @apply inline-flex flex-col gap-2;
   }
 
-  .nw-checkbox-group [data-slot='wrapper'] {
+  [data-component='checkbox-group'] [data-slot='wrapper'] {
     @apply inline-flex;
     @apply gap-4;
-    @apply group-data-orientation-horizontal:flex-row group-data-orientation-horizontal:items-center;
-    @apply group-data-orientation-vertical:flex-col group-data-orientation-vertical:items-start;
+    @apply data-orientation-horizontal:flex-row data-orientation-horizontal:items-center;
+    @apply data-orientation-vertical:flex-col data-orientation-vertical:items-start;
   }
 
-  .nw-checkbox-group [data-slot='label'] {
-    @apply text-base text-neutral font-medium;
+  [data-component='checkbox-group'] [data-slot='label'] {
+    @apply text-neutral font-medium;
     @apply select-none group-data-disabled:opacity-disabled;
-    @apply group-data-size-sm:text-sm;
-    @apply group-data-size-lg:text-lg;
-    @apply group-data-required:after:content-['*'] group-data-required:after:text-danger group-data-required:after:ml-0.5;
+    @apply size-sm:text-sm;
+    @apply size-md:text-base;
+    @apply size-lg:text-lg;
+    @apply required:after:content-['*'] required:after:text-danger required:after:ml-0.5;
   }
 
-  .nw-checkbox-group [data-slot='description'] {
+  [data-component='checkbox-group'] [data-slot='description'] {
     @apply text-sm text-neutral-subtle;
     @apply select-none;
-    @apply group-data-disabled:opacity-disabled;
-    @apply group-data-size-sm:text-xs;
-    @apply group-data-size-lg:text-base;
-    @apply group-data-invalid:text-danger;
+    @apply data-disabled:opacity-disabled;
+    @apply size-sm:text-xs;
+    @apply size-lg:text-base;
+    @apply invalid:text-danger;
   }
 
-  .nw-checkbox-group [data-slot='error'] {
+  [data-component='checkbox-group'] [data-slot='error'] {
     @apply text-sm text-danger;
     @apply select-none;
-    @apply group-data-disabled:opacity-disabled;
-    @apply group-data-size-sm:text-xs;
-    @apply group-data-size-lg:text-base;
+    @apply disabled:opacity-disabled;
+    @apply size-sm:text-xs;
+    @apply size-lg:text-base;
   }
 }

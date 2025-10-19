@@ -1,6 +1,6 @@
-export * from '@novawaveui/theme';
+export * from '@novawaveui/types';
 
-declare module '@novawaveui/theme' {
+declare module '@novawaveui/types' {
   export interface NWColorOverride {
     ocean: 'ocean';
     'brand-primary': 'brand-primary';

@@ -57,3 +57,4 @@
 @custom-variant active (&[data-pressed="true"]);
 @custom-variant disabled (&[data-disabled="true"]);
 @custom-variant invalid (&[data-invalid="true"]);
+@custom-variant required (&[data-required="true"]);

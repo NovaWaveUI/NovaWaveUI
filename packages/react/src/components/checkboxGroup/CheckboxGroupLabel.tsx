@@ -1,10 +1,10 @@
 import React, { ElementType } from 'react';
+import { cn, filterDOMProps } from '../../utils';
 import {
   PolymorphicProps,
   RenderProps,
   useRenderProps,
-} from '@novawaveui/react-utils';
-import { filterDOMProps } from '@novawaveui/utils';
+} from '../../utils/react';
 import { Slot } from '../slot';
 import { CheckboxGroupRenderProps } from './types';
 import { CheckboxGroupSlots } from './slots';
@@ -33,11 +33,14 @@ export function CheckboxGroupLabel<T extends React.ElementType = 'span'>(
   // and data properties
   const nwGroupState = useCheckboxGroupStateContext();
 
-  const { renderValues } = useCheckboxGroupRenderContext(nwGroupState);
+  const { dataAttrs, renderValues } =
+    useCheckboxGroupRenderContext(nwGroupState);
 
   const renderProps = useRenderProps({
     ...rest,
     values: renderValues,
+    className: cn('nw-checkbox-group-label', rest.className),
+    defaultClassName: cn('nw-checkbox-group-label', rest.className),
   });
 
   const filteredProps = filterDOMProps<T>(rest, {
@@ -47,7 +50,12 @@ export function CheckboxGroupLabel<T extends React.ElementType = 'span'>(
   const RenderedComponent: ElementType = asChild ? Slot : Component;
 
   return (
-    <RenderedComponent {...filteredProps} {...renderProps} data-slot="label" />
+    <RenderedComponent
+      {...filteredProps}
+      {...renderProps}
+      {...dataAttrs}
+      data-slot="label"
+    />
   );
 }
 

@@ -1,10 +1,5 @@
-import {
-  RefCallback,
-  useCallback,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { RefCallback, useCallback, useRef, useState } from 'react';
+import { useSafeLayoutEffect } from '../../hooks';
 
 export type { SlotSystem } from './SlotSystem';
 export { createSlotSystem } from './SlotSystem';
@@ -33,7 +28,7 @@ export function useSlot(
   }, []);
 
   // If the callback hasn't been called, then reset to false.
-  useLayoutEffect(() => {
+  useSafeLayoutEffect(() => {
     if (!hasRun.current) {
       setHasSlot(false);
     }

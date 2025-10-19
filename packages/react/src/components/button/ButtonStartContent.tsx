@@ -1,10 +1,10 @@
 import React from 'react';
+import { filterDOMProps } from '../../utils';
 import {
   PolymorphicProps,
   RenderProps,
   useRenderProps,
-} from '@novawaveui/react-utils';
-import { filterDOMProps } from '@novawaveui/utils';
+} from '../../utils/react';
 import { Slot } from '../slot';
 import { ButtonRenderProps } from './types';
 import { ButtonSlots } from './slots';
@@ -35,7 +35,7 @@ export function ButtonStartContent<T extends React.ElementType = 'span'>(
   const buttonStateCtx = useButtonState();
 
   // Get the data attributes from the context
-  const { renderValues } = useButtonRenderContext(buttonStateCtx);
+  const { dataAttrs, renderValues } = useButtonRenderContext(buttonStateCtx);
 
   const renderProps = useRenderProps({
     ...rest,
@@ -52,6 +52,7 @@ export function ButtonStartContent<T extends React.ElementType = 'span'>(
     <RenderComponent
       {...filteredProps}
       {...renderProps}
+      {...dataAttrs}
       data-slot="start-content"
     />
   );

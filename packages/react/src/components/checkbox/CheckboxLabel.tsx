@@ -1,32 +1,21 @@
 import React from 'react';
-import {
-  PolymorphicProps,
-  RenderProps,
-  useRenderProps,
-} from '@novawaveui/react-utils';
-import { filterDOMProps } from '@novawaveui/utils';
-import { Slot } from '../slot';
+import { RenderProps, useRenderProps } from '../../utils/react';
+import { cn } from '../../utils';
+import { Label, LabelProps } from '../label';
 import { CheckboxRenderProps } from './types';
-import { CheckboxSlots } from './slots';
 import { useCheckboxState } from './context';
 import { useCheckboxRenderContext } from './state';
 
-export type CheckboxLabelProps<T extends Exclude<React.ElementType, 'label'>> =
-  PolymorphicProps<T, RenderProps<CheckboxRenderProps>>;
+export type CheckboxLabelProps<T extends React.ElementType> = Omit<
+  LabelProps<T>,
+  'htmlFor' | 'children' | 'style'
+> &
+  RenderProps<CheckboxRenderProps>;
 
-export function CheckboxLabel<
-  T extends Exclude<React.ElementType, 'label'> = 'span',
->(props: CheckboxLabelProps<T>) {
-  // Next get any slot props
-  const slotProps = CheckboxSlots.useSlot(
-    'label',
-    props
-  ) as CheckboxLabelProps<T>;
-
-  const { as: Component = 'span', asChild, ...rest } = slotProps;
-
-  // Determine if we should filter DOM props (only for intrinsic elements)
-  const shouldFilterDOMProps = typeof Component === 'string' && !asChild;
+export function CheckboxLabel<T extends React.ElementType = 'span'>(
+  props: CheckboxLabelProps<T>
+) {
+  const { className, children, style, ...rest } = props;
 
   // Get the checkbox state so that we get the current state
   // and data properties
@@ -36,19 +25,22 @@ export function CheckboxLabel<
   const { renderValues } = useCheckboxRenderContext(checkboxStateCtx);
 
   const renderProps = useRenderProps({
-    ...rest,
+    style,
+    className: cn('nw-checkbox-label', className),
+    children,
     values: renderValues,
+    defaultClassName: cn('nw-checkbox-label', className),
   });
 
-  const filteredProps = filterDOMProps<T>(rest, {
-    enabled: shouldFilterDOMProps,
-  });
+  // Combine all props in a type-safe manner
+  const labelProps = {
+    ...rest,
+    ...renderProps,
+    ...checkboxStateCtx.styleDataAttrs,
+    'data-slot': 'label' as const,
+  } as LabelProps<T>;
 
-  const RenderedComponent = asChild ? Slot : Component;
-
-  return (
-    <RenderedComponent {...filteredProps} {...renderProps} data-slot="label" />
-  );
+  return <Label {...labelProps} />;
 }
 
 CheckboxLabel.displayName = 'NovaWaveUI.Checkbox.Label';

@@ -1,6 +1,6 @@
 @layer components {
   /* Root Button */
-  .nw-button {
+  [data-component='button'] {
     /* Base */
     @apply z-0 inline-flex relative flex-row items-center justify-center min-w-max outline-hidden select-none text-wrap overflow-hidden pointer-events-auto;
     @apply cursor-pointer;
@@ -254,29 +254,30 @@
   }
 
   /* Slot styling (scoped to root) */
-  .nw-button > [data-slot='start-content'],
-  .nw-button > [data-slot='end-content'] {
+  [data-component='button'] [data-slot='start-content'],
+  [data-component='button'] [data-slot='end-content'] {
     @apply inline-flex items-center justify-center w-4 h-4;
-    @apply group-size-sm:w-3 group-size-sm:h-3 group-size-lg:w-5 group-size-lg:h-5;
+    @apply size-sm:w-3 size-sm:h-3;
+    @apply size-lg:w-5 size-lg:h-5;
   }
 
-  .nw-button > [data-slot='text'] {
+  [data-component='button'] [data-slot='text'] {
     @apply inline-flex items-center text-inherit;
   }
 
   /* Catch any direct child of start/end-content */
-  .nw-button > [data-slot='start-content'] > *,
-  .nw-button > [data-slot='end-content'] > * {
+  [data-component='button'] [data-slot='start-content'] > *,
+  [data-component='button'] [data-slot='end-content'] > * {
     @apply flex-shrink-0 text-inherit;
   }
 
   /* Button Group */
-  .nw-button-group {
+  [data-component='button-group'] {
     @apply inline-flex items-center justify-center h-auto flex-row;
     @apply data-orientation-horizontal:flex-row data-orientation-vertical:flex-col;
   }
 
-  .nw-button-group[data-orientation='horizontal'] {
+  [data-component='button-group'][data-orientation='horizontal'] {
     & [data-in-group] {
       @apply -ms-0.5;
 
@@ -294,7 +295,7 @@
     }
   }
 
-  .nw-button-group[data-orientation='vertical'] {
+  [data-component='button-group'][data-orientation='vertical'] {
     & [data-in-group] {
       @apply -mt-0.5;
 
