@@ -11,5 +11,6 @@
     "prettier.requireConfig": false,
     "prettier.resolveGlobalModules": false,
     "prettier.useEditorConfig": true,
+    "tailwindCSS.experimental.configFile": "packages/storybook/.storybook/styles.css",
   },
 }

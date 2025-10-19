@@ -27,7 +27,6 @@
 
     /* Transitions & Transform */
     @apply transition-all duration-100 ease-in-out origin-center;
-    @apply active:scale-95;
 
     /* Size Variants */
     @apply size-sm:size-4;
@@ -37,63 +36,133 @@
     /* Focus Visible */
     @apply focus-visible:focus-outline;
 
+    &[data-component='checkbox'] [data-pressed='true'] {
+      @apply scale-95;
+    }
+
     /* Color Variants */
     @variant color-neutral {
-      @apply border-neutral text-on-neutral;
-      @apply hover:bg-neutral-subtle;
-      @apply data-selected:bg-neutral data-selected:border-transparent;
-      @apply data-selected:hover:bg-neutral-hover;
+      .nw-checkbox[data-hovered='true'] & {
+        @apply bg-neutral-subtle;
+      }
+
+      .nw-checkbox[data-selected='true'] & {
+        @apply bg-neutral;
+        @apply border-transparent;
+
+        .nw-checkbox[data-hovered='true'] & {
+          @apply bg-neutral-hover;
+        }
+      }
     }
 
     @variant color-primary {
       @apply border-primary text-on-primary;
-      @apply hover:bg-primary-subtle;
-      @apply data-selected:bg-primary data-selected:border-transparent;
-      @apply data-selected:hover:bg-primary-hover;
+
+      .nw-checkbox[data-hovered='true'] & {
+        @apply bg-primary-subtle;
+      }
+
+      .nw-checkbox[data-selected='true'] & {
+        @apply bg-primary;
+        @apply border-transparent;
+
+        .nw-checkbox[data-hovered='true'] & {
+          @apply bg-primary-hover;
+        }
+      }
     }
 
     @variant color-secondary {
-      @apply border-secondary text-on-secondary;
-      @apply hover:bg-secondary-subtle;
-      @apply data-selected:bg-secondary data-selected:border-transparent;
-      @apply data-selected:hover:bg-secondary-hover;
+      .nw-checkbox[data-hovered='true'] & {
+        @apply bg-secondary-subtle;
+      }
+
+      .nw-checkbox[data-selected='true'] & {
+        @apply bg-secondary;
+        @apply border-transparent;
+
+        .nw-checkbox[data-hovered='true'] & {
+          @apply bg-secondary-hover;
+        }
+      }
     }
 
     @variant color-success {
-      @apply border-success text-on-success;
-      @apply hover:bg-success-subtle;
-      @apply data-selected:bg-success data-selected:border-transparent;
-      @apply data-selected:hover:bg-success-hover;
+      .nw-checkbox[data-hovered='true'] & {
+        @apply bg-success-subtle;
+      }
+
+      .nw-checkbox[data-selected='true'] & {
+        @apply bg-success;
+        @apply border-transparent;
+
+        .nw-checkbox[data-hovered='true'] & {
+          @apply bg-success-hover;
+        }
+      }
     }
 
     @variant color-warning {
-      @apply border-warning text-on-warning;
-      @apply hover:bg-warning-subtle;
-      @apply data-selected:bg-warning data-selected:border-transparent;
-      @apply data-selected:hover:bg-warning-hover;
+      .nw-checkbox[data-hovered='true'] & {
+        @apply bg-warning-subtle;
+      }
+
+      .nw-checkbox[data-selected='true'] & {
+        @apply bg-warning;
+        @apply border-transparent;
+
+        .nw-checkbox[data-hovered='true'] & {
+          @apply bg-warning-hover;
+        }
+      }
     }
 
     @variant color-danger {
       @apply border-danger text-on-danger;
-      @apply hover:bg-danger-subtle;
-      @apply data-selected:bg-danger data-selected:border-transparent;
-      @apply data-selected:hover:bg-danger-hover;
+
+      .nw-checkbox[data-hovered='true'] & {
+        @apply bg-danger-subtle;
+      }
+
+      .nw-checkbox[data-selected='true'] & {
+        @apply bg-danger;
+        @apply border-transparent;
+
+        .nw-checkbox[data-hovered='true'] & {
+          @apply bg-danger-hover;
+        }
+      }
     }
 
-    @variant invalid {
-      @apply border-danger text-on-danger;
-      @apply hover:bg-danger-subtle;
-      @apply data-selected:bg-danger data-selected:border-transparent;
-      @apply data-selected:hover:bg-danger-hover;
+    .nw-checkbox[data-invalid='true'] & {
+      @apply border-danger;
+      @apply text-on-danger;
+
+      .nw-checkbox[data-hovered='true'] & {
+        @apply bg-danger-subtle;
+      }
+
+      .nw-checkbox[data-selected='true'] & {
+        @apply bg-danger;
+        @apply border-transparent;
+
+        .nw-checkbox[data-hovered='true'] & {
+          @apply bg-danger-hover;
+        }
+      }
     }
   }
 
   [data-component='checkbox'] [data-slot='checkbox-icon'] {
     @apply inset-0 flex items-center justify-center opacity-0 pointer-events-none;
     @apply transition-opacity duration-100 ease-in-out;
-    @apply data-selected:opacity-100;
     @apply size-full;
     @apply text-inherit;
+
+    .nw-checkbox[data-selected='true'] & {
+      @apply opacity-100;
+    }
   }
 
   [data-component='checkbox'] [data-slot='checkbox-icon'] > * {
@@ -106,10 +175,15 @@
     @apply size-sm:text-sm;
     @apply size-md:text-base;
     @apply size-lg:text-lg;
-    @apply required:after:content-['*'] required:after:text-danger required:after:ml-0.5;
+
+    .nw-checkbox[data-required='true'] &::after {
+      @apply content-['*'] text-danger ml-0.5;
+    }
 
     /* Invalid State */
-    @apply data-invalid:text-danger;
+    .nw-checkbox[data-invalid='true'] & {
+      @apply text-danger;
+    }
   }
 
   [data-component='checkbox-group'] [data-slot='root'] {

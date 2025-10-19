@@ -98,7 +98,7 @@ export function useRenderProps<T>(
             ...values,
             defaultClassName,
           })
-        : className;
+        : className || defaultClassName;
 
     const resolvedStyle =
       typeof style === 'function'

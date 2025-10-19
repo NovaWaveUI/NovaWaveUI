@@ -23,8 +23,7 @@ export function CheckboxIcon<T extends React.ElementType = 'span'>(
   const checkboxStateCtx = useCheckboxState();
 
   // Get the data attributes from the context
-  const { dataAttrs, renderValues } =
-    useCheckboxRenderContext(checkboxStateCtx);
+  const { renderValues } = useCheckboxRenderContext(checkboxStateCtx);
 
   let children = childrenProp;
 
@@ -44,7 +43,6 @@ export function CheckboxIcon<T extends React.ElementType = 'span'>(
   const textIconProps = {
     ...rest,
     ...renderProps,
-    ...dataAttrs,
     'aria-hidden': true,
     'data-slot': 'checkbox-icon' as const,
   } as TextProps<T>;

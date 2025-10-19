@@ -4,5 +4,6 @@
   "prettier.requireConfig": false,
   "prettier.resolveGlobalModules": false,
   "prettier.useEditorConfig": false,
-  "vitest.configSearchPatternInclude": "vitest.config.ts"
+  "vitest.configSearchPatternInclude": "vitest.config.ts",
+  "tailwindCSS.experimental.configFile": "packages/storybook/.storybook/styles.css"
 }
