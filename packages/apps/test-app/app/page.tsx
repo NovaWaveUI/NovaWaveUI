@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { Button } from '@novawaveui/react';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -10,7 +11,9 @@ export default function Home() {
         Welcome to NovaWave UI!
       </h1>
       <div className="flex flex-col items-center gap-8">
-        <Button color="primary">Get Started</Button>
+        <Button color="primary" size="lg" variant="ghost" asChild>
+          <Link href="/cool">Get Started</Link>
+        </Button>
       </div>
     </div>
   );

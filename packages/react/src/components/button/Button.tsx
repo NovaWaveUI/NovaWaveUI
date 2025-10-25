@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useMemo } from 'react';
 import { AriaButtonProps, useButton } from '@react-aria/button';
 import { useHover } from '@react-aria/interactions';
@@ -44,7 +46,7 @@ export function Button<T extends React.ElementType = 'button'>(
   // so we can have access to the DOM element
   const ctxProps = useContextProps(props, useButtonContextProps);
 
-  const { as: Component = 'button', asChild } = ctxProps;
+  const { as: Component = 'button', asChild, ...restProps } = ctxProps;
   // Get the props from the group if possible
   const buttonGroup = useButtonGroup();
   const isInGroup = !!buttonGroup;
@@ -57,7 +59,7 @@ export function Button<T extends React.ElementType = 'button'>(
     radius = buttonGroup?.radius ?? 'md',
     isDisabled = buttonGroup?.isDisabled ?? false,
     isLoading = false,
-  } = ctxProps;
+  } = restProps;
 
   // Determine if we should filter DOM props (only for intrinsic elements)
   const shouldFilterDOMProps = typeof Component === 'string' && !asChild;
@@ -74,14 +76,14 @@ export function Button<T extends React.ElementType = 'button'>(
   // and other interactions
   const { buttonProps, isPressed } = useButton(
     {
-      ...ctxProps,
+      ...restProps,
       isDisabled: !isInteractive,
       elementType: Component as React.ElementType,
     },
-    ctxProps.ref
+    restProps.ref
   );
   // Filter DOM props to ensure mergeProps receives plain objects
-  const filteredCtxProps = filterDOMProps<T>(ctxProps, {
+  const filteredCtxProps = filterDOMProps<T>(restProps, {
     enabled: shouldFilterDOMProps,
   }) as Record<string, unknown>;
   const disabledInteractionProps = useDisableInteractions(
@@ -95,7 +97,7 @@ export function Button<T extends React.ElementType = 'button'>(
 
   // Get the hover interactions
   const { isHovered, hoverProps } = useHover({
-    ...ctxProps,
+    ...restProps,
     isDisabled: !isInteractive,
   });
 
@@ -116,7 +118,7 @@ export function Button<T extends React.ElementType = 'button'>(
   // This will allow us to use the render props pattern
   // and pass the render values to the children
   const renderProps = useRenderProps({
-    ...ctxProps,
+    ...restProps,
     className: cn('nw-button', ctxProps.className),
     values: renderValues,
     defaultClassName: cn('nw-button', ctxProps.className),
@@ -186,7 +188,7 @@ export function Button<T extends React.ElementType = 'button'>(
           {...renderProps}
           {...dataAttrs(buttonStateContext)}
           data-is-in-group={isInGroup || undefined}
-          data-slot="root"
+          data-slot="button-root"
           data-component="button"
         />
       </ButtonStateContext.Provider>

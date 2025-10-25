@@ -28,7 +28,7 @@ export function CheckboxIndicator<T extends React.ElementType = 'div'>(
       {...DOMProps}
       className={cn('nw-checkbox-indicator', rest.className)}
       {...checkboxStateCtx.styleDataAttrs}
-      data-slot="indicator"
+      data-slot="checkbox-indicator"
     />
   );
 }

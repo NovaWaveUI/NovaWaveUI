@@ -5,9 +5,8 @@ import {
   RenderProps,
   useRenderProps,
 } from '../../utils/react';
-import { Slot } from '../slot';
+import { Text, TextProps } from '../primitives/text';
 import { CheckboxGroupRenderProps } from './types';
-import { CheckboxGroupSlots } from './slots';
 import { useCheckboxGroupStateContext } from './context';
 import { useCheckboxGroupRenderContext } from './state';
 
@@ -17,10 +16,7 @@ export type CheckboxGroupDescriptionProps<T extends React.ElementType> =
 export function CheckboxGroupDescription<T extends React.ElementType = 'span'>(
   props: CheckboxGroupDescriptionProps<T>
 ) {
-  // Get the slot props
-  const slotProps = CheckboxGroupSlots.useSlot('description', props);
-
-  const { as: Component = 'span', asChild, ...rest } = slotProps;
+  const { as: Component = 'span', asChild, ...rest } = props;
 
   // Determine if we should filter the props
   const shouldFilterProps = typeof Component === 'string' && !asChild;
@@ -43,16 +39,15 @@ export function CheckboxGroupDescription<T extends React.ElementType = 'span'>(
     enabled: shouldFilterProps,
   });
 
-  const RenderedComponent = asChild ? Slot : Component;
+  const descriptionProps = {
+    ...filteredProps,
+    ...renderProps,
+    ...dataAttrs,
+    slot: 'description',
+    'data-slot': 'checkbox-group-description' as const,
+  } as TextProps<T>;
 
-  return (
-    <RenderedComponent
-      {...filteredProps}
-      {...renderProps}
-      {...dataAttrs}
-      data-slot="description"
-    />
-  );
+  return <Text {...descriptionProps} />;
 }
 
 CheckboxGroupDescription.displayName = 'NovaWaveUI.CheckboxGroup.Description';

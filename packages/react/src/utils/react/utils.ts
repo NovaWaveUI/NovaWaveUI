@@ -6,11 +6,30 @@ import { SlotProps } from './render';
 export function useSlottedContext<
   TContext extends SlotProps & React.ComponentPropsWithRef<any>,
   TProps extends SlotProps & React.ComponentPropsWithRef<any>,
->(Context: React.Context<TContext>, props: TProps): TProps {
+>(Context: React.Context<TContext>, props: TProps, slotName?: string): TProps {
   const contextValue = React.useContext(Context) as TContext | null;
 
   const propRef = (props as any).ref as React.Ref<any> | undefined;
-  const contextRef = (contextValue as any)?.ref as React.Ref<any> | undefined;
+
+  // Determine the slot name to use
+  // Priority: explicit slotName parameter > props.slot
+  const effectiveSlotName =
+    slotName ?? ((props as SlotProps).slot as string | undefined);
+
+  // Determine which context props to use
+  let effectiveContextValue: any = contextValue;
+
+  // If we have a slot name and context has slots, use the named slot
+  if (effectiveSlotName && contextValue && (contextValue as any).slots) {
+    const slotProps = (contextValue as any).slots[effectiveSlotName];
+    if (slotProps) {
+      effectiveContextValue = slotProps;
+    }
+  }
+
+  const contextRef = (effectiveContextValue as any)?.ref as
+    | React.Ref<any>
+    | undefined;
 
   const propObjectRef = useObjectRef(propRef);
   const contextObjectRef = useObjectRef(contextRef);
@@ -31,7 +50,7 @@ export function useSlottedContext<
   }
 
   // Strip refs so mergeProps doesn't clobber them
-  const { ref: _c, ...contextProps } = contextValue as any;
+  const { ref: _c, ...contextProps } = effectiveContextValue as any;
   const { ref: _p, ...ownProps } = props as any;
 
   // Context first, own props override

@@ -37,7 +37,7 @@ export function CheckboxLabel<T extends React.ElementType = 'span'>(
     ...rest,
     ...renderProps,
     ...checkboxStateCtx.styleDataAttrs,
-    'data-slot': 'label' as const,
+    'data-slot': 'checkbox-label' as const,
   } as LabelProps<T>;
 
   return <Label {...labelProps} />;

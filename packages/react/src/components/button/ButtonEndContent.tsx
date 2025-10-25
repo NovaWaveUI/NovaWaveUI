@@ -52,7 +52,7 @@ export function ButtonEndContent<T extends React.ElementType = 'span'>(
       {...filteredProps}
       {...renderProps}
       {...dataAttrs}
-      data-slot="end-content"
+      data-slot="button-end-content"
     />
   );
 }

@@ -183,7 +183,7 @@ export function Checkbox(props: CheckboxProps) {
           style={renderProps.style}
           {...mergeProps(filteredProps, hoverProps, labelProps)}
           {...dataAttrs}
-          data-slot="root"
+          data-slot="checkbox-root"
           data-component="checkbox"
         >
           <VisuallyHidden elementType="span">

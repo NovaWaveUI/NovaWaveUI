@@ -54,7 +54,7 @@ export function CheckboxGroupLabel<T extends React.ElementType = 'span'>(
       {...filteredProps}
       {...renderProps}
       {...dataAttrs}
-      data-slot="label"
+      data-slot="checkbox-group-label"
     />
   );
 }

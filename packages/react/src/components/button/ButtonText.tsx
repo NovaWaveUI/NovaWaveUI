@@ -51,7 +51,7 @@ export function ButtonText<T extends React.ElementType = 'span'>(
       {...filteredProps}
       {...renderProps}
       {...dataAttrs}
-      data-slot="text"
+      data-slot="button-text"
     />
   );
 }

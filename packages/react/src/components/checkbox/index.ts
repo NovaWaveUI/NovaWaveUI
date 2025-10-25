@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Checkbox as CheckboxBase, CheckboxProps } from './Checkbox';
 import { CheckboxIcon, CheckboxIconProps } from './CheckboxIcon';

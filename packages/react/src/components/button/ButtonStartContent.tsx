@@ -53,7 +53,7 @@ export function ButtonStartContent<T extends React.ElementType = 'span'>(
       {...filteredProps}
       {...renderProps}
       {...dataAttrs}
-      data-slot="start-content"
+      data-slot="button-start-content"
     />
   );
 }

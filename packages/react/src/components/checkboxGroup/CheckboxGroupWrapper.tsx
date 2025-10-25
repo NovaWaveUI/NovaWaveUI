@@ -46,7 +46,7 @@ export function CheckboxGroupWrapper<T extends React.ElementType = 'div'>(
       {...renderProps}
       {...dataAttrs}
       role="presentation"
-      data-slot="wrapper"
+      data-slot="checkbox-group-wrapper"
     />
   );
 }

@@ -254,20 +254,20 @@
   }
 
   /* Slot styling (scoped to root) */
-  [data-component='button'] [data-slot='start-content'],
-  [data-component='button'] [data-slot='end-content'] {
+  [data-component='button'] [data-slot='button-start-content'],
+  [data-component='button'] [data-slot='button-end-content'] {
     @apply inline-flex items-center justify-center w-4 h-4;
     @apply size-sm:w-3 size-sm:h-3;
     @apply size-lg:w-5 size-lg:h-5;
   }
 
-  [data-component='button'] [data-slot='text'] {
+  [data-component='button'] [data-slot='button-text'] {
     @apply inline-flex items-center text-inherit;
   }
 
   /* Catch any direct child of start/end-content */
-  [data-component='button'] [data-slot='start-content'] > *,
-  [data-component='button'] [data-slot='end-content'] > * {
+  [data-component='button'] [data-slot='button-start-content'] > *,
+  [data-component='button'] [data-slot='button-end-content'] > * {
     @apply flex-shrink-0 text-inherit;
   }
 
