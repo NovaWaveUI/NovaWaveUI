@@ -2,7 +2,6 @@ import React from 'react';
 import { PolymorphicProps, useRenderProps } from '../../utils/react';
 import { cn, filterDOMProps } from '../../utils';
 import { Slot } from '../slot';
-import { CheckboxGroupSlots } from './slots';
 import { useCheckboxGroupStateContext } from './context';
 import { useCheckboxGroupRenderContext } from './state';
 
@@ -12,10 +11,7 @@ export type CheckboxGroupWrapperProps<T extends React.ElementType> =
 export function CheckboxGroupWrapper<T extends React.ElementType = 'div'>(
   props: CheckboxGroupWrapperProps<T>
 ) {
-  // Get the slot props
-  const slotProps = CheckboxGroupSlots.useSlot('wrapper', props);
-
-  const { as: Component = 'div', asChild, ...rest } = slotProps;
+  const { as: Component = 'div', asChild, ...rest } = props;
 
   // Determine if we should filter the props
   const shouldFilterProps = typeof Component === 'string' && !asChild;

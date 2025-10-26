@@ -7,9 +7,9 @@ import {
 } from '../../utils/react';
 import { Slot } from '../slot';
 import { CheckboxGroupRenderProps } from './types';
+import { CheckboxGroupSlots } from './slots';
 import { useCheckboxGroupStateContext } from './context';
 import { useCheckboxGroupRenderContext } from './state';
-import { TextProps } from '../primitives/text';
 
 // The error props of the checkbox group
 export type CheckboxGroupErrorProps<T extends React.ElementType> =
@@ -18,7 +18,10 @@ export type CheckboxGroupErrorProps<T extends React.ElementType> =
 export function CheckboxGroupError<T extends React.ElementType = 'span'>(
   props: CheckboxGroupErrorProps<T>
 ) {
-  const { as: Component = 'span', asChild, children, ...rest } = props;
+  // Get the slot props
+  const slotProps = CheckboxGroupSlots.useSlot('error', props);
+
+  const { as: Component = 'span', asChild, children, ...rest } = slotProps;
 
   // Determine if we should filter the props
   const shouldFilterProps = typeof Component === 'string' && !asChild;
@@ -50,20 +53,12 @@ export function CheckboxGroupError<T extends React.ElementType = 'span'>(
 
   const RenderedComponent = asChild ? Slot : Component;
 
-  const errorProps = {
-    ...filteredProps,
-    ...renderProps,
-    ...dataAttrs,
-    slot: 'error',
-    'data-slot': 'checkbox-group-error' as const,
-  } as TextProps<T>;
-
   return (
     <RenderedComponent
       {...filteredProps}
       {...renderProps}
       {...dataAttrs}
-      data-slot="checkbox-group-error"
+      data-slot="error"
     />
   );
 }

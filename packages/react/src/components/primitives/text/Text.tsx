@@ -8,8 +8,12 @@ import {
 import { Slot } from '../../slot';
 import { TextContext } from './context';
 
-export type TextProps<T extends React.ElementType> = PolymorphicProps<T, {}> &
-  SlotProps;
+export type TextProps<
+  T extends React.ElementType,
+  Props = {
+    id?: string;
+  },
+> = PolymorphicProps<T, Props> & SlotProps;
 
 export function Text<T extends React.ElementType = 'span'>(
   props: TextProps<T>
@@ -18,11 +22,11 @@ export function Text<T extends React.ElementType = 'span'>(
   const ctxProps = useSlottedContext(TextContext, props);
 
   // Extract the `as` prop and the rest of the props
-  const { as: Component = 'span', asChild, children } = ctxProps;
+  const { as: Component = 'span', asChild, children, ...rest } = ctxProps;
 
   const shouldFilterProps = typeof Component === 'string';
 
-  const filteredProps = filterDOMProps<T>(ctxProps, {
+  const filteredProps = filterDOMProps<T>(rest, {
     enabled: shouldFilterProps,
   });
 

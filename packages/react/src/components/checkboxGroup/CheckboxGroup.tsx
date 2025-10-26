@@ -4,14 +4,11 @@ import { AriaCheckboxGroupProps, useCheckboxGroup } from 'react-aria';
 import { cn, filterDOMProps, useSlot } from '../../utils';
 import {
   PolymorphicProps,
-  Provider,
   RenderProps,
   useContextProps,
   useRenderProps,
 } from '../../utils/react';
 import { Slot } from '../slot';
-import { LabelContext } from '../label';
-import { TextContext } from '../primitives/text';
 import { CheckboxGroupRenderProps, CheckboxGroupStyleProps } from './types';
 import { useCheckboxGroupRenderContext } from './state';
 import {
@@ -19,6 +16,7 @@ import {
   CheckboxGroupStateContextType,
   useCheckboxGroupContextProps,
 } from './context';
+import { CheckboxGroupSlots } from './slots';
 
 // The complete props of the checkbox group
 export type CheckboxGroupProps<T extends React.ElementType> = Omit<
@@ -148,19 +146,15 @@ export function CheckboxGroup<T extends React.ElementType = 'div'>(
   const RenderedComponent: ElementType = asChild ? Slot : Component;
 
   return (
-    <Provider
-      values={[
-        [LabelContext, { ref: labelRef, ...labelProps }],
-        [
-          TextContext,
-          {
-            slots: {
-              description: { ...descriptionProps },
-              error: { ...errorMessageProps },
-            },
-          },
-        ],
-      ]}
+    <CheckboxGroupSlots.Provider
+      value={{
+        label: {
+          ref: labelRef,
+          ...labelProps,
+        },
+        description: descriptionProps,
+        error: errorMessageProps,
+      }}
     >
       <CheckboxGroupStateContext.Provider value={checkboxGroupStateCtxValue}>
         <RenderedComponent
@@ -169,10 +163,9 @@ export function CheckboxGroup<T extends React.ElementType = 'div'>(
           {...renderProps}
           {...dataAttrs}
           data-component="checkbox-group"
-          data-slot="checkbox-group-root"
         />
       </CheckboxGroupStateContext.Provider>
-    </Provider>
+    </CheckboxGroupSlots.Provider>
   );
 }
 

@@ -224,7 +224,6 @@ export const WithError: Story = {
         defaultValue={[]}
         isRequired
         validationBehavior="native"
-        errorMessage="You must select at least one framework."
       >
         <CheckboxGroup.Label>Frameworks Used</CheckboxGroup.Label>
         <CheckboxGroup.Wrapper>

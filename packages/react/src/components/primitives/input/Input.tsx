@@ -51,6 +51,7 @@ export function Input(props: InputProps) {
       {...mergeProps(filterHoverProps(ctxProps), hoverProps, focusProps)}
       {...renderProps}
       {...dataAttrs}
+      data-component="input"
     />
   );
 }

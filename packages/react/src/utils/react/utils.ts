@@ -16,6 +16,8 @@ export function useSlottedContext<
   const effectiveSlotName =
     slotName ?? ((props as SlotProps).slot as string | undefined);
 
+  console.log('useSlottedContext - effectiveSlotName:', effectiveSlotName);
+
   // Determine which context props to use
   let effectiveContextValue: any = contextValue;
 
@@ -52,6 +54,9 @@ export function useSlottedContext<
   // Strip refs so mergeProps doesn't clobber them
   const { ref: _c, ...contextProps } = effectiveContextValue as any;
   const { ref: _p, ...ownProps } = props as any;
+
+  console.log('useSlottedContext - contextProps:', contextProps);
+  console.log('useSlottedContext - ownProps:', ownProps);
 
   // Context first, own props override
   const mergedProps = mergeProps(

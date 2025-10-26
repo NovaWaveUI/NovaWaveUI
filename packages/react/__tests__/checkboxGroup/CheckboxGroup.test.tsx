@@ -93,7 +93,7 @@ describe('CheckboxGroup', () => {
   });
 
   it('should have an auto generated ID for CheckboxGroup.Description if no ID is provided', () => {
-    const { getByText } = render(
+    const { getByRole, getByText } = render(
       <>
         <CheckboxGroup>
           <CheckboxGroup.Label id="my-label">My Label</CheckboxGroup.Label>
@@ -102,8 +102,10 @@ describe('CheckboxGroup', () => {
         </CheckboxGroup>
       </>
     );
+    const group = getByRole('group');
     const description = getByText('My Description');
     expect(description.id).toBeDefined();
+    expect(group).toHaveAttribute('aria-describedby', description.id);
   });
 
   it('should not show the error message if isInvalid is not set', () => {

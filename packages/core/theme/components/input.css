@@ -1,0 +1,14 @@
+@layer components {
+  [data-component='input'] {
+    @apply px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    background-color: #ffffff;
+    color: #111827;
+
+    &:hover,
+    &[data-hovered='true'] {
+      @apply border-gray-400;
+    }
+  }
+}
