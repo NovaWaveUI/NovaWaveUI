@@ -6,7 +6,7 @@ import { CheckboxGroupWrapperProps } from './CheckboxGroupWrapper';
 
 export const CheckboxGroupSlots = createSlotSystem<{
   label: CheckboxGroupLabelProps<any>;
-  wrapper: CheckboxGroupWrapperProps<any>;
+  wrapper: CheckboxGroupWrapperProps;
   error: CheckboxGroupErrorProps<any>;
   description: CheckboxGroupDescriptionProps<any>;
 }>();

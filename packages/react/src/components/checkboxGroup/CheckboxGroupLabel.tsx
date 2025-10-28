@@ -1,19 +1,20 @@
-import React, { ElementType } from 'react';
-import { cn, filterDOMProps } from '../../utils';
-import {
-  PolymorphicProps,
-  RenderProps,
-  useRenderProps,
-} from '../../utils/react';
-import { Slot } from '../slot';
+'use client';
+
+import React from 'react';
+import { cn } from '../../utils';
+import { RenderProps, useRenderProps } from '../../utils/react';
+import { Text, TextProps } from '../primitives/text';
 import { CheckboxGroupRenderProps } from './types';
 import { CheckboxGroupSlots } from './slots';
 import { useCheckboxGroupStateContext } from './context';
 import { useCheckboxGroupRenderContext } from './state';
 
 // The label props of the checkbox group
-export type CheckboxGroupLabelProps<T extends React.ElementType> =
-  PolymorphicProps<T, RenderProps<CheckboxGroupRenderProps>>;
+export type CheckboxGroupLabelProps<T extends React.ElementType> = Omit<
+  TextProps<T>,
+  'children' | 'className' | 'style'
+> &
+  RenderProps<CheckboxGroupRenderProps>;
 
 export function CheckboxGroupLabel<T extends React.ElementType = 'span'>(
   props: CheckboxGroupLabelProps<T>
@@ -24,11 +25,6 @@ export function CheckboxGroupLabel<T extends React.ElementType = 'span'>(
     props
   ) as CheckboxGroupLabelProps<T>;
 
-  const { as: Component = 'span', asChild, ...rest } = slotProps;
-
-  // Determine if we should filter the props
-  const shouldFilterProps = typeof Component === 'string' && !asChild;
-
   // Get the NovaWaveUI checkbox group state context so that we can get the current state
   // and data properties
   const nwGroupState = useCheckboxGroupStateContext();
@@ -37,26 +33,20 @@ export function CheckboxGroupLabel<T extends React.ElementType = 'span'>(
     useCheckboxGroupRenderContext(nwGroupState);
 
   const renderProps = useRenderProps({
-    ...rest,
+    ...slotProps,
     values: renderValues,
-    className: cn('nw-checkbox-group-label', rest.className),
-    defaultClassName: cn('nw-checkbox-group-label', rest.className),
+    className: cn('nw-checkbox-group-label', slotProps.className),
+    defaultClassName: cn('nw-checkbox-group-label', slotProps.className),
   });
 
-  const filteredProps = filterDOMProps<T>(rest, {
-    enabled: shouldFilterProps,
-  });
+  const finalProps = {
+    ...slotProps,
+    ...renderProps,
+    ...dataAttrs,
+    'data-slot': 'checkbox-group-label' as const,
+  } as TextProps<T>;
 
-  const RenderedComponent: ElementType = asChild ? Slot : Component;
-
-  return (
-    <RenderedComponent
-      {...filteredProps}
-      {...renderProps}
-      {...dataAttrs}
-      data-slot="label"
-    />
-  );
+  return <Text {...finalProps} />;
 }
 
 CheckboxGroupLabel.displayName = 'NovaWaveUI.CheckboxGroup.Label';

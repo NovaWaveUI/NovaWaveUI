@@ -4,9 +4,9 @@ import { CheckboxGroup } from '../src/components/checkboxGroup';
 import { Checkbox, CheckboxProps } from '../src/components/checkbox';
 import { Button } from '../src/components/button';
 
-const meta: Meta<typeof CheckboxGroup> = {
+const meta: Meta<typeof CheckboxGroup.Root> = {
   title: 'Components/Checkbox Group',
-  component: CheckboxGroup,
+  component: CheckboxGroup.Root,
   tags: ['autodocs'],
   parameters: {
     controls: {
@@ -86,7 +86,7 @@ const meta: Meta<typeof CheckboxGroup> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof CheckboxGroup>;
+type Story = StoryObj<typeof CheckboxGroup.Root>;
 
 /**
  * A simple wrapper around the Checkbox component to include an indicator and icon.
@@ -113,7 +113,7 @@ export const Default: Story = {
   },
   render: args => (
     <div className="flex gap-4">
-      <CheckboxGroup {...args} defaultValue={['react']}>
+      <CheckboxGroup.Root {...args} defaultValue={['react']}>
         <CheckboxGroup.Label>Frameworks Used</CheckboxGroup.Label>
         <CheckboxGroup.Wrapper>
           <CustomCheckbox value="react">React</CustomCheckbox>
@@ -127,7 +127,7 @@ export const Default: Story = {
           Select all that apply.
         </CheckboxGroup.Description>
         <CheckboxGroup.Error />
-      </CheckboxGroup>
+      </CheckboxGroup.Root>
     </div>
   ),
 };
@@ -141,7 +141,7 @@ export const Horizontal: Story = {
     orientation: 'horizontal',
   },
   render: args => (
-    <CheckboxGroup {...args} defaultValue={['react']}>
+    <CheckboxGroup.Root {...args} defaultValue={['react']}>
       <CheckboxGroup.Label>Frameworks Used</CheckboxGroup.Label>
       <CheckboxGroup.Wrapper>
         <CustomCheckbox value="react">React</CustomCheckbox>
@@ -155,7 +155,7 @@ export const Horizontal: Story = {
         Select all that apply.
       </CheckboxGroup.Description>
       <CheckboxGroup.Error />
-    </CheckboxGroup>
+    </CheckboxGroup.Root>
   ),
 };
 
@@ -168,7 +168,7 @@ export const Required: Story = {
     isRequired: true,
   },
   render: args => (
-    <CheckboxGroup {...args} defaultValue={['react']}>
+    <CheckboxGroup.Root {...args} defaultValue={['react']}>
       <CheckboxGroup.Label>Frameworks Used</CheckboxGroup.Label>
       <CheckboxGroup.Wrapper>
         <CustomCheckbox value="react">React</CustomCheckbox>
@@ -182,7 +182,7 @@ export const Required: Story = {
         Select all that apply.
       </CheckboxGroup.Description>
       <CheckboxGroup.Error />
-    </CheckboxGroup>
+    </CheckboxGroup.Root>
   ),
 };
 
@@ -194,7 +194,7 @@ export const Disabled: Story = {
     isDisabled: true,
   },
   render: args => (
-    <CheckboxGroup {...args} defaultValue={['react']}>
+    <CheckboxGroup.Root {...args} defaultValue={['react']}>
       <CheckboxGroup.Label>Frameworks Used</CheckboxGroup.Label>
       <CheckboxGroup.Wrapper>
         <CustomCheckbox value="react">React</CustomCheckbox>
@@ -206,7 +206,7 @@ export const Disabled: Story = {
         Select all that apply.
       </CheckboxGroup.Description>
       <CheckboxGroup.Error />
-    </CheckboxGroup>
+    </CheckboxGroup.Root>
   ),
 };
 
@@ -219,7 +219,7 @@ export const WithError: Story = {
   },
   render: args => (
     <form className="flex flex-col gap-2" onSubmit={e => e.preventDefault()}>
-      <CheckboxGroup
+      <CheckboxGroup.Root
         {...args}
         defaultValue={[]}
         isRequired
@@ -238,7 +238,7 @@ export const WithError: Story = {
         <CheckboxGroup.Error>
           You must select at least one framework.
         </CheckboxGroup.Error>
-      </CheckboxGroup>
+      </CheckboxGroup.Root>
       <Button type="submit" className="max-w-4">
         Submit
       </Button>

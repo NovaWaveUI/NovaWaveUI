@@ -30,7 +30,7 @@ export interface InputRenderProps {
 }
 
 export type InputProps = Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
+  React.ComponentPropsWithRef<'input'>,
   'children' | 'style' | 'className'
 > &
   HoverEvents &

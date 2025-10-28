@@ -22,6 +22,11 @@
       @apply focus-visible:focus-outline;
     }
 
+    /* Focus Visible Indicator */
+    &[data-focus-visible='true'] [data-slot='checkbox-indicator'] {
+      @apply focus-outline;
+    }
+
     /* Icon */
     [data-slot='checkbox-icon'] {
       @apply inset-0 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-100 ease-in-out size-full text-inherit;

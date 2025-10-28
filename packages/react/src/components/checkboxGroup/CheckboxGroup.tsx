@@ -137,7 +137,7 @@ export function CheckboxGroup<T extends React.ElementType = 'div'>(
   });
 
   const filteredProps = filterDOMProps<T>(
-    { rest, ref: ctxProps.ref },
+    { ...rest, ref: ctxProps.ref },
     {
       enabled: shouldFilterDOMProps,
     }
@@ -156,15 +156,16 @@ export function CheckboxGroup<T extends React.ElementType = 'div'>(
         error: errorMessageProps,
       }}
     >
-      <CheckboxGroupStateContext.Provider value={checkboxGroupStateCtxValue}>
+      <CheckboxGroupStateContext value={checkboxGroupStateCtxValue}>
         <RenderedComponent
           {...groupProps}
           {...filteredProps}
           {...renderProps}
           {...dataAttrs}
           data-component="checkbox-group"
+          data-slot="checkbox-group-root"
         />
-      </CheckboxGroupStateContext.Provider>
+      </CheckboxGroupStateContext>
     </CheckboxGroupSlots.Provider>
   );
 }

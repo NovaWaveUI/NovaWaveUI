@@ -1,29 +1,26 @@
 import React from 'react';
-import { cn, filterDOMProps } from '../../utils';
-import {
-  PolymorphicProps,
-  RenderProps,
-  useRenderProps,
-} from '../../utils/react';
-import { Slot } from '../slot';
+import { cn } from '../../utils';
+import { RenderProps, useRenderProps } from '../../utils/react';
+import { Text, TextProps } from '../primitives/text';
 import { CheckboxGroupRenderProps } from './types';
 import { CheckboxGroupSlots } from './slots';
 import { useCheckboxGroupStateContext } from './context';
 import { useCheckboxGroupRenderContext } from './state';
 
-export type CheckboxGroupDescriptionProps<T extends React.ElementType> =
-  PolymorphicProps<T, RenderProps<CheckboxGroupRenderProps>>;
+export type CheckboxGroupDescriptionProps<T extends React.ElementType> = Omit<
+  TextProps<T>,
+  'children' | 'style' | 'className'
+> &
+  RenderProps<CheckboxGroupRenderProps>;
 
 export function CheckboxGroupDescription<T extends React.ElementType = 'span'>(
   props: CheckboxGroupDescriptionProps<T>
 ) {
   // Get the slot props
-  const slotProps = CheckboxGroupSlots.useSlot('description', props);
-
-  const { as: Component = 'span', asChild, ...rest } = slotProps;
-
-  // Determine if we should filter the props
-  const shouldFilterProps = typeof Component === 'string' && !asChild;
+  const slotProps = CheckboxGroupSlots.useSlot(
+    'description',
+    props
+  ) as CheckboxGroupDescriptionProps<T>;
 
   // Get the NovaWaveUI checkbox group state context so that we can get the current state
   // and data properties
@@ -33,26 +30,22 @@ export function CheckboxGroupDescription<T extends React.ElementType = 'span'>(
     useCheckboxGroupRenderContext(nwGroupState);
 
   const renderProps = useRenderProps({
-    ...rest,
+    ...slotProps,
     values: renderValues,
-    className: cn('nw-checkbox-group-description', rest.className),
-    defaultClassName: cn('nw-checkbox-group-description', rest.className),
+    className: cn('nw-checkbox-group-description', slotProps.className),
+    defaultClassName: cn('nw-checkbox-group-description', slotProps.className),
   });
 
-  const filteredProps = filterDOMProps<T>(rest, {
-    enabled: shouldFilterProps,
-  });
+  // Construct the final props for the Text component
+  // The Text component will filter out any non-DOM props automatically
+  const finalProps = {
+    ...slotProps,
+    ...renderProps,
+    ...dataAttrs,
+    'data-slot': 'checkbox-group-description' as const,
+  } as TextProps<T>;
 
-  const RenderedComponent = asChild ? Slot : Component;
-
-  return (
-    <RenderedComponent
-      {...filteredProps}
-      {...renderProps}
-      {...dataAttrs}
-      data-slot="description"
-    />
-  );
+  return <Text {...finalProps} />;
 }
 
 CheckboxGroupDescription.displayName = 'NovaWaveUI.CheckboxGroup.Description';

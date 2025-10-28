@@ -1,46 +1,30 @@
+'use client';
+
 import React from 'react';
-import { PolymorphicProps, useRenderProps } from '../../utils/react';
-import { cn, filterDOMProps } from '../../utils';
-import { Slot } from '../slot';
+import { Group, GroupProps } from '../primitives/group';
 import { useCheckboxGroupStateContext } from './context';
 import { useCheckboxGroupRenderContext } from './state';
+import { CheckboxGroupSlots } from './slots';
 
-export type CheckboxGroupWrapperProps<T extends React.ElementType> =
-  PolymorphicProps<T, {}>;
+export type CheckboxGroupWrapperProps = GroupProps;
 
-export function CheckboxGroupWrapper<T extends React.ElementType = 'div'>(
-  props: CheckboxGroupWrapperProps<T>
-) {
-  const { as: Component = 'div', asChild, ...rest } = props;
-
-  // Determine if we should filter the props
-  const shouldFilterProps = typeof Component === 'string' && !asChild;
+export function CheckboxGroupWrapper(props: CheckboxGroupWrapperProps) {
+  // Get the slot props
+  const slotProps = CheckboxGroupSlots.useSlot(
+    'wrapper',
+    props
+  ) as CheckboxGroupWrapperProps;
 
   // Get the NovaWaveUI checkbox group state context so that we can get the current state
   // and data properties
   const nwGroupState = useCheckboxGroupStateContext();
 
-  const { dataAttrs, renderValues } =
-    useCheckboxGroupRenderContext(nwGroupState);
-
-  const renderProps = useRenderProps({
-    ...rest,
-    values: renderValues,
-    className: cn('nw-checkbox-group-wrapper', rest.className),
-    defaultClassName: cn('nw-checkbox-group-wrapper', rest.className),
-  });
-
-  const filteredProps = filterDOMProps<T>(rest, {
-    enabled: shouldFilterProps,
-  });
-
-  const RenderedComponent = asChild ? Slot : Component;
+  const { dataAttrs } = useCheckboxGroupRenderContext(nwGroupState);
 
   return (
-    <RenderedComponent
-      {...filteredProps}
-      {...renderProps}
+    <Group
       {...dataAttrs}
+      {...slotProps}
       role="presentation"
       data-slot="checkbox-group-wrapper"
     />
