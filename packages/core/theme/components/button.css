@@ -4,6 +4,8 @@
     /* Base */
     @apply z-0 inline-flex relative flex-row items-center justify-center min-w-max outline-hidden select-none text-wrap overflow-hidden pointer-events-auto;
     @apply cursor-pointer;
+    @apply rounded;
+
     /* Transition */
     @apply motion-safe:transition-all motion-safe:duration-100 motion-safe:ease-in-out;
 
@@ -12,15 +14,6 @@
 
     /* Active */
     @apply motion-safe:active:scale-95;
-
-    /* Radius */
-    @apply rounded-md;
-    @apply radius-none:rounded-none;
-    @apply radius-sm:rounded-sm;
-    @apply radius-md:rounded-md;
-    @apply radius-lg:rounded-lg;
-    @apply radius-xl:rounded-xl;
-    @apply radius-full:rounded-full;
 
     /* Size */
     @variant size-sm {
@@ -65,191 +58,31 @@
       }
     }
 
-    /* Variants and Colors */
-    @variant variant-solid {
-      /* Neutral */
-      @variant color-neutral {
-        @apply bg-neutral text-on-neutral;
-        @apply hover:bg-neutral-hover;
-        @apply active:bg-neutral-active;
-      }
-
-      /* Primary */
-      @variant color-primary {
-        @apply bg-primary text-on-primary;
-        @apply hover:bg-primary-hover;
-        @apply active:bg-primary-active;
-      }
-
-      /* Secondary */
-      @variant color-secondary {
-        @apply bg-secondary text-on-secondary;
-        @apply hover:bg-secondary-hover;
-        @apply active:bg-secondary-active;
-      }
-
-      /* Success */
-      @variant color-success {
-        @apply bg-success text-on-success;
-        @apply hover:bg-success-hover;
-        @apply active:bg-success-active;
-      }
-
-      /* Warning */
-      @variant color-warning {
-        @apply bg-warning text-on-warning;
-        @apply hover:bg-warning-hover;
-        @apply active:bg-warning-active;
-      }
-
-      /* Danger */
-      @variant color-danger {
-        @apply bg-danger text-on-danger;
-        @apply hover:bg-danger-hover;
-        @apply active:bg-danger-active;
-      }
+    /* Variants */
+    /* Primary - Default / Call to Action */
+    &[data-variant='primary'] {
+      @apply bg-accent text-accent-foreground hover:bg-accent-hover active:bg-accent-active;
     }
 
-    /* Bordered */
-    @variant variant-bordered {
-      /* Base border style */
-      @apply bg-transparent border-md border-solid;
-
-      /* Neutral */
-      @variant color-neutral {
-        @apply border-neutral text-neutral;
-        @apply hover:border-neutral-hover;
-        @apply active:border-neutral-active;
-      }
-
-      /* Primary */
-      @variant color-primary {
-        @apply border-primary text-primary;
-        @apply hover:border-primary-hover;
-        @apply active:border-primary-active;
-      }
-
-      /* Secondary */
-      @variant color-secondary {
-        @apply border-secondary text-secondary;
-        @apply hover:border-secondary-hover;
-        @apply active:border-secondary-active;
-      }
-
-      /* Success */
-      @variant color-success {
-        @apply border-success text-success;
-        @apply hover:border-success-hover;
-        @apply active:border-success-active;
-      }
-
-      /* Warning */
-      @variant color-warning {
-        @apply border-warning text-warning;
-        @apply hover:border-warning-hover;
-        @apply active:border-warning-active;
-      }
-
-      /* Danger */
-      @variant color-danger {
-        @apply border-danger text-danger;
-        @apply hover:border-danger-hover;
-        @apply active:border-danger-active;
-      }
+    /* Secondary - Less Emphasis */
+    &[data-variant='secondary'] {
+      @apply bg-accent-soft text-accent-soft-foreground hover:bg-accent-soft-hover active:bg-accent-soft-active;
     }
 
-    /* Ghost */
-    @variant variant-ghost {
-      @apply bg-transparent border-md border-solid;
-
-      /* Neutral */
-      @variant color-neutral {
-        @apply border-neutral text-neutral;
-        @apply hover:border-transparent hover:text-on-neutral hover:bg-neutral-hover;
-        @apply active:bg-neutral-active active:text-on-neutral active:border-transparent;
-      }
-
-      /* Primary */
-      @variant color-primary {
-        @apply border-primary text-primary;
-        @apply hover:border-transparent hover:text-on-primary hover:bg-primary-hover;
-        @apply active:bg-primary-active active:text-on-primary active:border-transparent;
-      }
-
-      /* Secondary */
-      @variant color-secondary {
-        @apply border-secondary text-secondary;
-        @apply hover:border-transparent hover:text-on-secondary hover:bg-secondary-hover;
-        @apply active:bg-secondary-active active:text-on-secondary active:border-transparent;
-      }
-
-      /* Success */
-      @variant color-success {
-        @apply border-success text-success;
-        @apply hover:border-transparent hover:text-on-success hover:bg-success-hover;
-        @apply active:bg-success-active active:text-on-success active:border-transparent;
-      }
-
-      /* Warning */
-      @variant color-warning {
-        @apply border-warning text-warning;
-        @apply hover:border-transparent hover:text-on-warning hover:bg-warning-hover;
-        @apply active:bg-warning-active active:text-on-warning active:border-transparent;
-      }
-
-      /* Danger */
-      @variant color-danger {
-        @apply border-danger text-danger;
-        @apply hover:border-transparent hover:text-on-danger hover:bg-danger-hover;
-        @apply active:bg-danger-active active:text-on-danger active:border-transparent;
-      }
+    /* Tertiary - Minimal Emphasis */
+    &[data-variant='tertiary'] {
+      @apply bg-transparent text-neutral hover:bg-neutral-hover/10 active:bg-neutral-active/10;
     }
 
-    /* Light */
-    @variant variant-light {
-      @apply bg-transparent border-transparent;
+    /* Destructive - Dangerous Action */
+    &[data-variant='destructive'] {
+      @apply bg-danger text-danger-foreground hover:bg-danger-hover active:bg-danger-active;
+    }
 
-      /* Neutral */
-      @variant color-neutral {
-        @apply text-neutral;
-        @apply hover:bg-neutral-subtle-hover hover:text-on-neutral-subtle;
-        @apply active:bg-neutral-subtle-active active:text-on-neutral-subtle;
-      }
-
-      /* Primary */
-      @variant color-primary {
-        @apply text-primary;
-        @apply hover:bg-primary-subtle-hover hover:text-on-primary-subtle;
-        @apply active:bg-primary-subtle-active active:text-on-primary-subtle;
-      }
-
-      /* Secondary */
-      @variant color-secondary {
-        @apply text-secondary;
-        @apply hover:bg-secondary-subtle-hover hover:text-on-secondary-subtle;
-        @apply active:bg-secondary-subtle-active active:text-on-secondary-subtle;
-      }
-
-      /* Success */
-      @variant color-success {
-        @apply text-success;
-        @apply hover:bg-success-subtle-hover hover:text-on-success-subtle;
-        @apply active:bg-success-subtle-active active:text-on-success-subtle;
-      }
-
-      /* Warning */
-      @variant color-warning {
-        @apply text-warning;
-        @apply hover:bg-warning-subtle-hover hover:text-on-warning-subtle;
-        @apply active:bg-warning-subtle-active active:text-on-warning-subtle;
-      }
-
-      /* Danger */
-      @variant color-danger {
-        @apply text-danger;
-        @apply hover:bg-danger-subtle-hover hover:text-on-danger-subtle;
-        @apply active:bg-danger-subtle-active active:text-on-danger-subtle;
-      }
+    /* Link - Text Link Style */
+    &[data-variant='link'] {
+      @apply bg-transparent text-accent underline-offset-4 hover:underline;
+      @apply px-0 gap-1;
     }
   }
 

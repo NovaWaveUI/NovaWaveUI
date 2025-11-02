@@ -35,29 +35,6 @@ const meta: Meta<typeof Checkbox> = {
         defaultValue: { summary: 'md' },
       },
     },
-    color: {
-      control: 'select',
-      options: [
-        'neutral',
-        'primary',
-        'secondary',
-        'success',
-        'warning',
-        'danger',
-      ],
-      description: 'The color of the checkbox.',
-      table: {
-        defaultValue: { summary: 'primary' },
-      },
-    },
-    radius: {
-      control: 'select',
-      options: ['none', 'sm', 'md', 'lg', 'full'],
-      description: 'The border radius of the checkbox.',
-      table: {
-        defaultValue: { summary: 'md' },
-      },
-    },
     isIndeterminate: {
       control: 'boolean',
       description:
@@ -109,8 +86,6 @@ export const Default: Story = {
     children: 'Checkbox',
     isDisabled: false,
     size: 'md',
-    color: 'primary',
-    radius: 'md',
     isIndeterminate: false,
     isReadOnly: false,
     isInvalid: false,

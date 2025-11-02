@@ -1,10 +1,4 @@
-import {
-  DisabledState,
-  ReadOnlyState,
-  NWColor,
-  NWRadius,
-  NWSize,
-} from '@novawaveui/types';
+import { DisabledState, ReadOnlyState, NWSize } from '@novawaveui/types';
 import { CheckboxGroupState } from 'react-stately';
 
 export interface CheckboxGroupRenderProps extends DisabledState, ReadOnlyState {
@@ -31,15 +25,7 @@ export interface CheckboxGroupRenderProps extends DisabledState, ReadOnlyState {
 
 export interface CheckboxGroupStyleProps {
   /**
-   * The color of the checkbox group.
-   */
-  color?: NWColor;
-  /**
    * The size of the checkbox group.
    */
   size?: NWSize;
-  /**
-   * The radius of the checkbox group.
-   */
-  radius?: NWRadius;
 }

@@ -53,10 +53,8 @@ export function Button<T extends React.ElementType = 'button'>(
 
   // Spread out and set default values for the props
   const {
-    color = buttonGroup?.color ?? 'neutral',
     size = buttonGroup?.size ?? 'md',
-    variant = buttonGroup?.variant ?? 'solid',
-    radius = buttonGroup?.radius ?? 'md',
+    variant = buttonGroup?.variant ?? 'primary',
     isDisabled = buttonGroup?.isDisabled ?? false,
     isLoading = false,
   } = restProps;
@@ -124,33 +122,17 @@ export function Button<T extends React.ElementType = 'button'>(
     defaultClassName: cn('nw-button', ctxProps.className),
   });
 
-  const buttonStateContext: ButtonStateContextType = useMemo(() => {
-    return {
-      isDisabled,
-      isLoading,
-      isPressed,
-      isHovered,
-      isFocused,
-      isFocusVisible,
-      color,
-      size,
-      variant,
-      radius,
-      isInGroup,
-    };
-  }, [
+  const buttonStateContext: ButtonStateContextType = {
     isDisabled,
     isLoading,
     isPressed,
     isHovered,
     isFocused,
     isFocusVisible,
-    color,
     size,
     variant,
-    radius,
     isInGroup,
-  ]);
+  };
 
   const dataAttrs = createDataPropsGetter<ButtonStateContextType>(ctx => {
     return {
@@ -160,10 +142,8 @@ export function Button<T extends React.ElementType = 'button'>(
       pressed: ctx.isPressed,
       disabled: ctx.isDisabled,
       loading: ctx.isLoading,
-      color: ctx.color,
       variant: ctx.variant,
       size: ctx.size,
-      radius: ctx.radius,
       'in-group': ctx.isInGroup,
     };
   });

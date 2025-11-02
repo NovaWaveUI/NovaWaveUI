@@ -10,24 +10,20 @@ describe('Button', () => {
     expect(btn).toBeInTheDocument();
     expect(btn).toHaveTextContent('Click me');
     expect(btn).toHaveAttribute('type', 'button');
-    expect(btn).toHaveAttribute('data-slot', 'root');
-    expect(btn).toHaveAttribute('data-color', 'neutral');
+    expect(btn).toHaveAttribute('data-slot', 'button-root');
     expect(btn).toHaveAttribute('data-size', 'md');
-    expect(btn).toHaveAttribute('data-variant', 'solid');
-    expect(btn).toHaveAttribute('data-radius', 'md');
+    expect(btn).toHaveAttribute('data-variant', 'primary');
   });
 
   it('renders with custom props', () => {
     const { getByRole } = render(
-      <Button color="primary" size="lg" variant="bordered" radius="full">
+      <Button size="lg" variant="primary">
         Custom
       </Button>
     );
     const btn = getByRole('button');
-    expect(btn).toHaveAttribute('data-color', 'primary');
     expect(btn).toHaveAttribute('data-size', 'lg');
-    expect(btn).toHaveAttribute('data-variant', 'bordered');
-    expect(btn).toHaveAttribute('data-radius', 'full');
+    expect(btn).toHaveAttribute('data-variant', 'primary');
   });
 
   it('renders as a different element', () => {

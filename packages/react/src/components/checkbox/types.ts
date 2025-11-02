@@ -41,17 +41,9 @@ export interface CheckboxRenderProps
 
 export interface CheckboxStyleProps {
   /**
-   * The color of the checkbox.
-   */
-  color?: NWColor;
-  /**
    * The size of the checkbox.
    */
   size?: NWSize;
-  /**
-   * The radius of the checkbox.
-   */
-  radius?: NWRadius;
 }
 
 export interface CheckboxRootProps

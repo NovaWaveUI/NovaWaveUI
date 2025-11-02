@@ -73,10 +73,8 @@ export const Default: Story = {
       <Button key="2">Button 2</Button>,
       <Button key="3">Button 3</Button>,
     ],
-    color: 'neutral',
     size: 'md',
-    variant: 'solid',
-    radius: 'md',
+    variant: 'secondary',
     isDisabled: false,
     orientation: 'horizontal',
   },
@@ -89,10 +87,8 @@ export const Vertical: Story = {
       <Button key="2">Button 2</Button>,
       <Button key="3">Button 3</Button>,
     ],
-    color: 'primary',
     size: 'md',
-    variant: 'solid',
-    radius: 'md',
+    variant: 'secondary',
     isDisabled: false,
     orientation: 'vertical',
   },
@@ -103,35 +99,13 @@ export const MixedVariants: Story = {
     children: [
       <Button key="1">Button 1</Button>,
       <Button key="2">Button 2</Button>,
-      <Button key="3" variant="ghost">
+      <Button key="3" variant="tertiary">
         Button 3
       </Button>,
       <Button key="4">Button 4</Button>,
     ],
-    color: 'secondary',
     size: 'md',
-    variant: 'solid',
-    radius: 'md',
-    isDisabled: false,
-    orientation: 'horizontal',
-  },
-};
-
-export const MixedColors: Story = {
-  args: {
-    children: [
-      <Button key="1">Button 1</Button>,
-      <Button key="2" color="secondary">
-        Button 2
-      </Button>,
-      <Button key="3">Button 3</Button>,
-      <Button key="4" color="success">
-        Button 4
-      </Button>,
-    ],
-    color: 'primary',
-    size: 'md',
-    variant: 'solid',
+    variant: 'secondary',
     radius: 'md',
     isDisabled: false,
     orientation: 'horizontal',

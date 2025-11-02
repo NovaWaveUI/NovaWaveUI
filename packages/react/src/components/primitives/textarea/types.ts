@@ -1,8 +1,7 @@
 import { HoverEvents } from 'react-aria';
-import { InputHTMLAttributes, RefAttributes } from 'react';
-import { StyleRenderProps } from '../../../utils';
+import { RenderProps } from '../../../utils';
 
-export interface InputRenderProps {
+export interface TextAreaRenderProps {
   /**
    * Whether the input is currently hovered with a mouse.
    * @selector [data-hovered]
@@ -30,15 +29,14 @@ export interface InputRenderProps {
   isInvalid: boolean;
 }
 
-export type InputProps = Omit<
-  InputHTMLAttributes<HTMLInputElement>,
+export type TextAreaProps = Omit<
+  React.ComponentPropsWithRef<'textarea'>,
   'children' | 'style' | 'className'
 > &
-  RefAttributes<HTMLInputElement> &
   HoverEvents &
-  StyleRenderProps<InputRenderProps> & {
+  RenderProps<TextAreaRenderProps> & {
     /**
-     * The placeholder text for the input.
+     * The placeholder text for the textarea.
      */
     placeholder?: string;
   };

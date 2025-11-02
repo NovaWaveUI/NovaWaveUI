@@ -6,17 +6,17 @@ import {
   useRenderProps,
   useSlottedContext,
 } from '../../../utils';
-import { InputContext } from './context';
-import { InputProps } from './types';
+import { TextAreaProps } from './types';
+import { TextAreaContext } from './context';
 
-const filterHoverProps = (props: InputProps) => {
+const filterHoverProps = (props: TextAreaProps) => {
   const { onHoverStart, onHoverChange, onHoverEnd, ...otherProps } = props;
   return otherProps;
 };
 
-export function Input(props: InputProps) {
+export function TextArea(props: TextAreaProps) {
   // Use any context props and merge with local props
-  const ctxProps = useSlottedContext(InputContext, props);
+  const ctxProps = useSlottedContext(TextAreaContext, props);
 
   const { hoverProps, isHovered } = useHover(ctxProps);
   const { isFocused, isFocusVisible, focusProps } = useFocusRing({
@@ -27,7 +27,9 @@ export function Input(props: InputProps) {
   const isInvalid =
     !!ctxProps['aria-invalid'] && ctxProps['aria-invalid'] !== 'false';
   const renderProps = useRenderProps({
-    ...ctxProps,
+    className: ctxProps.className,
+    style: ctxProps.style,
+    children: ctxProps.children,
     values: {
       isHovered,
       isFocused,
@@ -35,7 +37,7 @@ export function Input(props: InputProps) {
       isDisabled: ctxProps.disabled || false,
       isInvalid,
     },
-    defaultClassName: cn('nw-input', ctxProps.className),
+    defaultClassName: cn('nw-textarea', ctxProps.className),
   });
 
   const dataAttrs = dataProps({
@@ -46,18 +48,15 @@ export function Input(props: InputProps) {
     invalid: isInvalid,
   });
 
-  const mergedProps = mergeProps(
-    filterHoverProps(ctxProps),
-    hoverProps,
-    focusProps
-  );
+  const { className, style } = renderProps;
 
   return (
-    <input
-      {...mergedProps}
-      {...renderProps}
+    <textarea
+      {...mergeProps(filterHoverProps(ctxProps), hoverProps, focusProps)}
+      className={className}
+      style={style}
       {...dataAttrs}
-      data-component="input"
+      data-component="textarea"
     />
   );
 }

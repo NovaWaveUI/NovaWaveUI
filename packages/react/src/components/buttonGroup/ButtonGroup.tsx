@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { cn, filterDOMProps } from '../../utils';
 import {
   PolymorphicProps,
@@ -58,10 +58,8 @@ export function ButtonGroup<T extends React.ElementType = 'div'>(
     asChild,
     isDisabled = false,
     orientation = 'horizontal',
-    color = 'neutral',
     size = 'md',
-    variant = 'solid',
-    radius = 'md',
+    variant = 'secondary',
   } = ctxProps;
 
   // Determine if we should filter DOM props (only for intrinsic elements)
@@ -83,16 +81,12 @@ export function ButtonGroup<T extends React.ElementType = 'div'>(
   });
 
   // Create a context value for the button group provider
-  const contextValue = useMemo<ButtonGroupContextType>(() => {
-    return {
-      color,
-      size,
-      variant,
-      radius,
-      isDisabled,
-      orientation,
-    };
-  }, [color, size, variant, radius, isDisabled, orientation]);
+  const contextValue: ButtonGroupContextType = {
+    size,
+    variant,
+    isDisabled,
+    orientation,
+  };
 
   const filteredProps = filterDOMProps<T>(ctxProps, {
     enabled: shouldFilterDOMProps,

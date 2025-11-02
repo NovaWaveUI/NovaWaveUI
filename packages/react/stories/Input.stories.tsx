@@ -1,7 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import type { InputProps } from '../src/components/primitives/input/types';
-import { Input } from '../src/components/primitives/input/Input';
+import { Input } from '../src/components/primitives/input';
 import { Label } from '../src/components/label';
 
 const meta: Meta<typeof Input> = {
@@ -37,7 +36,67 @@ export const Default: Story = {
   render: args => (
     <div className="flex flex-col gap-2">
       <Label htmlFor="input-default">Default Input</Label>
-      <Input id="input-default" {...args} />
+      <Input id="input-default" className="w-1/4 h-10" {...args} />
     </div>
   ),
+};
+
+export const Types: Story = {
+  args: {
+    placeholder: 'Enter text here',
+  },
+  render: args => (
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="input-default">Default Input</Label>
+        <Input id="input-default" className="w-1/4 h-10" {...args} />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="input-password">Password</Label>
+        <Input
+          id="input-password"
+          type="password"
+          className="w-1/4 h-10"
+          {...args}
+          placeholder="Password"
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="input-number">Number Input</Label>
+        <Input
+          id="input-number"
+          type="number"
+          className="w-1/4 h-10"
+          min={0}
+          max={100}
+          step={1}
+          {...args}
+          placeholder="Enter a number"
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const Controlled: Story = {
+  args: {
+    placeholder: 'Enter text here',
+  },
+  render: args => {
+    const [value, setValue] = React.useState('');
+
+    return (
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="input-controlled">Controlled Input</Label>
+        <Input
+          id="input-controlled"
+          className="w-1/4 h-10"
+          value={value}
+          onChange={e => setValue(e.target.value)}
+          {...args}
+        />
+        <span>Current value: {value}</span>
+      </div>
+    );
+  },
 };

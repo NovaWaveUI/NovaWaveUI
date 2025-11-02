@@ -1,0 +1,5 @@
+@layer components {
+  [data-component='textfield'] {
+    @apply flex flex-col gap-2 relative w-fit font-sans;
+  }
+}

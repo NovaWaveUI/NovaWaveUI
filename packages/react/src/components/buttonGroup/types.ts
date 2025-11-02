@@ -1,4 +1,4 @@
-import { NWColor, NWRadius, NWSize, NWVariant } from '@novawaveui/types';
+import { NWSize } from '@novawaveui/types';
 
 export type ButtonGroupOrientation = 'horizontal' | 'vertical';
 
@@ -12,19 +12,11 @@ export interface ButtonGroupRenderProps {
 
 export interface ButtonGroupStyleProps {
   /**
-   * The color of the button.
-   */
-  color?: NWColor;
-  /**
    * The variant of the button.
    */
-  variant?: NWVariant;
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'link';
   /**
    * The size of the button.
    */
   size?: NWSize;
-  /**
-   * The radius of the button.
-   */
-  radius?: NWRadius;
 }

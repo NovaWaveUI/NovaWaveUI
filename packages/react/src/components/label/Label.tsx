@@ -4,7 +4,7 @@ import {
   SlotProps,
   useSlottedContext,
 } from '../../utils/react';
-import { filterDOMProps } from '../../utils';
+import { dataProps, filterDOMProps } from '../../utils';
 import { Slot } from '../slot';
 import { LabelContext } from './context';
 
@@ -26,13 +26,21 @@ export function Label<T extends React.ElementType = 'label'>(
 
   const RenderedComponent = asChild ? Slot : Component;
 
+  const dataAttrs = dataProps({
+    required: ctxProps.required,
+  });
+
   const filteredProps = shouldFilterProps
     ? filterDOMProps<T>(ctxProps, {
         enabled: shouldFilterProps,
       })
     : ctxProps;
 
-  return <RenderedComponent {...filteredProps}>{children}</RenderedComponent>;
+  return (
+    <RenderedComponent {...dataAttrs} {...filteredProps}>
+      {children}
+    </RenderedComponent>
+  );
 }
 
 Label.displayName = 'NovaWaveUI.Label';

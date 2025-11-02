@@ -128,7 +128,7 @@ const preview: Preview = {
 
           const body = window.document.body;
           if (context.globals.mode === 'dark') {
-            body.style.backgroundColor = 'var(--neutral-900)';
+            body.style.backgroundColor = 'var(--neutral-800)';
             body.style.color = '#fff';
           } else {
             body.style.backgroundColor = 'var(--neutral-50)';

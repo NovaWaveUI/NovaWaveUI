@@ -10,9 +10,7 @@ export const getCheckboxGroupDataAttrs =
       'read-only': ctx.isReadOnly,
       required: ctx.isRequired,
       invalid: ctx.isInvalid,
-      color: ctx.color,
       size: ctx.size,
-      radius: ctx.radius,
       orientation: ctx.orientation,
     };
   });

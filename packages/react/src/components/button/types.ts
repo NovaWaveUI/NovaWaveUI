@@ -1,4 +1,4 @@
-import { NWColor, NWRadius, NWSize, NWVariant } from '@novawaveui/types';
+import { NWSize } from '@novawaveui/types';
 
 export interface ButtonRenderProps {
   /**
@@ -35,19 +35,11 @@ export interface ButtonRenderProps {
 
 export interface ButtonStyleProps {
   /**
-   * The color of the button.
-   */
-  color?: NWColor;
-  /**
    * The variant of the button.
    */
-  variant?: NWVariant;
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'link';
   /**
    * The size of the button.
    */
   size?: NWSize;
-  /**
-   * The radius of the button.
-   */
-  radius?: NWRadius;
 }

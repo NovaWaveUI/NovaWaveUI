@@ -1,25 +1,17 @@
 @layer components {
-  [data-component='input'] {
+  [data-component='textarea'] {
     @apply bg-field text-field-foreground placeholder:placeholder-field rounded border-2 px-3 py-2 text-sm outline-none;
     @apply border-field-border disabled:opacity-disabled;
-    @apply transition-colors duration-150 ease-in-out motion-reduce:transition-none;
+    @apply transition-colors duration-150 ease-in-out;
 
     &:hover,
     &[data-hovered='true'] {
       @apply border-field-border-hover;
     }
 
-    &:focus-visible,
+    &:focus,
     &[data-focus-visible='true'] {
       @apply border-field-border-focus;
-    }
-
-    &[data-invalid='true'] {
-      @apply border-danger;
-    }
-
-    &[data-state='disabled'] {
-      @apply opacity-disabled cursor-not-allowed;
     }
   }
 }

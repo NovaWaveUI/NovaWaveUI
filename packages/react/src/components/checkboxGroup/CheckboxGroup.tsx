@@ -1,4 +1,4 @@
-import React, { ElementType, useMemo } from 'react';
+import React, { ElementType } from 'react';
 import { useCheckboxGroupState } from 'react-stately';
 import { AriaCheckboxGroupProps, useCheckboxGroup } from 'react-aria';
 import { cn, filterDOMProps, useSlot } from '../../utils';
@@ -63,9 +63,7 @@ export function CheckboxGroup<T extends React.ElementType = 'div'>(
     children,
     className,
     style,
-    color = 'neutral',
     size = 'md',
-    radius = 'md',
     isDisabled = false,
     isReadOnly = false,
     isRequired = false,
@@ -92,34 +90,17 @@ export function CheckboxGroup<T extends React.ElementType = 'div'>(
   );
 
   // Construct the value for the checkbox group state
-  const checkboxGroupStateCtxValue = useMemo<CheckboxGroupStateContextType>(
-    () => ({
-      color,
-      radius,
-      size,
-      state: groupState,
-      isDisabled,
-      isReadOnly,
-      isRequired,
-      isInvalid,
-      validationDetails,
-      validationErrors,
-      orientation,
-    }),
-    [
-      color,
-      radius,
-      size,
-      groupState,
-      isDisabled,
-      isReadOnly,
-      isRequired,
-      isInvalid,
-      validationDetails,
-      validationErrors,
-      orientation,
-    ]
-  );
+  const checkboxGroupStateCtxValue: CheckboxGroupStateContextType = {
+    size,
+    state: groupState,
+    isDisabled,
+    isReadOnly,
+    isRequired,
+    isInvalid,
+    validationDetails,
+    validationErrors,
+    orientation,
+  };
 
   // Create the value for the group render props
   const { dataAttrs, renderValues } = useCheckboxGroupRenderContext(

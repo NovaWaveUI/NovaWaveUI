@@ -12,10 +12,8 @@ export const getButtonDataAttrs = createDataPropsGetter<ButtonStateContextType>(
       pressed: ctx.isPressed,
       disabled: ctx.isDisabled,
       loading: ctx.isLoading,
-      color: ctx.color,
       variant: ctx.variant,
       size: ctx.size,
-      radius: ctx.radius,
     };
   }
 );

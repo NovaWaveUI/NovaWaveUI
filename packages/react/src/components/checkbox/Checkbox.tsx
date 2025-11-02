@@ -62,12 +62,7 @@ export function Checkbox(props: CheckboxProps) {
   const isInGroup = !!groupState;
 
   // Spread out and set default values for the props
-  const {
-    color = groupState?.color ?? 'neutral',
-    size = groupState?.size ?? 'md',
-    radius = groupState?.radius ?? 'md',
-    ...restProps
-  } = ctxProps;
+  const { size = groupState?.size ?? 'md', ...restProps } = ctxProps;
 
   // Get the props from the useCheckboxGroupItem if in a group or
   // the useCheckbox if standalone
@@ -136,9 +131,6 @@ export function Checkbox(props: CheckboxProps) {
   });
 
   const stateCtx: CheckboxStateContextValue = {
-    color,
-    size,
-    radius,
     isDisabled,
     isFocused,
     isFocusVisible,
@@ -150,9 +142,7 @@ export function Checkbox(props: CheckboxProps) {
     isRequired: ctxProps.isRequired || false,
     isIndeterminate: ctxProps.isIndeterminate || false,
     styleDataAttrs: dataProps({
-      color: color,
       size: size,
-      radius: radius,
     }),
   };
 
@@ -164,9 +154,7 @@ export function Checkbox(props: CheckboxProps) {
     disabled: stateCtx.isDisabled,
     indeterminate: stateCtx.isIndeterminate,
     selected: stateCtx.isSelected,
-    color: stateCtx.color,
     size: stateCtx.size,
-    radius: stateCtx.radius,
     required: stateCtx.isRequired,
     'read-only': stateCtx.isReadOnly,
     invalid: stateCtx.isInvalid,

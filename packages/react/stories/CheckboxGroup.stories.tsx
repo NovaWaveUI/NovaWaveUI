@@ -37,29 +37,6 @@ const meta: Meta<typeof CheckboxGroup.Root> = {
         defaultValue: { summary: 'md' },
       },
     },
-    color: {
-      control: 'select',
-      options: [
-        'neutral',
-        'primary',
-        'secondary',
-        'success',
-        'warning',
-        'danger',
-      ],
-      description: 'The color of the checkbox.',
-      table: {
-        defaultValue: { summary: 'primary' },
-      },
-    },
-    radius: {
-      control: 'select',
-      options: ['none', 'sm', 'md', 'lg', 'full'],
-      description: 'The border radius of the checkbox.',
-      table: {
-        defaultValue: { summary: 'md' },
-      },
-    },
     isRequired: {
       control: 'boolean',
       description: 'Whether the checkbox group is required.',
@@ -106,9 +83,7 @@ function CustomCheckbox(props: CheckboxProps) {
 
 export const Default: Story = {
   args: {
-    color: 'primary',
     size: 'md',
-    radius: 'md',
     isDisabled: false,
   },
   render: args => (
@@ -134,9 +109,7 @@ export const Default: Story = {
 
 export const Horizontal: Story = {
   args: {
-    color: 'primary',
     size: 'md',
-    radius: 'md',
     isDisabled: false,
     orientation: 'horizontal',
   },
@@ -161,9 +134,7 @@ export const Horizontal: Story = {
 
 export const Required: Story = {
   args: {
-    color: 'primary',
     size: 'md',
-    radius: 'md',
     isDisabled: false,
     isRequired: true,
   },
@@ -188,9 +159,7 @@ export const Required: Story = {
 
 export const Disabled: Story = {
   args: {
-    color: 'primary',
     size: 'md',
-    radius: 'md',
     isDisabled: true,
   },
   render: args => (
@@ -212,9 +181,7 @@ export const Disabled: Story = {
 
 export const WithError: Story = {
   args: {
-    color: 'primary',
     size: 'md',
-    radius: 'md',
     isDisabled: false,
   },
   render: args => (

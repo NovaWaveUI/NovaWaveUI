@@ -68,16 +68,68 @@ const ariaAttributeRegex = /^aria-.+/;
 const eventHandlerRegex = /^on[A-Z].+/;
 
 /**
- * The set of valid DOM event names.
+ * Global events that work on any element (clicks, pointer events, scroll, etc.)
+ * These are safe to apply to container elements.
  */
-export const DOMEventNames = new Set([
+export const globalEventNames = new Set([
+  'onClick',
+  'onAuxClick',
+  'onContextMenu',
+  'onDoubleClick',
+  'onMouseDown',
+  'onMouseEnter',
+  'onMouseLeave',
+  'onMouseMove',
+  'onMouseOut',
+  'onMouseOver',
+  'onMouseUp',
+  'onTouchCancel',
+  'onTouchEnd',
+  'onTouchMove',
+  'onTouchStart',
+  'onPointerDown',
+  'onPointerMove',
+  'onPointerUp',
+  'onPointerCancel',
+  'onPointerEnter',
+  'onPointerLeave',
+  'onPointerOver',
+  'onPointerOut',
+  'onGotPointerCapture',
+  'onLostPointerCapture',
+  'onScroll',
+  'onWheel',
+  'onAnimationStart',
+  'onAnimationEnd',
+  'onAnimationIteration',
+  'onTransitionCancel',
+  'onTransitionEnd',
+  'onTransitionRun',
+  'onTransitionStart',
+]);
+
+/**
+ * Form-specific events that should only be on form elements.
+ * These should NOT be applied to container elements.
+ */
+export const formEventNames = new Set([
+  'onChange',
+  'onInput',
+  'onSelect',
+  'onSubmit',
+  'onReset',
+  'onInvalid',
+]);
+
+/**
+ * Additional events for specific elements.
+ */
+export const otherEventNames = new Set([
   'onCopy',
   'onCut',
   'onPaste',
   'onLoad',
   'onError',
-  'onWheel',
-  'onScroll',
   'onCompositionEnd',
   'onCompositionStart',
   'onCompositionUpdate',
@@ -86,12 +138,6 @@ export const DOMEventNames = new Set([
   'onKeyUp',
   'onFocus',
   'onBlur',
-  'onChange',
-  'onInput',
-  'onSubmit',
-  'onClick',
-  'onContextMenu',
-  'onDoubleClick',
   'onDrag',
   'onDragEnd',
   'onDragEnter',
@@ -100,26 +146,15 @@ export const DOMEventNames = new Set([
   'onDragOver',
   'onDragStart',
   'onDrop',
-  'onMouseDown',
-  'onMouseEnter',
-  'onMouseLeave',
-  'onMouseMove',
-  'onMouseOut',
-  'onMouseOver',
-  'onMouseUp',
-  'onPointerDown',
-  'onPointerEnter',
-  'onPointerLeave',
-  'onPointerUp',
-  'onSelect',
-  'onTouchCancel',
-  'onTouchEnd',
-  'onTouchMove',
-  'onTouchStart',
-  'onAnimationStart',
-  'onAnimationEnd',
-  'onAnimationIteration',
-  'onTransitionEnd',
+]);
+
+/**
+ * All valid DOM event names (union of all event sets).
+ */
+export const DOMEventNames = new Set([
+  ...globalEventNames,
+  ...formEventNames,
+  ...otherEventNames,
 ]);
 
 /**
@@ -164,6 +199,12 @@ export interface DOMFilterOptions {
    */
   filterEventHandlers?: boolean;
   /**
+   * When true, only includes global events (clicks, pointer, scroll) and filters out
+   * form-specific events (onChange, onInput, onSelect).
+   * This is useful when filtering props for container elements.
+   */
+  global?: boolean;
+  /**
    * The list of additional props to filter.
    */
   omitProps?: Set<string>;
@@ -190,6 +231,7 @@ export function filterDOMProps<T extends ElementType = 'div'>(
     filterAllDataAttrs = false,
     filterAriaAttrs = false,
     filterEventHandlers = false,
+    global = false,
     omitProps = new Set<string>(),
     omitDataAttrs = new Set<string>(),
     omitAriaAttrs = new Set<string>(),
@@ -387,9 +429,16 @@ export function filterDOMProps<T extends ElementType = 'div'>(
         continue;
       }
 
-      // Next, check if this is a valid event handler
-      if (!DOMEventNames.has(key)) {
-        continue;
+      // When global is true, only allow global events (not form-specific events)
+      if (global) {
+        if (!globalEventNames.has(key)) {
+          continue;
+        }
+      } else {
+        // When global is false, check if this is a valid event handler
+        if (!DOMEventNames.has(key)) {
+          continue;
+        }
       }
     }
 

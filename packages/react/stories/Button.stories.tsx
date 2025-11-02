@@ -14,19 +14,6 @@ const meta: Meta<typeof Button> = {
       description: 'The content of the button.',
       defaultValue: 'Button',
     },
-    color: {
-      control: 'select',
-      options: [
-        'neutral',
-        'primary',
-        'secondary',
-        'success',
-        'warning',
-        'danger',
-      ],
-      description: 'The color of the button.',
-      defaultValue: 'neutral',
-    },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
@@ -35,15 +22,9 @@ const meta: Meta<typeof Button> = {
     },
     variant: {
       control: 'select',
-      options: ['solid', 'bordered', 'ghost', 'light'],
+      options: ['primary', 'secondary', 'tertiary', 'ghost', 'link'],
       description: 'The variant of the button.',
       defaultValue: 'solid',
-    },
-    radius: {
-      control: 'select',
-      options: ['none', 'sm', 'md', 'lg', 'full'],
-      description: 'The border radius of the button.',
-      defaultValue: 'md',
     },
     isDisabled: {
       control: 'boolean',
@@ -64,46 +45,11 @@ type Story = StoryObj<ButtonProps<any>>;
 export const Default: Story = {
   args: {
     children: 'Button',
-    color: 'neutral',
     size: 'md',
-    variant: 'solid',
-    radius: 'md',
+    variant: 'primary',
     isDisabled: false,
     isLoading: false,
   },
-};
-
-export const Colors: Story = {
-  args: {
-    children: 'Button',
-    size: 'md',
-    variant: 'solid',
-    radius: 'md',
-    isDisabled: false,
-    isLoading: false,
-  },
-  render: args => (
-    <div className="flex flex-col gap-4 max-w-3xs">
-      <Button {...args} color="neutral">
-        Neutral
-      </Button>
-      <Button {...args} color="primary">
-        Primary
-      </Button>
-      <Button {...args} color="secondary">
-        Secondary
-      </Button>
-      <Button {...args} color="success">
-        Success
-      </Button>
-      <Button {...args} color="warning">
-        Warning
-      </Button>
-      <Button {...args} color="danger">
-        Danger
-      </Button>
-    </div>
-  ),
 };
 
 export const Variants: Story = {
@@ -117,17 +63,20 @@ export const Variants: Story = {
   },
   render: args => (
     <div className="flex flex-col gap-4 max-w-3xs">
-      <Button {...args} variant="solid">
-        Solid
+      <Button {...args} variant="primary">
+        Primary
       </Button>
-      <Button {...args} variant="bordered">
-        Bordered
+      <Button {...args} variant="secondary">
+        Secondary
       </Button>
-      <Button {...args} variant="ghost">
-        Ghost
+      <Button {...args} variant="tertiary">
+        Tertiary
       </Button>
-      <Button {...args} variant="light">
-        Light
+      <Button {...args} variant='destructive'>
+        Destructive
+      </Button>
+      <Button {...args} variant="link">
+        Link
       </Button>
     </div>
   ),
@@ -136,10 +85,8 @@ export const Variants: Story = {
 export const ChildrenFunction: Story = {
   args: {
     children: ({ isLoading }) => (isLoading ? 'Loading...' : 'Button'),
-    color: 'primary',
     size: 'md',
-    variant: 'solid',
-    radius: 'md',
+    variant: 'primary',
     isDisabled: false,
     isLoading: true,
   },
@@ -149,11 +96,9 @@ export const ClassnameFunction: Story = {
   args: {
     children: 'Button',
     className: ({ isDisabled }) =>
-      isDisabled ? '!bg-secondary-500' : '!bg-green-500',
-    color: 'primary',
+      isDisabled ? '!bg-accent-500' : '!bg-green-500',
     size: 'md',
-    variant: 'solid',
-    radius: 'md',
+    variant: 'primary',
     isDisabled: false,
     isLoading: true,
   },
@@ -162,10 +107,8 @@ export const ClassnameFunction: Story = {
 export const StateControlled: Story = {
   args: {
     children: 'Button',
-    color: 'neutral',
     size: 'md',
-    variant: 'solid',
-    radius: 'md',
+    variant: 'primary',
     isDisabled: false,
     isLoading: false,
   },
@@ -195,10 +138,8 @@ export const StateControlled: Story = {
 export const Polymorphic: Story = {
   args: {
     children: 'Button',
-    color: 'neutral',
     size: 'md',
-    variant: 'solid',
-    radius: 'md',
+    variant: 'primary',
     isDisabled: false,
     isLoading: false,
   },
@@ -228,10 +169,8 @@ export const Polymorphic: Story = {
 export const WithStartAndEndContent: Story = {
   args: {
     children: 'Button',
-    color: 'primary',
     size: 'md',
-    variant: 'solid',
-    radius: 'md',
+    variant: 'primary',
     isDisabled: false,
     isLoading: false,
   },
@@ -251,10 +190,8 @@ export const WithStartAndEndContent: Story = {
 export const SlotAPIWay: Story = {
   args: {
     children: 'Button',
-    color: 'primary',
     size: 'md',
-    variant: 'solid',
-    radius: 'md',
+    variant: 'primary',
     isDisabled: false,
     isLoading: false,
   },
@@ -274,9 +211,8 @@ export const SlotAPIWay: Story = {
 export const NextJSLink: Story = {
   args: {
     children: 'Button',
-    color: 'primary',
     size: 'md',
-    variant: 'solid',
+    variant: 'primary',
     radius: 'md',
     isDisabled: false,
     isLoading: false,
@@ -309,10 +245,8 @@ export const NextJSLink: Story = {
 
 export const AsChildProp: Story = {
   args: {
-    color: 'neutral',
     size: 'md',
-    variant: 'solid',
-    radius: 'md',
+    variant: 'primary',
     isDisabled: false,
     isLoading: false,
     asChild: true,

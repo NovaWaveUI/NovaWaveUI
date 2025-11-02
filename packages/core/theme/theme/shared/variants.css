@@ -25,20 +25,6 @@
 @custom-variant size-md (&[data-size="md"]);
 @custom-variant size-lg (&[data-size="lg"]);
 
-/* Color */
-@custom-variant color-neutral (&[data-color="neutral"]);
-@custom-variant color-primary (&[data-color="primary"]);
-@custom-variant color-secondary (&[data-color="secondary"]);
-@custom-variant color-success (&[data-color="success"]);
-@custom-variant color-warning (&[data-color="warning"]);
-@custom-variant color-danger (&[data-color="danger"]);
-
-/* Variant */
-@custom-variant variant-solid (&[data-variant="solid"]);
-@custom-variant variant-bordered (&[data-variant="bordered"]);
-@custom-variant variant-ghost (&[data-variant="ghost"]);
-@custom-variant variant-light (&[data-variant="light"]);
-
 /* Radius */
 @custom-variant radius-none (&[data-radius="none"]);
 @custom-variant radius-sm (&[data-radius="sm"]);
@@ -53,7 +39,7 @@
 
 @custom-variant hover (&[data-hovered="true"]);
 @custom-variant focus (&[data-focus="true"]);
-@custom-variant focus-visible (&[data-focus-visible="true"]);
+@custom-variant focus-visible (&:focus-visible, &[data-focus-visible="true"]);
 @custom-variant active (&[data-pressed="true"]);
 @custom-variant disabled (&[data-disabled="true"]);
 @custom-variant invalid (&[data-invalid="true"]);
