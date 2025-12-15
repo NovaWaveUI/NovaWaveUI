@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ButtonProps } from '../src/components/button/index';
 import { Button } from '../src/components/button/index';
 import { UserIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
+import { Icon } from '@iconify/react';
 import React from 'react';
 
 const meta: Meta<typeof Button> = {
@@ -22,9 +23,9 @@ const meta: Meta<typeof Button> = {
     },
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'ghost', 'link'],
+      options: ['primary', 'secondary', 'tertiary', 'destructive', 'link'],
       description: 'The variant of the button.',
-      defaultValue: 'solid',
+      defaultValue: 'primary',
     },
     isDisabled: {
       control: 'boolean',
@@ -72,7 +73,7 @@ export const Variants: Story = {
       <Button {...args} variant="tertiary">
         Tertiary
       </Button>
-      <Button {...args} variant='destructive'>
+      <Button {...args} variant="destructive">
         Destructive
       </Button>
       <Button {...args} variant="link">
@@ -96,7 +97,7 @@ export const ClassnameFunction: Story = {
   args: {
     children: 'Button',
     className: ({ isDisabled }) =>
-      isDisabled ? '!bg-accent-500' : '!bg-green-500',
+      isDisabled ? '!bg-accent-500' : '!bg-danger-500',
     size: 'md',
     variant: 'primary',
     isDisabled: false,
@@ -177,11 +178,11 @@ export const WithStartAndEndContent: Story = {
   render: args => (
     <Button {...args}>
       <Button.StartContent>
-        <UserIcon />
+        <Icon icon="heroicons:user-solid" />
       </Button.StartContent>
       <Button.Text>Log In</Button.Text>
       <Button.EndContent>
-        <ArrowRightIcon />
+        <Icon icon="heroicons:arrow-right-solid" />
       </Button.EndContent>
     </Button>
   ),

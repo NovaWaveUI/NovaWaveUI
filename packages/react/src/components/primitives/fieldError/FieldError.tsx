@@ -37,11 +37,11 @@ export function FieldErrorInner(props: FieldErrorInnerProps) {
       validationErrors: props.validationErrors || [],
     },
     defaultChildren:
-      props.validationErrors?.length === 0
-        ? undefined
-        : props.validationErrors?.join(', '),
+      props.validationErrors && props.validationErrors.length > 0
+        ? props.validationErrors.join(', ')
+        : undefined,
   });
 
-  return <Text {...textProps} {...renderProps} />;
+  return <Text {...textProps} {...renderProps} data-component="field-error" />;
 }
 FieldErrorInner.displayName = 'NovaWaveUI.FieldErrorInner';

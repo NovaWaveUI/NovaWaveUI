@@ -1,5 +1,7 @@
 @import './button.css';
 @import './checkbox.css';
+@import './fieldError.css';
 @import './input.css';
+@import './label.css';
 @import './textarea.css';
 @import './textfield.css';

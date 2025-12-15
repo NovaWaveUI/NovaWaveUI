@@ -37,7 +37,7 @@ export function Label<T extends React.ElementType = 'label'>(
     : ctxProps;
 
   return (
-    <RenderedComponent {...dataAttrs} {...filteredProps}>
+    <RenderedComponent {...dataAttrs} {...filteredProps} data-component="label">
       {children}
     </RenderedComponent>
   );

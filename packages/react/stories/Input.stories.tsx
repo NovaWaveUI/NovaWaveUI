@@ -100,3 +100,16 @@ export const Controlled: Story = {
     );
   },
 };
+
+export const AriaInvalid: Story = {
+  args: {
+    placeholder: 'Enter text here',
+    'aria-invalid': true,
+  },
+  render: args => (
+    <div className="flex flex-col gap-2">
+      <Label htmlFor="input-aria-invalid">Aria Invalid Input</Label>
+      <Input id="input-aria-invalid" {...args} />
+    </div>
+  ),
+};

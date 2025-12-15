@@ -1,5 +1,10 @@
 @layer components {
   [data-component='textfield'] {
-    @apply flex flex-col gap-2 relative w-fit font-sans;
+    @apply flex flex-col gap-2 relative font-sans z-0;
+
+    [data-slot='textfield-description'] {
+      @apply text-sm text-neutral/70 select-none;
+      @apply size-sm:text-xs size-lg:text-base;
+    }
   }
 }

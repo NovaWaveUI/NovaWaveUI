@@ -64,9 +64,9 @@
       @apply bg-accent text-accent-foreground hover:bg-accent-hover active:bg-accent-active;
     }
 
-    /* Secondary - Less Emphasis */
+    /* Secondary - Less Emphasis / Outline Style */
     &[data-variant='secondary'] {
-      @apply bg-accent-soft text-accent-soft-foreground hover:bg-accent-soft-hover active:bg-accent-soft-active;
+      @apply bg-transparent border-2 border-accent text-accent hover:bg-accent-hover/10 active:bg-accent-active/15;
     }
 
     /* Tertiary - Minimal Emphasis */

@@ -1,0 +1,14 @@
+@layer components {
+  [data-component='label'] {
+    @apply font-sans text-sm font-medium select-none;
+
+    &[data-disabled='true'] {
+      @apply opacity-disabled cursor-not-allowed;
+    }
+
+    &[data-required='true']::after {
+      content: ' *';
+      @apply text-danger;
+    }
+  }
+}

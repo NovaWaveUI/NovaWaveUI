@@ -81,21 +81,30 @@ export const Validation: Story = {
   args: {
     size: 'md',
     isReadOnly: false,
-    isInvalid: false,
-    isRequired: false,
+    isRequired: true,
     isDisabled: false,
+    validationBehavior: 'native',
   },
   render: args => {
     return (
       <form
         name="validation-form"
-        className="flex flex-col gap-2 w-fit"
-        onSubmit={e => e.preventDefault()}
+        className="flex flex-col gap-2"
+        onSubmit={e => {
+          e.preventDefault();
+          console.log('Form submitted');
+        }}
       >
-        <TextField.Root {...args} isRequired name="validated-field">
+        <TextField.Root {...args} name="validated-field">
           <TextField.Label>Validated TextField</TextField.Label>
           <TextField.Input />
-          <TextField.ErrorField>Please enter a value.</TextField.ErrorField>
+          <TextField.ErrorField>
+            {({ validationDetails, validationErrors }) =>
+              validationErrors.length > 0 && validationDetails.valueMissing
+                ? 'This field is required.'
+                : ''
+            }
+          </TextField.ErrorField>
         </TextField.Root>
         <Button type="submit" className="mt-2">
           Submit

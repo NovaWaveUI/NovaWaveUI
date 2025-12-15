@@ -3,6 +3,7 @@ import { useTextField } from 'react-aria';
 import { filterDOMProps } from '@react-aria/utils';
 import {
   cn,
+  dataProps,
   useDOMRef,
   useRenderProps,
   useSlot,
@@ -66,9 +67,14 @@ export function TextField(props: TextFieldProps) {
 
   const DOMProps = filterDOMProps(ctxProps, { global: true });
 
+  const dataAttrs = dataProps({
+    invalid: validation.isInvalid,
+  });
+
   return (
     <div
       {...DOMProps}
+      {...dataAttrs}
       {...renderProps}
       slot={ctxProps.slot || undefined}
       data-component="textfield"
@@ -76,7 +82,24 @@ export function TextField(props: TextFieldProps) {
       <TextFieldSlots.Provider
         value={{
           input: { ...inputProps, ref: inputOrTextAreaRef },
-          label: { ...labelProps, ref: labelRef },
+          label: {
+            ...labelProps,
+            required: ctxProps.isRequired,
+            ref: labelRef,
+          },
+          errorField: {
+            ...errorMessageProps,
+            isInvalid: validation.isInvalid,
+            validationErrors: validation.validationErrors,
+            validationDetails: validation.validationDetails,
+          },
+          errorMessage: {
+            ...errorMessageProps,
+            isInvalid: validation.isInvalid,
+            validationErrors: validation.validationErrors,
+            validationDetails: validation.validationDetails,
+          },
+          description: descriptionProps,
         }}
       >
         {renderProps.children}

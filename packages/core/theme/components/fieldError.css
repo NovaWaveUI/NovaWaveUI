@@ -1,0 +1,5 @@
+@layer components {
+  [data-component='field-error'] {
+    @apply font-sans text-sm text-danger mt-1;
+  }
+}

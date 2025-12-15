@@ -98,7 +98,7 @@ export function useRenderProps<T>(
             ...values,
             defaultClassName,
           })
-        : className || defaultClassName;
+        : (className ?? defaultClassName);
 
     const resolvedStyle =
       typeof style === 'function'
@@ -106,7 +106,7 @@ export function useRenderProps<T>(
             ...values,
             defaultStyles,
           })
-        : style;
+        : (style ?? defaultStyles);
 
     const resolvedChildren =
       typeof children === 'function'
@@ -114,7 +114,7 @@ export function useRenderProps<T>(
             ...values,
             defaultChildren,
           })
-        : children;
+        : (children ?? defaultChildren);
 
     return {
       className: resolvedClassName,

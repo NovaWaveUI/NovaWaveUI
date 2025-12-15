@@ -82,22 +82,25 @@ Notes:
 ### Component API Design
 
 **Intent-based variants (not color + style combinations):**
+
 - Components use a single `variant` prop that communicates **hierarchy and intent**, not just visual style
 - Example: `<Button variant="primary">` (main CTA) vs `<Button variant="secondary">` (secondary action)
 - DO NOT expose granular `color` + `variant` combinations that allow invalid states
 - Variants map to appropriate colors internally via CSS
 
 **Button variants (reference implementation):**
+
 ```typescript
 type ButtonVariant =
-  | 'primary'     // Main CTA - solid accent/brand color (high emphasis)
-  | 'secondary'   // Secondary action - soft accent color (medium emphasis)
-  | 'tertiary'    // Tertiary action - neutral bordered (low emphasis)
-  | 'ghost'       // Minimal action - transparent neutral (minimal emphasis)
-  | 'danger'      // Destructive action - solid danger red (high emphasis, semantic)
+  | 'primary' // Main CTA - solid accent/brand color (high emphasis)
+  | 'secondary' // Secondary action - soft accent color (medium emphasis)
+  | 'tertiary' // Tertiary action - neutral bordered (low emphasis)
+  | 'ghost' // Minimal action - transparent neutral (minimal emphasis)
+  | 'danger'; // Destructive action - solid danger red (high emphasis, semantic)
 ```
 
 **Visual style mapping:**
+
 - `primary`: Solid background with accent/brand color
 - `secondary`: Soft/subtle background with accent color
 - `tertiary`: Transparent background with neutral border
@@ -105,6 +108,7 @@ type ButtonVariant =
 - `danger`: Solid background with danger/red color
 
 **Props to keep vs remove:**
+
 - ✅ KEEP: `variant` (intent-based), `size` (layout hierarchy), `iconOnly` (layout structure)
 - ✅ KEEP: Behavior props like `isDisabled`, `isLoading`
 - ❌ REMOVE: `color` prop (merged into variant)
@@ -116,112 +120,136 @@ type ButtonVariant =
 **Three-layer token architecture:**
 
 **Layer 1 - Primitive Scales (variables.css):**
-Define color scales without `--color-*` prefix:
-```css
-/* Color scales - OKLCH for perceptual uniformity */
---neutral-50: oklch(0.985 0 0);
---neutral-500: oklch(0.554 0.018 252);
---neutral-950: oklch(0.130 0.013 264);
+Define color scales with OKLCH for perceptual uniformity. Named scales map to semantic purposes:
 
---blue-600: oklch(0.513 0.160 256);    /* Brand blue */
---cyan-500: oklch(0.650 0.100 220);    /* Info cyan */
---green-600: oklch(0.480 0.101 149);   /* Success */
---orange-600: oklch(0.580 0.119 53);   /* Warning */
---red-600: oklch(0.560 0.186 19);      /* Danger */
+```css
+/* Primitive scales in packages/core/theme/theme/default/variables.css */
+--neutral-50 to --neutral-950: zinc scale (grays)
+--science-blue-50 to --science-blue-950: brand blue
+--info-50 to --info-950: cyan (lighter than brand)
+--success-50 to --success-950: green
+--brandy-punch-50 to --brandy-punch-950: orange (warning)
+--danger-50 to --danger-950: red
+
+/* These primitive scales are aliased to semantic names: */
+--accent-50: var(--science-blue-50);   /* through --accent-950 */
+--warning-50: var(--brandy-punch-50);   /* through --warning-950 */
 ```
 
 **Layer 2 - Semantic Tokens (variables.css):**
-Map scales to semantic meaning with simple names:
+Map primitive scales to semantic meaning with consistent patterns:
+
 ```css
-/* Brand/Accent - "accent" = brand color, not "primary" */
---accent: var(--blue-600);              /* Main brand color */
---accent-foreground: white;             /* Text on accent */
---accent-contrast: var(--neutral-950);  /* For dynamic hover (dark in light, light in dark) */
---accent-subtle: var(--blue-50);        /* Soft accent background */
---accent-subtle-foreground: var(--blue-900);
+/* Pattern: base + -foreground + -soft + -soft-foreground + -contrast */
+/* Brand/Accent - "accent" = brand color */
+--accent: var(--accent-800); /* Main brand color (light mode) */
+--accent-foreground: var(--color-white);
+--accent-soft: var(--accent-300); /* Soft/subtle variant */
+--accent-soft-foreground: var(--color-black);
+--accent-contrast: var(--accent-950); /* For dynamic hover mixing */
 
-/* Semantic feedback colors */
---info: var(--cyan-500);                /* Informational (separate from brand) */
---info-foreground: white;
---info-contrast: var(--neutral-950);
+/* Semantic feedback colors (info, success, warning, danger) */
+--info: var(--info-800);
+--info-foreground: var(--color-white);
+--info-soft: var(--info-600);
+--info-soft-foreground: var(--color-white);
+--info-contrast: var(--info-950);
 
---success: var(--green-600);
---success-foreground: white;
---success-contrast: var(--neutral-950);
+/* success, warning, danger follow same 5-token pattern */
 
-/* ... warning, danger follow same pattern ... */
-
-/* Page structure */
---background: white;
---foreground: var(--neutral-950);
---panel: white;
---subtle: var(--neutral-50);
---border: var(--neutral-200);
+/* Page structure tokens */
+--background: var(--neutral-50);
+--default-foreground: var(--neutral-900);
+--surface: var(--neutral-200);
+--field: var(--neutral-100);
+--field-border: var(--neutral-300);
 ```
 
-**Why this naming:**
-- `--accent`: Clear separation between brand (accent) and semantic (info/success/warning/danger)
-- Simple names like `--accent`, not `--color-accent` or `--accent-background`
-- Pattern: base color + `-foreground` + `-contrast`
-- Matches Hero UI v3, Vercel design systems
+**Why this structure:**
+
+- `--accent` vs `--info`: Clear separation between brand and informational semantic colors
+- Consistent 5-token pattern: base, foreground, soft, soft-foreground, contrast
+- `-soft` variants provide subtle backgrounds for secondary emphasis
+- `-contrast` enables dynamic hover/active states via `color-mix()`
 
 **Layer 3 - Tailwind Utilities (theme.css with @theme inline):**
 Map semantic tokens to Tailwind utilities with `--color-*` prefix:
+
 ```css
+/* In packages/core/theme/theme/shared/theme.css */
 @theme inline {
   /* Maps --accent → generates bg-accent, text-accent utilities */
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-foreground: var(--accent-soft-foreground);
 
   /* Dynamic hover/active with color-mix() using contrast variable! */
   --color-accent-hover: color-mix(
-    in oklab,
-    var(--color-accent) 90%,
-    var(--accent-contrast) 10%
-  );
-  --color-accent-active: color-mix(
-    in oklab,
-    var(--color-accent) 80%,
+    in oklch,
+    var(--accent) 80%,
     var(--accent-contrast) 20%
   );
+  --color-accent-active: color-mix(
+    in oklch,
+    var(--accent) 70%,
+    var(--accent-contrast) 30%
+  );
 
-  /* Same pattern for all semantic colors */
+  /* Same pattern for all semantic colors: neutral, info, success, warning, danger */
 }
 ```
 
 **Why `color-mix()` with dynamic contrast:**
-- NO discrete hover/active tokens in variables.css (reduces 200+ tokens to ~50)
-- `--accent-contrast` is `--neutral-950` in light mode, `--neutral-50` in dark mode
-- Light mode: mixes with dark → darkens the color
-- Dark mode: mixes with light → lightens the color
-- Users can customize hover intensity by changing contrast color
-- Consistent darkening/lightening formula across all colors
+
+- NO discrete hover/active tokens in variables.css (keeps token count minimal)
+- `--accent-contrast` is `--accent-950` in light mode, `--accent-200` in dark mode
+- Light mode: mixes with dark (950) → darkens the base color on hover
+- Dark mode: mixes with light (200) → lightens the base color on hover
+- Users can customize hover intensity by changing the contrast token or mix percentages
+- Consistent darkening/lightening formula across all semantic colors
 - Browser support: Chrome 111+, Safari 16.2+, Firefox 113+ (modern browsers only)
 
 **Color scale strategy (6 scales):**
-- `--neutral-*`: Grays (50-950 scale)
-- `--blue-*`: Brand/accent (rich, saturated blue)
-- `--cyan-*`: Info (lighter, cooler blue - visually distinct from brand)
-- `--green-*`: Success
-- `--orange-*`: Warning
-- `--red-*`: Danger
+
+- `--neutral-*`: Grays (50-950 scale, maps to zinc)
+- `--science-blue-*` → `--accent-*`: Brand/accent blue (rich, saturated)
+- `--info-*`: Informational cyan (lighter, cooler blue - visually distinct from brand)
+- `--success-*`: Green (natural green for positive feedback)
+- `--brandy-punch-*` → `--warning-*`: Orange (warm orange for cautions)
+- `--danger-*`: Red (bold red for errors/destructive actions)
 
 **Component-specific semantic tokens:**
+
 ```css
 /* Component-specific radius - not configurable per instance */
---radius-base: 0.5rem;               /* Base unit */
---radius-button: var(--radius-base);
---radius-input: var(--radius-base);
---radius-card: calc(var(--radius-base) * 1.5);
---radius-badge: 9999px;
+--radius: 0.25rem; /* Base unit */
+--radius-sm: calc(var(--radius) * 0.5);
+--radius-md: var(--radius);
+--radius-lg: calc(var(--radius) * 2);
+--radius-xl: calc(var(--radius) * 4);
+--radius-full: 9999px;
+
+/* Field/Input specific tokens */
+--field: var(--neutral-100);
+--field-foreground: var(--default-foreground);
+--field-border: var(--neutral-300);
+--field-border-focus: var(--accent);
+--field-border-error: var(--danger);
 ```
 
 **Dark mode overrides:**
+
 ```css
-[data-theme="dark"] {
-  --accent: var(--blue-500);              /* Lighter in dark */
+[data-mode='dark'],
+.dark {
+  --accent: var(--accent-500); /* Lighter in dark mode */
   --accent-foreground: var(--neutral-950);
-  --accent-contrast: var(--neutral-50);   /* Light contrast for dark mode */
+  --accent-contrast: var(--accent-200); /* Light contrast for dark mode */
+
+  --background: var(--neutral-950);
+  --default-foreground: var(--neutral-50);
+  --surface: var(--neutral-900);
   /* ... other semantic tokens ... */
 }
 ```
@@ -229,44 +257,47 @@ Map semantic tokens to Tailwind utilities with `--color-*` prefix:
 ### Theming Architecture
 
 **CSS variables + Tailwind v4 (no complex JS theme objects):**
+
 - Users customize via CSS variables, not JS configuration
 - Support runtime theme switching via `data-theme` attribute
 - All `data-*` attributes pass through to DOM for user customization
 
 **Example theming:**
+
 ```css
 /* Default theme */
 :root {
-  --color-accent: #6366f1;
-  --radius-button: 0.75rem;
+  --accent: oklch(51.34% 0.1603 255.67); /* science-blue-600 */
+  --radius: 0.25rem;
 }
 
 /* Dark theme */
-[data-theme="dark"] {
-  --color-accent: #818cf8;
-  --color-background: #1f2937;
+[data-mode='dark'] {
+  --accent: var(--accent-500);
+  --background: var(--neutral-950);
 }
 
 /* Custom brand theme */
-[data-theme="brand-purple"] {
-  --color-accent: #a855f7;
+[data-theme='brand-purple'] {
+  --accent: oklch(55% 0.186 300); /* Custom purple */
 }
 ```
 
 **User customization:**
+
 ```tsx
-// Site-wide theme
-<div data-theme="dark">
+// Site-wide dark mode
+<div data-mode="dark">
   <Button variant="primary">Uses dark theme</Button>
 </div>
 
-// Component-level override (escape hatch)
+// Custom theme override (escape hatch)
 <Button variant="primary" data-theme="special">
   Custom themed button
 </Button>
 
 // Inline CSS variables (dynamic theming)
-<div style={{ '--color-accent': userColor }}>
+<div style={{ '--accent': userColor }}>
   <Button variant="primary">Dynamic color</Button>
 </div>
 ```
