@@ -82,7 +82,7 @@
         @apply border-danger text-danger-foreground;
       }
       &[data-hovered='true'] [data-slot='checkbox-indicator'] {
-        @apply bg-danger-hover;
+        @apply bg-danger-hover/10;
       }
       &[data-selected='true'] [data-slot='checkbox-indicator'] {
         @apply bg-danger border-transparent;

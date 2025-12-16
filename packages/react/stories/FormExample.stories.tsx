@@ -4,6 +4,8 @@ import { Button } from '../src/components/button';
 import { TextField } from '../src/components/textfield';
 import { Checkbox, CheckboxProps } from '../src/components/checkbox';
 import { CheckboxGroup } from '../src/components/checkboxGroup';
+import { Input } from '../src/components/primitives/input';
+import { TextArea } from '../src/components/primitives/textarea';
 
 const meta = {
   title: 'Examples/Form',
@@ -49,16 +51,20 @@ export const LoginForm: Story = {
 
       <TextField.Root name="email" type="email" isRequired>
         <TextField.Label>Email Address</TextField.Label>
-        <TextField.Input placeholder="Enter your email" />
+        <TextField.Input>
+          <Input placeholder="Enter your email" />
+        </TextField.Input>
         <TextField.ErrorField />
         <TextField.Description>
           We'll never share your email.
         </TextField.Description>
       </TextField.Root>
 
-      <TextField.Root name="password" type="password" isRequired>
+      <TextField.Root name="password" isRequired>
         <TextField.Label>Password</TextField.Label>
-        <TextField.Input placeholder="Enter your password" />
+        <TextField.Input>
+          <Input placeholder="Enter your password" type="password" />
+        </TextField.Input>
         <TextField.ErrorField />
       </TextField.Root>
 
@@ -101,19 +107,25 @@ export const RegistrationForm: Story = {
 
       <TextField.Root name="fullName" isRequired>
         <TextField.Label>Full Name</TextField.Label>
-        <TextField.Input placeholder="John Doe" />
+        <TextField.Input>
+          <Input placeholder="John Doe" />
+        </TextField.Input>
         <TextField.ErrorField />
       </TextField.Root>
 
       <TextField.Root name="email" isRequired>
         <TextField.Label>Email Address</TextField.Label>
-        <TextField.Input placeholder="email@email.com" type="email" />
+        <TextField.Input>
+          <Input placeholder="email@email.com" type="email" />
+        </TextField.Input>
         <TextField.ErrorField />
       </TextField.Root>
 
       <TextField.Root name="password" isRequired>
         <TextField.Label>Password</TextField.Label>
-        <TextField.Input placeholder="At least 8 characters" />
+        <TextField.Input>
+          <Input type="password" placeholder="Create a password" />
+        </TextField.Input>
         <TextField.Description>
           Must include letters and numbers
         </TextField.Description>
@@ -190,35 +202,42 @@ export const ContactForm: Story = {
       >
         <TextField.Root name="firstName" isRequired>
           <TextField.Label>First Name</TextField.Label>
-          <TextField.Input placeholder="John" />
+          <TextField.Input>
+            <Input placeholder="John" />
+          </TextField.Input>
           <TextField.ErrorField />
         </TextField.Root>
 
         <TextField.Root name="lastName" isRequired>
           <TextField.Label>Last Name</TextField.Label>
-          <TextField.Input placeholder="Doe" />
+          <TextField.Input>
+            <Input placeholder="Doe" />
+          </TextField.Input>
           <TextField.ErrorField />
         </TextField.Root>
       </div>
 
       <TextField.Root name="email" type="email" isRequired>
         <TextField.Label>Email Address</TextField.Label>
-        <TextField.Input placeholder="john@example.com" />
+        <TextField.Input>
+          <Input placeholder="john@example.com" />
+        </TextField.Input>
         <TextField.ErrorField />
       </TextField.Root>
 
       <TextField.Root name="subject" isRequired>
         <TextField.Label>Subject</TextField.Label>
-        <TextField.Input placeholder="Subject of your message" />
+        <TextField.Input>
+          <Input placeholder="Subject of your message" />
+        </TextField.Input>
         <TextField.ErrorField />
       </TextField.Root>
 
       <TextField.Root name="message" isRequired>
         <TextField.Label>Message</TextField.Label>
-        <TextField.Input
-          placeholder="Write your message here..."
-          style={{ minHeight: '100px', resize: 'vertical' }}
-        />
+        <TextField.Input>
+          <TextArea placeholder="Write your message here..." rows={5} />
+        </TextField.Input>
         <TextField.ErrorField />
       </TextField.Root>
 

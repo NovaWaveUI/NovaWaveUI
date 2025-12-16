@@ -2,6 +2,7 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { TextField } from '../src/components/textfield';
 import { Button } from '../src/components/button/Button';
+import { Input } from '../src/components/primitives/input';
 
 const meta: Meta<typeof TextField.Root> = {
   title: 'Components/TextField',
@@ -51,7 +52,9 @@ export const Default: Story = {
   render: args => (
     <TextField.Root {...args}>
       <TextField.Label>Default TextField</TextField.Label>
-      <TextField.Input placeholder="Enter text here" />
+      <TextField.Input>
+        <Input placeholder="Enter text here" />
+      </TextField.Input>
       <TextField.ErrorField>This field is required</TextField.ErrorField>
     </TextField.Root>
   ),
@@ -68,7 +71,9 @@ export const Description: Story = {
   render: args => (
     <TextField.Root {...args} name="first-name">
       <TextField.Label>Default TextField</TextField.Label>
-      <TextField.Input placeholder="Enter text here" />
+      <TextField.Input>
+        <Input placeholder="Enter your first name" />
+      </TextField.Input>
       <TextField.Description>
         Please enter your full name.
       </TextField.Description>
@@ -97,7 +102,9 @@ export const Validation: Story = {
       >
         <TextField.Root {...args} name="validated-field">
           <TextField.Label>Validated TextField</TextField.Label>
-          <TextField.Input />
+          <TextField.Input>
+            <Input placeholder="This field is required" />
+          </TextField.Input>
           <TextField.ErrorField>
             {({ validationDetails, validationErrors }) =>
               validationErrors.length > 0 && validationDetails.valueMissing

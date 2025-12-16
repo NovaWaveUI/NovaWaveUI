@@ -82,6 +82,7 @@ export function TextField(props: TextFieldProps) {
       <TextFieldSlots.Provider
         value={{
           input: { ...inputProps, ref: inputOrTextAreaRef },
+          textArea: { ...inputProps, ref: inputOrTextAreaRef },
           label: {
             ...labelProps,
             required: ctxProps.isRequired,
