@@ -4,6 +4,8 @@ import { useSafeLayoutEffect } from '../../hooks';
 export type { SlotSystem } from './SlotSystem';
 export { createSlotSystem } from './SlotSystem';
 
+export type { ProviderSlotProps } from './types';
+
 /**
  * Taken from
  * https://github.com/adobe/react-spectrum/blob/main/packages/react-aria-components/src/utils.tsx#L216
