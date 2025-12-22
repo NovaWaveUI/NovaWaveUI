@@ -1,39 +1,13 @@
 import React from 'react';
-import { cn, filterDOMProps } from '../../utils';
-import {
-  PolymorphicProps,
-  RenderProps,
-  useContextProps,
-  useRenderProps,
-} from '../../utils/react';
+import { filterDOMProps } from '../../utils';
+import { useContextProps, useRenderProps } from '../../utils/react';
 import { Slot } from '../slot';
-import {
-  ButtonGroupOrientation,
-  ButtonGroupRenderProps,
-  ButtonGroupStyleProps,
-} from './types';
+import { ButtonGroupRenderProps, ButtonGroupProps } from './types';
 import {
   ButtonGroupContextType,
   ButtonGroupStateContext,
   useButtonGroupContextProps,
 } from './context';
-
-export type ButtonGroupProps<T extends React.ElementType> = PolymorphicProps<
-  T,
-  ButtonGroupStyleProps &
-    RenderProps<ButtonGroupRenderProps> & {
-      /**
-       * Whether or not the buttons in the group are disabled.
-       */
-      isDisabled?: boolean;
-
-      /**
-       * The orientation of the button group.
-       * @default 'horizontal'
-       */
-      orientation?: ButtonGroupOrientation;
-    }
->;
 
 /**
  * The ButtonGroup component is used to group multiple buttons together.
@@ -97,7 +71,6 @@ export function ButtonGroup<T extends React.ElementType = 'div'>(
   return (
     <RenderedComponent
       ref={ctxProps.ref}
-      className={cn('nw-button-group', renderPropsClassName)}
       {...filteredProps}
       {...renderProps}
       role="group"

@@ -7,8 +7,7 @@
  * and its subcomponents from anywhere in the tree.
  */
 import { createContext } from '../../utils/react';
-import { ButtonProps } from './Button';
-import { ButtonRenderProps, ButtonStyleProps } from './types';
+import { ButtonRenderProps, ButtonStyleProps, ButtonProps } from './types';
 
 // The ButtonStateContextValue is the state of the button that is used
 // internally and is not configurable from outside.
@@ -37,23 +36,3 @@ export const [ButtonContext, useButtonContextProps] = createContext<
   name: 'NovaWaveUI.ButtonContext',
   defaultValue: {},
 });
-
-/**
- * The ButtonStateContext is used to pass down the state of the button
- * to the button slots. This allows the slots to adapt based on
- * the state of the button (e.g. disabled, loading, pressed, etc).
- *
- * This is exposed as a public context so that advanced users
- * can use it to create custom button components that are still
- * in sync with the Button component.
- *
- * useButtonState is a hook that provides access to the ButtonStateContext.
- * It will throw an error if used outside of a Button component.
- */
-export const [ButtonStateContext, useButtonState] =
-  createContext<ButtonStateContextType>({
-    strict: true,
-    name: 'NovaWaveUI.ButtonStateContext',
-    errorMessage:
-      'useButtonState must be used within a Button component or a component wrapped with ButtonProvider',
-  });

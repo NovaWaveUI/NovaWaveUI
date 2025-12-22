@@ -1,0 +1,240 @@
+---
+title: Button
+description: Intent-based button primitive with accessibility, loading states, and polymorphic rendering.
+---
+
+# Button
+
+An accessible, intent-based button for triggering actions. It builds on `@react-aria/button` for keyboard and screen reader support, inherits sizing/variants from `ButtonGroup`, and supports polymorphic rendering via the `as` or `asChild` props.
+
+## Anatomy
+
+```tsx
+import { Button } from '@novawaveui/react';
+
+export function AnatomyExample() {
+  return (
+    <Button variant="primary" size="md">
+      Click me
+    </Button>
+  );
+}
+```
+
+## API Reference
+
+### Button
+
+| Prop         | Type                                                                | Default                                                | Description                                                                                          |
+| ------------ | ------------------------------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| `variant`    | `'primary' \| 'secondary' \| 'tertiary' \| 'destructive' \| 'link'` | `'primary'` (inherits from `ButtonGroup` when present) | Visual intent of the button.                                                                         |
+| `size`       | `'sm' \| 'md' \| 'lg'`                                              | `'md'` (inherits from `ButtonGroup` when present)      | Controls padding, min-width, and font size.                                                          |
+| `isDisabled` | `boolean`                                                           | `false` (inherits from `ButtonGroup` when present)     | Disables interactions and applies `[data-disabled]`.                                                 |
+| `isLoading`  | `boolean`                                                           | `false`                                                | Disables interactions, applies `[data-loading]`, and forces `type="button"` when non-interactive.    |
+| `isIconOnly` | `boolean`                                                           | `false`                                                | Squares the button and applies `[data-icon-only]` sizing rules.                                      |
+| `as`         | `React.ElementType`                                                 | `'button'`                                             | Polymorphic element to render. Type-safe props adjust to the chosen element.                         |
+| `asChild`    | `boolean`                                                           | `false`                                                | Renders the child element directly via the `Slot` primitive while preserving button behavior.        |
+| `children`   | `React.ReactNode \| (state: ButtonRenderProps) => React.ReactNode`  | —                                                      | Content of the button. Render props receive live state (hover, focus, loading, pressed).             |
+| `className`  | `string \| (state: ButtonRenderProps) => string`                    | —                                                      | Optional class names or render-prop class names based on button state.                               |
+| `onPress`    | `AriaButtonProps['onPress']`                                        | —                                                      | Accessible press handler from React Aria.                                                            |
+| `type`       | `'button' \| 'submit' \| 'reset'`                                   | `'button'` (when non-interactive)                      | Button type when rendering as a native `button`. Prevents form submission while disabled or loading. |
+
+### Render props
+
+`ButtonRenderProps` passed to `children` and `className` render functions:
+
+| Key              | Description                                      |
+| ---------------- | ------------------------------------------------ |
+| `isHovered`      | Pointer is over the button (`[data-hovered]`).   |
+| `isFocused`      | Button is focused (`[data-focused]`).            |
+| `isFocusVisible` | Keyboard-visible focus (`[data-focus-visible]`). |
+| `isPressed`      | Press/active state (`[data-pressed]`).           |
+| `isDisabled`     | Disabled (`[data-disabled]`).                    |
+| `isLoading`      | Loading (`[data-loading]`).                      |
+
+## Examples
+
+### Default
+
+```tsx
+import { Button } from '@novawaveui/react';
+
+export function DefaultButton() {
+  return <Button variant="primary">Click me</Button>;
+}
+```
+
+### Variants
+
+```tsx
+import { Button } from '@novawaveui/react';
+
+export function VariantButtons() {
+  return (
+    <div className="flex flex-col gap-3">
+      <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="tertiary">Tertiary</Button>
+      <Button variant="destructive">Destructive</Button>
+      <Button variant="link">Link</Button>
+    </div>
+  );
+}
+```
+
+### Sizes
+
+```tsx
+import { Button } from '@novawaveui/react';
+
+export function SizeButtons() {
+  return (
+    <div className="flex flex-col gap-3">
+      <Button size="sm">Small</Button>
+      <Button size="md">Medium</Button>
+      <Button size="lg">Large</Button>
+    </div>
+  );
+}
+```
+
+### Disabled and loading
+
+```tsx
+import { Button } from '@novawaveui/react';
+
+export function StateButtons() {
+  return (
+    <div className="flex flex-col gap-3">
+      <Button isDisabled>Disabled</Button>
+      <Button isLoading>Loading…</Button>
+    </div>
+  );
+}
+```
+
+### Icon only
+
+```tsx
+import { Button } from '@novawaveui/react';
+import { Icon } from '@iconify/react';
+
+export function IconOnlyButton() {
+  return (
+    <Button variant="primary" isIconOnly aria-label="Open cart">
+      <Icon icon="heroicons:shopping-cart-solid" className="w-5 h-5" />
+    </Button>
+  );
+}
+```
+
+### Polymorphic and `asChild`
+
+```tsx
+import { Button } from '@novawaveui/react';
+import Link from 'next/link';
+
+export function PolymorphicButtons() {
+  return (
+    <div className="flex flex-col gap-3">
+      <Button as="a" href="/docs" target="_blank" rel="noreferrer">
+        Anchor button
+      </Button>
+      <Button asChild>
+        <Link href="/docs">Next.js Link button</Link>
+      </Button>
+    </div>
+  );
+}
+```
+
+### Render props
+
+```tsx
+import { Button } from '@novawaveui/react';
+
+export function RenderPropButton() {
+  return (
+    <Button
+      isLoading
+      className={({ isDisabled }) =>
+        isDisabled ? '!bg-accent-500' : '!bg-danger-500'
+      }
+    >
+      {({ isLoading }) => (isLoading ? 'Loading…' : 'Submit')}
+    </Button>
+  );
+}
+```
+
+### Controlled loading
+
+```tsx
+import { Button } from '@novawaveui/react';
+import { useState } from 'react';
+
+export function ControlledLoading() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  return (
+    <Button
+      isLoading={isLoading}
+      onPress={() => {
+        setIsLoading(true);
+        setTimeout(() => setIsLoading(false), 1500);
+      }}
+    >
+      {isLoading ? 'Working…' : 'Run task'}
+    </Button>
+  );
+}
+```
+
+## Accessibility
+
+- Built on `@react-aria/button` for correct roles, keyboard handling, and press semantics.
+- Space/Enter activates the button; focus ring is visible with `data-focus-visible` styling.
+- Disabled and loading states remove interactions and are conveyed via `aria-disabled` and data attributes.
+- Icon-only buttons require `aria-label` to describe the action.
+- Button type coerces to `button` when non-interactive to avoid accidental form submission.
+
+## Styling
+
+- Variants are driven by data attributes in the theme CSS (`button.css`) using semantic tokens (`--color-accent`, `--color-danger`, etc.).
+- Customize tokens globally or inline:
+
+```tsx
+<div style={{ '--accent': 'oklch(55% 0.18 260)', '--radius': '0.375rem' }}>
+  <Button variant="primary">Branded action</Button>
+</div>
+```
+
+- Target data attributes for fine-grained overrides:
+
+```css
+.my-button[data-variant='primary'][data-hovered] {
+  background: var(--color-accent-hover);
+}
+```
+
+### Data attributes
+
+| Attribute            | Value/condition                                                     | Notes                                |
+| -------------------- | ------------------------------------------------------------------- | ------------------------------------ |
+| `data-component`     | `"button"`                                                          | Identifies the root button element.  |
+| `data-slot`          | `"button-root"`                                                     | Slot marker for styling/composition. |
+| `data-variant`       | `'primary' \| 'secondary' \| 'tertiary' \| 'destructive' \| 'link'` | Applied for visual intent.           |
+| `data-size`          | `'sm' \| 'md' \| 'lg'`                                              | Controls sizing utilities.           |
+| `data-hovered`       | Present when pointer is over the button                             | Added by hover interactions.         |
+| `data-focused`       | Present when focused                                                | Added by focus ring hook.            |
+| `data-focus-visible` | Present on keyboard-visible focus                                   | Use for accessible focus styling.    |
+| `data-pressed`       | Present while pressed/active                                        | Includes toggle-style press state.   |
+| `data-disabled`      | Present when `isDisabled` is true or inherited from `ButtonGroup`   | Blocks interactions.                 |
+| `data-loading`       | Present when `isLoading` is true                                    | Blocks interactions and hover/press. |
+| `data-in-group`      | Present when rendered inside `ButtonGroup`                          | Enables grouped border-radius rules. |
+| `data-icon-only`     | Present when `isIconOnly` is true                                   | Enables square sizing.               |
+
+## Related components
+
+- ButtonGroup (for grouped button layouts)
+- Link and other polymorphic targets that pair with `as`/`asChild`

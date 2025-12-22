@@ -1,4 +1,5 @@
 import { NWSize } from '@novawaveui/types';
+import { PolymorphicProps, RenderProps } from '../../utils';
 
 export type ButtonGroupOrientation = 'horizontal' | 'vertical';
 
@@ -20,3 +21,20 @@ export interface ButtonGroupStyleProps {
    */
   size?: NWSize;
 }
+
+export type ButtonGroupProps<T extends React.ElementType> = PolymorphicProps<
+  T,
+  ButtonGroupStyleProps &
+    RenderProps<ButtonGroupRenderProps> & {
+      /**
+       * Whether or not the buttons in the group are disabled.
+       */
+      isDisabled?: boolean;
+
+      /**
+       * The orientation of the button group.
+       * @default 'horizontal'
+       */
+      orientation?: ButtonGroupOrientation;
+    }
+>;

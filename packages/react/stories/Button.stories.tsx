@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ButtonProps } from '../src/components/button/index';
 import { Button } from '../src/components/button/index';
-import { UserIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
 import { Icon } from '@iconify/react';
 import React from 'react';
 
@@ -37,6 +36,11 @@ const meta: Meta<typeof Button> = {
       description: 'Whether the button is in a loading state.',
       defaultValue: false,
     },
+    isIconOnly: {
+      control: 'boolean',
+      description: 'Whether the button has only an icon.',
+      defaultValue: false,
+    },
   },
 };
 
@@ -56,7 +60,6 @@ export const Default: Story = {
 export const Variants: Story = {
   args: {
     children: 'Button',
-    color: 'primary',
     size: 'md',
     radius: 'md',
     isDisabled: false,
@@ -80,6 +83,64 @@ export const Variants: Story = {
         Link
       </Button>
     </div>
+  ),
+};
+
+export const Sizes: Story = {
+  args: {
+    children: 'Button',
+    variant: 'primary',
+    radius: 'md',
+    isDisabled: false,
+    isLoading: false,
+  },
+  render: args => (
+    <div className="flex flex-col gap-4 max-w-3xs">
+      <Button {...args} size="sm">
+        Small
+      </Button>
+      <Button {...args} size="md">
+        Medium
+      </Button>
+      <Button {...args} size="lg">
+        Large
+      </Button>
+    </div>
+  ),
+};
+
+export const Disabled: Story = {
+  args: {
+    children: 'Button',
+    size: 'md',
+    variant: 'primary',
+    isDisabled: true,
+    isLoading: false,
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    children: 'Button',
+    size: 'md',
+    variant: 'primary',
+    isDisabled: false,
+    isLoading: true,
+  },
+};
+
+export const IconOnly: Story = {
+  args: {
+    size: 'md',
+    variant: 'primary',
+    isDisabled: false,
+    isLoading: false,
+    isIconOnly: true,
+  },
+  render: args => (
+    <Button {...args} aria-label="Open cart">
+      <Icon icon="heroicons:shopping-cart-solid" className="w-5 h-5" />
+    </Button>
   ),
 };
 
@@ -165,48 +226,6 @@ export const Polymorphic: Story = {
       </div>
     );
   },
-};
-
-export const WithStartAndEndContent: Story = {
-  args: {
-    children: 'Button',
-    size: 'md',
-    variant: 'primary',
-    isDisabled: false,
-    isLoading: false,
-  },
-  render: args => (
-    <Button {...args}>
-      <Button.StartContent>
-        <Icon icon="heroicons:user-solid" />
-      </Button.StartContent>
-      <Button.Text>Log In</Button.Text>
-      <Button.EndContent>
-        <Icon icon="heroicons:arrow-right-solid" />
-      </Button.EndContent>
-    </Button>
-  ),
-};
-
-export const SlotAPIWay: Story = {
-  args: {
-    children: 'Button',
-    size: 'md',
-    variant: 'primary',
-    isDisabled: false,
-    isLoading: false,
-  },
-  render: args => (
-    <Button {...args}>
-      <Button.StartContent>
-        <UserIcon />
-      </Button.StartContent>
-      <Button.Text>Log In</Button.Text>
-      <Button.EndContent>
-        <ArrowRightIcon />
-      </Button.EndContent>
-    </Button>
-  ),
 };
 
 export const NextJSLink: Story = {

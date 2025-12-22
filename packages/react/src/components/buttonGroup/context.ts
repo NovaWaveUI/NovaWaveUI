@@ -1,10 +1,10 @@
 import { createContext } from '../../utils/react';
-import {
+import type {
   ButtonGroupOrientation,
   ButtonGroupRenderProps,
   ButtonGroupStyleProps,
+  ButtonGroupProps,
 } from './types';
-import { ButtonGroupProps } from './ButtonGroup';
 
 // ============================
 // ButtonGroup
@@ -27,7 +27,7 @@ export const [ButtonGroupContext, useButtonGroupContextProps] = createContext<
   defaultValue: {},
 });
 
-export const [ButtonGroupStateContext, useButtonGroup] =
+export const [ButtonGroupStateContext, useButtonGroupState] =
   createContext<ButtonGroupContextType>({
     strict: false,
     name: 'NovaWaveUI.ButtonGroupStateContext',

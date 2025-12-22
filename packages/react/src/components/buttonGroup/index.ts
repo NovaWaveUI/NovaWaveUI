@@ -1,8 +1,8 @@
-export type { ButtonGroupProps } from './ButtonGroup';
+export type { ButtonGroupProps } from './types';
 export { ButtonGroup } from './ButtonGroup';
 export {
   ButtonGroupContext,
   ButtonGroupStateContext,
-  useButtonGroup,
+  useButtonGroupState,
   useButtonGroupContextProps,
 } from './context';

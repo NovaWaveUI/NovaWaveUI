@@ -1,4 +1,6 @@
 import { NWSize } from '@novawaveui/types';
+import { AriaButtonProps, HoverEvents } from 'react-aria';
+import { PolymorphicProps, RenderProps } from '../../utils';
 
 export interface ButtonRenderProps {
   /**
@@ -33,13 +35,38 @@ export interface ButtonRenderProps {
   isLoading: boolean;
 }
 
+export interface ButtonVariantMap {
+  primary: true;
+  secondary: true;
+  tertiary: true;
+  destructive: true;
+  link: true;
+}
+
 export interface ButtonStyleProps {
   /**
    * The variant of the button.
    */
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'link';
+  variant?: keyof ButtonVariantMap;
   /**
    * The size of the button.
    */
   size?: NWSize;
 }
+
+export type ButtonProps<T extends React.ElementType> = PolymorphicProps<
+  T,
+  Omit<AriaButtonProps<T>, 'children' | 'elementType'> &
+    HoverEvents &
+    RenderProps<ButtonRenderProps> &
+    ButtonStyleProps & {
+      /**
+       * Whether or not the button is in a loading state.
+       */
+      isLoading?: boolean;
+      /**
+       * Whether or not this button has an icon only.
+       */
+      isIconOnly?: boolean;
+    }
+>;
