@@ -1,156 +1,150 @@
-@layer theme, base, utilities;
-@import 'tailwindcss/theme.css' layer(theme);
-@import 'tailwindcss/utilities.css' layer(utilities);
-@import '../theme/shared/theme.css';
-@import '../theme/shared/variants.css';
-
 @layer components {
-	/* Root Button */
-	[data-component='button'] {
-		/* Base */
-		@apply z-0 inline-flex relative flex-row items-center justify-center min-w-max outline-hidden select-none text-wrap overflow-hidden pointer-events-auto;
-		@apply cursor-pointer;
-		@apply rounded;
+  /* Root Button */
+  [data-component='button'] {
+    /* Base */
+    @apply z-0 inline-flex relative flex-row items-center justify-center min-w-max outline-hidden select-none text-wrap overflow-hidden pointer-events-auto;
+    @apply cursor-pointer;
+    @apply rounded;
 
-		/* Transition */
-		@apply motion-safe:transition-all motion-safe:duration-100 motion-safe:ease-in-out;
+    /* Transition */
+    @apply motion-safe:transition-all motion-safe:duration-100 motion-safe:ease-in-out;
 
-		/* Focus Visible */
-		@apply focus-visible:focus-outline;
+    /* Focus Visible */
+    @apply focus-visible:focus-outline;
 
-		/* Active */
-		@apply motion-safe:active:scale-95;
+    /* Active */
+    @apply motion-safe:active:scale-95;
 
-		/* Size */
-		@variant size-sm {
-			@apply px-3 min-w-16 min-h-8 gap-2 text-sm;
-		}
+    /* Size */
+    @variant size-sm {
+      @apply px-3 min-w-16 min-h-8 gap-2 text-sm;
+    }
 
-		@variant size-md {
-			@apply px-4 min-w-20 min-h-10 gap-2 text-base;
-		}
+    @variant size-md {
+      @apply px-4 min-w-20 min-h-10 gap-2 text-base;
+    }
 
-		@variant size-lg {
-			@apply px-6 min-w-24 min-h-12 gap-3 text-lg;
-		}
+    @variant size-lg {
+      @apply px-6 min-w-24 min-h-12 gap-3 text-lg;
+    }
 
-		/* Disabled State */
-		@variant data-disabled {
-			@apply opacity-disabled pointer-events-none;
-		}
+    /* Disabled State */
+    @variant data-disabled {
+      @apply opacity-disabled pointer-events-none;
+    }
 
-		/* Loading State */
-		@variant data-loading {
-			@apply opacity-disabled pointer-events-none;
-		}
+    /* Loading State */
+    @variant data-loading {
+      @apply opacity-disabled pointer-events-none;
+    }
 
-		/* Icon Only */
-		&[data-icon-only] {
-			@apply px-0 !gap-0;
+    /* Icon Only */
+    &[data-icon-only] {
+      @apply px-0 !gap-0;
 
-			/* Size - Small */
-			@variant size-sm {
-				@apply min-w-8 w-8 h-8;
-			}
+      /* Size - Small */
+      @variant size-sm {
+        @apply min-w-8 w-8 h-8;
+      }
 
-			/* Size - Medium */
-			@variant size-md {
-				@apply min-w-10 w-10 h-10;
-			}
+      /* Size - Medium */
+      @variant size-md {
+        @apply min-w-10 w-10 h-10;
+      }
 
-			/* Size - Large */
-			@variant size-lg {
-				@apply min-w-12 w-12 h-12;
-			}
-		}
+      /* Size - Large */
+      @variant size-lg {
+        @apply min-w-12 w-12 h-12;
+      }
+    }
 
-		/* Variants */
-		/* Primary - Default / Call to Action */
-		&[data-variant='primary'] {
-			@apply bg-accent text-accent-foreground hover:bg-accent-hover active:bg-accent-active;
-		}
+    /* Variants */
+    /* Primary - Default / Call to Action */
+    &[data-variant='primary'] {
+      @apply bg-accent text-accent-foreground hover:bg-accent-hover active:bg-accent-active;
+    }
 
-		/* Secondary - Less Emphasis / Outline Style */
-		&[data-variant='secondary'] {
-			@apply bg-transparent border-2 border-accent text-accent hover:bg-accent-hover/10 active:bg-accent-active/15;
-		}
+    /* Secondary - Less Emphasis / Outline Style */
+    &[data-variant='secondary'] {
+      @apply bg-transparent border-2 border-accent text-accent hover:bg-accent-hover/10 active:bg-accent-active/15;
+    }
 
-		/* Tertiary - Minimal Emphasis */
-		&[data-variant='tertiary'] {
-			@apply bg-transparent text-neutral hover:bg-neutral-hover/10 active:bg-neutral-active/10;
-		}
+    /* Tertiary - Minimal Emphasis */
+    &[data-variant='tertiary'] {
+      @apply bg-transparent text-neutral hover:bg-neutral-hover/10 active:bg-neutral-active/10;
+    }
 
-		/* Destructive - Dangerous Action */
-		&[data-variant='destructive'] {
-			@apply bg-danger text-danger-foreground hover:bg-danger-hover active:bg-danger-active;
-		}
+    /* Destructive - Dangerous Action */
+    &[data-variant='destructive'] {
+      @apply bg-danger text-danger-foreground hover:bg-danger-hover active:bg-danger-active;
+    }
 
-		/* Link - Text Link Style */
-		&[data-variant='link'] {
-			@apply bg-transparent text-accent underline-offset-4 hover:underline;
-			@apply px-0 gap-1;
-		}
+    /* Link - Text Link Style */
+    &[data-variant='link'] {
+      @apply bg-transparent text-accent underline-offset-4 hover:underline;
+      @apply px-0 gap-1;
+    }
 
-		/* Icon Only */
-		&[data-is-icon-only='true'] {
-			@apply px-0 !gap-0;
+    /* Icon Only */
+    &[data-is-icon-only='true'] {
+      @apply px-0 !gap-0;
 
-			/* Size - Small */
-			@variant size-sm {
-				@apply min-w-8 w-8 h-8;
-			}
+      /* Size - Small */
+      @variant size-sm {
+        @apply min-w-8 w-8 h-8;
+      }
 
-			/* Size - Medium */
-			@variant size-md {
-				@apply min-w-10 w-10 h-10;
-			}
+      /* Size - Medium */
+      @variant size-md {
+        @apply min-w-10 w-10 h-10;
+      }
 
-			/* Size - Large */
-			@variant size-lg {
-				@apply min-w-12 w-12 h-12;
-			}
-		}
-	}
+      /* Size - Large */
+      @variant size-lg {
+        @apply min-w-12 w-12 h-12;
+      }
+    }
+  }
 
-	/* Button Group */
-	[data-component='button-group'] {
-		@apply inline-flex items-center justify-center h-auto flex-row;
-		@apply data-orientation-horizontal:flex-row data-orientation-vertical:flex-col;
-	}
+  /* Button Group */
+  [data-component='button-group'] {
+    @apply inline-flex items-center justify-center h-auto flex-row;
+    @apply data-orientation-horizontal:flex-row data-orientation-vertical:flex-col;
+  }
 
-	[data-component='button-group'][data-orientation='horizontal'] {
-		& [data-in-group] {
-			@apply -ms-0.5;
+  [data-component='button-group'][data-orientation='horizontal'] {
+    & [data-in-group] {
+      @apply -ms-0.5;
 
-			&:first-child {
-				@apply rounded-e-none;
-			}
+      &:first-child {
+        @apply rounded-e-none;
+      }
 
-			&:last-child {
-				@apply rounded-s-none;
-			}
+      &:last-child {
+        @apply rounded-s-none;
+      }
 
-			&:not(:first-child):not(:last-child) {
-				@apply rounded-none;
-			}
-		}
-	}
+      &:not(:first-child):not(:last-child) {
+        @apply rounded-none;
+      }
+    }
+  }
 
-	[data-component='button-group'][data-orientation='vertical'] {
-		& [data-in-group] {
-			@apply -mt-0.5;
+  [data-component='button-group'][data-orientation='vertical'] {
+    & [data-in-group] {
+      @apply -mt-0.5;
 
-			&:first-child {
-				@apply mt-0 rounded-b-none;
-			}
+      &:first-child {
+        @apply mt-0 rounded-b-none;
+      }
 
-			&:last-child {
-				@apply rounded-t-none;
-			}
+      &:last-child {
+        @apply rounded-t-none;
+      }
 
-			&:not(:first-child):not(:last-child) {
-				@apply rounded-none;
-			}
-		}
-	}
+      &:not(:first-child):not(:last-child) {
+        @apply rounded-none;
+      }
+    }
+  }
 }
