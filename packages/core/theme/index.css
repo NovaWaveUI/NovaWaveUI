@@ -5,7 +5,7 @@
 
 /* Import shared theme styles */
 @import './theme/shared/theme.css' layer(theme);
-@import './theme/shared/variants.css' layer(theme);
+@import './theme/shared/variants.css';
 
 /* Import default theme variables */
 @import './theme/default/variables.css' layer(theme);
