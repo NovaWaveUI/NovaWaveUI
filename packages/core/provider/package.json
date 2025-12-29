@@ -31,13 +31,13 @@
     "postpack": "clean-package restore"
   },
   "peerDependencies": {
-    "react": ">=19.0.0"
+    "react": ">=19.2.3"
   },
   "devDependencies": {
     "@novawaveui/eslint-config": "workspace:*",
     "@novawaveui/typescript-config": "workspace:*",
     "@novawaveui/vitest-config": "workspace:*",
-    "react": "catalog:"
+    "react": "19.2.3"
   },
   "keywords": [],
   "clean-package": "../../../build/clean-package.config.json",

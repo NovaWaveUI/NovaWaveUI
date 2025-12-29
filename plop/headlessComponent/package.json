@@ -1,0 +1,62 @@
+{
+  "name": "@novawaveui/headless-{{kebabCase headlessComponentName}}",
+  "version": "1.0.0",
+  "description": "{{description}}",
+  "keywords": [],
+  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts",
+      "require": "./src/index.ts"
+    }
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "vite build --mode production --minify terser",
+    "build:fast": "vite build --mode environment",
+    "dev": "pnpm build:fast --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write . --ignore-path ../../.prettierignore",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore",
+    "clean:dist": "rm -rf dist",
+    "clean:node_modules": "rm -rf node_modules",
+    "clean": "pnpm run clean:dist && pnpm run clean:node_modules"
+  },
+  "peerDependencies": {
+    "react": ">=19.2.3"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@novawaveui/eslint-config": "workspace:*",
+    "@novawaveui/prettier-config": "workspace:*",
+    "@novawaveui/typescript-config": "workspace:*",
+    "@novawaveui/vite-config": "workspace:*",
+    "@novawaveui/vitest-config": "workspace:*",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@types/react": "catalog:",
+    "clean-package": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
+    "react": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "clean-package": "../../../build/clean-package.config.json"
+}

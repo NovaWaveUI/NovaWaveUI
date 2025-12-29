@@ -14,7 +14,21 @@
   "keywords": [],
   "author": "Kyle Gagnon",
   "license": "MIT",
-  "devDependencies": {
-    "eslint-plugin-react-hooks": "^7.0.0"
+  "packageManager": "pnpm@10.18.3",
+  "peerDependencies": {
+    "eslint": ">=9.34.0"
+  },
+  "dependencies": {
+    "@eslint/js": "catalog:",
+    "@vitest/eslint-plugin": "catalog:",
+    "eslint-config-prettier": "catalog:",
+    "eslint-plugin-import-x": "catalog:",
+    "eslint-plugin-jest-dom": "catalog:",
+    "eslint-plugin-jsx-a11y": "catalog:",
+    "eslint-plugin-react": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "eslint-plugin-unicorn": "catalog:",
+    "globals": "catalog:",
+    "typescript-eslint": "catalog:"
   }
 }

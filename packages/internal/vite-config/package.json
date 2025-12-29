@@ -1,0 +1,24 @@
+{
+  "name": "@novawaveui/vite-config",
+  "version": "1.0.0",
+  "description": "The Vite configuration for NovaWaveUI",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./vite.base.ts",
+    "./react": "./vite.react.ts"
+  },
+  "peerDependencies": {
+    "vite": ">=7.3.0"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "catalog:",
+    "babel-plugin-react-compiler": "catalog:",
+    "rollup-plugin-visualizer": "catalog:",
+    "vite-plugin-dts": "catalog:"
+  },
+  "keywords": [],
+  "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
+  "license": "MIT",
+  "packageManager": "pnpm@10.18.3"
+}

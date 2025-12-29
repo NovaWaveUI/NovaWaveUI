@@ -45,6 +45,7 @@
   "author": "Kyle Gagnon",
   "license": "MIT",
   "dependencies": {
+    "@tailwindcss/cli": "catalog:",
     "tailwindcss": "^4.1.12"
   }
 }

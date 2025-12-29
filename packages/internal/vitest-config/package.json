@@ -11,8 +11,22 @@
     "./react": "./react.js",
     "./ts-lib": "./ts-lib.js"
   },
+  "peerDependencies": {
+    "vitest": ">=4.0.16"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@testing-library/user-event": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "axe-core": "catalog:",
+    "globals": "catalog:",
+    "jsdom": "catalog:",
+    "vitest-axe": "catalog:"
+  },
   "type": "module",
   "keywords": [],
   "author": "Kyle Gagnon",
-  "license": "MIT"
+  "license": "MIT",
+  "packageManager": "pnpm@10.18.3"
 }
