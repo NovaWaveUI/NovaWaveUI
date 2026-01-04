@@ -40,7 +40,9 @@
 	"peerDependencies": {
 		"react": ">=19.2.3"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"@react-aria/utils": "catalog:"
+	},
 	"devDependencies": {
 		"@novawaveui/eslint-config": "workspace:*",
 		"@novawaveui/prettier-config": "workspace:*",

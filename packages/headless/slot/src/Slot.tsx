@@ -6,7 +6,7 @@
  * Thank you to the Radix UI team for their amazing work!
  */
 import React from 'react';
-import { mergeRefs } from '@novawaveui/react';
+import { mergeRefs } from '@novawaveui/react-utils';
 import { mergeProps } from '@react-aria/utils';
 import type { SlottableComponent, SlotProps, SlottableProps } from './types';
 
@@ -30,7 +30,6 @@ function isSlottableElement(
     React.isValidElement(child) &&
     typeof child.type === 'function' &&
     '__nwId__' in child.type &&
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     (child.type as any).__nwId__ === SLOTTABLE_SYMBOL
   );
 }
@@ -58,13 +57,11 @@ export function Slot<T extends React.ElementType>(props: SlotProps<T>) {
         : child,
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const mergedRef = mergeRefs(slotRef, (newElement as any).ref);
 
     return React.cloneElement(
       newElement,
       {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         ...mergeProps(restProps, (newElement as any).props),
         ref: mergedRef,
       },
@@ -73,16 +70,13 @@ export function Slot<T extends React.ElementType>(props: SlotProps<T>) {
   }
 
   if (React.isValidElement(children)) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const mergedRef = mergeRefs(slotRef, (children as any).ref);
     return React.cloneElement(
       children,
       {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         ...mergeProps(restProps, (children as any).props),
         ref: mergedRef,
       },
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       (children as any).props.children,
     );
   }

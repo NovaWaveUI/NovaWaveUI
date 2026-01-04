@@ -2,8 +2,17 @@
   "extends": "@novawaveui/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist",
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
+    "types": [
+      "vitest/globals",
+      "@testing-library/jest-dom",
+      "vitest-axe/extend-expect"
+    ]
   },
-  "include": ["src", "__tests__", "stories"],
+  "include": [
+    "src",
+    "__tests__",
+    "stories",
+    "../../internal/vitest-config/setup/react.ts"
+  ],
   "exclude": ["node_modules", "dist", "stories/**/*.test.tsx"]
 }

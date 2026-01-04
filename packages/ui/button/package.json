@@ -1,7 +1,7 @@
 {
-  "name": "@novawaveui/headless-button",
+  "name": "@novawaveui/button",
   "version": "1.0.0",
-  "description": "A headless button",
+  "description": "Styled button description placeholder",
   "keywords": [],
   "author": "Kyle Gagnon <kmgagnon99@gmail.com>",
   "license": "MIT",
@@ -28,7 +28,7 @@
     "build:fast": "vite build --mode environment",
     "dev": "pnpm build:fast --watch",
     "typecheck": "tsc --noEmit",
-    "test": "vitest",
+    "test": "vitest run",
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write . --ignore-path ../../.prettierignore",
     "prepack": "clean-package",
@@ -38,19 +38,11 @@
     "clean": "pnpm run clean:dist && pnpm run clean:node_modules"
   },
   "peerDependencies": {
-    "react": ">=19.2.3",
-    "react-dom": ">=19.2.3"
+    "react": ">=19.2.3"
   },
   "dependencies": {
-    "@novawaveui/dom-utils": "workspace:*",
-    "@novawaveui/headless-slot": "workspace:*",
-    "@novawaveui/react-utils": "workspace:*",
-    "@novawaveui/use-disable-interactions": "workspace:*",
-    "@react-aria/button": "catalog:",
-    "@react-aria/focus": "catalog:",
-    "@react-aria/interactions": "catalog:",
-    "@react-aria/utils": "catalog:",
-    "@react-types/shared": "catalog:"
+    "@novawaveui/headless-button": "workspace:*",
+    "@novawaveui/theme": "workspace:*"
   },
   "devDependencies": {
     "@novawaveui/eslint-config": "workspace:*",
@@ -60,19 +52,14 @@
     "@novawaveui/vitest-config": "workspace:*",
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
-    "@testing-library/user-event": "^14.6.1",
     "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
-    "axe-core": "catalog:",
     "clean-package": "catalog:",
     "eslint": "catalog:",
     "prettier": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:",
     "typescript": "catalog:",
+    "react": "catalog:",
     "vite": "catalog:",
-    "vitest": "catalog:",
-    "vitest-axe": "catalog:"
+    "vitest": "catalog:"
   },
   "clean-package": "../../../build/clean-package.config.json"
 }

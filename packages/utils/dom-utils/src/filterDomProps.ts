@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import React, { ElementType, JSX } from 'react';
 
 const dataAttributeRegex = /^data-.+/;

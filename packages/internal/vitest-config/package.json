@@ -9,7 +9,8 @@
   "exports": {
     "./base": "./base.js",
     "./react": "./react.js",
-    "./ts-lib": "./ts-lib.js"
+    "./ts-lib": "./ts-lib.js",
+    "./setup/react": "./setup/react.ts"
   },
   "peerDependencies": {
     "vitest": ">=4.0.16"

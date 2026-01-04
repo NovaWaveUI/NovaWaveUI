@@ -1,8 +1,9 @@
 import React, { createContext, JSX, useContext, useMemo } from 'react';
 import { mergeProps } from '@react-aria/utils';
-import { mergeRefs } from '../react';
+import { mergeRefs } from './ref';
 
 export type SlotConfig = Record<string, object | undefined>;
+type SlotValue<T> = T extends object ? T : {};
 
 export interface SlotSystem<TSlots extends SlotConfig> {
 	Provider: (props: {
@@ -11,12 +12,12 @@ export interface SlotSystem<TSlots extends SlotConfig> {
 	}) => JSX.Element;
 	useSlot<Name extends keyof TSlots>(
 		name: Name,
-		props?: TSlots[Name] & { ref?: React.Ref<any> }
+		props?: SlotValue<TSlots[Name]> & { ref?: React.Ref<any> }
 	): TSlots[Name];
 }
 
 export function createSlotSystem<
-	TSlots extends SlotConfig
+	TSlots extends SlotConfig,
 >(): SlotSystem<TSlots> {
 	type SlotName = keyof TSlots;
 
@@ -40,7 +41,7 @@ export function createSlotSystem<
 
 	function useSlot<Name extends SlotName>(
 		name: Name,
-		props?: TSlots[Name] & { ref?: React.Ref<any> }
+		props?: SlotValue<TSlots[Name]> & { ref?: React.Ref<any> }
 	): TSlots[Name] {
 		const context = useContext(SlotPropsContext);
 
@@ -63,3 +64,18 @@ export function createSlotSystem<
 		useSlot,
 	};
 }
+
+// Utility type to ensure no extra props are passed
+type NeverProps<T> = { [K in keyof T]?: never };
+
+/**
+ * Props for a slot that can either render default content or custom children.
+ * If `renderDefault` is true or undefined, the slot will render its default content.
+ * If `renderDefault` is false, the slot will render the provided `children`.
+ */
+export type SlotRenderDefaultPropsStrict<TPrimitiveProps> =
+	| (TPrimitiveProps & { renderDefault?: true })
+	| ({
+			renderDefault: false;
+			children: React.ReactNode;
+	  } & NeverProps<TPrimitiveProps>);

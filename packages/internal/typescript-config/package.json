@@ -7,6 +7,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "dependencies": {
+    "@novawaveui/vitest-config": "workspace:*"
+  },
   "exports": {
     "./base.json": "./base.json",
     "./react-library.json": "./react-library.json",

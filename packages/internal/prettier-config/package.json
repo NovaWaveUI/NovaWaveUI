@@ -4,7 +4,7 @@
   "description": "The Prettier configuration for NovaWaveUI",
   "type": "module",
   "private": true,
-  "exports": "./index.js",
+  "exports": "./prettier.config.js",
   "peerDependencies": {
     "prettier": ">=3.0.0"
   },

@@ -1,2 +1,4 @@
-import '@testing-library/jest-dom';
-import 'vitest-axe/extend-expect';
+import "@testing-library/jest-dom/vitest";
+import "vitest-axe/extend-expect";
+
+import "./vitest-axe";
