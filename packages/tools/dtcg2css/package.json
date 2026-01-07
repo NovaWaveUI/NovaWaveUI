@@ -1,0 +1,55 @@
+{
+  "name": "dtcg2css",
+  "version": "1.0.0",
+  "description": "A tool to convert DTCG (Design Tokens Community Group) files to CSS variables.",
+  "type": "module",
+  "bin": {
+    "dtcg2css": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write . ../../.prettierrc --ignore-path ../../.prettierignore",
+    "clean:dist": "rm -rf dist",
+    "clean:node_modules": "rm -rf node_modules",
+    "clean": "pnpm run clean:dist && pnpm run clean:node_modules"
+  },
+  "dependencies": {
+    "chalk": "catalog:",
+    "commander": "catalog:"
+  },
+  "devDependencies": {
+    "@commander-js/extra-typings": "catalog:",
+    "@novawaveui/eslint-config": "workspace:*",
+    "@novawaveui/typescript-config": "workspace:*",
+    "@novawaveui/vitest-config": "workspace:*",
+    "@types/node": "^22.10.7",
+    "tsup": "^8.3.5",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.4"
+  },
+  "keywords": [
+    "design-tokens",
+    "dtcg",
+    "css-variables",
+    "cli"
+  ],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.18.3"
+}

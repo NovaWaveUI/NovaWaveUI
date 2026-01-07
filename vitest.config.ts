@@ -2,6 +2,11 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
-    projects: ["packages/hooks/*", "packages/headless/*", "packages/ui/*"],
+    projects: [
+      "packages/hooks/*",
+      "packages/headless/*",
+      "packages/ui/*",
+      "packages/tools/dtcg2css",
+    ],
   },
 });
