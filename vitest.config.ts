@@ -6,7 +6,7 @@ export default defineConfig({
       "packages/hooks/*",
       "packages/headless/*",
       "packages/ui/*",
-      "packages/tools/dtcg2css",
+      "packages/tools/token-shift",
     ],
   },
 });

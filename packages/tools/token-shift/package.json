@@ -1,10 +1,10 @@
 {
-  "name": "dtcg2css",
+  "name": "token-shift",
   "version": "1.0.0",
-  "description": "A tool to convert DTCG (Design Tokens Community Group) files to CSS variables.",
+  "description": "A tool to convert DTCG (Design Tokens Community Group) files to various supported formats.",
   "type": "module",
   "bin": {
-    "dtcg2css": "./dist/cli.js"
+    "token-shift": "./dist/cli.js"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -30,8 +30,11 @@
     "clean": "pnpm run clean:dist && pnpm run clean:node_modules"
   },
   "dependencies": {
+    "c12": "catalog:",
     "chalk": "catalog:",
-    "commander": "catalog:"
+    "commander": "catalog:",
+    "is-valid-glob": "catalog:",
+    "jiti": "catalog:"
   },
   "devDependencies": {
     "@commander-js/extra-typings": "catalog:",
@@ -39,6 +42,7 @@
     "@novawaveui/typescript-config": "workspace:*",
     "@novawaveui/vitest-config": "workspace:*",
     "@types/node": "^22.10.7",
+    "style-dictionary": "catalog:",
     "tsup": "^8.3.5",
     "typescript": "^5.8.3",
     "vitest": "^3.1.4"
