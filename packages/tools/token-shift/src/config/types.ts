@@ -2,7 +2,7 @@
  * Configuration schema / types for token-shift.
  */
 
-type TokenShiftInput = string | string[];
+export type TokenShiftInput = string | string[];
 
 /**
  * Configuration for CSS output.

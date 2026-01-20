@@ -33,7 +33,10 @@
     "c12": "catalog:",
     "chalk": "catalog:",
     "commander": "catalog:",
+    "glob": "catalog:",
+    "is-glob": "catalog:",
     "is-valid-glob": "catalog:",
+    "is-valid-path": "catalog:",
     "jiti": "catalog:"
   },
   "devDependencies": {

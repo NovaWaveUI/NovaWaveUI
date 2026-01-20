@@ -1,0 +1,116 @@
+{
+  "color": {
+    "danube": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9738, 0.01, 247.91],
+          "alpha": 1,
+          "hex": "#f2f7fc"
+        },
+        "$description": "Danube color scale 50"
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9404, 0.02, 245.64],
+          "alpha": 1,
+          "hex": "#e1edf8"
+        },
+        "$description": "Danube color scale 100"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8963, 0.04, 244.22],
+          "alpha": 1,
+          "hex": "#cae0f3"
+        },
+        "$description": "Danube color scale 200"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8276, 0.06, 242.43],
+          "alpha": 1,
+          "hex": "#a5cceb"
+        },
+        "$description": "Danube color scale 300"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.7402, 0.09, 245.08],
+          "alpha": 1,
+          "hex": "#7bb1df"
+        },
+        "$description": "Danube color scale 400"
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6616, 0.11, 252.78],
+          "alpha": 1,
+          "hex": "#5e96d6"
+        },
+        "$description": "Danube color scale 500"
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.584, 0.13, 258.43],
+          "alpha": 1,
+          "hex": "#487bc8"
+        },
+        "$description": "Danube color scale 600"
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5293, 0.13, 261.3],
+          "alpha": 1,
+          "hex": "#3e69b7"
+        },
+        "$description": "Danube color scale 700"
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.4599, 0.11, 263.88],
+          "alpha": 1,
+          "hex": "#375596"
+        },
+        "$description": "Danube color scale 800"
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.409, 0.08, 262.42],
+          "alpha": 1,
+          "hex": "#314977"
+        },
+        "$description": "Danube color scale 900"
+      },
+      "950": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.304, 0.05, 265.22],
+          "alpha": 1,
+          "hex": "#222e49"
+        },
+        "$description": "Danube color scale 950"
+      }
+    }
+  }
+}

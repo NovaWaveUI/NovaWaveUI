@@ -1,0 +1,10 @@
+{
+  "design": {
+    "tokens": {
+      "success": {
+        "$value": "#00CC66",
+        "$type": "color"
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "tokens": {
+    "palette": {
+      "accent": {
+        "$value": "#3366FF",
+        "$type": "color"
+      }
+    }
+  }
+}

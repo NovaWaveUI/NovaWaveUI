@@ -1,6 +1,6 @@
-# dtcg2css
+# token-shift
 
-The `dtcg2css` tool is a command-line utility / library for converting DTCG (Design Token Community Group) standard files into CSS variables.
+The `token-shift` tool is a command-line utility / library for converting DTCG (Design Token Community Group) standard files into various output formats. Currently, it supports converting DTCG files into CSS variables.
 
 ## DTCG
 
@@ -10,10 +10,12 @@ DTCG is a newly stable standard for design tokens, which are a way to store desi
 
 The specification can be found at [https://www.designtokens.org/tr/2025.10/](https://www.designtokens.org/tr/2025.10/).
 
+The specification is currently 2025.10, which is the first stable release.
+
 ## Usage
 
-To use `dtcg2css`, you can run it from the command line, providing the path to your DTCG JSON file and the output path for the generated CSS file. For example:
+To use `token-shift`, you can run it from the command line, providing the path to your DTCG JSON file and the output path for the generated CSS file. For example:
 
 ```bash
-dtcg2css input.json output.css
+token-shift input.json output.css
 ```
