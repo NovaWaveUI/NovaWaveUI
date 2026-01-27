@@ -4,6 +4,7 @@
 
 import { Node } from './node';
 import { TokenType } from './types';
+import type { MaybeAlias } from './alias';
 
 export abstract class TokenValue {
   /**
@@ -65,7 +66,7 @@ export abstract class Token<TValue extends TokenValue> extends Node {
    *
    * @see https://www.designtokens.org/tr/2025.10/format/#name-and-value
    */
-  abstract readonly value: TValue;
+  abstract readonly value: MaybeAlias<TValue>;
 
   /**
    * A string to describe the purpose of the token. It is optional.
