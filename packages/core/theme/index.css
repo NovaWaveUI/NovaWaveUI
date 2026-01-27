@@ -4,11 +4,11 @@
 @import 'tailwindcss';
 
 /* Import shared theme styles */
-@import './theme/shared/theme.css' layer(theme);
+@import './theme/shared/theme.css';
 @import './theme/shared/variants.css';
 
 /* Import default theme variables */
-@import './theme/default/variables.css' layer(theme);
+@import './theme/default/variables.css';
 
 /* Import component styles */
-@import './components/index.css' layer(components);
+@import './components/index.css';

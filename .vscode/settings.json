@@ -8,5 +8,10 @@
   "vitest.configSearchPatternInclude": "vitest.config.ts",
   "tailwindCSS.experimental.configFile": "packages/storybook/.storybook/styles.css",
   "eslint.useFlatConfig": true,
-  "eslint.workingDirectories": [{ "mode": "auto" }]
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "tailwindCSS.emmetCompletions": true
 }

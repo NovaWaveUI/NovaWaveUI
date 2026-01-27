@@ -21,31 +21,31 @@
     --neutral-900: var(--color-zinc-900);
     --neutral-950: var(--color-zinc-950);
 
-    /* Science Blue */
-    --science-blue-50: oklch(97.36% 0.0113 252.09);
-    --science-blue-100: oklch(94.07% 0.0225 260.72);
-    --science-blue-200: oklch(87.65% 0.0496 253.09);
-    --science-blue-300: oklch(77.66% 0.0946 250.51);
-    --science-blue-400: oklch(66.6% 0.1412 250.77);
-    --science-blue-500: oklch(57.94% 0.1599 252.97);
-    --science-blue-600: oklch(51.34% 0.1603 255.67);
-    --science-blue-700: oklch(42.25% 0.1307 256.19);
-    --science-blue-800: oklch(38.03% 0.1078 255.12);
-    --science-blue-900: oklch(34.37% 0.0875 255.19);
-    --science-blue-950: oklch(26.12% 0.0647 257.4);
+    /* Danube Blue */
+    --danube-50: oklch(97.38% 0.01 247.91);
+    --danube-100: oklch(94.04% 0.02 245.64);
+    --danube-200: oklch(89.63% 0.04 244.22);
+    --danube-300: oklch(82.76% 0.06 242.43);
+    --danube-400: oklch(74.02% 0.09 245.08);
+    --danube-500: oklch(66.16% 0.11 252.78);
+    --danube-600: oklch(58.4% 0.13 258.43);
+    --danube-700: oklch(52.93% 0.13 261.3);
+    --danube-800: oklch(45.99% 0.11 263.88);
+    --danube-900: oklch(40.9% 0.08 262.42);
+    --danube-950: oklch(30.4% 0.05 265.22);
 
     /* Accent */
-    --accent-50: var(--science-blue-50);
-    --accent-100: var(--science-blue-100);
-    --accent-200: var(--science-blue-200);
-    --accent-300: var(--science-blue-300);
-    --accent-400: var(--science-blue-400);
-    --accent-500: var(--science-blue-500);
-    --accent-600: var(--science-blue-600);
-    --accent-700: var(--science-blue-700);
-    --accent-800: var(--science-blue-800);
-    --accent-900: var(--science-blue-900);
-    --accent-950: var(--science-blue-950);
+    --accent-50: var(--danube-50);
+    --accent-100: var(--danube-100);
+    --accent-200: var(--danube-200);
+    --accent-300: var(--danube-300);
+    --accent-400: var(--danube-400);
+    --accent-500: var(--danube-500);
+    --accent-600: var(--danube-600);
+    --accent-700: var(--danube-700);
+    --accent-800: var(--danube-800);
+    --accent-900: var(--danube-900);
+    --accent-950: var(--danube-950);
 
     /* Blue - Tailwind Blue */
     --info-50: var(--color-blue-50);
@@ -176,7 +176,7 @@
     --neutral-contrast-foreground: var(--color-white);
 
     /* Accent */
-    --accent: var(--accent-800);
+    --accent: var(--accent-600);
     --accent-foreground: var(--color-white);
     --accent-soft: var(--accent-300);
     --accent-soft-foreground: var(--color-black);
@@ -251,8 +251,8 @@
     --neutral-contrast: var(--neutral-50);
 
     /* Accent - lighter in dark mode for contrast */
-    --accent: var(--accent-300);
-    --accent-foreground: var(--color-black);
+    --accent: var(--accent-600);
+    --accent-foreground: var(--color-white);
     --accent-soft: var(--accent-800);
     --accent-soft-foreground: var(--color-white);
     --accent-contrast: var(--accent-50);
