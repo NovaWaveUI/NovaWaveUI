@@ -204,3 +204,28 @@ describe('JSONRefAliasToken', () => {
     });
   });
 });
+
+describe('DTCGAliasToken', () => {
+  it('parseDTCGAlias should parse valid DTCG alias tokens correctly', () => {
+    const aliasStrings = ['{tokenName}', '{token_name.subToken}', '{a.b.c_d}'];
+
+    const expectedResults = [
+      ['tokenName'],
+      ['token_name', 'subToken'],
+      ['a', 'b', 'c_d'],
+    ];
+
+    aliasStrings.forEach((aliasString, index) => {
+      const segments = DTCGAliasToken.parseDTCGAlias(aliasString);
+      expect(segments).toEqual(expectedResults[index]);
+    });
+  });
+
+  it('constructor should set referencePath correctly', () => {
+    const aliasString = '{tokenName.subToken}';
+    const segments = DTCGAliasToken.parseDTCGAlias(aliasString);
+    const aliasToken = new DTCGAliasToken(segments);
+
+    expect(aliasToken.referencePath).toEqual(['tokenName', 'subToken']);
+  });
+});
