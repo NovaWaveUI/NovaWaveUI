@@ -40,3 +40,16 @@ export type TokenCategory = 'single' | 'composite' | 'alias';
  * All possible token types.
  */
 export type TokenType = SingleTokenType | CompositeTokenType | AliasTokenType;
+
+export interface TokenTypeMap {
+  single: SingleTokenType;
+  composite: CompositeTokenType;
+  alias: AliasTokenType;
+}
+
+export interface TokenData {
+  type?: TokenType;
+  description?: string;
+  extensions?: Record<string, unknown>;
+  deprecated?: boolean | string;
+}

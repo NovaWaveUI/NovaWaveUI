@@ -2,7 +2,9 @@
  * @fileoverview Defines alias tokens defined by DTCG.
  */
 
-import { TokenValue } from './token';
+import { TokenValue } from '../value';
+import { Token } from '../token';
+import type { TokenData, TokenType } from '../types';
 
 const DTCG_ALIAS_TOKEN_REGEX =
   /^\{([a-zA-Z_][a-zA-Z_0-9]*(?:\.[a-zA-Z_][a-zA-Z_0-9]*)*)\}$/;
@@ -169,7 +171,7 @@ export class AliasTokenValue extends TokenValue {
    * @returns True if the given value is in DTCG dot notation, false
    * otherwise.
    */
-  public static isDTCGAliasToken(value: unknown): value is AliasTokenValue {
+  public static isDTCGAliasToken(value: unknown): value is string {
     // Check if the value is a string
     if (typeof value !== 'string') {
       return false;
@@ -192,7 +194,7 @@ export class AliasTokenValue extends TokenValue {
    * @returns True if the given value is a valid JSON ref pointer, false
    * otherwise.
    */
-  public static isJSONRefAliasToken(value: unknown): value is AliasTokenValue {
+  public static isJSONRefAliasToken(value: unknown): value is string {
     if (typeof value !== 'string') {
       return false;
     }
@@ -224,7 +226,7 @@ export class AliasTokenValue extends TokenValue {
    * @param value The value to test.
    * @returns True if the value is an alias token, false otherwise.
    */
-  public static isAliasToken(value: unknown): value is AliasTokenValue {
+  public static isAliasToken(value: unknown): value is string {
     return (
       AliasTokenValue.isDTCGAliasToken(value) ||
       AliasTokenValue.isJSONRefAliasToken(value)
@@ -232,4 +234,19 @@ export class AliasTokenValue extends TokenValue {
   }
 }
 
-export type MaybeAlias<T> = T | AliasTokenValue;
+export class AliasToken extends Token<AliasTokenValue> {
+  /**
+   * The type of token.
+   */
+  override readonly type?: TokenType = 'alias' as const;
+
+  /**
+   * The value of the alias token.
+   */
+  readonly value: AliasTokenValue;
+
+  constructor(name: string, value: AliasTokenValue, options?: TokenData) {
+    super(name, options);
+    this.value = value;
+  }
+}

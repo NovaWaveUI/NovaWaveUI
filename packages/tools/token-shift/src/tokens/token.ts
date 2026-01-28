@@ -3,22 +3,8 @@
  */
 
 import { Node } from './node';
-import { TokenType } from './types';
-import type { MaybeAlias } from './alias';
-
-export abstract class TokenValue {
-  /**
-   * Validates the token value.
-   */
-  validate?(): void;
-}
-
-export interface TokenData {
-  type?: TokenType;
-  description?: string;
-  extensions?: Record<string, unknown>;
-  deprecated?: boolean | string;
-}
+import { TokenData, TokenType } from './types';
+import { TokenValue } from './value';
 
 /**
  * Represents a token node. A token is a leaf node in the token hierarchy
@@ -66,7 +52,7 @@ export abstract class Token<TValue extends TokenValue> extends Node {
    *
    * @see https://www.designtokens.org/tr/2025.10/format/#name-and-value
    */
-  abstract readonly value: MaybeAlias<TValue>;
+  abstract readonly value: TValue;
 
   /**
    * A string to describe the purpose of the token. It is optional.
@@ -108,20 +94,6 @@ export abstract class Token<TValue extends TokenValue> extends Node {
    * @see https://www.designtokens.org/tr/2025.10/format/#additional-properties
    */
   readonly deprecated?: boolean | string;
-
-  /**
-   * The raw JSON representation of the token.
-   * May be undefined if not applicable.
-   * Useful for debugging.
-   */
-  abstract raw?: unknown;
-
-  /**
-   * Converts the token to a JSON-serializable format.
-   *
-   * @returns The JSON-serializable representation of the token.
-   */
-  abstract toJSON(): unknown;
 
   /**
    * Creates a new token with the given name.

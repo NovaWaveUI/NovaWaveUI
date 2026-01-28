@@ -2,7 +2,7 @@
  * @fileoverview Tests for the group token functionality.
  */
 import { describe, expect, it } from 'vitest';
-import { Group } from '../../src/tokens/group';
+import { Group } from './group';
 
 describe('Group Token', () => {
   it('should create a group token with the correct properties', () => {

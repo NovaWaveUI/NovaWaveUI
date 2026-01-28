@@ -2,11 +2,7 @@
  * Tests the src/tokens/alias.ts file.
  */
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import {
-  AliasTokenValue,
-  JSONRefAliasToken,
-  DTCGAliasToken,
-} from '../../src/tokens/alias';
+import { AliasTokenValue, JSONRefAliasToken, DTCGAliasToken } from './alias';
 
 describe('AliasTokenValue', () => {
   describe('isDTCGAliasToken', () => {

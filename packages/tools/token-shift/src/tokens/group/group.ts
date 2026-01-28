@@ -1,5 +1,5 @@
-import { Node, NodeType } from './node';
-import type { TokenType } from './types';
+import { Node, NodeType } from '../node';
+import type { TokenType } from '../types';
 
 /**
  * Groups are nodes that can contain other nodes, including tokens and other groups.
